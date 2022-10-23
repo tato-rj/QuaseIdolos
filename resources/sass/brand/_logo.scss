@@ -1,0 +1,24 @@
+.logo-container {
+	display: flex;
+	flex-align: center;
+}
+
+.logo-container.logo-light {
+	div.square {
+		width: 21.4px; 
+		height: 21.4px; 
+		margin-right: 0.5rem;
+		&:not(:last-of-type) {@extend .bg-white;}
+		&:last-of-type {@extend .bg-secondary;}
+	}
+}
+
+.logo-container.logo-dark {
+	div.square {
+		width: 21.4px; 
+		height: 21.4px; 
+		margin-right: 0.5rem;
+		&:not(:last-of-type) {background: lightgrey;}
+		&:last-of-type {@extend .bg-secondary;}
+	}
+}

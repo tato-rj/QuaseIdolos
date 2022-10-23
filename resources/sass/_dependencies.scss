@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=#{getFontFamily(primary)}:wght@#{getFontWeight(primary)}&family=#{getFontFamily(secondary)}:wght@#{getFontWeight(secondary)}&display=swap');
+
+@import "~animate.css/animate.min";
+@import "~@fortawesome/fontawesome-free/css/all.min";
+@import "~bootstrap/scss/bootstrap";
+@import "~hamburgers/dist/hamburgers.min";

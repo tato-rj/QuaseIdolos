@@ -1,0 +1,132 @@
+.btn-lg {
+	padding: 15px 30px;
+	font-weight: 500 !important;
+	font-size: 1.35rem;
+	border-width: 2px;
+}
+
+.btn-md {
+	font-weight: 500 !important;
+	font-size: 1.35rem;
+	border-width: 2px;
+	padding-right: 42px;
+	padding-left: 42px; 
+}
+
+.btn-primary {
+	color: white !important;
+	background-color: $brand-primary;
+	border-color: $brand-primary;
+	border-radius: $brand-corners !important;
+
+	&:hover {
+		color: white !important;
+		background-color: $brand-primary;
+		border-color: $brand-primary;
+	}
+
+	&:active {
+		background-color: lighten($brand-primary, 8%) !important;
+		border-color: lighten($brand-primary, 8%) !important;
+	}
+
+	&:focus {
+		background-color: lighten($brand-primary, 8%) !important;
+		border-color: lighten($brand-primary, 8%) !important;
+	}
+
+	&:disabled {
+		background-color: lighten($brand-primary, 16%) !important;
+		border-color: lighten($brand-primary, 16%) !important;
+	}
+}
+
+.btn-outline-primary {
+	color: $brand-primary !important;
+	background-color: transparent;
+	border-color: $brand-primary;
+	border-radius: $brand-corners !important;
+
+	&:hover {
+		color: white !important;
+		background-color: $brand-primary;
+		border-color: $brand-primary;
+	}
+
+	&:active {
+		color: white !important;
+		background-color: darken($brand-primary, 6%) !important;
+		border-color: darken($brand-primary, 6%) !important;
+	}
+
+	&:focus {
+		color: white !important;
+		background-color: darken($brand-primary, 6%) !important;
+		border-color: darken($brand-primary, 6%) !important;
+	}
+
+	&:disabled {
+		color: white !important;
+		background-color: lighten($brand-primary, 6%) !important;
+		border-color: lighten($brand-primary, 6%) !important;
+	}
+}
+
+.btn-white {
+	color: $brand-primary !important;
+	background-color: white;
+	border-color: white;
+	border-radius: $brand-corners !important;
+
+	&:hover {
+		color: lighten($brand-primary, 8%) !important;
+		background-color: white;
+		border-color: white;
+	}
+
+	&:active {
+		background-color: white !important;
+		border-color: white !important;
+	}
+
+	&:focus {
+		background-color: white !important;
+		border-color: white !important;
+	}
+
+	&:disabled {
+		background-color: white !important;
+		border-color: white !important;
+	}
+}
+
+.btn-outline-white {
+	color: white !important;
+	background-color: transparent;
+	border-color: white;
+	border-radius: $brand-corners !important;
+
+	&:hover {
+		color: $brand-primary !important;
+		background-color: white;
+		border-color: white;
+	}
+
+	&:active {
+		color: $brand-primary !important;
+		background-color: white !important;
+		border-color: white !important;
+	}
+
+	&:focus {
+		color: $brand-primary !important;
+		background-color: white !important;
+		border-color: white !important;
+	}
+
+	&:disabled {
+		color: $brand-primary !important;
+		background-color: white !important;
+		border-color: white !important;
+	}
+}

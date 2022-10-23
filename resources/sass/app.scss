@@ -1,0 +1,33 @@
+@import "bootstrap/setup";
+
+//////////////////////////////////////
+//// CUSTOM CSS BELOW
+//////////////////////////////////////
+
+.btn {
+	@extend .rounded-pill;
+}
+
+.link-none {
+	color: inherit;
+	&:hover {
+		opacity: 0.8;
+		color: inherit;
+	}
+}
+
+.link-secondary {
+	color: $secondary-color !important;
+	&:hover {
+		color: $secondary-color !important;
+		opacity: 0.8;
+	}
+	&:focus {
+		color: $secondary-color !important;
+		opacity: 1;
+	}
+}
+
+.plyr {
+	@extend .rounded;
+}

@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;800&family=Roboto:wght@400;400&display=swap');
+
+body, p {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 1.2em;
+}
+
+.btn, h3, h4, h5, h6, .navbar .nav-item {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 700;
+	letter-spacing: .5px;
+}
+
+h6 {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
+	letter-spacing: .5px;
+	margin-bottom: 20px;
+}
+
+.navbar .nav-item {
+	font-size: 18px;
+}
+
+.navbar .dropdown-item {
+	font-size: 16px;
+}
+
+h1, h2 {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 800;
+	line-height: 1.1em;
+	margin-bottom: 20px;
+}
+
+label {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 800;
+	font-size: 16px;
+	line-height: 1;
+}
+
+h1 {font-size: 82px;}
+h2 {font-size: 52px;}
+h3 {font-size: 32px;}
+h6 {font-size: 18px;}
+
+// html {
+// 	font-size: 90%;
+// }
+
+// h1, h2, h3, h4, h5, .lead {
+// 	font-family: 'Montserrat', sans-serif;
+// 	font-weight: 200;
+// }
+
+// p, div, li a, h6, button, .btn {
+// 	font-family: 'Cabin', sans-serif;
+// 	letter-spacing: 1px;
+// }
+
+.text-primary {
+	color: $brand-primary !important;
+}
+
+.text-secondary {
+	color: $brand-secondary !important;
+}
+
+// .navbar {
+// 	a, .btn {
+// 		text-transform: uppercase;
+// 	}
+// }
+
+// .accent {
+// 	text-transform: uppercase;
+// 	font-weight: bold;
+// 	&:after {
+// 		content: "";
+// 		display: block;
+// 		width: 32px;
+// 		height: 4px;
+// 		background: $brand-secondary;
+// 		margin-top: 14px;
+// 		margin-bottom: 20px;
+// 	}
+// }
+
+// // .highlight-thin {
+// // 	font-family: 'Open Sans', sans-serif;
+// // 	letter-spacing: 6px;
+// // 	font-weight: 400;
+// // }
+
+// // .highlight-bold {
+// // 	font-family: 'Fjalla One', sans-serif;
+// // 	letter-spacing: 1.2px;
+// // 	/*font-weight: 600;*/
+// // }

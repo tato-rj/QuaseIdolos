@@ -1,0 +1,149 @@
+//////////////////////////////////////
+//// BACKGROUND
+//////////////////////////////////////
+
+.bg-primary {
+	background: $primary-color !important;
+	color: white;
+}
+
+.bg-secondary {
+	background: $secondary-color !important;
+	color: white;
+}
+
+.bg {
+	@each $name, $color in $colors {
+		&-#{$name} {
+			background: nth($color, 2);
+			color: nth($color, 1);
+		}
+	}
+}
+
+//////////////////////////////////////
+//// TEXT
+//////////////////////////////////////
+
+.text {
+	@each $name, $color in $colors {
+		&-#{$name} {
+			color: nth($color, 2) !important;
+		}
+	}
+}
+
+//////////////////////////////////////
+//// ALERTS
+//////////////////////////////////////
+
+.alert {
+	@each $name, $color in $maincolors {
+		&-#{$name} {
+			@extend .bg-#{$name}-lighter, .text-#{$name};
+			border-color: rgba(nth($color, 2), .2);
+			border-width: map-get($alert, border-width);
+		}
+	}
+}
+
+//////////////////////////////////////
+//// BUTTONS
+//////////////////////////////////////
+
+.btn {
+	@each $name, $color in $colors {
+		&-#{$name} {
+			color: nth($color, 1) !important;
+			background-color: nth($color, 2);
+			border-color: nth($color, 2);
+			border-radius: $corner-radius !important;
+
+			&:hover {
+				color: nth($color, 1) !important;
+				background-color: lighten(nth($color, 2), 4%);
+				border-color: lighten(nth($color, 2), 4%);
+			}
+
+			&:active {
+				// WHILE CLICKING
+				background-color: darken(nth($color, 2), 8%) !important;
+				border-color: darken(nth($color, 2), 8%) !important;
+			}
+
+			&:focus {
+				// AFTER CLICK
+				background-color: nth($color, 2);
+				border-color: nth($color, 2);
+			}
+
+			&:disabled {
+				background-color: lighten(nth($color, 2), 10%) !important;
+				border-color: lighten(nth($color, 2), 10%) !important;
+			}
+		}
+
+		&-outline-#{$name} {
+			color: nth($color, 2);
+			background-color: transparent;
+			border-color: nth($color, 2);
+			border-radius: $corner-radius !important;
+
+			&:hover {
+				color: white;
+				background-color: nth($color, 2);
+				border-color: nth($color, 2);
+			}
+
+			&:active {
+				// WHILE CLICKING
+				color: white !important;
+				background-color: darken(nth($color, 2), 2%) !important;
+				border-color: darken(nth($color, 2), 2%) !important;
+			}
+
+			&:focus {
+				// AFTER CLICK
+				color: nth($color, 2);
+				background-color: transparent;
+				border-color: nth($color, 2);
+			}
+
+			&:disabled {
+				color: lighten(nth($color, 2), 10%) !important;
+				background-color: transparent !important;
+				border-color: lighten(nth($color, 2), 10%) !important;
+			}
+		}
+
+		&-white-#{$name} {
+			color: nth($color, 2) !important;
+			background-color: white;
+			border-color: white;
+			border-radius: $corner-radius !important;
+
+			&:hover {
+				color: darken(nth($color, 2), 4%) !important;
+			}
+
+			&:active {
+				// WHILE CLICKING
+				color: darken(nth($color, 2), 16%) !important;
+			}
+
+			&:focus {
+				// AFTER CLICK
+				color: nth($color, 2);
+				background-color: white;
+				border-color: white;
+			}
+
+			&:disabled {
+				color: lighten(nth($color, 2), 10%) !important;
+				background-color: white !important;
+				border-color: white !important;
+			}
+		}
+	}
+}
+

@@ -1,0 +1,11 @@
+/////////////////////////////////////////
+// ALL UNDER DESKTOP: less then 1200px //
+/////////////////////////////////////////
+@include media-breakpoint-down(lg) {
+	.navbar {
+		.dropdown-menu {
+			-webkit-animation-name: none !important;
+			animation-name: none !important;
+		}
+	}
+}
