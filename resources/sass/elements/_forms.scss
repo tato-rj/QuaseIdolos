@@ -4,7 +4,7 @@ form {
 	}
 
 	.form-control, .form-select {
-		@extend .rounded-pill;
+		@extend .rounded;
 		padding: map-get($form, padding-y) map-get($form, padding-x);
 		border-color: #e9ebf0;
 	}

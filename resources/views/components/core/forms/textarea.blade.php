@@ -10,7 +10,7 @@
 		placeholder="{{$placeholder ?? null}}"
 		@isset($id)id="{{$id}}"@endisset 
 		{{iftrue($readonly ?? null, 'readonly')}} 
-		{{iftrue($readonly ?? null, 'readonly')}}></textarea>
+		{{iftrue($readonly ?? null, 'readonly')}}>{{$value}}</textarea>
 	
 	@isset($info)
 	<div class="form-text">{{$info}}</div>

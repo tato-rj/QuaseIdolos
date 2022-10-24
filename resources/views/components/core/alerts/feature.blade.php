@@ -4,7 +4,7 @@
 	@isset($link)
 	<a href="{{$link}}" class="alert-feature-link d-center text-{{$color}}">@fa(['icon' => 'chevron-right', 'mr' => 0])</a>
 	@else
-	<button type="button" class="btn-close p-0 text-{{$color}}" data-dismiss="alert"@isset($animation){{' data-animation=animate__'.$animation['out']}}@endisset aria-label="Close"></button>
+	<button type="button" class="btn-close p-0 no-stroke text-{{$color}}" data-dismiss="alert"@isset($animation){{' data-animation=animate__'.$animation['out']}}@endisset aria-label="Close"></button>
 	@endisset
 </div>  
 </div>

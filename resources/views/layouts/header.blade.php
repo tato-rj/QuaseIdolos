@@ -1,17 +1,16 @@
 <section>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-dark bg-primary">
   <div class="container">
 
-    @include('layouts.components.navbar.logo')
-    @include('layouts.components.navbar.hamburger')
+    @include('layouts.menu.logo')
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      
-      @include('layouts.components.navbar.menu')
-      
-        {{-- <li class="nav-item m-1" href="#"> --}}
-          <a class="nav-link rounded-pill px-4 py-1" href="#">@fa(['icon' => 'user-circle'])Login</a>
-        {{-- </li> --}}
+    <div class="offcanvas offcanvas-end bg-primary" id="offcanvasNavbar">
+      @include('layouts.menu.nav')
+    </div>
+
+    <div class="d-flex align-items-center">
+      @include('layouts.menu.user.nav')
+      @include('layouts.menu.hamburger')
     </div>
   </div>
 </nav>

@@ -2,45 +2,17 @@
 
 @push('header')
 <style type="text/css">
-.artist img {
-	width: 120px;
-}
 
-.artist:hover img, .artist[selected] img {
-	border: 6px solid white;
-}
-
-.artist:not([selected]) {
-	width: 160px;
-}
-
-.artist:not([selected]) p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.song-result:hover {
-	background: rgba(0,0,0,0.1) !important;
-}
 </style>
 @endpush
 
 @section('content')
-<section class="container py-4">
-	<div class="text-center">
-		<div class="mb-5">
-			<img src="{{asset('images/brand/logo_lg.svg')}}" style="max-width: 500px; width: 90%" class="mb-2">
-			<h2>NOSSO CARDÁPIO <span class="text-secondary">MUSICAL</span></h2>
-		</div>
-	</div>
-</section>
-
 <section class="container-fluid mb-6 p-0">
+	<h2 class="mb-3 text-center">NOSSO CARDÁPIO <span class="text-secondary">MUSICAL</span></h2>
 	@include('pages.cardapio.search')
-	@include('pages.cardapio.results.artists')
+	@include('pages.cardapio.components.artist.all')
 
-	@include('pages.cardapio.results.table')
+	<div id="results"></div>
 </section>
 
 @endsection
@@ -50,18 +22,18 @@
 function resetArtists()
 {
 	$('.artist').attr('selected', false).fadeIn();
-	$('#artists-container label.intro').show();
-	$('#artists-container label.back').hide();
+	$('#artists-container .intro').show();
+	$('#artists-container .back').hide();
 }
 
 function clearResults()
 {
-	$('#results').hide();
+	$('#results').html('');
 }
 
-function showResults()
+function showResults(data)
 {
-	$('#results').show();
+	$('#results').html(data);
 }
 
 $(document).ready(function(){
@@ -72,14 +44,20 @@ $(document).ready(function(){
 		} else {
 			$('.artist').attr('selected', false).not(this).hide();
 			$(this).attr('selected', true);
-			$('#artists-container label.intro').hide();
-			$('#artists-container label.back').show();
+			$('#artists-container .intro').hide();
+			$('#artists-container .back').show();
 
-			showResults();
+			axios.get($(this).data('url'))
+				 .then(function(response) {
+				 	showResults(response.data);
+				 })
+				 .catch(function(error) {
+					alert('Try again...');
+				});
 		}
 	});
 
-	$('#artists-container label.back').on('click', function() {
+	$('#artists-container .back').on('click', function() {
 		resetArtists();
 		clearResults();
 	});
@@ -95,11 +73,27 @@ $(document).ready(function(){
 		} else if (input.length >= 3) {
 			$('#artists-container').hide();
 			resetArtists();
-			log(input);
 
-			showResults();
+			axios.get($(this).data('url'), { params: { input: input } })
+				 .then(function(response) {
+				 	showResults(response.data);
+				 })
+				 .catch(function(error) {
+					alert('Try again...');
+				});
 		}
 	});
 });
+</script>
+<script type="text/javascript">
+    if ($('body').data('user')) {
+        axios.get('{!! route('setlist.alert') !!}')
+             .then(function(response) {
+                $('body').append(response.data);
+             })
+             .catch(function(error) {
+                alert(error);
+             });
+    }
 </script>
 @endpush

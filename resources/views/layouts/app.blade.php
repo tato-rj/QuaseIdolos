@@ -25,10 +25,30 @@ h1, h2, h3, h4 {
 .no-stroke {
     -webkit-text-stroke: 0 !important;
 }
+
+.offcanvas.offcanvas-end {
+    width: auto;
+    min-width: 300px;
+}
+      @keyframes blinking {
+        0% {
+          opacity: 0.7;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: .7;
+        }
+      }
+
+      .blink {
+        animation: blinking 1s infinite;
+      }
         </style>
         @stack('header')
     </head>
-    <body class="bg-primary">
+    <body class="bg-primary" data-user="{{auth()->check() ? auth()->user() : null}}">
         @include('layouts.header')
 
         <div id="page-content">

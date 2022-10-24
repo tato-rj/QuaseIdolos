@@ -1,5 +1,5 @@
-<div id="results" style="display: none;">
-	@foreach([1,2,3,4] as $song)
+<div class="mt-5">
+	@foreach($songs as $song)
 	@include('pages.cardapio.results.row')
 	@endforeach
 </div>

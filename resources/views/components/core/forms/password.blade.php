@@ -23,9 +23,11 @@
 			@endif
 
 			@isset($id)id="{{$id}}"@endisset
+
+			{{iftrue($required ?? null, 'required')}}
 			{{iftrue($readonly ?? null, 'readonly')}}>
 
-		<button class="btn-raw toggle-password text-primary btn-sm" data-target="[name={{$name}}]">
+		<button type="button" class="btn-raw toggle-password text-primary btn-sm" data-target="[name={{$name}}]">
 			Show
 		</button>
 	</div>

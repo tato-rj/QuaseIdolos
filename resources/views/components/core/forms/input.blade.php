@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group text-left">
 	@isset($label)
     @label
     @endisset
@@ -13,6 +13,8 @@
 		class="border-0 w-100 h-100"
 		type="{{$type ?? 'text'}}" 
 		@isset($mask) data-mask="{{$mask}}"@endisset 
+		@isset($min) min="{{$min}}"@endisset 
+		@isset($max) max="{{$max}}"@endisset 
 		placeholder="{{$placeholder ?? null}}" 
 		name="{{$name}}"
 		
@@ -23,6 +25,8 @@
 		@endif
 
 		@isset($id)id="{{$id}}"@endisset
+
+		{{iftrue($required ?? null, 'required')}}
 		{{iftrue($readonly ?? null, 'readonly')}}>
 	</div>
 	

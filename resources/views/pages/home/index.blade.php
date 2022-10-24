@@ -65,4 +65,15 @@ $(document).ready(function(){
 	});
 });
 </script>
+<script type="text/javascript">
+    if ($('body').data('user')) {
+        axios.get('{!! route('setlist.alert') !!}')
+             .then(function(response) {
+                $('body').append(response.data);
+             })
+             .catch(function(error) {
+                alert(error);
+             });
+    }
+</script>
 @endpush

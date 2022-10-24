@@ -10,6 +10,7 @@
 
 .link-none {
 	color: inherit;
+	
 	&:hover {
 		opacity: 0.8;
 		color: inherit;
@@ -30,4 +31,34 @@
 
 .plyr {
 	@extend .rounded;
+}
+
+.artist img {
+	width: 140px;
+}
+
+.artist:hover img, .artist[selected] img {
+	border: 8px solid white;
+}
+
+.artist:not([selected]) {
+	width: 140px;
+}
+
+.artist:not([selected]) p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+input[type=file]::file-selector-button {
+  @extend .rounded;
+}
+
+.song-result:hover {
+	background: rgba(0,0,0,0.1) !important;
+}
+
+.bg-white-transparent {
+	background: rgba(255, 255, 255, 0.8);
 }
