@@ -22,19 +22,26 @@
 @endpush
 
 @section('content')
-<section class="container py-4 mb-5">
+<section class="container py-4 mb-4">
 	<div class="text-center">
 		<div class="mb-5">
 			<img src="{{asset('images/brand/logo_lg.svg')}}" style="max-width: 500px; width: 90%" class="mb-2">
 			<h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2>
 		</div>
-		<button class="btn btn-secondary btn-lg">RESERVAR UMA DATA!</button>
+		@if(auth()->check() && auth()->user()->isAdmin())
+			<a href="{{route('setlist.live')}}" class="btn btn-secondary btn-lg mb-3">SETLIST DE HOJE</a>
+		@else
+		<div class="d-center flex-column">
+			<a href="{{route('cardapio')}}" class="btn btn-secondary btn-lg mb-3">NOSSO CARDÁPIO</a>
+			<a href="{{route('reservas')}}" class="btn btn-secondary btn-lg">RESERVAR UMA DATA!</a>
+		</div>
+		@endif
 	</div>
 </section>
 
-<section class="container mb-6">
+<section class="container-fluid mb-6">
 	<div class="row">
-		<div class="col-lg-8 col-12 mx-auto">
+		<div class="col-lg-8 col-12 mx-auto p-0">
 			<video id="player" data-poster="{{asset('images/video-poster.jpg')}}">
 			  <source src="{{asset('videos/video.mp4')}}" type="video/mp4" />
 			</video>
@@ -64,16 +71,5 @@ $(document).ready(function(){
 		$(`.steps [data-step="${step}"][data-option="button"]`).fadeIn();
 	});
 });
-</script>
-<script type="text/javascript">
-    if ($('body').data('user')) {
-        axios.get('{!! route('setlist.alert') !!}')
-             .then(function(response) {
-                $('body').append(response.data);
-             })
-             .catch(function(error) {
-                alert(error);
-             });
-    }
 </script>
 @endpush

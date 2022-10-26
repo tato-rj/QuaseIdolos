@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Favorite;
+use App\Models\{Favorite, Song};
 use Illuminate\Http\Request;
 
-class FavoriteController extends Controller
+class FavoritesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.favorites.index');
     }
 
     /**
@@ -33,9 +33,11 @@ class FavoriteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Song $song)
     {
-        //
+        auth()->user()->favorites()->save($song);
+
+        return back()->with('success', 'A música foi salva com sucesso');
     }
 
     /**
@@ -78,8 +80,10 @@ class FavoriteController extends Controller
      * @param  \App\Models\Favorite  $favorite
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Favorite $favorite)
+    public function destroy(Song $song)
     {
-        //
+        auth()->user()->favorites()->detach($song);
+
+        return back()->with('success', 'A música foi removida com sucesso');
     }
 }

@@ -1,10 +1,12 @@
-@modal(['title' => 'Acabou', 'id' => 'setlist-complete-'.$request->id.'-modal'])
-<form method="POST" action="{{route('setlist.finish', $request)}}" class="text-center">
+@modal(['title' => 'Confirmar', 'id' => 'setlist-complete-'.$entry->id.'-modal'])
+<form method="POST" action="{{route('setlist.finish', $entry)}}" class="text-center">
 	@csrf
-	<div class="text-green text-center mb-5">
-		@fa(['icon' => 'thumbs-up', 'fa_size' => '5x'])
+
+	<div class="bg-white text-green rounded text-center mb-4 p-4">
+		@fa(['icon' => 'thumbs-up', 'fa_size' => '5x', 'mr' => 0])
+		<p class="text-dark mb-0 mt-3 fw-bold">Confirma que a pessoa cantou a música?</p>
 	</div>
 
-	<button class="btn btn-secondary w-100">Confirma que a música acabou</button>
+	<button class="btn btn-secondary w-100">Sim, pode confirmar</button>
 </form>
 @endmodal

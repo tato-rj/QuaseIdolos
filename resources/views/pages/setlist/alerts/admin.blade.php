@@ -5,7 +5,7 @@
 			<div class="d-apart">
 				<div class="d-flex align-items-center">
 					<div>@fa(['icon' => 'microphone-alt', 'fa_size' => '2x', 'fa_color' => 'green'])</div>
-					<h5 class="text-dark no-stroke m-0">{{$request->user->first_name}} pediu uma música</h5>
+					<h5 class="text-dark no-stroke m-0">Nova música pedida</h5>
 				</div>
 				<div>@fa(['icon' => 'chevron-right', 'fa_size' => '1x', 'fa_color' => 'dark'])</div>
 			</div>

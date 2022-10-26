@@ -38,4 +38,9 @@ class Artist extends BaseModel
     {
         return $query->where('name', $name)->first();
     }
+
+    public function scopeSearch($query, $input)
+    {
+        return $query->where('name', 'LIKE', '%'.$input.'%');
+    }
 }

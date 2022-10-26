@@ -15,21 +15,11 @@
 			autocomplete="off"
 			maxlength="255" 
 			name="{{$name}}"
-			
-			@if(old($name))
-			value="{{old($name)}}"
-			@else
-			value="{{$value ?? null}}"
-			@endif
 
 			@isset($id)id="{{$id}}"@endisset
 
 			{{iftrue($required ?? null, 'required')}}
 			{{iftrue($readonly ?? null, 'readonly')}}>
-
-		<button type="button" class="btn-raw toggle-password text-primary btn-sm" data-target="[name={{$name}}]">
-			Show
-		</button>
 	</div>
 	
 	@isset($info)

@@ -14,7 +14,7 @@ class SongsController extends Controller
      */
     public function index()
     {
-        $songs = Song::orderBy('name')->get();
+        $songs = Song::orderBy('name')->paginate(8);
 
         return view('pages.songs.index', compact('songs'));
     }
@@ -54,6 +54,13 @@ class SongsController extends Controller
         ]);
 
         return back()->with('success', 'A música foi adicionada com sucesso');
+    }
+
+    public function search(Request $request)
+    {
+        $songs = Song::search($request->input)->orderBy('name')->get();
+
+        return view('pages.songs.results', compact('songs'))->render();
     }
 
     /**

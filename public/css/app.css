@@ -16001,7 +16001,7 @@ textarea.form-control-lg {
   pointer-events: auto !important;
 }
 
-.rounded, input[type=file]::file-selector-button, .plyr, form .form-control, form .form-select, .dropzone-container, .dropzone {
+.rounded, input[type=file]::file-selector-button, form .form-control, form .form-select, .dropzone-container, .dropzone {
   border-radius: var(--bs-border-radius) !important;
 }
 
@@ -19498,7 +19498,7 @@ a, i, strong, u {
   font-family: inherit;
 }
 
-.rounded, input[type=file]::file-selector-button, .plyr, form .form-control, form .form-select, .dropzone-container, .dropzone {
+.rounded, input[type=file]::file-selector-button, form .form-control, form .form-select, .dropzone-container, .dropzone {
   border-radius: 2rem !important;
 }
 
@@ -25764,22 +25764,41 @@ form.form-borderless.form-light input.form-control:not([readonly]), form.form-bo
   opacity: 1;
 }
 
-.artist img {
-  width: 140px;
+.artist[selected] p {
+  font-size: 1.6rem;
 }
-
-.artist:hover img, .artist[selected] img {
-  border: 8px solid white;
+.artist[selected] img {
+  width: 220px;
+}
+.artist[selected] span {
+  font-size: 1.4rem;
+  width: 44px;
+  height: 44px;
+  bottom: 16px;
+  right: 16px;
 }
 
 .artist:not([selected]) {
   width: 140px;
 }
-
+.artist:not([selected]) img {
+  width: 140px;
+}
+.artist:not([selected]) span {
+  width: 28px;
+  height: 28px;
+  bottom: 16px;
+  right: 16px;
+}
 .artist:not([selected]) p {
+  font-size: 1.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.artist:hover img, .artist[selected] img {
+  border: 8px solid white;
 }
 
 .song-result:hover {

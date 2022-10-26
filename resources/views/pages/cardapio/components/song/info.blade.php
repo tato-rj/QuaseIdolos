@@ -14,8 +14,8 @@
 				<h5 class="text-white">{{$song->duration}} min</h5>
 			</div>
 			<div class="d-apart mb-2">
-				<h5 class="text-secondary no-stroke">@fa(['icon' => 'microphone-alt'])Escolhida</h5>
-				<h5 class="text-white">25 vezes</h5>
+				<h5 class="text-secondary no-stroke">@fa(['icon' => 'microphone-alt'])Cantada</h5>
+				<h5 class="text-white">{{$song->setlists_count}} @choice('vez|vezes', $song->setlists_count)</h5>
 			</div>
 			<div class="d-apart mb-2">
 				<h5 class="text-secondary no-stroke">@fa(['icon' => 'guitar'])Dificuldade</h5>
@@ -24,14 +24,26 @@
 		</div>
 	</div>
 	<div>
-		@if(auth()->check() && auth()->user()->setlist()->waitingFor($song)->exists())
+		@if(auth()->check() && auth()->user()->setlists()->waitingFor($song)->exists())
 		<button class="btn btn-secondary text-truncate w-100 mb-3">@fa(['icon' => 'check'])JÁ ESTÁ NA FILA</button>
 		@else
-		<form method="POST" action="{{route('setlist.store', $song)}}">
+		<form method="POST" action="{{route('setlist.store', $song)}}" data-trigger="loader">
 			@csrf
-			<button class="btn btn-secondary text-truncate w-100 mb-3">SELECIONAR</button>
+			<button class="btn btn-secondary text-truncate w-100 mb-3">@fa(['icon' => 'microphone'])CANTAR</button>
 		</form>
 		@endif
-		<a href="#" class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'star'])SALVAR PRA DEPOIS</a>
+
+		@if(auth()->check() && auth()->user()->favorited($song)->exists())
+		<form method="POST" action="{{route('favorites.destroy', $song)}}" data-trigger="loader">
+			@csrf
+			@method('DELETE')
+			<button class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'heart'])REMOVER DOS FAVORITOS</button>
+		</form>		
+		@else
+		<form method="POST" action="{{route('favorites.store', $song)}}" data-trigger="loader">
+			@csrf
+			<button class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'heart'])SALVAR PRA DEPOIS</button>
+		</form>
+		@endif
 	</div>
 </div>

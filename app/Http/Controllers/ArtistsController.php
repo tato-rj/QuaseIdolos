@@ -40,6 +40,13 @@ class ArtistsController extends Controller
         return back()->with('success', 'O artista foi adicionado com sucesso');
     }
 
+    public function search(Request $request)
+    {
+        $artists = Artist::search($request->input)->orderBy('name')->get();
+
+        return view('pages.artists.results', compact('artists'))->render();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

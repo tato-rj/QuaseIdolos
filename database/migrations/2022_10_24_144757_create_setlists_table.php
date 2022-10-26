@@ -16,7 +16,7 @@ class CreateSetlistsTable extends Migration
         Schema::create('setlists', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('song_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamp('finished_at')->nullable();
             $table->timestamps();
         });

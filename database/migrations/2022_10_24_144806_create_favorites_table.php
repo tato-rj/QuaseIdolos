@@ -18,6 +18,8 @@ class CreateFavoritesTable extends Migration
             $table->unsignedInteger('song_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
+
+            $table->unique(['song_id', 'user_id']);
         });
     }
 

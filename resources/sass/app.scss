@@ -29,26 +29,43 @@
 	}
 }
 
-.plyr {
-	@extend .rounded;
-}
-
-.artist img {
-	width: 140px;
-}
-
-.artist:hover img, .artist[selected] img {
-	border: 8px solid white;
+.artist[selected] {
+	p {
+		font-size: 1.6rem;
+	}
+	img {
+		width: 220px;
+	}
+	span {
+		font-size: 1.4rem;
+		width: 44px; 
+		height: 44px; 
+		bottom: 16px; 
+		right: 16px;
+	}
 }
 
 .artist:not([selected]) {
 	width: 140px;
-}
-
-.artist:not([selected]) p {
+	img {
+		width: 140px;
+	}
+	span {
+		width: 28px; 
+		height: 28px; 
+		bottom: 16px; 
+		right: 16px;
+	}
+	p {
+		font-size: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+	}
+}
+
+.artist:hover img, .artist[selected] img {
+	border: 8px solid white;
 }
 
 input[type=file]::file-selector-button {

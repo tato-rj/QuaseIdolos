@@ -1,6 +1,5 @@
-@modal(['title' => 'Meu profile', 'id' => 'login-modal'])
 <div>
-	<div class="mb-4 pb-4 border-bottom">
+	<div class="mb-3">
 		@form(['method' => 'POST', 'url' => route('login'), 'data' => ['trigger' => 'loader']])
 			@input([
 				'icon' => 'envelope',
@@ -31,11 +30,17 @@
 			@submit(['label' => 'ENTRAR', 'theme' => 'secondary', 'classes' => 'w-100'])
 		@endform
 	</div>
+	<div class="mb-4">
+		<h6 class="text-center no-stroke mb-3">OU</h6>
+		@include('components.core.forms.social', ['service' => 'github'])
+		@include('components.core.forms.social', ['service' => 'facebook'])
+		@include('components.core.forms.social', ['service' => 'google'])
+		@include('components.core.forms.social', ['service' => 'twitter'])
+	</div>
 	<div class="text-center">
 		<div class="opacity-08">Ainda não tem a sua conta?</div>
 		<div>
-			<a href="#" class="link-secondary">Vamos começar!</a>
+			<a href="{{route('register')}}" class="link-secondary">Vamos começar!</a>
 		</div>
 	</div>
 </div>
-@endmodal

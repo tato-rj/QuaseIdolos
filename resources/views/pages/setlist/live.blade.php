@@ -13,14 +13,8 @@
 	</div>
 </section>
 
-<section class="container">
-	<div class="row">
-		@forelse($setlist as $request)
-		@include('pages.setlist.components.request')
-		@empty
-		@include('pages.setlist.components.empty')
-		@endforelse
-	</div>
+<section class="container" id="setlist-container">
+	@include('pages.setlist.components.table')
 </section>
 
 @endsection

@@ -45,10 +45,25 @@ h1, h2, h3, h4 {
       .blink {
         animation: blinking 1s infinite;
       }
+
+      .pagination .page-link {
+        padding: .7rem !important;
+        background: transparent;
+        border: 0;
+      }
         </style>
+<script>
+    window.app = <?php echo json_encode([
+        'csrfToken' => csrf_token(),
+        'url' => \Request::root(),
+        'route' => \Request::route()->getName(),
+        'user' => auth()->check() ? auth()->user() : null
+    ]); ?>
+</script>
+
         @stack('header')
     </head>
-    <body class="bg-primary" data-user="{{auth()->check() ? auth()->user() : null}}">
+    <body class="bg-primary">
         @include('layouts.header')
 
         <div id="page-content">
@@ -62,6 +77,83 @@ h1, h2, h3, h4 {
         @include('layouts.components.alerts')
 
         <script src="{{ mix('js/app.js') }}"></script>
+
+<script type="text/javascript">
+if (app.user) {
+    if (app.user.is_admin) {
+        listenToEvents();
+    } else {
+        getUserAlert();
+    }
+}
+
+function listenToEvents()
+{
+    window.Echo
+          .channel('setlist')
+          .listen('SongRequested', function(event) {
+            if (app.route == 'setlist.live') {
+                getEventTable();
+            } else {
+                getAdminAlert();
+            }
+          });
+
+    window.Echo
+          .channel('setlist')
+          .listen('SongCancelled', function(event) {
+            if (app.route == 'setlist.live') {
+                getEventTable();
+            }
+          });
+}
+
+function getUserAlert()
+{
+    axios.get('{!! route('setlist.alert') !!}')
+         .then(function(response) {
+            $('body').append(response.data);
+         })
+         .catch(function(error) {
+            alert(error);
+         });
+}
+
+function getEventTable()
+{
+    axios.get('{!! route('setlist.table') !!}')
+        .then(function(response) {
+            $('#setlist-container').html(response.data);
+        })
+        .catch(function(error) {
+            log(error);
+        });
+}
+
+function getAdminAlert()
+{
+    axios.get('{!! route('setlist.alert.admin') !!}')
+        .then(function(response) {
+            $('body').append(response.data);
+        })
+        .catch(function(error) {
+            log(error);
+        });
+}
+</script>
+
+<script type="text/javascript">
+$('.load-more').click(function() {
+    let $remaining = $(this).nextAll();
+    let $slice = $(this).nextAll().slice(0,4);
+
+    $slice.insertBefore(this)
+    $slice.show();
+
+    if($remaining.length == $slice.length)
+        $(this).remove();
+});
+</script>
         @stack('scripts')
     </body>
 </html>

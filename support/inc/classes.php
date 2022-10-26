@@ -14,3 +14,8 @@ function faker()
 {
 	return \Faker\Factory::create();
 }
+
+function hasPagination($collection)
+{
+	return $collection instanceof \Illuminate\Pagination\LengthAwarePaginator;
+}

@@ -8,10 +8,11 @@
 
   <div class="px-4">
     <div>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('cardapio')}}">Meu Perfil</a>
+     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('profile.show')}}">Meu Perfil</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlist.live')}}">Setlist</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('artists.index')}}">Artistas</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('songs.index')}}">Músicas</a>
+     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('users.index')}}">Cantores</a>
        <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf

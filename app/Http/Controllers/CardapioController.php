@@ -14,11 +14,9 @@ class CardapioController extends Controller
         return view('pages.cardapio.index', compact('artists'));    
     }
 
-    public function byArtist(Artist $artist)
+    public function artist(Artist $artist)
     {
-        $songs = $artist->songs;
-
-        return view('pages.cardapio.results.table', compact('songs'))->render();
+        return view('pages.cardapio.artist', compact('artist'));
     }
 
     public function search(Request $request)
