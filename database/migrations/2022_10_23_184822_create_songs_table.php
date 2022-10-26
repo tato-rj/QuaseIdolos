@@ -22,6 +22,8 @@ class CreateSongsTable extends Migration
             $table->unsignedTinyInteger('duration');
             $table->string('level');
             $table->timestamps();
+
+            $table->unique(['artist_id', 'name']);
         });
     }
 

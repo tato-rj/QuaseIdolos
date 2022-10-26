@@ -12,6 +12,7 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
+        
 h1, h2, h3, h4, h5, label, .nav-link, .btn, button {
     font-family: 'Fredoka One', cursive;
 }

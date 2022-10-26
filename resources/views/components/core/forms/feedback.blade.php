@@ -2,8 +2,8 @@
   Looks good!
 </div>
 
-<div class="invalid-feedback {{$errors->has($input) ? 'd-block' : null}}">
+<div class="invalid-feedback text-secondary {{$errors->has($input) ? 'd-block' : null}}">
   @error($input)
-  @fa(['icon' => 'exclamation-circle', 'fa_color' => 'red', 'mr' => 1]){{$message}}
+  @fa(['icon' => 'exclamation-circle', 'fa_color' => 'secondary', 'mr' => 1]){{$message}}
   @enderror
 </div>
