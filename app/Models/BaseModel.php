@@ -13,4 +13,9 @@ class BaseModel extends Model
     {
         return $query->latest()->first();
     }
+
+    public function scopeExcept($query, $ids = [])
+    {
+        return $query->whereNotIn('id', $ids);
+    }
 }

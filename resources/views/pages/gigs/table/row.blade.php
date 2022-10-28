@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="col-lg-2 col-md-2 col-3 text-right d-flex justify-content-end gig-controls">
-			@if($gig->ready() && ! $gig->isOver)		
+			@if($ready)		
 				<button class="pause-switch d-center btn rounded-circle btn-secondary {{$gig->is_live ? null : 'd-none'}}" data-url="{{route('gig.pause', $gig)}}">
 				  @fa(['icon' => $gig->is_paused ? 'play' : 'pause', 'mr' => 0, 'fa_size' => 'lg'])
 				</button>

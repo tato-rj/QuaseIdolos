@@ -14,11 +14,10 @@ class GigsController extends Controller
      */
     public function index()
     {
-        $gigs = Gig::byEventDate()->get()->sortBy(function($event, $index) {
-            return $event->ready();
-        });
+        $readyGigs = Gig::ready()->get();
+        $otherGigs = Gig::except($readyGigs->pluck('id'))->byEventDate()->paginate(8);
 
-        return view('pages.gigs.index', compact('gigs'));
+        return view('pages.gigs.index', compact(['readyGigs', 'otherGigs']));
     }
 
     /**
@@ -117,7 +116,7 @@ class GigsController extends Controller
             'is_paused' => $gig->is_live ? false : $gig->is_paused
         ]);
 
-        $message = $gig->is_live ? 'O evento está rolando' : 'O evento parou';
+        $message = $gig->is_live ? 'O evento começou' : 'O evento acabou';
 
         return view('components.core.alerts.regular', [
             'message' => $message,

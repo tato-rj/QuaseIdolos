@@ -29,7 +29,7 @@ class GigSeeder extends Seeder
             'creator_id' => Admin::superAdmin()->first()->user->id,
             'songs_limit' => 40,
             'songs_limit_per_user' => 2,
-            'is_live' => false,
+            'is_live' => true,
             'date' => now()->copy()->now(),
         ]);
     }

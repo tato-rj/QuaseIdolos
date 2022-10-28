@@ -50,7 +50,7 @@ class Gig extends BaseModel
 			return fa('circle', 'green', 'mr-2').'Live!';
 
 		if ($this->is_over)
-			return fa('circle', 'red', 'mr-2').'Terminou ' .$this->ends_at->diffForHumans();
+			return fa('calendar-day', 'white', 'mr-2').'Terminou ' .$this->ends_at->diffForHumans();
 
 		if (! $this->date)
 			return fa('circle', 'red', 'mr-2').'Sem data';
@@ -58,10 +58,17 @@ class Gig extends BaseModel
 		if ($this->date->lte(now()))
 			return fa('circle', 'yellow', 'mr-2').'Esperando pra começar';
 
-		return fa('circle', 'yellow', 'mr-2').'Começa ' .$this->date->diffForHumans();
+		return fa('calendar-day', 'white', 'mr-2').'Começa ' .$this->date->diffForHumans();
 	}
 
-	public function ready()
+	public function scopeReady($query)
+	{
+		$start = now()->copy()->startOfDay();
+
+		return $query->whereDate('date', $start)->orWhereBetween('date', [$start, $start->addDay()->addHours(4)]);
+	}
+
+	public function isReady()
 	{
 		return $this->date && ($this->date->isSameDay(now()) || $this->date->addDay()->addHours(4)->lt(now()));
 	}

@@ -16,6 +16,23 @@
 	</div>
 </section>
 
+<section class="mb-4">
+	@table
+	@slot('header')
+		@include('pages.gigs.table.header')
+	@endslot
+
+	@slot('rows')
+		@forelse($readyGigs as $gig)
+		@include('pages.gigs.table.row', ['ready' => true])
+		@empty
+		@include('components.empty')
+		@endforelse
+	@endslot
+
+	@endtable
+</section>
+
 <section>
 	@table
 	@slot('header')
@@ -23,14 +40,16 @@
 	@endslot
 
 	@slot('rows')
-		@forelse($gigs as $gig)
-		@include('pages.gigs.table.row')
+		@forelse($otherGigs as $gig)
+		@include('pages.gigs.table.row', ['ready' => false])
 		@empty
 		@include('components.empty')
 		@endforelse
 	@endslot
 
 	@endtable
+
+	{{$otherGigs->links()}}
 </section>
 @endsection
 
