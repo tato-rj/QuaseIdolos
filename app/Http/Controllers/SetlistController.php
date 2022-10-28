@@ -21,6 +21,9 @@ class SetlistController extends Controller
         if (! gig() || gig()->is_paused)
             return back()->with('error', 'Não estamos recebendo pedidos agora');
 
+        if ($gig->isFull())
+            return back()->with('error', 'O limite de músicas pra esse evento foi alcançado');
+
         $setlist = (new Setlist)->add(auth()->user(), $song, Gig::live()->first());
 
         SongRequested::dispatch($setlist);

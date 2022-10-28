@@ -9,6 +9,7 @@ class Gig extends BaseModel
 	protected $dates = ['starts_at', 'ends_at', 'date'];
 	protected $casts = [
 		'is_live' => 'boolean',
+		'is_paused' => 'boolean'
 	];
 
 	public function creator()
@@ -34,6 +35,21 @@ class Gig extends BaseModel
 	public function isToday()
 	{
 		return $this->date->isSameDay(now());
+	}
+
+	public function isFull()
+	{
+		return $this->setlists->count() == $this->songs_limit;
+	}
+
+	public function getFullNameAttribute()
+	{
+		return $this->date ? $this->name : $this->name . ' ' . $this->dateForHumans;
+	}
+
+	public function getDateForHumansAttribute()
+	{
+		return $this->date ? $this->date->format('j/n/y') : null;
 	}
 
 	public function getIsOverAttribute()
@@ -70,6 +86,7 @@ class Gig extends BaseModel
 
 	public function isReady()
 	{
-		return $this->date && ($this->date->isSameDay(now()) || $this->date->addDay()->addHours(4)->lt(now()));
+		return $this->date && 
+			($this->date->isSameDay(now()) || now()->between($this->date, $this->date->addDay()->addHours(4)));
 	}
 }

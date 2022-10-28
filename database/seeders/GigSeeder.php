@@ -31,6 +31,7 @@ class GigSeeder extends Seeder
             'songs_limit_per_user' => 2,
             'is_live' => true,
             'date' => now()->copy()->now(),
+            'starts_at' => now()
         ]);
     }
 }

@@ -109,7 +109,7 @@ Route::middleware('super-admin')->prefix('gig')->name('gig.')->group(function() 
 
     Route::get('search', 'GigsController@search')->name('search');
 
-    Route::get('{gig}', 'GigsController@show')->name('show');
+    Route::get('{gig}', 'GigsController@edit')->name('edit');
 
     Route::post('', 'GigsController@store')->name('store');
 

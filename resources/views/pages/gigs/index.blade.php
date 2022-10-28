@@ -19,7 +19,9 @@
 <section class="mb-4">
 	@table
 	@slot('header')
+	@unless($readyGigs->isEmpty())
 		@include('pages.gigs.table.header')
+	@endif
 	@endslot
 
 	@slot('rows')
@@ -36,7 +38,9 @@
 <section>
 	@table
 	@slot('header')
+	@unless($otherGigs->isEmpty())
 		@include('pages.gigs.table.header')
+	@endunless
 	@endslot
 
 	@slot('rows')

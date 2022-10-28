@@ -22,7 +22,7 @@ class SetlistSeeder extends Seeder
     {
         for ($i=0; $i<40; $i++) { 
             Setlist::create([
-                'gig_id' => Gig::find(1)->id,
+                'gig_id' => Gig::first()->id,
                 'user_id' => User::guests()->inRandomOrder()->first()->id,
                 'song_id' => Song::inRandomOrder()->first()->id,
                 'order' => Setlist::waiting()->count(),
@@ -35,7 +35,7 @@ class SetlistSeeder extends Seeder
     {
         for ($i=0; $i<5; $i++) { 
             Setlist::create([
-                'gig_id' => Gig::find(2)->id,
+                'gig_id' => Gig::last()->id,
                 'user_id' => User::guests()->inRandomOrder()->first()->id,
                 'song_id' => Song::inRandomOrder()->first()->id,
                 'order' => Setlist::waiting()->count()

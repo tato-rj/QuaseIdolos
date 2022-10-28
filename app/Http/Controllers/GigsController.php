@@ -21,16 +21,6 @@ class GigsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -58,17 +48,6 @@ class GigsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Gig  $gig
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gig $gig)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Gig  $gig
@@ -76,7 +55,7 @@ class GigsController extends Controller
      */
     public function edit(Gig $gig)
     {
-        //
+        return view('pages.gigs.edit', compact('gig'));
     }
 
     /**
@@ -88,7 +67,21 @@ class GigsController extends Controller
      */
     public function update(Request $request, Gig $gig)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'song_limit' => 'integer',
+            'song_limit_per_user' => 'integer',
+        ]);
+
+        $gig->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'songs_limit' => $request->songs_limit,
+            'songs_limit_per_user' => $request->songs_limit_per_user,
+            'date' => datePtToUs($request->date) ?? $gig->date,
+        ]);
+
+        return back()->with('success', 'O evento foi alterado com sucesso');
     }
 
     public function pause(Request $request, Gig $gig)
@@ -136,6 +129,8 @@ class GigsController extends Controller
      */
     public function destroy(Gig $gig)
     {
-        //
+        $gig->delete();
+
+        return redirect(route('gig.index'))->with('success', 'O evento foi removido com sucesso');
     }
 }
