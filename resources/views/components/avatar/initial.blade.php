@@ -1,12 +1,16 @@
-<div style="width: {{$size ?? '39.2px'}}; height: {{$size ?? '39.2px'}}; font-size: {{$fontsize ?? null}};"
+<div style="width: {{$size ?? '39.2px'}}; height: {{$size ?? '39.2px'}};"
 @isset($offcanvas)
-class="nav-link bg-secondary rounded-circle d-center mx-auto cursor-pointer"
+class="nav-link bg-secondary rounded-circle d-center mx-auto cursor-pointer position-relative"
 href="#" 
 data-bs-toggle="offcanvas" 
 data-bs-target="#offcanvasUserMenu"
 @else
-class="nav-link bg-secondary rounded-circle d-center mx-auto"
+class="nav-link bg-secondary rounded-circle d-center mx-auto position-relative"
 @endisset
 >
-  {{$user->initial}}
+  <span style="font-size: {{$fontsize ?? null}};">{{$user->initial}}</span>
+
+  @if(isset($star) && $user->isAdmin())
+  <span class="position-absolute bottom-0 right-0">@fa(['icon' => 'star', 'fa_color' => 'yellow', 'fa_size' => 'lg'])</span>
+  @endif
 </div>

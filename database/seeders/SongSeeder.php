@@ -497,6 +497,7 @@ E diz'
                 'tags' => 'mpb pop 90s',
                 'duration' => '3',
                 'level' => 'Fácil',
+                'chords_url' => 'https://www.cifraclub.com.br/caetano-veloso/sozinho/',
                 'lyrics' => 'Às vezes, no silêncio da noite
 Eu fico imaginando nós dois
 Eu fico ali sonhando acordado

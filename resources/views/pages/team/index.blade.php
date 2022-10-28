@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Artistas'])
+@extends('layouts.app', ['title' => 'Equipe'])
 
 @push('header')
 <style type="text/css">
@@ -9,14 +9,12 @@
 @section('content')
 <section class="container ">
 	<div class="text-center mb-4">
-		<h2 class="mb-3">GERENCIE AQUI OS <span class="text-secondary">ARTISTAS</span></h2>
-		@include('pages.artists.search')
-		<button data-bs-toggle="modal" data-bs-target="#create-artist-modal" class="btn btn-secondary btn-lg">@fa(['icon' => 'plus'])Novo artista</button>
-		@include('pages.artists.modals.create')
+		<h2 class="mb-3">GERENCIE AQUI A <span class="text-secondary">EQUIPE</span></h2>
+		@include('pages.team.search')
 	</div>
 
 	<div id="results-container">
-		@include('pages.artists.results')
+		@include('pages.team.results')
 	</div>
 </section>
 

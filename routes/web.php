@@ -96,3 +96,10 @@ Route::middleware('auth')->prefix('favoritos')->name('favorites.')->group(functi
     Route::delete('{song}', 'FavoritesController@destroy')->name('destroy');
 });
 
+Route::middleware('super-admin')->prefix('team')->name('team.')->group(function() {
+    Route::get('', 'TeamController@index')->name('index');
+
+    Route::get('search', 'TeamController@search')->name('search');
+
+    Route::patch('{user}', 'TeamController@update')->name('update');
+});

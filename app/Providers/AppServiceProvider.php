@@ -15,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('live', function () {
+            return \App\Models\Gig::live()->exists();
+        });
     }
 
     /**
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
 
         \Blade::aliasComponent('components.core.form', 'form');
         \Blade::include('components.core.forms.input');
+        \Blade::include('components.core.forms.toggle');
         \Blade::include('components.core.forms.textarea');
         \Blade::aliasComponent('components.core.forms.select');
         \Blade::include('components.core.forms.checkbox');
@@ -50,5 +53,9 @@ class AppServiceProvider extends ServiceProvider
         \Blade::aliasComponent('components.core.container');
         \Blade::aliasComponent('components.core.modal');
         \Blade::include('components.core.delete');
+
+        \Blade::directive('plural', function ($word, $count) {
+            return "<?php echo trans_choice('plurais.$word', $count); ?>";
+        });
     }
 }

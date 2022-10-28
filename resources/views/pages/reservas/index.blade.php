@@ -17,7 +17,7 @@
 
 		<div class="text-center mb-5">
 			<div class="mb-4">
-				@fa(['icon' => 'phone', 'fa_color' => 'secondary', 'fa_size' => '4x'])
+				@fa(['icon' => 'whatsapp', 'fa_type' => 'b', 'fa_color' => 'secondary', 'fa_size' => '4x'])
 			</div>
 			<h2 class="m-0"><a href="tel:(21) 99115-1374" class="link-none">(21) 99115-1374</a></h2>
 			<h5 class="mb-1">ou</h5>

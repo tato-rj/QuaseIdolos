@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Traits\Searchable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable;
+
+    protected $appends = ['is_admin'];
 
     protected $hidden = [
         'password',
@@ -18,8 +21,7 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'is_admin' => 'boolean'
+        'email_verified_at' => 'datetime'
     ];
 
     protected static function booted()
@@ -27,16 +29,6 @@ class User extends Authenticatable
         self::deleting(function($user) {
             $user->favorites->each->delete();
         });
-    }
-
-    public function getInitialAttribute()
-    {
-        return $this->name[0];
-    }
-
-    public function getFirstNameAttribute()
-    {
-        return explode(' ', $this->name)[0];
     }
 
     public function favorites()
@@ -52,14 +44,44 @@ class User extends Authenticatable
         return $this->hasMany(Setlist::class)->with(['song', 'user']);
     }
 
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
+
+    public function scopeTeam($query)
+    {
+        return $query->has('admin')->where('id', '!=', auth()->user()->id);
+    }
+
     public function scopeGuests($query)
     {
-        return $query->where('is_admin', false);
+        return $query->doesntHave('admin');
+    }
+
+    public function getInitialAttribute()
+    {
+        return $this->name[0];
+    }
+
+    public function getFirstNameAttribute()
+    {
+        return explode(' ', $this->name)[0];
     }
 
     public function isAdmin()
     {
-        return (bool) $this->is_admin;
+        return $this->admin()->exists();
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->isAdmin();
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->isAdmin() && (bool) $this->admin->super_admin;
     }
 
     public function favorited(Song $song)

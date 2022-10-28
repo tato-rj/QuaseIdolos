@@ -37,7 +37,7 @@ class SocialiteController extends Controller
 
         \Auth::login($user);
 
-        return redirect(route('cardapio'));
+        return back();
     }
 
     public function validateDriver($driver)

@@ -16,6 +16,8 @@
 		@endforeach
 	@endselect
 	@textarea(['placeholder' => 'Letra', 'name' => 'lyrics', 'value' => $song->lyrics, 'required' => true])
+	@input(['placeholder' => 'Site com cifra', 'name' => 'chords_url', 'value' => $song->chords_url])
+
 	@submit(['label' => 'Confirmar mudanças', 'theme' => 'secondary'])
 </form>
 @endmodal

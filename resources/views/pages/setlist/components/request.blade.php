@@ -1,5 +1,5 @@
-<div class="{{$loop->first ? 'col-lg-8 col-md-9 col-11' : 'col-lg-7 col-md-8 col-10'}} mx-auto mb-5">
-	<div class="rounded {{$loop->first ? 'border' : null}} border-secondary bg-white{{$loop->first ? null : '-transparent'}} py-3 px-2 row" style="border-width: 12px !important;">
+<div class="{{$loop->first ? 'col-lg-8 col-md-9 col-11' : 'col-lg-7 col-md-8 col-10'}} mx-auto mb-5" draggable="true">
+	<div class="rounded {{$loop->first ? 'border' : null}} border-secondary event-box bg-white{{$loop->first ? null : '-transparent'}} py-3 px-2 row" style="border-width: 12px !important;">
 		<div class="col-lg-8 col-12">
 			<h1 class="no-stroke text-primary m-0">{{$entry->user->name}}</h1>
 			<p class="text-muted fw-bold">pedido ás {{$entry->created_at->format('H:i')}}h</p>
@@ -15,10 +15,14 @@
 <div class="w-100 d-lg-none d-md-block mb-4"></div>
 		<div class="col-lg-4 col-12">
 			<div class="h-100 d-flex justify-content-center flex-column">
+				@if($entry->song->chords_url)
+				<a href="{{$entry->song->chords_url}}" target="_blank" class="btn btn-secondary mb-3 no-stroke">@fa(['icon' => 'guitar'])CIFRA</a>
+				@endif
+
 				@if($loop->first)
 				<button data-bs-toggle="modal" data-bs-target="#setlist-complete-{{$entry->id}}-modal" class="btn btn-green mb-3 no-stroke">@fa(['icon' => 'microphone-alt'])CONFIRMAR</button>
 				@else
-				<button class="btn btn-secondary mb-3 no-stroke">@fa(['icon' => 'hourglass-half'])@choice('FALTA|FALTAM', $loop->index) {{$loop->index}}</button>
+				<button class="btn btn-stone mb-3 no-stroke">@fa(['icon' => 'hourglass-half'])@choice('FALTA|FALTAM', $loop->index) {{$loop->index}}</button>
 				@endif
 
 				<button data-bs-toggle="modal" data-bs-target="#setlist-cancel-{{$entry->id}}-modal" class="btn btn-outline-red no-stroke">CANCELAR</button>
@@ -28,11 +32,9 @@
 			</div>
 		</div>
 	</div>
-
-
+</div>
 	@if($loop->first && ! $loop->last)
-	<div class="d-center pt-5">
+	<div class="d-center pb-5 col-12">
 		<div class="bg-white rounded" style="width: 6px; height: 80px"></div>
 	</div>
 	@endif
-</div>

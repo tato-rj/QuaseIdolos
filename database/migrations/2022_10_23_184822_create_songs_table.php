@@ -21,6 +21,7 @@ class CreateSongsTable extends Migration
             $table->text('lyrics');
             $table->unsignedTinyInteger('duration');
             $table->string('level');
+            $table->text('chords_url')->nullable();
             $table->timestamps();
 
             $table->unique(['artist_id', 'name']);

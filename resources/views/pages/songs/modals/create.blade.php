@@ -29,6 +29,7 @@
 		@endforeach
 	@endselect
 	@textarea(['placeholder' => 'Letra', 'name' => 'lyrics', 'value' => old('lyrics'), 'required' => true])
+	@input(['placeholder' => 'Site com cifra', 'name' => 'chords_url'])
 
 	@submit(['label' => 'Adicionar música', 'theme' => 'secondary'])
 </form>

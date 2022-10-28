@@ -50,7 +50,8 @@ class SongsController extends Controller
             'tags' => preg_replace('/\s+/', ' ', $request->tags),
             'duration' => $request->duration,
             'level' => $request->level,
-            'lyrics' => $request->lyrics
+            'lyrics' => $request->lyrics,
+            'chords_url' => $request->chords_url
         ]);
 
         return back()->with('success', 'A música foi adicionada com sucesso');
@@ -105,7 +106,8 @@ class SongsController extends Controller
             'tags' => preg_replace('/\s+/', ' ', $request->tags),
             'duration' => $request->duration,
             'level' => $request->level,
-            'lyrics' => $request->lyrics
+            'lyrics' => $request->lyrics,
+            'chords_url' => $request->chords_url
         ]);
 
         return back()->with('success', 'A música foi atualizada com sucesso');

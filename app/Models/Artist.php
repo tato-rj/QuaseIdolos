@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Searchable;
+
 class Artist extends BaseModel
 {
+    use Searchable;
+
     protected $withCount = ['songs'];
     
     protected static function booted()
@@ -37,10 +41,5 @@ class Artist extends BaseModel
     public function scopeByName($query, $name)
     {
         return $query->where('name', $name)->first();
-    }
-
-    public function scopeSearch($query, $input)
-    {
-        return $query->where('name', 'LIKE', '%'.$input.'%');
     }
 }
