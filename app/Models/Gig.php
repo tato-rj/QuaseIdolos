@@ -12,6 +12,13 @@ class Gig extends BaseModel
 		'is_paused' => 'boolean'
 	];
 
+    protected static function booted()
+    {
+        self::deleting(function(Gig $gig) {
+            $gig->setlists()->waiting()->get()->each->delete();
+        });
+    }
+
 	public function creator()
 	{
 		return $this->belongsTo(User::class, 'creator_id');
@@ -40,6 +47,11 @@ class Gig extends BaseModel
 	public function isFull()
 	{
 		return $this->setlists->count() == $this->songs_limit;
+	}
+
+	public function canTakeRequestsFromUser()
+	{
+		return $this->setlists()->where('user_id', auth()->user()->id)->count() == $this->songs_limit_per_user;
 	}
 
 	public function getFullNameAttribute()

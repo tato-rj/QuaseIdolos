@@ -4,7 +4,7 @@
     'headline' => 'Show',
     'message' => $message,
     'dismissible' => true,
-    'countdown' => 2,
+    'countdown' => 4,
     'pos' => 'top',
     'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown']])
 @endif
@@ -15,7 +15,7 @@
     'headline' => 'Desculpe',
     'message' => $message,
     'dismissible' => true,
-    'countdown' => 2,
+    'countdown' => 4,
     'pos' => 'top',
     'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown']])
 @endif

@@ -18,11 +18,16 @@ class SetlistController extends Controller
 
     public function store(Request $request, Song $song)
     {
-        if (! gig() || gig()->is_paused)
+        $gig = gig();
+
+        if (! $gig || $gig->is_paused)
             return back()->with('error', 'Não estamos recebendo pedidos agora');
 
         if ($gig->isFull())
-            return back()->with('error', 'O limite de músicas pra esse evento foi alcançado');
+            return back()->with('error', 'O limite do setlist de '.$gig->songs_limit.' músicas foi alcançado');
+
+        if ($gig->canTakeRequestsFromUser())
+            return back()->with('error', 'O seu limite de '.$gig->songs_limit_per_user.' músicas foi alcançado');
 
         $setlist = (new Setlist)->add(auth()->user(), $song, Gig::live()->first());
 
