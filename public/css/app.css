@@ -15481,7 +15481,7 @@ textarea.form-control-lg {
   padding: 0.5rem !important;
 }
 
-.p-3 {
+.p-3, .ui-datepicker {
   padding: 1rem !important;
 }
 
@@ -16001,7 +16001,7 @@ textarea.form-control-lg {
   pointer-events: auto !important;
 }
 
-.rounded, input[type=file]::file-selector-button, form .form-control, form .form-select, .dropzone-container, .dropzone {
+.rounded, .ui-datepicker, input[type=file]::file-selector-button, form .form-control, form .form-select, .dropzone-container, .dropzone {
   border-radius: var(--bs-border-radius) !important;
 }
 
@@ -16033,7 +16033,7 @@ textarea.form-control-lg {
   border-radius: 50% !important;
 }
 
-.rounded-pill, .btn {
+.rounded-pill, .ui-datepicker-header, .btn {
   border-radius: var(--bs-border-radius-pill) !important;
 }
 
@@ -19498,7 +19498,7 @@ a, i, strong, u {
   font-family: inherit;
 }
 
-.rounded, input[type=file]::file-selector-button, form .form-control, form .form-select, .dropzone-container, .dropzone {
+.rounded, .ui-datepicker, input[type=file]::file-selector-button, form .form-control, form .form-select, .dropzone-container, .dropzone {
   border-radius: 2rem !important;
 }
 
@@ -25744,6 +25744,10 @@ form.form-borderless.form-light input.form-control:not([readonly]), form.form-bo
     animation-name: none !important;
   }
 }
+.text-primary-dark {
+  color: #912036;
+}
+
 .link-none {
   color: inherit;
 }
@@ -25801,22 +25805,18 @@ form.form-borderless.form-light input.form-control:not([readonly]), form.form-bo
   border: 8px solid white;
 }
 
-.song-result:hover {
-  background: rgba(0, 0, 0, 0.1) !important;
-}
-
 .bg-white-transparent {
   background: rgba(255, 255, 255, 0.8);
 }
 
-.switch {
+.switch, .pause-switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
 }
 
-.switch input {
+.switch input, .pause-switch input {
   opacity: 0;
   width: 0;
   height: 0;

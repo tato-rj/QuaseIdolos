@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ArtistSeeder::class,
             SongSeeder::class,
             FavoriteSeeder::class,
+            GigSeeder::class,
             SetlistSeeder::class,
         ]);
     }

@@ -11,6 +11,11 @@ class Admin extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    public function scopeSuperAdmin($query)
+    {
+        return $query->where('super_admin', true);
+    }
+
     public function grant(User $user, $super_admin = false)
     {
         return Admin::updateOrCreate([

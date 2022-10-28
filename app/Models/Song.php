@@ -6,6 +6,13 @@ class Song extends BaseModel
 {
 	protected $withCount = ['favorites', 'setlists'];
 
+    protected static function booted()
+    {
+        self::creating(function(Song $song) {
+            $song->chords_url = $song->generateChordsUrl();
+        });
+    }
+
 	public function artist()
 	{
 		return $this->belongsTo(Artist::class);
@@ -19,6 +26,11 @@ class Song extends BaseModel
 	public function favorites()
 	{
 		return $this->belongsToMany(User::class, 'favorites');
+	}
+
+	public function generateChordsUrl()
+	{
+		return 'https://www.cifraclub.com.br/' . $this->artist->slug . '/' . str_slug($this->name);
 	}
 
     public function getCompletedCountAttribute()

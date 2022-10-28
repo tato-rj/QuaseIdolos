@@ -14,8 +14,7 @@ class SongSeeder extends Seeder
      */
     public function run()
     {
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Pais e Filhos',
                 'tags' => 'rock pop 80s',
@@ -70,11 +69,9 @@ Você culpa seus pais por tudo, isso é um absurdo
 São crianças como você
 O que você vai ser
 Quando você crescer?'
-            ]
         ]);
 
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Meninos e Meninas',
                 'tags' => 'rock pop 80s',
@@ -116,11 +113,9 @@ São tudo pequenas coisas e tudo deve passar
 Acho que gosto de São Paulo e gosto de São João
 Gosto de São Francisco e São Sebastião
 E eu gosto de meninos e meninas'
-            ]
         ]);
 
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Geração Coca-Cola',
                 'tags' => 'rock pop 80s',
@@ -176,11 +171,9 @@ Geração Coca-cola
 Geração Coca-cola
 Geração Coca-cola
 Geração Coca-cola'
-            ]
         ]);
 
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Ainda é Cedo',
                 'tags' => 'rock pop 80s',
@@ -236,11 +229,9 @@ Cedo, cedo, cedo, cedo
 Ah, eu dizia ainda é cedo
 Cedo, cedo, cedo, cedo
 Ah, eu dizia ainda é cedo.'
-            ]
         ]);
 
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Babado Novo')->id,
                 'name' => 'Amor Perfeito',
                 'tags' => 'axe 2000s',
@@ -313,11 +304,9 @@ Então vem
 Que eu conto os dias, conto as horas pra te ver
 Eu não consigo te esquecer
 Cada minuto é muito tempo sem você, sem você'
-            ]
         ]);
 
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Babado Novo')->id,
                 'name' => 'Bola de Sabão',
                 'tags' => 'axe 2000s',
@@ -405,11 +394,9 @@ Feito bola de sabão
 Me desmancho por você...(4x)
 
 Hê! Hê! Hê! Hê! Hê!...'
-            ]
         ]);
 
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Caetano Veloso')->id,
                 'name' => 'Você é Linda',
                 'tags' => 'mpb lenta 90s',
@@ -487,17 +474,14 @@ E sabe viver
 Você me faz feliz
 Esta canção é só pra dizer
 E diz'
-            ]
         ]);
 
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Caetano Veloso')->id,
                 'name' => 'Sozinho',
                 'tags' => 'mpb pop 90s',
                 'duration' => '3',
                 'level' => 'Fácil',
-                'chords_url' => 'https://www.cifraclub.com.br/caetano-veloso/sozinho/',
                 'lyrics' => 'Às vezes, no silêncio da noite
 Eu fico imaginando nós dois
 Eu fico ali sonhando acordado
@@ -533,11 +517,9 @@ Só que é da boca pra fora
 Ou você me engana
 Ou não está madura
 Onde está você agora?'
-            ]
         ]);
 
-        Song::insert([
-            [
+        Song::create([
                 'artist_id' => Artist::byName('Adele')->id,
                 'name' => 'Rolling in the Deep',
                 'tags' => 'soul pop 2010',
@@ -629,7 +611,6 @@ But you played it
 You played it
 You played it
 You played it to the beat'
-            ]
         ]);
     }
 }

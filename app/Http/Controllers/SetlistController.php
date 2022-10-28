@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Song, Setlist};
+use App\Models\{Song, Setlist, Gig};
 use App\Events\{SongRequested, SongCancelled};
 
 class SetlistController extends Controller
@@ -18,11 +18,14 @@ class SetlistController extends Controller
 
     public function store(Request $request, Song $song)
     {
-        $setlist = (new Setlist)->add(auth()->user(), $song);
+        if (! gig() || gig()->is_paused)
+            return back()->with('error', 'Não estamos recebendo pedidos agora');
+
+        $setlist = (new Setlist)->add(auth()->user(), $song, Gig::live()->first());
 
         SongRequested::dispatch($setlist);
 
-        return redirect(route('setlist.user'))->with('success', 'O seu nome está na lista, vai se preparando!');
+        return back()->with('success', 'O seu nome está na lista, vai se preparando!');
     }
 
     public function alert()
@@ -61,9 +64,10 @@ class SetlistController extends Controller
 
     public function live()
     {
+        $gig = Gig::live()->first();
         $setlist = Setlist::waiting()->get();
 
-        return view('pages.setlist.live', compact('setlist'));
+        return view('pages.setlist.live', compact(['setlist', 'gig']));
     }
 
     public function finish(Setlist $setlist)

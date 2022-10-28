@@ -1,7 +1,7 @@
 @if($message = session('success'))
 @alert([
     'color' => 'green',
-    'headline' => 'Success',
+    'headline' => 'Show',
     'message' => $message,
     'dismissible' => true,
     'countdown' => 2,
@@ -12,7 +12,7 @@
 @if($message = session('error') ?? $errors->first())
 @alert([
     'color' => 'red',
-    'headline' => 'Sorry',
+    'headline' => 'Desculpe',
     'message' => $message,
     'dismissible' => true,
     'countdown' => 2,

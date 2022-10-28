@@ -10,9 +10,39 @@
         @include('layouts.components.seo')
 
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
         <style type="text/css">
-        
+        [data-datepicker][fullwidth] .ui-datepicker {
+            width: 100% !important;
+        }
+/*.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background: rgba(0,0,0,0.08);
+ }
+
+ .table tr, .table td {
+    border: 0;
+    padding: 1rem !important;
+ }
+
+ .table th {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    border: 0;
+ }*/
+
+.table-row:nth-of-type(even) {
+   background: rgba(0,0,0,0.08);
+ }
+
+.table-row:hover {
+    background: rgba(0,0,0,0.1) !important;
+}
+
+.table-row > div {
+    width: 95%;
+}
+ 
 h1, h2, h3, h4, h5, label, .nav-link, .btn, button {
     font-family: 'Fredoka One', cursive;
 }
@@ -78,6 +108,8 @@ h1, h2, h3, h4 {
         @include('layouts.components.alerts')
 
         <script src="{{ mix('js/app.js') }}"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+        <script src="{{mix('js/vendor/datepicker-pt-BR.js')}}"></script>
 
 <script type="text/javascript">
 //////////////////////
@@ -205,6 +237,59 @@ $('.load-more').click(function() {
     if($remaining.length == $slice.length)
         $(this).remove();
 });
+</script>
+
+<script type="text/javascript">
+       $(document).on('keypress', '[data-datepicker]', function(e){
+            e.preventDefault();
+        });
+
+        $(document).ready(function() {
+            enableTimepicker();
+            enableDatepicker();
+        });
+
+        function enableTimepicker(container = '')
+        {
+            $(container + ' [data-timepicker] button').on('click', function() {
+                let $button = $(this);
+                let $current = $button.siblings('.timepicker-times').children(':visible');
+                let name = $current.data('name');
+                let $input = $($current.data('input'));
+
+                if ($button.data('target') == 'next') {
+                    if ($current.next().length) {
+                        $current.next().show();
+                        $current.hide();
+                    }
+                } else {
+                    if ($current.prev().length) {
+                        $current.prev().show();
+                        $current.hide();
+                    }
+                }
+
+                let minute = $('.timepicker-times [data-name="'+name+'"][data-type="minute"]:visible').text();
+                let hour = $('.timepicker-times [data-name="'+name+'"][data-type="hour"]:visible').text();
+                let time = hour+':'+minute;
+
+                $input.val(time);
+            });
+        }
+
+        function enableDatepicker()
+        {
+            $('[data-datepicker]').each(function() {
+                let $element = $(this);
+                $element.datepicker({
+                    defaultDate: new Date($element.data('datepicker')),
+                    onSelect: function() {
+                        if ($(this).attr('data-input'))
+                            $($(this).data('input')).val(this.value);
+                    }
+                });
+            });
+        }
 </script>
         @stack('scripts')
     </body>

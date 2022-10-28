@@ -15,6 +15,7 @@ class CreateSetlistsTable extends Migration
     {
         Schema::create('setlists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('gig_id');
             $table->unsignedInteger('song_id');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('order')->nullable();

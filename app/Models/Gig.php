@@ -2,10 +2,67 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class Gig extends BaseModel
 {
+	protected $dates = ['starts_at', 'ends_at', 'date'];
+	protected $casts = [
+		'is_live' => 'boolean',
+	];
+
+	public function creator()
+	{
+		return $this->belongsTo(User::class, 'creator_id');
+	}
+
+	public function scopeByEventDate($query)
+	{
+		return $query->orderBy('date', 'desc');
+	}
+
+    public function setlists()
+    {
+    	return $this->hasMany(Setlist::class);
+    }
+
 	public function scopeLive($query)
 	{
-		return $query->where('user_id', 1);
+		return $query->where('is_live', true);
+	}
+
+	public function isToday()
+	{
+		return $this->date->isSameDay(now());
+	}
+
+	public function getIsOverAttribute()
+	{
+		return $this->ends_at;
+	}
+
+	public function getStatusAttribute()
+	{
+		if ($this->is_paused)
+			return fa('circle', 'yellow', 'mr-2').'Pausado';
+
+		if ($this->is_live)
+			return fa('circle', 'green', 'mr-2').'Live!';
+
+		if ($this->is_over)
+			return fa('circle', 'red', 'mr-2').'Terminou ' .$this->ends_at->diffForHumans();
+
+		if (! $this->date)
+			return fa('circle', 'red', 'mr-2').'Sem data';
+
+		if ($this->date->lte(now()))
+			return fa('circle', 'yellow', 'mr-2').'Esperando pra começar';
+
+		return fa('circle', 'yellow', 'mr-2').'Começa ' .$this->date->diffForHumans();
+	}
+
+	public function ready()
+	{
+		return $this->date && ($this->date->isSameDay(now()) || $this->date->addDay()->addHours(4)->lt(now()));
 	}
 }

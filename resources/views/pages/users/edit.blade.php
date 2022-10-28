@@ -18,9 +18,12 @@
 			<div class="d-flex flex-column">
 				<button data-bs-toggle="modal" data-bs-target="#edit-profile-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])Editar Perfil</button>
 				<button data-bs-toggle="modal" data-bs-target="#edit-password-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'lock'])Mudar Senha</button>
-				<button data-bs-toggle="modal" data-bs-target="#delete-user-modal" class="btn btn-outline-secondary mb-4 text-truncate">@fa(['icon' => 'trash-alt'])Deletar conta</button>
-				
-				<div class="d-center">
+				<button data-bs-toggle="modal" data-bs-target="#delete-user-modal" class="btn btn-outline-secondary mb-2 text-truncate">@fa(['icon' => 'trash-alt'])Deletar conta</button>
+				@admin
+				<small class="opacity-6">Último login {{$user->updated_at->diffForHumans()}}</small>
+				@endadmin
+
+				<div class="d-center mt-4">
 					@fa(['icon' => 'facebook', 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => 'mx-2 opacity-2'])
 					@fa(['icon' => 'instagram', 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => 'mx-2 opacity-2'])
 					@fa(['icon' => 'google', 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => 'mx-2 opacity-2'])
@@ -39,7 +42,7 @@
 				@foreach($favorites as $song)
 					@include('pages.users.rows.favorite')
 					@if($loop->iteration == 4 && $loop->remaining)
-					@include('components.rows.more')
+					@include('components.tables.rows.more')
 					@endif
 				@endforeach
 			</div>
@@ -48,7 +51,7 @@
 				@foreach($pastList as $list)
 					@include('pages.users.rows.setlist')
 					@if($loop->iteration == 4 && $loop->remaining)
-					@include('components.rows.more')
+					@include('components.tables.rows.more')
 					@endif
 				@endforeach
 			</div>

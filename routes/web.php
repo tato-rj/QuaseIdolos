@@ -103,3 +103,21 @@ Route::middleware('super-admin')->prefix('team')->name('team.')->group(function(
 
     Route::patch('{user}', 'TeamController@update')->name('update');
 });
+
+Route::middleware('super-admin')->prefix('gig')->name('gig.')->group(function() {
+    Route::get('', 'GigsController@index')->name('index');
+
+    Route::get('search', 'GigsController@search')->name('search');
+
+    Route::get('{gig}', 'GigsController@show')->name('show');
+
+    Route::post('', 'GigsController@store')->name('store');
+
+    Route::patch('{gig}', 'GigsController@update')->name('update');
+
+    Route::post('{gig}/status', 'GigsController@status')->name('status');
+
+    Route::post('{gig}/pause', 'GigsController@pause')->name('pause');
+
+    Route::delete('{gig}', 'GigsController@destroy')->name('destroy');
+});

@@ -1,5 +1,10 @@
 <?php
 
+function gig()
+{
+	return \App\Models\Gig::live()->first();
+}
+
 function aws()
 {
 	return (new App\Storage\Providers\AWS);
@@ -18,4 +23,9 @@ function faker()
 function hasPagination($collection)
 {
 	return $collection instanceof \Illuminate\Pagination\LengthAwarePaginator;
+}
+
+function carbon($str = null)
+{
+	return \Carbon\Carbon::parse($str);
 }

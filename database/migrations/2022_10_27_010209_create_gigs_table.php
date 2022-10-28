@@ -15,12 +15,16 @@ class CreateGigsTable extends Migration
     {
         Schema::create('gigs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->string('descritption')->nullable();
-            $table->unsignedSmallInteger('total_limit')->nullable();
-            $table->unsignedSmallInteger('user_limit')->nullable();
-            $table->timestamp('started_at')->nullable();
-            $table->timestamp('ended_at')->nullable();
+            $table->unsignedInteger('creator_id');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->unsignedSmallInteger('songs_limit')->nullable();
+            $table->unsignedSmallInteger('songs_limit_per_user')->nullable();
+            $table->boolean('is_live')->default(false);
+            $table->date('date')->nullable();
+            $table->boolean('is_paused')->default(false);
+            $table->timestamp('starts_at')->nullable();
+            $table->timestamp('ends_at')->nullable();
             $table->timestamps();
         });
     }

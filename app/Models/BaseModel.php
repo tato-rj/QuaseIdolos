@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class BaseModel extends Model
 {
     use HasFactory;
+
+    public function scopeLast($query)
+    {
+        return $query->latest()->first();
+    }
 }

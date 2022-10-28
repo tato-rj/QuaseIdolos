@@ -15,9 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('live', function () {
-            return \App\Models\Gig::live()->exists();
-        });
+        //
     }
 
     /**
@@ -54,8 +52,13 @@ class AppServiceProvider extends ServiceProvider
         \Blade::aliasComponent('components.core.modal');
         \Blade::include('components.core.delete');
 
-        \Blade::directive('plural', function ($word, $count) {
-            return "<?php echo trans_choice('plurais.$word', $count); ?>";
+        \Blade::include('components.core.forms.datepicker');
+        \Blade::include('components.core.forms.timepicker');
+        
+        \Blade::aliasComponent('components.tables.table');
+
+        \Blade::if('admin', function () {
+            return auth()->check() && auth()->user()->isAdmin();
         });
     }
 }

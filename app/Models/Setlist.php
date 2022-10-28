@@ -4,9 +4,12 @@ namespace App\Models;
 
 class Setlist extends BaseModel
 {
-    protected $casts = [
-        'finished_at' => 'date'
-    ];
+    protected $dates = ['finished_at'];
+
+    public function gig()
+    {
+        return $this->belongsTo(Gig::class);
+    }
 
     public function song()
     {
@@ -41,11 +44,12 @@ class Setlist extends BaseModel
         ]);
     }
 
-    public function add(User $user, Song $song)
+    public function add(User $user, Song $song, Gig $gig)
     {
         return $this->create([
             'user_id' => $user->id, 
             'song_id' => $song->id,
+            'gig_id' => $gig->id,
             'order' => $this->waiting()->count()]);
     }
 

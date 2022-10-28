@@ -10,6 +10,6 @@
 	</div>
 
 	@if($setlist->isEmpty())
-	@include('components.empty', ['message' => 'Este setlist está vazio...'])
+	@include('components.empty')
 	@endif
 </div>

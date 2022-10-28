@@ -4,6 +4,10 @@
 //// CUSTOM CSS BELOW
 //////////////////////////////////////
 
+.text-primary-dark {
+	color: darken($primary-color, 8%);
+}
+
 .btn {
 	@extend .rounded-pill;
 }
@@ -72,22 +76,18 @@ input[type=file]::file-selector-button {
   @extend .rounded;
 }
 
-.song-result:hover {
-	background: rgba(0,0,0,0.1) !important;
-}
-
 .bg-white-transparent {
 	background: rgba(255, 255, 255, 0.8);
 }
 
-.switch {
+.switch, .pause-switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
 }
 
-.switch input { 
+.switch input, .pause-switch input { 
   opacity: 0;
   width: 0;
   height: 0;
@@ -170,4 +170,12 @@ input:checked + .slider:before {
 	.event-box {
 		background: rgba(255, 255, 255, 0.8);
 	}
+}
+
+.ui-datepicker {
+	@extend .rounded, .p-3;
+}
+
+.ui-datepicker-header {
+	@extend .rounded-pill;
 }

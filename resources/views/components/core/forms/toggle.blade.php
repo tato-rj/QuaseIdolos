@@ -3,7 +3,7 @@
     {{$label ?? null}}
   </div>
   <label class="switch">
-    <input name="{{$name}}" type="checkbox" {{$on ? 'checked' : null}}>
+    <input name="{{$name}}" data-url="{{$url ?? null}}" type="checkbox" {{$on ? 'checked' : null}}>
     <span class="slider round"></span>
   </label>
 </div>
