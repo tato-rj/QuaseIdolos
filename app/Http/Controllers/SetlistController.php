@@ -45,8 +45,15 @@ class SetlistController extends Controller
         return view('pages.setlist.alerts.admin')->render();
     }
 
-    public function table()
+    public function table(Request $request)
     {
+        if ($request->has('newOrder')) {
+            foreach($request->newOrder as $data) {
+                $set = json_decode($data);
+                Setlist::find($set->id)->update(['order' => $set->order]);
+            }
+        }
+
         $setlist = Setlist::waiting()->get();
 
         return view('pages.setlist.components.table', compact('setlist'))->render();

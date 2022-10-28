@@ -1,10 +1,15 @@
-<div class="row">
+<div>
 	@if($setlist->count())
 		<h5 class="mb-3 text-center">{{$setlist->count()}} @choice('música|músicas', $setlist->count()) na lista</h5>
 	@endif
-	@forelse($setlist as $entry)
-	@include('pages.setlist.components.request')
-	@empty
+
+	<div id="setlist"> 
+		@foreach($setlist as $entry)
+		@include('pages.setlist.components.request')
+		@endforeach
+	</div>
+
+	@if($setlist->isEmpty())
 	@include('components.empty', ['message' => 'Este setlist está vazio...'])
-	@endforelse
+	@endif
 </div>

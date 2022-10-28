@@ -28,11 +28,7 @@ class Song extends BaseModel
 
     public function setlistPosition()
     {
-    	$time = Setlist::waitingFor($this)->first()->created_at;
-
-    	$count = Setlist::waiting()->where('created_at', '<', $time)->count();
-
-    	return $count;
+    	return Setlist::waitingFor($this)->first()->order;
     }
 
 	public function tags()

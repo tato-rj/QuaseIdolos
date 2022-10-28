@@ -2,8 +2,8 @@
 
 @push('header')
 <style type="text/css">
-.drag__target {
-	border: 4px dashed;
+.dragged {
+	opacity: 0.2;
 }
 </style>
 @endpush
@@ -22,37 +22,7 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 <script type="text/javascript">
-	
-</script>
-<script type="text/javascript">
-// var $draggedElement = $();
-// var $target = $();
-
-// $('[draggable]').on('dragstart', function(e) {
-// 	$draggedElement = $(e.currentTarget);
-// 	log('Start');
-// });
-
-// $('[draggable]').on('dragend', function(e) {
-// 	log('End');
-// });
-
-// $('[draggable]').on('dragenter', function(e) {
-// 	if ($(e.currentTarget).is($draggedElement) || $target.length)
-// 		return;
-
-// 	$target = $(e.currentTarget);
-// 	log('Enter');
-// });
-
-// $('[draggable]').on('dragleave', function(e) {
-// 	if ($(e.currentTarget).is($draggedElement) || $(e.relatedTarget).parents('[draggable]').length)
-// 		return;
-
-// 	$target = $();
-// 	log('Leave');
-// });
+enableDraggable();
 </script>
 @endpush

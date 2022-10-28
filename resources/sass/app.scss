@@ -4,20 +4,6 @@
 //// CUSTOM CSS BELOW
 //////////////////////////////////////
 
-[draggable] {
-    cursor: pointer; /* fallback if grab cursor is unsupported */
-    cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
-}
-
- /* (Optional) Apply a "closed-hand" cursor during drag operation. */
-[draggable]:active {
-    cursor: grabbing;
-    cursor: -moz-grabbing;
-    cursor: -webkit-grabbing;
-}
-
 .btn {
 	@extend .rounded-pill;
 }
@@ -152,4 +138,36 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.draggable {
+	@extend .mx-auto;
+    cursor: pointer; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+ /* (Optional) Apply a "closed-hand" cursor during drag operation. */
+.draggable:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.draggable:first-of-type {
+	width: 90%;
+	max-width: 900px;
+	.event-box {
+		background: rgba(255, 255, 255);
+		border: 8px solid;
+	}
+}
+
+.draggable:not(:first-of-type) {
+	width: 75%;
+	max-width: 700px;
+	.event-box {
+		background: rgba(255, 255, 255, 0.8);
+	}
 }

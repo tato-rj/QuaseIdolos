@@ -21,5 +21,13 @@ class SetlistSeeder extends Seeder
                 'finished_at' => now()->copy()->subDays(rand(0, 180))
             ]);
         }
+
+        for ($i=0; $i<5; $i++) { 
+            Setlist::create([
+                'user_id' => User::inRandomOrder()->first()->id,
+                'song_id' => Song::inRandomOrder()->first()->id,
+                'order' => Setlist::waiting()->count()
+            ]);
+        }
     }
 }

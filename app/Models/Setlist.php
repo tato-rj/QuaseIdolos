@@ -25,7 +25,7 @@ class Setlist extends BaseModel
 
     public function scopeWaiting($query)
     {
-        return $query->whereNull('finished_at');
+        return $query->whereNull('finished_at')->orderBy('order');
     }
 
     public function scopeCompleted($query)
@@ -35,12 +35,18 @@ class Setlist extends BaseModel
 
     public function scopeWaitingFor($query, Song $song)
     {
-        return $query->waiting()->where('song_id', $song->id);
+        return $query->waiting()->where([
+            ['song_id', $song->id],
+            ['user_id', auth()->user()->id]
+        ]);
     }
 
     public function add(User $user, Song $song)
     {
-        return $this->create(['user_id' => $user->id, 'song_id' => $song->id]);
+        return $this->create([
+            'user_id' => $user->id, 
+            'song_id' => $song->id,
+            'order' => $this->waiting()->count()]);
     }
 
     public function finish()

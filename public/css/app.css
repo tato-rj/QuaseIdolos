@@ -15317,7 +15317,7 @@ textarea.form-control-lg {
   margin-left: 3rem !important;
 }
 
-.mx-auto {
+.mx-auto, .draggable {
   margin-right: auto !important;
   margin-left: auto !important;
 }
@@ -25744,18 +25744,6 @@ form.form-borderless.form-light input.form-control:not([readonly]), form.form-bo
     animation-name: none !important;
   }
 }
-[draggable] {
-  cursor: pointer; /* fallback if grab cursor is unsupported */
-  cursor: grab;
-  cursor: -webkit-grab;
-}
-
-/* (Optional) Apply a "closed-hand" cursor during drag operation. */
-[draggable]:active {
-  cursor: grabbing;
-  cursor: -webkit-grabbing;
-}
-
 .link-none {
   color: inherit;
 }
@@ -25875,4 +25863,33 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.draggable {
+  cursor: pointer; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+/* (Optional) Apply a "closed-hand" cursor during drag operation. */
+.draggable:active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.draggable:first-of-type {
+  width: 90%;
+  max-width: 900px;
+}
+.draggable:first-of-type .event-box {
+  background: rgb(255, 255, 255);
+  border: 8px solid;
+}
+
+.draggable:not(:first-of-type) {
+  width: 75%;
+  max-width: 700px;
+}
+.draggable:not(:first-of-type) .event-box {
+  background: rgba(255, 255, 255, 0.8);
 }

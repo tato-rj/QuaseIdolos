@@ -80,6 +80,12 @@ h1, h2, h3, h4 {
         <script src="{{ mix('js/app.js') }}"></script>
 
 <script type="text/javascript">
+//////////////////////
+// GLOBAL VARIABLES //
+//////////////////////
+
+var sortable, sorting;
+
 if (app.user) {
     if (app.user.is_admin) {
         listenToEvents();
@@ -109,6 +115,15 @@ function listenToEvents()
           });
 }
 
+function stopListening()
+{
+    Echo.channel('setlist')
+        .stopListening('SongRequested');
+
+    Echo.channel('setlist')
+        .stopListening('SongCancelled');
+}
+
 function getUserAlert()
 {
     axios.get('{!! route('setlist.alert') !!}')
@@ -120,11 +135,17 @@ function getUserAlert()
          });
 }
 
-function getEventTable()
+function getEventTable(newOrder = null)
 {
-    axios.get('{!! route('setlist.table') !!}')
+    axios.get('{!! route('setlist.table') !!}', {params: {newOrder: newOrder}})
         .then(function(response) {
+
             $('#setlist-container').html(response.data);
+
+            if (newOrder) {
+                listenToEvents();
+                enableDraggable();
+            }
         })
         .catch(function(error) {
             log(error);
@@ -141,6 +162,36 @@ function getAdminAlert()
             log(error);
         });
 }
+
+function enableDraggable() {
+    sorting = false;
+
+    sortable = new Sortable(setlist, {
+        animation: 150,
+        forceFallback: true,
+        scrollSensitivity: 120,
+        ghostClass: 'dragged',
+
+        onUpdate: function (e) {
+            sorting = true;
+            stopListening();
+        },
+
+        onEnd: function (e) {
+            if (sorting)
+                sortable.option("disabled", true);
+
+            let newOrder = [];
+
+            $(e.to).children().each(function(index) {
+                newOrder.push({id: $(this).data('id'), order: index});
+            });
+
+            getEventTable(newOrder);
+        },
+    });    
+}
+
 </script>
 
 <script type="text/javascript">

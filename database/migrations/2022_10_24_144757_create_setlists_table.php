@@ -17,6 +17,7 @@ class CreateSetlistsTable extends Migration
             $table->id();
             $table->unsignedInteger('song_id');
             $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('order')->nullable();
             $table->timestamp('finished_at')->nullable();
             $table->timestamps();
         });
