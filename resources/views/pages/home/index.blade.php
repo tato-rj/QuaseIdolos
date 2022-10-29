@@ -29,7 +29,7 @@
 			<h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2>
 		</div>
 		@if(auth()->check() && auth()->user()->isAdmin())
-			<a href="{{route('setlists.show')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])SETLIST DE HOJE</a>
+			<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])SETLIST DE HOJE</a>
 		@else
 		<div class="d-center flex-column">
 			<a href="{{route('cardapio')}}" class="btn btn-secondary btn-lg mb-3">NOSSO CARDÁPIO</a>

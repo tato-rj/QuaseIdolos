@@ -1,4 +1,4 @@
-<a href="{{route('song-requests.live')}}" class="link-raw">
+<a href="{{route('setlists.admin')}}" class="link-raw">
 	<div class="position-fixed bottom-0 x-auto pb-4 z-100" style="width: 90%;
     max-width: 400px;">
 		<div class="bg-white border border-secondary border-4x rounded px-3 py-2" style="border-width: 8px !important;">

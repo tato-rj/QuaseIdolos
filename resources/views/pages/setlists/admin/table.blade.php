@@ -5,7 +5,7 @@
 
 	<div id="setlist"> 
 		@foreach($setlist as $entry)
-		@include('pages.song-requests.components.request')
+		@include('pages.setlists.admin.song-request')
 		@endforeach
 	</div>
 

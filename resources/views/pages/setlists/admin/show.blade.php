@@ -21,7 +21,7 @@
 </section>
 
 <section class="container" id="setlist-container">
-	@include('pages.song-requests.components.table')
+	@include('pages.setlists.admin.table')
 </section>
 
 @endsection

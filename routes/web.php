@@ -68,11 +68,7 @@ Route::middleware('admin')->prefix('musicas')->name('songs.')->group(function() 
     Route::delete('{song}', 'SongsController@destroy')->name('destroy');
 });
 
-Route::middleware('admin')->prefix('setlist')->name('setlists.')->group(function() {
-    
-    Route::get('', 'SetlistsController@show')->name('show');
 
-});
 
 Route::middleware('admin')->prefix('pedido-de-musica')->name('song-requests.')->group(function() {
 
@@ -80,18 +76,24 @@ Route::middleware('admin')->prefix('pedido-de-musica')->name('song-requests.')->
 
 });
 
-Route::middleware('auth')->prefix('pedido-de-musica')->name('song-requests.')->group(function() {
-    Route::get('minha', 'SongRequestsController@user')->name('user');
+Route::middleware('admin')->prefix('setlist')->name('setlists.')->group(function() {
+    Route::get('live', 'SetlistsController@admin')->name('admin');
 
-    Route::get('alert/user', 'SongRequestsController@alert')->name('alert');
+    Route::get('table', 'SetlistsController@table')->name('table');
+});
+
+Route::middleware('auth')->prefix('setlist')->name('setlists.')->group(function() {
+    Route::get('', 'SetlistsController@user')->name('user');
+
+    Route::get('alert/user', 'SongRequestsController@alert')->name('alert.user');
 
     Route::get('alert/admin', 'SongRequestsController@alertAdmin')->name('alert.admin');
+});
 
-    Route::get('table', 'SongRequestsController@table')->name('table');
-
+Route::middleware('auth')->prefix('pedido-de-musica')->name('song-requests.')->group(function() {
     Route::post('{song}', 'SongRequestsController@store')->name('store');
     
-    Route::delete('{songRequest}/cancel', 'SongRequestsController@cancel')->name('cancel');
+    Route::delete('{songRequest}/cancelar', 'SongRequestsController@cancel')->name('cancel');
 });
 
 Route::middleware('auth')->prefix('favoritos')->name('favorites.')->group(function() {

@@ -131,7 +131,7 @@ function listenToEvents()
     window.Echo
           .channel('setlist')
           .listen('SongRequested', function(event) {
-            if (app.route == 'song-requests.live') {
+            if (app.route == 'setlists.admin') {
                 getEventTable();
             } else {
                 getAdminAlert();
@@ -141,7 +141,7 @@ function listenToEvents()
     window.Echo
           .channel('setlist')
           .listen('SongCancelled', function(event) {
-            if (app.route == 'song-requests.live') {
+            if (app.route == 'setlists.admin') {
                 getEventTable();
             }
           });
@@ -158,7 +158,7 @@ function stopListening()
 
 function getUserAlert()
 {
-    axios.get('{!! route('song-requests.alert') !!}')
+    axios.get('{!! route('setlists.alert.user') !!}')
          .then(function(response) {
             $('body').append(response.data);
          })
@@ -169,7 +169,7 @@ function getUserAlert()
 
 function getEventTable(newOrder = null)
 {
-    axios.get('{!! route('song-requests.table') !!}', {params: {newOrder: newOrder}})
+    axios.get('{!! route('setlists.table') !!}', {params: {newOrder: newOrder}})
         .then(function(response) {
 
             $('#setlist-container').html(response.data);
@@ -186,7 +186,7 @@ function getEventTable(newOrder = null)
 
 function getAdminAlert()
 {
-    axios.get('{!! route('song-requests.alert.admin') !!}')
+    axios.get('{!! route('setlists.alert.admin') !!}')
         .then(function(response) {
             $('body').append(response.data);
         })

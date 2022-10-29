@@ -8,14 +8,6 @@ use App\Events\{SongRequested, SongCancelled};
 
 class SongRequestsController extends Controller
 {
-    public function user()
-    {
-        $pastList = auth()->user()->requestsSung();
-        $waitingList = auth()->user()->requestsWaiting();
-
-        return view('pages.song-requests.user.index', compact(['pastList', 'waitingList']));    
-    }
-
     public function store(Request $request, Song $song)
     {
         $gig = gig();
@@ -54,20 +46,6 @@ class SongRequestsController extends Controller
     public function alertAdmin(Request $request)
     {
         return view('pages.song-requests.alerts.admin')->render();
-    }
-
-    public function table(Request $request)
-    {
-        if ($request->has('newOrder')) {
-            foreach($request->newOrder as $data) {
-                $set = json_decode($data);
-                SongRequest::find($set->id)->update(['order' => $set->order]);
-            }
-        }
-
-        $setlist = SongRequest::waiting()->get();
-
-        return view('pages.song-requests.components.table', compact('setlist'))->render();
     }
 
     public function finish(SongRequest $songRequest)

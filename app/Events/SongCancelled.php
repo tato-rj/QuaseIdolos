@@ -36,6 +36,6 @@ class SongCancelled implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('songRequest');
+        return new Channel('setlist');
     }
 }

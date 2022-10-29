@@ -27,8 +27,8 @@
 
 				<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$entry->id}}-modal" class="btn btn-outline-red no-stroke">CANCELAR</button>
 
-				@include('pages.song-requests.components.finish')
-				@include('pages.song-requests.components.cancel')
+				@include('pages.song-requests.modals.finish')
+				@include('pages.song-requests.modals.cancel')
 			</div>
 		</div>
 	</div>

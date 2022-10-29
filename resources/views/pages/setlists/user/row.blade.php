@@ -12,7 +12,7 @@
 
 @slot('action')
 <div class="d-flex flex-column"> 
-	@include('pages.song-requests.user.status')
+	@include('pages.setlists.user.status')
 	<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">MAIS DETALHES</button>
 </div>
 
