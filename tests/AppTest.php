@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use App\Models\{Admin, User};
+use App\Models\{Admin, User, Song};
 
 class AppTest extends TestCase
 {    
@@ -10,14 +10,13 @@ class AppTest extends TestCase
 	{
 		parent::setUp();
 
-        // $this->superAdmin = Admin::factory(['super_admin' => true])->create();
-
-        User::factory()->count(20)->create();
+        $this->superAdmin = Admin::factory()->create();
+        $this->song = Song::factory()->create();
 	}
 
     protected function signIn($user = null)
     {
-        $user = $user ?? $this->admin;
+        $user = $user ?? User::factory()->create();
         return $this->actingAs($user);
     }
 

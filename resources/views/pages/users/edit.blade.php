@@ -49,7 +49,7 @@
 			<div>
 				<h5 class="mb-3">Total de {{$pastList->count()}} @choice('música|músicas', $pastList->count()) @choice('cantada|cantadas', $pastList->count())</h5>
 				@foreach($pastList as $list)
-					@include('pages.users.rows.setlist')
+					@include('pages.users.rows.songrequest')
 					@if($loop->iteration == 4 && $loop->remaining)
 					@include('components.tables.rows.more')
 					@endif

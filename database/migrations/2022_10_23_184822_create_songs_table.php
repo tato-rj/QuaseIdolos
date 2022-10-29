@@ -18,9 +18,9 @@ class CreateSongsTable extends Migration
             $table->unsignedInteger('artist_id');
             $table->string('name');
             $table->string('tags')->nullable();
-            $table->text('lyrics');
-            $table->unsignedTinyInteger('duration');
-            $table->string('level');
+            $table->text('lyrics')->nullable();
+            $table->unsignedTinyInteger('duration')->nullable();
+            $table->string('level')->nullable();
             $table->text('chords_url')->nullable();
             $table->timestamps();
 

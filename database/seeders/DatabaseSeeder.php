@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             SongSeeder::class,
             FavoriteSeeder::class,
             GigSeeder::class,
-            SetlistSeeder::class,
+            SongRequestSeeder::class,
         ]);
     }
 }

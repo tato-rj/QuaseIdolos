@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\{Admin, User};
+use App\Models\{Song, Artist};
 
-class AdminFactory extends Factory
+class SongFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,10 +15,10 @@ class AdminFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function() {
-                return User::factory()->create()->id;
+            'artist_id' => function() {
+                return Artist::factory()->create()->id;
             },
-            'super_admin' => false
+            'name' => $this->faker->word,
         ];
     }
 }

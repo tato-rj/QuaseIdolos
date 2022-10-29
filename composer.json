@@ -20,6 +20,7 @@
         "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
+        "doctrine/dbal": "^3.5",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",

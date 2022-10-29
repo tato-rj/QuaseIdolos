@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Setlist;
+use App\Models\SongRequest;
 
 class SongRequested implements ShouldBroadcast
 {
@@ -21,9 +21,9 @@ class SongRequested implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(Setlist $setlist)
+    public function __construct(SongRequest $songRequest)
     {
-        $this->song = $setlist->song;
+        $this->song = $songRequest->song;
         $this->user = auth()->user();
 
         $this->dontBroadcastToCurrentUser();
@@ -36,6 +36,6 @@ class SongRequested implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('setlist');
+        return new Channel('songRequest');
     }
 }

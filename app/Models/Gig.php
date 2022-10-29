@@ -15,7 +15,7 @@ class Gig extends BaseModel
     protected static function booted()
     {
         self::deleting(function(Gig $gig) {
-            $gig->setlists()->waiting()->get()->each->delete();
+            $gig->setlist()->waiting()->get()->each->delete();
         });
     }
 
@@ -24,15 +24,15 @@ class Gig extends BaseModel
 		return $this->belongsTo(User::class, 'creator_id');
 	}
 
+    public function setlist()
+    {
+    	return $this->hasMany(SongRequest::class, 'gig_id');
+    }
+    
 	public function scopeByEventDate($query)
 	{
 		return $query->orderBy('date', 'desc');
 	}
-
-    public function setlists()
-    {
-    	return $this->hasMany(Setlist::class);
-    }
 
 	public function scopeLive($query)
 	{
@@ -46,12 +46,12 @@ class Gig extends BaseModel
 
 	public function isFull()
 	{
-		return $this->setlists->count() == $this->songs_limit;
+		return $this->setlist->count() == $this->songs_limit;
 	}
 
 	public function canTakeRequestsFromUser()
 	{
-		return $this->setlists()->where('user_id', auth()->user()->id)->count() == $this->songs_limit_per_user;
+		return $this->setlist()->where('user_id', auth()->user()->id)->count() == $this->songs_limit_per_user;
 	}
 
 	public function getFullNameAttribute()

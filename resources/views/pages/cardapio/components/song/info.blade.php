@@ -15,7 +15,7 @@
 			</div>
 			<div class="d-apart mb-2">
 				<h5 class="text-secondary no-stroke">@fa(['icon' => 'microphone-alt'])Cantada</h5>
-				<h5 class="text-white">{{$song->setlists_count}} @choice('vez|vezes', $song->setlists_count)</h5>
+				<h5 class="text-white">{{$song->songRequests_count}} @choice('vez|vezes', $song->songRequests_count)</h5>
 			</div>
 			<div class="d-apart mb-2">
 				<h5 class="text-secondary no-stroke">@fa(['icon' => 'guitar'])Dificuldade</h5>

@@ -8,7 +8,7 @@
 
 @section('content')
 <section class="container-fluid mb-6 p-0">
-	<h2 class="mb-5 text-center">MINHAS MÚSICAS <span class="text-secondary">FAVORITAS</span></h2>
+	<h2 class="mb-5 text-center">MÚSICAS <span class="text-secondary">FAVORITAS</span></h2>
 
 	<div>
 		@forelse(auth()->user()->favorites as $song)

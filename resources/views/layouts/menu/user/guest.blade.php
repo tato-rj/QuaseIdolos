@@ -9,7 +9,7 @@
   <div class="px-4">
     <div>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('profile.show')}}">Meu Perfil</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlist.user')}}">Minha Setlist</a>
+     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('song-requests.user')}}">Meu Setlist</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('favorites.index')}}">Músicas Favoritas</a>
        <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

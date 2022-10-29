@@ -36,7 +36,7 @@
 					<h5 class="text-secondary">Dia do evento</h5>
 				</div>
 				<div class="col-6 mb-4 text-center">
-					<h3>@fa(['icon' => 'microphone-alt', 'classes' => 'opacity-4 no-stroke']){{$gig->setlists()->completed()->count()}}</h3>
+					<h3>@fa(['icon' => 'microphone-alt', 'classes' => 'opacity-4 no-stroke']){{$gig->setlist()->completed()->count()}}</h3>
 					<h5 class="text-secondary">Músicas cantadas</h5>
 				</div>
 				<div class="col-6 mb-4 text-center">

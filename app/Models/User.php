@@ -39,9 +39,9 @@ class User extends Authenticatable
                     ->orderBy('favorites.created_at', 'DESC');
     }
 
-    public function setlists()
+    public function songRequests()
     {
-        return $this->hasMany(Setlist::class)->with(['song', 'user']);
+        return $this->hasMany(SongRequest::class)->with(['song', 'user']);
     }
 
     public function admin()
@@ -86,22 +86,22 @@ class User extends Authenticatable
 
     public function favorited(Song $song)
     {
-        return $this->favorites()->where(['song_id' => $song->id]);
+        return $this->favorites()->where(['song_id' => $song->id])->exists();
     }
 
-    public function completed(Song $song)
+    public function sung(Song $song)
     {
-        return $this->setlists()->whereNotNull('finished_at')->where(['song_id' => $song->id]);
+        return $this->songRequests()->whereNotNull('finished_at')->where(['song_id' => $song->id])->exists();
     }
 
-    public function alreadySung()
+    public function requestsSung()
     {
-        return $this->setlists()->whereNotNull('finished_at')->orderBy('finished_at', 'DESC')->get();
+        return $this->songRequests()->whereNotNull('finished_at')->orderBy('finished_at', 'DESC')->get();
     }
 
-    public function waitingFor()
+    public function requestsWaiting()
     {
-        return $this->setlists->whereNull('finished_at');
+        return $this->songRequests->whereNull('finished_at');
     }
 
     public function hasAvatar()

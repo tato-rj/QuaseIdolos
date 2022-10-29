@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Song extends BaseModel
 {
-	protected $withCount = ['favorites', 'setlists'];
+	protected $withCount = ['favorites', 'songRequests'];
 
     protected static function booted()
     {
@@ -18,9 +18,9 @@ class Song extends BaseModel
 		return $this->belongsTo(Artist::class);
 	}
 
-    public function setlists()
+    public function songRequests()
     {
-        return $this->hasMany(Setlist::class);
+        return $this->hasMany(SongRequest::class);
     }
 
 	public function favorites()
@@ -35,12 +35,12 @@ class Song extends BaseModel
 
     public function getCompletedCountAttribute()
     {
-        return $this->setlists()->whereNotNull('finished_at')->count();
+        return $this->songRequests()->whereNotNull('finished_at')->count();
     }
 
     public function setlistPosition()
     {
-    	return Setlist::waitingFor($this)->first()->order;
+    	return SongRequest::waitingFor($this)->first()->order;
     }
 
 	public function tags()

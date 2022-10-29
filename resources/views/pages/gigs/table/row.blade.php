@@ -9,7 +9,7 @@
 				<strong class="opacity-6">{{$gig->dateForHumans}}</strong>
 			</div>
 			<div class="col-lg-3 col-md-3 d-none d-md-block text-truncate">
-				<strong class="opacity-6">{{$gig->setlists()->completed()->count()}}</strong>
+				<strong class="opacity-6">{{$gig->setlist()->completed()->count()}}</strong>
 			</div>
 			<div class="col-lg-3 col-md-3 col-6 text-truncate">
 				<strong class="opacity-6">{!! $gig->status !!}</strong>
