@@ -7,9 +7,12 @@
 @endpush
 
 @section('content')
-<section class="container-fluid mb-6 p-0">
+<section class="container">
 	@include('components.pagetitle', ['title' => 'Nosso cardápio', 'highlight' => 'musical'])
 	@include('pages.cardapio.search')
+</section>
+
+<section class="container-fluid mb-6">
 	@include('pages.cardapio.genres')
 	@include('pages.cardapio.artists')
 

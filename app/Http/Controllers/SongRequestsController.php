@@ -47,12 +47,14 @@ class SongRequestsController extends Controller
         return back()->with('success', 'O pedido foi completado com sucesso');
     }
 
-    public function cancel(SongRequest $songRequest)
+    public function cancel($id)
     {
-        $this->authorize('update', $songRequest);
+        $songRequest = SongRequest::find($id);
 
-        if ($songRequest->isOver())
+        if (! $songRequest || $songRequest->isOver())
             return back();
+
+        $this->authorize('update', $songRequest);
 
         SongCancelled::dispatch($songRequest);
         

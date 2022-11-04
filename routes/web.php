@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function() {
     Route::prefix('pedido-de-musica')->name('song-requests.')->group(function() {
         Route::post('{song}', 'SongRequestsController@store')->name('store');
         
-        Route::delete('{songRequest}/cancelar', 'SongRequestsController@cancel')->name('cancel');
+        Route::delete('{id}/cancelar', 'SongRequestsController@cancel')->name('cancel');
     });
 
     Route::prefix('favoritos')->name('favorites.')->group(function() {

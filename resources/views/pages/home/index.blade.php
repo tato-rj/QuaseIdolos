@@ -26,7 +26,7 @@
 @include('pages.home.bands.header')
 @include('pages.home.bands.about')
 @include('pages.home.bands.search')
-@include('pages.home.bands.contact')
+{{-- @include('pages.home.bands.contact') --}}
 
 @endsection
 
