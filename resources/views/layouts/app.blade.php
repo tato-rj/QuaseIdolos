@@ -175,7 +175,7 @@ function listenToEvents()
 {
     window.Echo
           .channel('setlist')
-          .listen('.SongRequested', function(event) {
+          .listen('.song-requested', function(event) {
             log('Song requested');
             if (app.route == 'setlists.admin') {
                 getEventTable();
@@ -186,7 +186,7 @@ function listenToEvents()
 
     window.Echo
           .channel('setlist')
-          .listen('.SongCancelled', function(event) {
+          .listen('SongCancelled', function(event) {
             log('Song cancelled');
             if (app.route == 'setlists.admin') {
                 getEventTable();
