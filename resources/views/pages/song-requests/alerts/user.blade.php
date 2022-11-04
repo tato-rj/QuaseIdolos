@@ -11,7 +11,7 @@
 					</div>
 				</div>
 					
-				<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$songRequest->id}}-modal" class="btn btn-red btn-s">@fa(['icon' => 'trash-alt'])Cancelar</button>
+				<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$songRequest->id}}-modal" class="btn btn-red btn-s">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
 			</div>
 		</div>
 	</div>
