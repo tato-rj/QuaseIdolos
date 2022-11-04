@@ -6,7 +6,7 @@
 					<img src="{{$songRequest->song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 40px; height: 40px">
 
 					<div>
-						<p class="fw-bold m-0 text-dark lh-1"><small>Vai se preparando pra cantar</small></p>
+						<p class="fw-bold m-0 text-dark lh-1"><small>Vai se preparando</small></p>
 						<h5 class="text-dark no-stroke mb-0 mr-2">{{$songRequest->song->name}}</h5>
 					</div>
 				</div>
