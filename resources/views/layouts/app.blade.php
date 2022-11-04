@@ -14,8 +14,18 @@
 
         <style type="text/css">
 
+            .plyr__controls { display: none!important }
+.bg-transparent {
+    background: rgba(0,0,0,0.1) !important;
+}
+
+
 body, p, input, .form-control {
     font-family: 'Varela Round', sans-serif;
+}
+
+p {
+    font-weight: bold;
 }
 
 h3, h4, h5, h6, button, .btn, label, .label, .navbar .nav-link, .font-cursive {

@@ -7,9 +7,11 @@
 		@toggle(['label' => 'Esse usuário é administrador?', 'name' => 'admin', 'on' => $user->isAdmin()])
 	</div>
 
+	@if($user->isAdmin())
 	<div class="text-left mb-4"> 
 		@toggle(['label' => 'Conceder acesso total?', 'name' => 'super_admin', 'on' => $user->isSuperAdmin()])
 	</div>
+	@endif
 
 	@submit(['label' => 'Confirmar alterações', 'theme' => 'secondary'])
 </form>
