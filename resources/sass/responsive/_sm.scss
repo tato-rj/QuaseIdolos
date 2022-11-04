@@ -2,7 +2,9 @@
 // SECOND BREAKPOINT: less than 768px //
 ////////////////////////////////////////
 @include media-breakpoint-down(sm) {
-	//
+	.alert-container {
+		width: 90% !important;
+	}
 }
 
 /////////////////////////////

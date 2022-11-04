@@ -25770,6 +25770,11 @@ form.form-borderless.form-light input.form-control:not([readonly]), form.form-bo
   border-radius: 2rem;
 }
 
+@media (max-width: 575.98px) {
+  .alert-container {
+    width: 90% !important;
+  }
+}
 @media (max-width: 991.98px) {
   .navbar .dropdown-menu {
     animation-name: none !important;

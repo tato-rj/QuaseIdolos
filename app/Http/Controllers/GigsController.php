@@ -103,7 +103,7 @@ class GigsController extends Controller
             'color' => ! $gig->is_paused ? 'green' : 'yellow', 
             'pos' => 'top', 
             'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown'], 
-            'countdown' => 3
+            'countdown' => 3000000000
         ])->render();
     }
 
