@@ -31,11 +31,13 @@ class SongsController extends Controller
             'name' => 'required|string',
             'lyrics' => 'required',
             'duration' => 'required',
+            'genre_id' => 'required',
             'artist_id' => 'required'
         ]);
 
         Song::create([
             'artist_id' => $request->artist_id,
+            'genre_id' => $request->genre_id,
             'name' => $request->name,
             'tags' => preg_replace('/\s+/', ' ', $request->tags),
             'duration' => $request->duration,
@@ -88,6 +90,7 @@ class SongsController extends Controller
         $request->validate([
             'name' => 'required|string',
             'duration' => 'required',
+            'genre_id' => 'required',
             'lyrics' => 'required'
         ]);
 
@@ -95,6 +98,7 @@ class SongsController extends Controller
             'name' => $request->name,
             'tags' => preg_replace('/\s+/', ' ', $request->tags),
             'duration' => $request->duration,
+            'genre_id' => $request->genre_id,
             'level' => $request->level,
             'lyrics' => $request->lyrics,
             'chords_url' => $request->chords_url

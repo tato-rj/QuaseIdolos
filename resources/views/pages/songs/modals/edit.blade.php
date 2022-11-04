@@ -3,6 +3,16 @@
 	@csrf
 	@method('PATCH')
 
+	@select([
+		'placeholder' => 'Estilo',
+		'name' => 'genre_id',
+		'required' => true])
+
+		@foreach(\App\Models\Genre::orderBy('name')->get() as $genre)
+		@option(['label' => $genre->name, 'value' => $genre->id, 'name' => 'genre_id', 'selected' => $genre->id == $song->genre_id])
+		@endforeach
+	@endselect
+
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'value' => $song->name, 'required' => true])
 	@input(['placeholder' => 'Hastags', 'name' => 'tags', 'value' => $song->tags])
 	@input(['placeholder' => 'Duração', 'name' => 'duration', 'value' => $song->duration, 'type' => 'number', 'required' => true, 'min' => 1])

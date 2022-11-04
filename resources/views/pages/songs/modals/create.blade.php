@@ -16,6 +16,16 @@
 	@endselect
 	@endisset
 
+	@select([
+		'placeholder' => 'Estilo',
+		'name' => 'genre_id',
+		'required' => true])
+
+		@foreach(\App\Models\Genre::orderBy('name')->get() as $genre)
+		@option(['label' => $genre->name, 'value' => $genre->id, 'name' => 'genre_id', 'selected' => $genre->id == old('genre_id')])
+		@endforeach
+	@endselect
+
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'required' => true])
 	@input(['placeholder' => 'Hastags', 'name' => 'tags'])
 	@input(['placeholder' => 'Duração', 'name' => 'duration', 'type' => 'number', 'min' => 1, 'required' => true])
