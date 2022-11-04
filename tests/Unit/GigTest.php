@@ -54,20 +54,42 @@ class GigTest extends AppTest
     {
         $this->signIn();
 
-        $this->assertFalse($this->gig->canTakeRequestsFromUser());
+        $this->assertFalse($this->gig->userLimitReached());
 
         SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => auth()->user()->id]);
 
-        $this->assertTrue($this->gig->fresh()->canTakeRequestsFromUser());
+        $this->assertTrue($this->gig->fresh()->userLimitReached());
     }
 
     /** @test */
     public function it_knows_if_it_is_ready_to_start()
     {
-        $this->assertTrue($this->gig->isReady());
+        Gig::truncate();
+        
+        $gig = Gig::factory()->create(['date' => now()->copy()->startOfDay()]);
 
-        $this->assertTrue(Gig::factory()->create(['date' => now()->copy()->startOfDay()])->isReady());
+        $this->assertTrue($gig->isReady());
 
-        $this->assertFalse(Gig::factory()->create(['date' => now()->copy()->addDay()])->isReady());
+        $this->travelTo(now()->copy()->addDay()->startOfDay());
+
+        $this->assertTrue($gig->isReady());
+
+        $this->travel(4)->hours();
+
+        $this->assertTrue($gig->isReady());
+
+        $this->travel(1)->hours();
+
+        $this->assertFalse($gig->isReady());
+    }
+
+    /** @test */
+    public function if_it_has_no_date_it_is_ready_to_start_at_any_time()
+    {
+        Gig::truncate();
+
+        $gig = Gig::factory()->create(['date' => null]);
+
+        $this->assertTrue($gig->isReady());
     }
 }

@@ -4,6 +4,11 @@
 //// CUSTOM CSS BELOW
 //////////////////////////////////////
 
+.bg-center {
+  background-size: cover;
+  background-position: center;
+}
+
 .text-primary-dark {
 	color: darken($primary-color, 8%);
 }
@@ -38,7 +43,7 @@
 		font-size: 1.6rem;
 	}
 	img {
-		width: 220px;
+		width: 180px;
 	}
 	span {
 		font-size: 1.4rem;
@@ -158,6 +163,9 @@ input:checked + .slider:before {
 .draggable:first-of-type {
 	width: 90%;
 	max-width: 900px;
+	.first-only {
+		display: block;
+	}
 	.event-box {
 		background: rgba(255, 255, 255);
 		border: 8px solid;
@@ -167,9 +175,19 @@ input:checked + .slider:before {
 .draggable:not(:first-of-type) {
 	width: 75%;
 	max-width: 700px;
+	h2 {
+		font-size: 2.5rem;
+	}
+	.first-only {
+		display: none;
+	}
 	.event-box {
 		background: rgba(255, 255, 255, 0.8);
 	}
+}
+
+[data-datepicker][fullwidth] .ui-datepicker {
+    width: 100% !important;
 }
 
 .ui-datepicker {
@@ -178,4 +196,39 @@ input:checked + .slider:before {
 
 .ui-datepicker-header {
 	@extend .rounded-pill;
+}
+
+.ui-datepicker-calendar td a, .ui-widget-header .ui-state-hover, .ui-widget.ui-widget-content {
+  border: none !important;
+}
+
+.ui-datepicker-calendar td .ui-state-hover {
+  background: $secondary-color;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+	background: $primary-color !important;
+	color: white;
+}
+
+.ui-datepicker-next-hover {
+  right: 2px !important;
+  top: 2px !important;
+  background: inherit !important;
+  border-radius: inherit;
+}
+
+.ui-datepicker-prev-hover {
+  left: 2px !important;
+  top: 2px !important;
+  background: inherit !important;
+  border-radius: inherit;
+}
+
+.ui-datepicker-next, .ui-datepicker-prev {
+  cursor: pointer;
+}
+
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+    margin-top: -7px;
 }

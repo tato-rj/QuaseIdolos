@@ -22,7 +22,7 @@
 				</small>
 				<small class="text-nowrap">
 					<div class="form-group">
-						<a href="#" class="link-none">Forgot your password?</a>
+						<a href="#" class="link-none label">Esqueceu a senha?</a>
 					</div>
 				</small>
 			</div>
@@ -30,17 +30,13 @@
 			@submit(['label' => 'ENTRAR', 'theme' => 'secondary', 'classes' => 'w-100'])
 		@endform
 	</div>
-	<div class="mb-4">
-		<h6 class="text-center no-stroke mb-3">OU</h6>
-		@include('components.core.forms.social', ['service' => 'github'])
-		@include('components.core.forms.social', ['service' => 'facebook'])
-		@include('components.core.forms.social', ['service' => 'google'])
-		@include('components.core.forms.social', ['service' => 'twitter'])
-	</div>
+
+	@include('auth.social')
+
 	<div class="text-center">
-		<div class="opacity-08">Ainda não tem a sua conta?</div>
-		<div>
-			<a href="{{route('register')}}" class="link-secondary">Vamos começar!</a>
-		</div>
+		<h6 class="opacity-08">Ainda não tem a sua conta?</h6>
+		<h6>
+			<a href="{{route('register')}}" class="link-secondary label">Vamos começar!</a>
+		</h6>
 	</div>
 </div>

@@ -35,7 +35,26 @@
 	@endtable
 </section>
 
-<section>
+{{-- @if($unscheduledGigs)
+<section class="mb-4">
+	@table
+	@slot('header')
+	@unless($unscheduledGigs->isEmpty())
+		@include('pages.gigs.table.header')
+	@endif
+	@endslot
+
+	@slot('rows')
+		@foreach($unscheduledGigs as $gig)
+		@include('pages.gigs.table.row', ['ready' => false])
+		@endforeach
+	@endslot
+
+	@endtable
+</section>
+@endif --}}
+
+<section class="mb-6">
 	@table
 	@slot('header')
 	@unless($otherGigs->isEmpty())
@@ -44,11 +63,9 @@
 	@endslot
 
 	@slot('rows')
-		@forelse($otherGigs as $gig)
+		@foreach($otherGigs as $gig)
 		@include('pages.gigs.table.row', ['ready' => false])
-		@empty
-		@include('components.empty')
-		@endforelse
+		@endforeach
 	@endslot
 
 	@endtable

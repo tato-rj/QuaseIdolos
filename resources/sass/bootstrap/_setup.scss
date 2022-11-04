@@ -9,6 +9,8 @@ $colors: prepend($colors, (dark: (white, $dark-color)));
 
 @import "../dependencies";
 
+@import "../brand/fonts";
+
 @import "../components/fonts";
 @import "../components/corners";
 @import "../components/animations";

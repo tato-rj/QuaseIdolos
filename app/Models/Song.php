@@ -18,6 +18,11 @@ class Song extends BaseModel
 		return $this->belongsTo(Artist::class);
 	}
 
+	public function genre()
+	{
+		return $this->belongsTo(Genre::class);
+	}
+
     public function songRequests()
     {
         return $this->hasMany(SongRequest::class);
@@ -52,6 +57,10 @@ class Song extends BaseModel
 	{
 		return $query
 			->where('name', 'LIKE', '%'.$input.'%')
+			->orWhere('tags', 'LIKE', '%'.$input.'%')
+			->orWhereHas('genre', function($q) use ($input) {
+				$q->where('name', 'LIKE', '%'.$input.'%');
+			})
 			->orWhereHas('artist', function($q) use ($input) {
 				$q->where('name', 'LIKE', '%'.$input.'%');
 			});

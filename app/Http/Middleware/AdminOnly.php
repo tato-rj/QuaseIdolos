@@ -19,6 +19,6 @@ class AdminOnly
         if (auth()->check() && auth()->user()->isAdmin())
             return $next($request);
 
-        abort(401, 'Área restrita para admins.');
+        throw new \Illuminate\Auth\Access\AuthorizationException('Área restrita para admins.');
     }
 }

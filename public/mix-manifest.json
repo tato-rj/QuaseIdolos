@@ -1,9 +1,12 @@
 {
     "/js/app.js": "/js/app.js?id=9bb11c3d3505e4432801602fd6f2cdfc",
-    "/css/app.css": "/css/app.css?id=66aff37b046fe5752ce778e77eaa9897",
+    "/css/app.css": "/css/app.css?id=905a93e777b137bce759849b3a7e431c",
     "/js/vendor/datepicker-pt-BR.js": "/js/vendor/datepicker-pt-BR.js?id=994a960cee7c1ab671a330ececbcf35e",
+    "/images/bg.jpg": "/images/bg.jpg?id=e57b1815aac96b6434135e53453d1153",
     "/images/brand/logo_lg.svg": "/images/brand/logo_lg.svg?id=29b4df69d13be44c23616a45e3c0985e",
     "/images/brand/logo_sm.svg": "/images/brand/logo_sm.svg?id=2988c2b4ee6e04cdbc1e24f07f3607f5",
-    "/images/video-poster.jpg": "/images/video-poster.jpg?id=0e08838746a3269a232b7154621ef1e9",
-    "/videos/video.mp4": "/videos/video.mp4?id=9859d801f4c619597396a3d446b18846"
+    "/images/icons/arrow-left.svg": "/images/icons/arrow-left.svg?id=ff677705f540e205f724f94805feac8b",
+    "/images/icons/arrow-right.svg": "/images/icons/arrow-right.svg?id=e6b81781ab8e36a942a15ef64b01d818",
+    "/images/video-poster.jpeg": "/images/video-poster.jpeg?id=5f5f66a9bc44b77a8de2d836355f3632",
+    "/videos/promo.mp4": "/videos/promo.mp4?id=a25f3539f54cb67f7689b926ab2cbd9d"
 }

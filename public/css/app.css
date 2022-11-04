@@ -1,5 +1,6 @@
-@import url(https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Lato:wght@400;700&display=swap);
-@charset "UTF-8"; /*!
+@import url(https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap);
+@charset "UTF-8";
+/*!
 * animate.css - https://animate.style/
 * Version - 4.1.1
 * Licensed under the MIT license - http://opensource.org/licenses/MIT
@@ -19486,12 +19487,42 @@ textarea.form-control-lg {
   transform: rotate(-90deg);
 }
 
-.font-primary, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-  font-family: "Fredoka+One", sans-serif;
+@font-face {
+  font-family: "LuckiestGuy";
+  src: url(/fonts/luckiestguy-regular-webfont.woff2?f1ae0a42c446f59e9bc89c5be7fc59d2) format("woff2"), url(/fonts/luckiestguy-regular-webfont.woff?ab78beb7c1b004077549820285bc14cb) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+.navbar .nav-item {
+  font-size: 18px;
 }
 
-html, body, .font-secondary, p, div, .btn, .form-control {
-  font-family: "Lato", sans-serif;
+.navbar .dropdown-item {
+  font-size: 16px;
+}
+
+h1, .h1 {
+  font-size: 82px;
+}
+
+h2, .h2 {
+  font-size: 52px;
+}
+
+h3, .h3 {
+  font-size: 32px;
+}
+
+h6, .h6 {
+  font-size: 18px;
+}
+
+.text-primary {
+  color: #b32743 !important;
+}
+
+.text-secondary {
+  color: #f2cd3d !important;
 }
 
 a, i, strong, u {
@@ -25744,6 +25775,11 @@ form.form-borderless.form-light input.form-control:not([readonly]), form.form-bo
     animation-name: none !important;
   }
 }
+.bg-center {
+  background-size: cover;
+  background-position: center;
+}
+
 .text-primary-dark {
   color: #912036;
 }
@@ -25772,7 +25808,7 @@ form.form-borderless.form-light input.form-control:not([readonly]), form.form-bo
   font-size: 1.6rem;
 }
 .artist[selected] img {
-  width: 220px;
+  width: 180px;
 }
 .artist[selected] span {
   font-size: 1.4rem;
@@ -25881,6 +25917,9 @@ input:checked + .slider:before {
   width: 90%;
   max-width: 900px;
 }
+.draggable:first-of-type .first-only {
+  display: block;
+}
 .draggable:first-of-type .event-box {
   background: rgb(255, 255, 255);
   border: 8px solid;
@@ -25890,6 +25929,51 @@ input:checked + .slider:before {
   width: 75%;
   max-width: 700px;
 }
+.draggable:not(:first-of-type) h2, .draggable:not(:first-of-type) .h2 {
+  font-size: 2.5rem;
+}
+.draggable:not(:first-of-type) .first-only {
+  display: none;
+}
 .draggable:not(:first-of-type) .event-box {
   background: rgba(255, 255, 255, 0.8);
+}
+
+[data-datepicker][fullwidth] .ui-datepicker {
+  width: 100% !important;
+}
+
+.ui-datepicker-calendar td a, .ui-widget-header .ui-state-hover, .ui-widget.ui-widget-content {
+  border: none !important;
+}
+
+.ui-datepicker-calendar td .ui-state-hover {
+  background: #f2cd3d;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+  background: #b32743 !important;
+  color: white;
+}
+
+.ui-datepicker-next-hover {
+  right: 2px !important;
+  top: 2px !important;
+  background: inherit !important;
+  border-radius: inherit;
+}
+
+.ui-datepicker-prev-hover {
+  left: 2px !important;
+  top: 2px !important;
+  background: inherit !important;
+  border-radius: inherit;
+}
+
+.ui-datepicker-next, .ui-datepicker-prev {
+  cursor: pointer;
+}
+
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+  margin-top: -7px;
 }

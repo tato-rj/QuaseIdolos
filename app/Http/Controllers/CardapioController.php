@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Artist, Song};
+use App\Models\{Artist, Song, Genre};
 
 class CardapioController extends Controller
 {
     public function index()
     {
         $artists = Artist::orderby('name')->get();
+        $genres = Genre::orderby('name')->get();
 
-        return view('pages.cardapio.index', compact('artists'));    
+        $songs = request()->has('input') ? Song::search(request()->input)->get() : collect();
+
+        return view('pages.cardapio.index', compact(['artists', 'songs', 'genres']));    
     }
 
     public function artist(Artist $artist)

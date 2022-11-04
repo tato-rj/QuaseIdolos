@@ -18,7 +18,7 @@
 		<div class="d-flex justify-content-center flex-wrap"> 
 			@foreach($users as $user)
 			<a href="{{route('users.edit', $user)}}" class="link-none">
-				@include('pages.users.avatar', ['size' => '100px', 'fontsize' => '2rem'])
+				@include('pages.users.avatar', ['size' => '100px', 'fontsize' => '2rem', 'namesize' => '1.2rem'])
 			</a>
 			@endforeach
 		</div>

@@ -3,7 +3,7 @@
 		@if($song->tags)
 		<div class="py-2 text-truncate mb-4" style="border-top: 6px dotted rgba(255,255,255,0.4);border-bottom: 6px dotted rgba(255,255,255,0.4);">
 			@foreach($song->tags() as $tag)
-			<a href="href" class="link-none p-2">#{{$tag}}</a>
+			<a href="{{route('cardapio.index', ['input' => $tag])}}" class="link-none p-2 font-cursive">#{{$tag}}</a>
 			@endforeach
 		</div>
 		@endif

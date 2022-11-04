@@ -8,11 +8,14 @@
 
 @section('content')
 <section class="container-fluid mb-6 p-0">
-	<h2 class="mb-3 text-center">NOSSO CARDÁPIO <span class="text-secondary">MUSICAL</span></h2>
+	@include('components.pagetitle', ['title' => 'Nosso cardápio', 'highlight' => 'musical'])
 	@include('pages.cardapio.search')
-	@include('pages.cardapio.components.artist.all')
+	@include('pages.cardapio.genres')
+	@include('pages.cardapio.artists')
 
-	<div id="results"></div>
+	<div id="results">
+		@include('pages.cardapio.results.table')
+	</div>
 </section>
 
 @endsection
@@ -29,7 +32,18 @@ function showResults(data)
 	$('#results').html(data);
 }
 
-$(document).ready(function(){
+function search(url, input)
+{
+	axios.get(url, { params: { input: input } })
+		 .then(function(response) {
+		 	showResults(response.data);
+		 })
+		 .catch(function(error) {
+			alert('Try again...');
+		});
+}
+
+$(document).ready(function() {
 	$('input[name="search"]').keyup(function() {
 		let input = $(this).val();
 
@@ -40,15 +54,15 @@ $(document).ready(function(){
 		} else if (input.length >= 3) {
 			$('#artists-container').hide();
 
-			axios.get($(this).data('url'), { params: { input: input } })
-				 .then(function(response) {
-				 	showResults(response.data);
-				 })
-				 .catch(function(error) {
-					alert('Try again...');
-				});
+			search($(this).data('url'), input);
 		}
 	});
+});
+
+$(document).on('click', '#clear-results', function() {
+	clearResults();
+	$('input[name="search"]').val('');
+	$('#artists-container').show();
 });
 </script>
 @endpush

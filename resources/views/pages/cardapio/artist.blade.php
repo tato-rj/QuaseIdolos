@@ -13,8 +13,8 @@
 
 	<div id="results">
 
-		<a href="{{route('cardapio')}}" class="link-none">
-			<h5 class="text-center w-100 ">@fa(['icon' => 'long-arrow-alt-left'])clique para voltar</h5>
+		<a href="{{route('cardapio.index')}}" class="link-none">
+			<h5 class="text-center w-100 ">@fa(['icon' => 'long-arrow-alt-left'])toque para voltar</h5>
 		</a>
 		@include('pages.cardapio.components.artist.avatar', ['selected' => true])
 		@foreach($artist->songs as $song)

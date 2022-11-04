@@ -26,6 +26,11 @@ class SongRequest extends BaseModel
         return $this->where('user_id', $user->id);
     }
 
+    public function scopeForGig($query, Gig $gig)
+    {
+        return $this->where('gig_id', $gig->id);
+    }
+
     public function scopeWaiting($query)
     {
         return $query->whereNull('finished_at')->orderBy('order');

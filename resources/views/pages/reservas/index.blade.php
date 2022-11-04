@@ -7,28 +7,25 @@
 @endpush
 
 @section('content')
-<section class="container py-4 mb-4">
+<section class="container mb-6">
 	<div class="text-center">
-		<div class="mb-5">
-			<img src="{{asset('images/brand/logo_lg.svg')}}" style="max-width: 500px; width: 90%" class="mb-2">
-			<h2>QUER AGENTE NO SEU <span class="text-secondary">EVENTO</span>?</h2>
-			<h3>Solicite a sua reserva aqui!</h3>
-		</div>
+		<h2 class="text-center m-0">QUER AGENTE NO SEU <span class="text-secondary">EVENTO</span>?</h2>
+		<h3 class="mb-5">Solicite a sua reserva aqui!</h3>
 
 		<div class="text-center mb-5">
 			<div class="mb-4">
 				@fa(['icon' => 'whatsapp', 'fa_type' => 'b', 'fa_color' => 'secondary', 'fa_size' => '4x'])
 			</div>
-			<h2 class="m-0"><a href="tel:(21) 99115-1374" class="link-none">(21) 99115-1374</a></h2>
+			<h3 class="m-0"><a href="tel:(21) 99115-1374" class="link-none">(21) 99115-1374</a></h3>
 			<h5 class="mb-1">ou</h5>
-			<h2><a href="tel:(21) 99115-1374" class="link-none">(21) 99274-9006</a></h2>
+			<h3><a href="tel:(21) 99115-1374" class="link-none">(21) 99274-9006</a></h3>
 		</div>
 
 		<div class="text-center">
 			<div class="mb-4">
 				@fa(['icon' => 'envelope', 'fa_color' => 'secondary', 'fa_size' => '4x'])
 			</div>
-			<h2><a href="mailto:quaseidolos@gmail.com" class="link-none">quaseidolos@gmail.com</a></h2>
+			<h3><a href="mailto:quaseidolos@gmail.com" class="link-none">quaseidolos@gmail.com</a></h3>
 		</div>
 
 	</div>

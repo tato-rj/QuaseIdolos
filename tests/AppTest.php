@@ -10,7 +10,10 @@ class AppTest extends TestCase
 	{
 		parent::setUp();
 
-        $this->superAdmin = Admin::factory()->create();
+        \Event::fake();
+        \Storage::fake();
+        
+        $this->admin = Admin::factory()->create()->user;
         $this->song = Song::factory()->create();
 	}
 

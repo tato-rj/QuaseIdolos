@@ -20,16 +20,6 @@ class SongsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -121,6 +111,7 @@ class SongsController extends Controller
      */
     public function destroy(Song $song)
     {
+        $song->songRequests->each->delete();
         $song->delete();
 
         return back()->with('success', 'A música foi removida com sucesso');

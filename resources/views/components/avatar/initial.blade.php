@@ -8,7 +8,7 @@ data-bs-target="#offcanvasUserMenu"
 class="nav-link bg-secondary rounded-circle d-center mx-auto position-relative"
 @endisset
 >
-  <span style="font-size: {{$fontsize ?? null}};">{{$user->initial}}</span>
+  <span class="font-cursive" style="font-size: {{$fontsize ?? null}};">{{$user->initial}}</span>
 
   @if(isset($star) && $user->isAdmin())
   <span class="position-absolute bottom-0 right-0">@fa(['icon' => 'star', 'fa_color' => 'yellow', 'fa_size' => 'lg'])</span>

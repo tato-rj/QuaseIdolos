@@ -12,9 +12,9 @@
 
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 mb-4">
-			<div class="mb-4">
-				<h1 class="text-center m-0">{{$gig->name}}</h1>
-				<div class="mt-2">
+			<div class="mb-3">
+				<h3 class="text-center m-0" style="font-size: 2.4rem">{{$gig->name}}</h3>
+				<div class="">
 					<p class="m-0 opacity-8">{{$gig->description}}</p>
 				</div>
 			</div>
@@ -32,19 +32,19 @@
 		<div class="col-lg-9 col-12">
 			<div class="row w-100">
 				<div class="col-6 mb-4 text-center">
-					<h3>@fa(['icon' => 'calendar-day', 'classes' => 'opacity-4 no-stroke']){{$gig->dateForHumans}}</h3>
+					<h4>@fa(['icon' => 'calendar-day', 'classes' => 'opacity-4 no-stroke']){{$gig->dateForHumans}}</h4>
 					<h5 class="text-secondary">Dia do evento</h5>
 				</div>
 				<div class="col-6 mb-4 text-center">
-					<h3>@fa(['icon' => 'microphone-alt', 'classes' => 'opacity-4 no-stroke']){{$gig->setlist()->completed()->count()}}</h3>
+					<h4>@fa(['icon' => 'microphone-alt', 'classes' => 'opacity-4 no-stroke']){{$gig->setlist()->completed()->count()}}</h4>
 					<h5 class="text-secondary">Músicas cantadas</h5>
 				</div>
 				<div class="col-6 mb-4 text-center">
-					<h3>@fa(['icon' => 'lock', 'classes' => 'opacity-4 no-stroke']){{$gig->songs_limit}}</h3>
+					<h4>@fa(['icon' => 'lock', 'classes' => 'opacity-4 no-stroke']){{$gig->songs_limit}}</h4>
 					<h5 class="text-secondary">Limite de músicas</h5>
 				</div>
 				<div class="col-6 mb-4 text-center">
-					<h3>@fa(['icon' => 'user-lock', 'classes' => 'opacity-4 no-stroke']){{$gig->songs_limit_per_user}}</h3>
+					<h4>@fa(['icon' => 'user-lock', 'classes' => 'opacity-4 no-stroke']){{$gig->songs_limit_per_user}}</h4>
 					<h5 class="text-secondary">Limite por usuário</h5>
 				</div>
 			</div>

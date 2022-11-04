@@ -7,7 +7,7 @@
 <section class="container">
 	<div class="row">
 		<div class="col-lg-4 col-md-6 col-10 mx-auto">
-			<h1>Login</h1>
+			@include('components.pagetitle', ['title' => 'Entrar'])
 			@include('auth.login.form')
 		</div>
 	</div>

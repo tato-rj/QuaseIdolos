@@ -5,9 +5,9 @@ style="background: rgba(0,0,0,0.08);"
 >
 	<div class="d-flex mx-auto py-3 align-items-center" style="max-width: {{isset($fullwidth) ? null : '900px'}}; width: 95%">
 		<div class="w-100">
-			<div style="font-size: 1.2rem">{{$name}}</div>
+			<h4 class="m-0">{{$name}}</h4>
 			@isset($artist)
-			<div>{{$artist}}</div>
+			<h6 class="m-0">{{$artist}}</h6>
 			@endisset
 		</div>
 		<div class="d-flex">

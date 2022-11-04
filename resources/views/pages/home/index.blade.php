@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Karaokê Ao Vivo'])
+@extends('layouts.app', ['title' => 'Karaokê Ao Vivo', 'stickynav' => true])
 
 @push('header')
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
@@ -22,37 +22,48 @@
 @endpush
 
 @section('content')
-<section class="container py-4 mb-4">
-	<div class="text-center">
-		<div class="mb-5">
-			<img src="{{asset('images/brand/logo_lg.svg')}}" style="max-width: 500px; width: 90%" class="mb-2">
-			<h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2>
-		</div>
-		@if(auth()->check() && auth()->user()->isAdmin())
-			<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])SETLIST DE HOJE</a>
-		@else
-		<div class="d-center flex-column">
-			<a href="{{route('cardapio')}}" class="btn btn-secondary btn-lg mb-3">NOSSO CARDÁPIO</a>
-			<a href="{{route('reservas')}}" class="btn btn-secondary btn-lg">RESERVAR UMA DATA!</a>
-		</div>
-		@endif
-	</div>
-</section>
-
-<section class="container-fluid mb-6">
-	<div class="row">
-		<div class="col-lg-8 col-12 mx-auto p-0">
-			<video id="player" data-poster="{{asset('images/video-poster.jpg')}}">
-			  <source src="{{asset('videos/video.mp4')}}" type="video/mp4" />
-			</video>
+<section class="mb-8 bg-center position-relative h-100vh d-center" style="background-image: url({{asset('images/bg.jpg')}});">
+	<div class="position-absolute-center w-100 h-100 bg-primary opacity-8"></div>
+	<div class="container position-relative">
+		<div class="text-center">
+			<div class="mb-5">
+				<img src="{{asset('images/brand/logo_lg.svg')}}" style="max-width: 500px; width: 90%" class="mb-2">
+				<h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2>
+			</div>
+			@if(auth()->check() && auth()->user()->isAdmin())
+				<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])SETLIST DE HOJE</a>
+			@else
+			<div class="d-center flex-column">
+				<a href="{{route('cardapio.index')}}" class="btn btn-secondary btn-lg mb-3">NOSSO CARDÁPIO</a>
+				<a href="{{route('reservas')}}" class="btn btn-secondary btn-lg">RESERVAR UMA DATA!</a>
+			</div>
+			@endif
 		</div>
 	</div>
 </section>
 
 <section class="container mb-6">
-	<h3 class="text-center mb-5">COMO FUNCIONA O NOSSO <span class="text-secondary">KARAOKÊ</span>:</h3>
-	@include('pages.home.tree')
+	<div class="row">
+		<div class="col-lg-8 col-md-10 col-12 mx-auto row">
+			<div class="col-lg-4 col-md-6 col-12 mx-auto p-0">
+				<div class="mx-auto w-100">
+					<video id="player" data-poster="{{asset('images/video-poster.jpeg')}}">
+					  <source src="{{asset('videos/promo.mp4')}}" type="video/mp4" />
+					</video>
+				</div>
+			</div>
+			<div class="col-lg-8 col-md-6 col-12">
+				<h3 class="text-center">COMO FUNCIONA O NOSSO <span class="text-secondary">KARAOKÊ</span>:</h3>
+				<div class="p-3">
+					<h5 class="d-flex align-items-center mb-4"><span class="bg-secondary rounded-circle d-center fw-bold mr-3" style="width: 40px; height: 40px; font-size: 1.4rem;">1</span>Escolha uma músia em nosso cardápio</h5>
+					<h5 class="d-flex align-items-center mb-4"><span class="bg-secondary rounded-circle d-center fw-bold mr-3" style="width: 40px; height: 40px; font-size: 1.4rem;">2</span>Se inscreva na lista do karaokê</h5>
+					<h5 class="d-flex align-items-center mb-4"><span class="bg-secondary rounded-circle d-center fw-bold mr-3" style="width: 40px; height: 40px; font-size: 1.4rem;">3</span>Espere ansiosamente pela sua vez :p</h5>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
+
 @endsection
 
 @push('scripts')

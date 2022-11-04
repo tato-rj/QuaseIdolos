@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 text-center mb-4">
 			<div class="mb-3">
-				@include('pages.users.avatar', ['size' => '180px', 'fontsize' => '3rem', 'namesize' => '1.6rem'])
+				@include('pages.users.avatar', ['size' => '180px', 'fontsize' => '3rem'])
 			</div>
 			<div class="d-flex flex-column">
 				<button data-bs-toggle="modal" data-bs-target="#edit-profile-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])Editar Perfil</button>
@@ -38,7 +38,7 @@
 
 		<div class="col-lg-9 col-12">
 			<div class="mb-5">
-				<h5 class="mb-3">Total de {{$favorites->count()}} @choice('favorito|favoritos', $favorites->count())</h5>
+				<h5 class="mb-3">@fa(['icon' => 'heart', 'fa_color' => 'secondary'])Total de {{$favorites->count()}} @choice('favorito|favoritos', $favorites->count())</h5>
 				@foreach($favorites as $song)
 					@include('pages.users.rows.favorite')
 					@if($loop->iteration == 4 && $loop->remaining)
@@ -47,7 +47,7 @@
 				@endforeach
 			</div>
 			<div>
-				<h5 class="mb-3">Total de {{$pastList->count()}} @choice('música|músicas', $pastList->count()) @choice('cantada|cantadas', $pastList->count())</h5>
+				<h5 class="mb-3">@fa(['icon' => 'microphone', 'fa_color' => 'secondary'])Total de {{$pastList->count()}} @choice('música|músicas', $pastList->count()) @choice('cantada|cantadas', $pastList->count())</h5>
 				@foreach($pastList as $list)
 					@include('pages.users.rows.songrequest')
 					@if($loop->iteration == 4 && $loop->remaining)

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\{Song, Artist};
+use App\Models\{Song, Artist, Genre};
 
 class SongFactory extends Factory
 {
@@ -17,6 +17,9 @@ class SongFactory extends Factory
         return [
             'artist_id' => function() {
                 return Artist::factory()->create()->id;
+            },
+            'genre_id' => function() {
+                return Genre::factory()->create()->id;
             },
             'name' => $this->faker->word,
         ];

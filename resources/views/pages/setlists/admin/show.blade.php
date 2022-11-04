@@ -10,17 +10,19 @@
 
 @section('content')
 <section class="container">
-	<div class="text-center mb-4">
+	<div class="text-center ">
 		<h2>SETLIST DE <span class="text-secondary">HOJE</span></h2>
 		@if($gig)
-		<p class="no-stroke text-secondary fw-bold" style="font-size: 1.5rem">{{$gig->name}}</p>
+		<a href="" data-bs-toggle="modal" data-bs-target="#gig-{{$gig->id}}-modal" class="link-secondary"><h3>@fa(['icon' => 'clipboard-list']){{$gig->name}}</h3></a>
+
+		@include('pages.setlists.admin.info')
 		@else
-		<h5>Não tem nenhum evento marcado pra hoje</h5>
+		<h5>Não tem nenhum evento acontecendo agora</h5>
 		@endif
 	</div>
 </section>
 
-<section class="container" id="setlist-container">
+<section class="container mb-6" id="setlist-container">
 	@include('pages.setlists.admin.table')
 </section>
 
@@ -29,5 +31,42 @@
 @push('scripts')
 <script type="text/javascript">
 enableDraggable();
+</script>
+
+<script type="text/javascript">
+$('input[name="is_live"]').change(function() {
+	let $switch = $(this);
+	let state = $switch.prop('checked');
+
+	axios.post($(this).data('url'))
+		 .then(function(response) {
+		 	log('here');
+		 	(new Popup(response.data)).show();
+		 	let $pauseSwitch = $switch.closest('.gig-controls').find('.pause-switch');
+
+		 	$pauseSwitch.toggleClass('d-none');
+
+		 	if (! state)
+		 		$pauseSwitch.find('i').removeClass('fa-play').addClass('fa-pause');
+		 })
+		 .catch(function(error) {
+		 	$switch.prop('checked', ! state);
+		 	alert(error.response.data.message);
+		 });
+});
+
+$('.pause-switch').click(function() {
+	let $button = $(this);
+	let $icon = $button.find('i');
+
+	axios.post($button.data('url'))
+		 .then(function(response) {
+		 	(new Popup(response.data)).show();
+		 	$icon.toggleClass('fa-play fa-pause');
+		 })
+		 .catch(function(error) {
+		 	alert(error.response.data.message);
+		 });
+});
 </script>
 @endpush

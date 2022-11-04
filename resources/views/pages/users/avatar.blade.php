@@ -7,6 +7,7 @@
 			@include('components.avatar.initial', ['size' => $size, 'fontsize' => $fontsize, 'star' => true])
 			@endif
 		</div>
-		<p class="w-100 text-center m-0 text-truncate" style="font-size: {{$namesize ?? null}};"><strong>{{$user->name}}</strong></p>
+		<h3 class="w-100 text-center m-0 {{$namesize ?? 'text-truncate'}}" style="font-size: {{$namesize ?? 'null'}};">{{$user->name}}</h3>
+
 	</div>
 </div>

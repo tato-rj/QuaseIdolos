@@ -6,3 +6,4 @@ include 'inc/var.php';
 include 'inc/str.php';
 include 'inc/classes.php';
 include 'inc/html.php';
+include 'inc/num.php';

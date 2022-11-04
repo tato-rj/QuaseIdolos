@@ -1,6 +1,6 @@
 <?php
 
-function gig()
+function liveGig()
 {
 	return \App\Models\Gig::live()->first();
 }

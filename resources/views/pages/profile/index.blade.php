@@ -7,11 +7,11 @@
 @endpush
 
 @section('content')
-<section class="container py-4">
+<section class="container mb-6">
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 text-center mb-4">
-			<h2 class="mb-3">MEU <span class="text-secondary">PERFIL</span></h2>
-			<div class="mb-3">
+			@include('components.pagetitle', ['title' => 'Meu', 'highlight' => 'perfil'])
+			<div class="mb-4">
 
 				@if(auth()->user()->hasAvatar())
 				@include('components.avatar.image', ['size' => '60%', 'user' => auth()->user()])
@@ -19,7 +19,7 @@
 				@include('components.avatar.initial', ['size' => '140px', 'fontsize' => '3rem', 'user' => auth()->user()])
 				@endif
 
-				<p class="w-100 text-center mt-2 text-truncate" style="font-size: 1.6rem;"><strong>{{auth()->user()->name}}</strong></p>
+				<h3 class="w-100 text-center mt-2"><strong>{{auth()->user()->name}}</strong></h3>
 			</div>
 			<div class="d-flex flex-column">
 				<button data-bs-toggle="modal" data-bs-target="#edit-profile-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])Editar Perfil</button>

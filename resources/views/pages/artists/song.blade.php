@@ -1,6 +1,6 @@
 @component('components.song.row', ['song' => $song, 'loop' => $loop])
 @slot('name')
-	<span class="text-secondary mr-3"><strong>{{$song->name}}</strong></span>
+	<a href="#" data-bs-toggle="modal" data-bs-target="#edit-song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
 	@include('components.song.admin.icons')
 @endslot
 

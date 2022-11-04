@@ -12,13 +12,6 @@ class Gig extends BaseModel
 		'is_paused' => 'boolean'
 	];
 
-    protected static function booted()
-    {
-        self::deleting(function(Gig $gig) {
-            $gig->setlist()->waiting()->get()->each->delete();
-        });
-    }
-
 	public function creator()
 	{
 		return $this->belongsTo(User::class, 'creator_id');
@@ -39,18 +32,53 @@ class Gig extends BaseModel
 		return $query->where('is_live', true);
 	}
 
+	public function scopeUnscheduled($query)
+	{
+		return $query->whereNull('date');
+	}
+
+	public function duplicate()
+	{
+        $new = $this->replicate();
+
+        $new->creator_id = auth()->user()->id;
+        $new->date = null;
+        $new->starts_at = null;
+        $new->ends_at = null;
+        $new->is_live = false;
+        $new->is_paused = false;
+
+        $new->push();
+	}
+
 	public function isToday()
 	{
 		return $this->date->isSameDay(now());
 	}
 
+	public function isPaused()
+	{
+		return $this->is_paused;
+	}
+
+	public function isLive()
+	{
+		return $this->is_live;
+	}
+
 	public function isFull()
 	{
+		if (is_null($this->songs_limit))
+			return false;
+
 		return $this->setlist->count() == $this->songs_limit;
 	}
 
-	public function canTakeRequestsFromUser()
+	public function userLimitReached()
 	{
+		if (is_null($this->songs_limit_per_user))
+			return false;
+
 		return $this->setlist()->where('user_id', auth()->user()->id)->count() == $this->songs_limit_per_user;
 	}
 
@@ -75,15 +103,15 @@ class Gig extends BaseModel
 			return fa('circle', 'yellow', 'mr-2').'Pausado';
 
 		if ($this->is_live)
-			return fa('circle', 'green', 'mr-2').'Live!';
+			return fa('circle', 'green', 'mr-2').'Ao vivo!';
 
 		if ($this->is_over)
 			return fa('calendar-day', 'white', 'mr-2').'Terminou ' .$this->ends_at->diffForHumans();
 
-		if (! $this->date)
-			return fa('circle', 'red', 'mr-2').'Sem data';
+		// if (! $this->date)
+			// return fa('circle', 'yellow', 'mr-2').'Sem data';
 
-		if ($this->date->lte(now()))
+		if (! $this->date || $this->date->lte(now()))
 			return fa('circle', 'yellow', 'mr-2').'Esperando pra começar';
 
 		return fa('calendar-day', 'white', 'mr-2').'Começa ' .$this->date->diffForHumans();
@@ -93,12 +121,16 @@ class Gig extends BaseModel
 	{
 		$start = now()->copy()->startOfDay();
 
-		return $query->whereDate('date', $start)->orWhereBetween('date', [$start, $start->addDay()->addHours(4)]);
+		return $query->whereNull('date')
+					 ->orWhereDate('date', $start)
+					 ->orWhereBetween('date', [$start, $start->addDay()->addHours(4)]);
 	}
 
 	public function isReady()
 	{
-		return $this->date && 
-			($this->date->isSameDay(now()) || now()->between($this->date, $this->date->addDay()->addHours(4)));
+		if (! $this->date)
+			return true;
+
+		return $this->date->isSameDay(now()) || now()->between($this->date, $this->date->addDay()->addHours(4));
 	}
 }

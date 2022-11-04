@@ -24,13 +24,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime'
     ];
 
-    protected static function booted()
-    {
-        self::deleting(function($user) {
-            $user->favorites->each->delete();
-        });
-    }
-
     public function favorites()
     {
         return $this->belongsToMany(Song::class, 'favorites', 'user_id', 'song_id')

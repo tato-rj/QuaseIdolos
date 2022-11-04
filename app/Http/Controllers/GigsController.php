@@ -15,6 +15,7 @@ class GigsController extends Controller
     public function index()
     {
         $readyGigs = Gig::ready()->get();
+        // return $readyGigs;
         $otherGigs = Gig::except($readyGigs->pluck('id'))->byEventDate()->paginate(8);
 
         return view('pages.gigs.index', compact(['readyGigs', 'otherGigs']));
@@ -32,7 +33,6 @@ class GigsController extends Controller
             'name' => 'required',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
-            'date' => 'required'
         ]);
 
         Gig::create([
@@ -84,6 +84,13 @@ class GigsController extends Controller
         return back()->with('success', 'O evento foi alterado com sucesso');
     }
 
+    public function duplicate(Request $request, Gig $gig)
+    {
+        $gig->duplicate();
+
+        return back()->with('success', 'O evento foi duplicado com sucesso');
+    }
+
     public function pause(Request $request, Gig $gig)
     {
         $gig->update(['is_paused' => ! $gig->is_paused]);
@@ -102,6 +109,19 @@ class GigsController extends Controller
 
     public function status(Request $request, Gig $gig)
     {
+        $liveGig = liveGig();
+
+        if ($liveGig && ! $gig->is($liveGig)) {
+            return view('components.core.alerts.regular', [
+                'message' => 'Já existe um evento acontecendo',
+                'icon' => 'hand-paper', 
+                'color' => 'red', 
+                'pos' => 'top', 
+                'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown'], 
+                'countdown' => 3
+            ])->render();
+        }
+
         $gig->update([
             'is_live' => ! $gig->is_live,
             'starts_at' => $gig->starts_at ?? now(),
@@ -129,6 +149,7 @@ class GigsController extends Controller
      */
     public function destroy(Gig $gig)
     {
+        $gig->setlist()->waiting()->get()->each->delete();
         $gig->delete();
 
         return redirect(route('gig.index'))->with('success', 'O evento foi removido com sucesso');

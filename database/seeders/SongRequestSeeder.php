@@ -15,7 +15,6 @@ class SongRequestSeeder extends Seeder
     public function run()
     {
         $this->pastSongRequests();
-        $this->currentSongRequests();
     }
 
     public function pastSongRequests()
@@ -27,18 +26,6 @@ class SongRequestSeeder extends Seeder
                 'song_id' => Song::inRandomOrder()->first()->id,
                 'order' => SongRequest::waiting()->count(),
                 'finished_at' => now()->copy()->subDays(rand(0, 180))
-            ]);
-        }
-    }
-
-    public function currentSongRequests()
-    {
-        for ($i=0; $i<5; $i++) { 
-            SongRequest::create([
-                'gig_id' => Gig::last()->id,
-                'user_id' => User::guests()->inRandomOrder()->first()->id,
-                'song_id' => Song::inRandomOrder()->first()->id,
-                'order' => SongRequest::waiting()->count()
             ]);
         }
     }

@@ -3,27 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Song, SongRequest, Gig};
+use App\Models\{Song, SongRequest};
 use App\Events\{SongRequested, SongCancelled};
+use App\Http\Requests\SongRequestForm;
 
 class SongRequestsController extends Controller
 {
-    public function store(Request $request, Song $song)
+    public function store(Request $request, Song $song, SongRequestForm $form)
     {
-        $gig = gig();
-
-        if (! $gig || $gig->is_paused)
-            return back()->with('error', 'Não estamos recebendo pedidos agora');
-
-        if ($gig->isFull())
-            return back()->with('error', 'O limite do setlist de '.$gig->songs_limit.' músicas foi alcançado');
-
-        if ($gig->canTakeRequestsFromUser())
-            return back()->with('error', 'O seu limite de '.$gig->songs_limit_per_user.' músicas foi alcançado');
-
-        $songRequest = (new SongRequest)->add(auth()->user(), $song, Gig::live()->first());
-
-        SongRequested::dispatch($songRequest);
+        SongRequested::dispatch(
+            (new SongRequest)->add(auth()->user(), $song, liveGig())
+        );
 
         return back()->with('success', 'O seu nome está na lista, vai se preparando!');
     }
@@ -36,7 +26,9 @@ class SongRequestsController extends Controller
             if ($songRequest)
                 return view('pages.song-requests.alerts.admin', compact('songRequest'))->render();
         } else {
-            $songRequest = auth()->user()->songRequests()->waiting()->first();
+            $gig = liveGig();
+
+            $songRequest = $gig ? auth()->user()->songRequests()->forGig($gig)->waiting()->first() : null;
 
             if ($songRequest)
                 return view('pages.song-requests.alerts.user', compact('songRequest'))->render();
@@ -57,6 +49,8 @@ class SongRequestsController extends Controller
 
     public function cancel(SongRequest $songRequest)
     {
+        $this->authorize('update', $songRequest);
+
         if ($songRequest->isOver())
             return back();
 

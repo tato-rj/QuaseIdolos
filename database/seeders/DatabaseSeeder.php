@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             ArtistSeeder::class,
+            GenreSeeder::class,
             SongSeeder::class,
             FavoriteSeeder::class,
             GigSeeder::class,

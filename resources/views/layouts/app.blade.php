@@ -9,27 +9,61 @@
         @include('layouts.components.favicon')
         @include('layouts.components.seo')
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
         <style type="text/css">
-        [data-datepicker][fullwidth] .ui-datepicker {
-            width: 100% !important;
-        }
-/*.table-striped>tbody>tr:nth-child(odd)>td, 
-.table-striped>tbody>tr:nth-child(odd)>th {
-   background: rgba(0,0,0,0.08);
- }
 
- .table tr, .table td {
-    border: 0;
-    padding: 1rem !important;
- }
+body, p, input, .form-control {
+    font-family: 'Varela Round', sans-serif;
+}
 
- .table th {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-    border: 0;
- }*/
+h3, h4, h5, h6, button, .btn, label, .label, .navbar .nav-link, .font-cursive {
+    font-family: 'Fredoka One', cursive;
+}
+
+h1, h2 {
+    font-family: 'LuckiestGuy', sans-serif;
+    letter-spacing: .5px;
+}
+ 
+h1, h2, button {
+    -webkit-text-stroke: 2px black;
+}
+
+h3, h4, h5, h5, .btn, button, .nav-link {
+    -webkit-text-stroke: 1px black;
+}
+
+h6, label, .label {
+    -webkit-text-stroke: .5px black;
+}
+
+a {
+    -webkit-text-stroke: inherit;
+}
+
+.no-stroke {
+    -webkit-text-stroke: 0 !important;
+}
+
+
+.setlist-counter {
+    width: 90%;
+    max-width: 900px;
+    position: relative;
+}
+
+.setlist-counter-fill {
+    background: #f2cd3d !important;
+    min-width: 37px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    color: #b32743 !important;
+    font-weight: bold;
+}
 
 .table-row:nth-of-type(even) {
    background: rgba(0,0,0,0.08);
@@ -41,20 +75,6 @@
 
 .table-row > div {
     width: 95%;
-}
- 
-h1, h2, h3, h4, h5, label, .nav-link, .btn, button {
-    font-family: 'Fredoka One', cursive;
-}
-h1, h2, h3, h4 {
-    -webkit-text-stroke: 2px black;
-}
-.nav-link, .btn, button, h5, label {
-    -webkit-text-stroke: 1px black;
-}
-
-.no-stroke {
-    -webkit-text-stroke: 0 !important;
 }
 
 .offcanvas.offcanvas-end {
@@ -82,6 +102,17 @@ h1, h2, h3, h4 {
         background: transparent;
         border: 0;
       }
+
+
+      .ui-icon.ui-icon-circle-triangle-w {
+        background-image: url({{asset('images/icons/arrow-left.svg')}});
+        background-position: 0 !important;
+      }
+      .ui-icon.ui-icon-circle-triangle-e {
+        background-image: url({{asset('images/icons/arrow-right.svg')}});
+        background-position: 0 !important;
+      }
+
         </style>
 <script>
     window.app = <?php echo json_encode([
@@ -98,14 +129,18 @@ h1, h2, h3, h4 {
         @include('layouts.header')
 
         <div id="page-content">
-            <div class="pt-3 pb-5">
-                @yield('content')
-            </div>
+            
+            @yield('content')
+        
         </div>
 
         @include('layouts.footer')
 
         @include('layouts.components.alerts')
+
+        @unless(auth()->check())
+        @include('auth.login.modal')
+        @endunless
 
         <script src="{{ mix('js/app.js') }}"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -200,6 +235,7 @@ function enableDraggable() {
 
     sortable = new Sortable(setlist, {
         animation: 150,
+        filter: '.btn, .modal',
         forceFallback: true,
         scrollSensitivity: 120,
         ghostClass: 'dragged',
@@ -282,10 +318,10 @@ $('.load-more').click(function() {
             $('[data-datepicker]').each(function() {
                 let $element = $(this);
                 $element.datepicker({
-                    defaultDate: new Date($element.data('datepicker')),
+                    // defaultDate: new Date($element.data('datepicker')),
                     onSelect: function() {
-                        if ($(this).attr('data-input'))
-                            $($(this).data('input')).val(this.value);
+                        if ($element.attr('data-input'))
+                            $($element.data('input')).val(this.value);
                     }
                 });
             });

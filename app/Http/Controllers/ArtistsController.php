@@ -29,6 +29,7 @@ class ArtistsController extends Controller
     {
         $request->validate([
             'name' => 'string|required|unique:artists',
+            'image' => 'required'
         ]);
 
         Artist::create([
@@ -93,6 +94,8 @@ class ArtistsController extends Controller
      */
     public function destroy(Artist $artist)
     {
+        \Storage::disk('public')->delete($artist->image_path);
+        $artist->songs->each->delete();
         $artist->delete();
 
         return redirect(route('artists.index'))->with('success', 'O artista foi removido com sucesso');

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\{Song, Artist};
+use App\Models\{Song, Artist, Genre};
 
 class SongSeeder extends Seeder
 {
@@ -16,6 +16,7 @@ class SongSeeder extends Seeder
     {
         Song::create([
                 'artist_id' => Artist::byName('Legião Urbana')->id,
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'name' => 'Pais e Filhos',
                 'tags' => 'rock pop 80s',
                 'duration' => '3',
@@ -74,6 +75,7 @@ Quando você crescer?'
         Song::create([
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Meninos e Meninas',
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'tags' => 'rock pop 80s',
                 'duration' => '6',
                 'level' => 'Fácil',
@@ -118,6 +120,7 @@ E eu gosto de meninos e meninas'
         Song::create([
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Geração Coca-Cola',
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'tags' => 'rock pop 80s',
                 'duration' => '4',
                 'level' => 'Fácil',
@@ -177,6 +180,7 @@ Geração Coca-cola'
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Ainda é Cedo',
                 'tags' => 'rock pop 80s',
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => '5',
                 'level' => 'Fácil',
                 'lyrics' => 'Uma menina me ensinou
@@ -234,6 +238,7 @@ Ah, eu dizia ainda é cedo.'
         Song::create([
                 'artist_id' => Artist::byName('Babado Novo')->id,
                 'name' => 'Amor Perfeito',
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'tags' => 'axe 2000s',
                 'duration' => '3',
                 'level' => 'Difícil',
@@ -310,6 +315,7 @@ Cada minuto é muito tempo sem você, sem você'
                 'artist_id' => Artist::byName('Babado Novo')->id,
                 'name' => 'Bola de Sabão',
                 'tags' => 'axe 2000s',
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => '4',
                 'level' => 'Médio',
                 'lyrics' => 'Baby! Baby!
@@ -400,6 +406,7 @@ Hê! Hê! Hê! Hê! Hê!...'
                 'artist_id' => Artist::byName('Caetano Veloso')->id,
                 'name' => 'Você é Linda',
                 'tags' => 'mpb lenta 90s',
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => '3',
                 'level' => 'Fácil',
                 'lyrics' => 'Fonte de mel
@@ -479,6 +486,7 @@ E diz'
         Song::create([
                 'artist_id' => Artist::byName('Caetano Veloso')->id,
                 'name' => 'Sozinho',
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'tags' => 'mpb pop 90s',
                 'duration' => '3',
                 'level' => 'Fácil',
@@ -522,6 +530,7 @@ Onde está você agora?'
         Song::create([
                 'artist_id' => Artist::byName('Adele')->id,
                 'name' => 'Rolling in the Deep',
+                'genre_id' => Genre::inRandomOrder()->first()->id,
                 'tags' => 'soul pop 2010',
                 'duration' => '4',
                 'level' => 'Médio',

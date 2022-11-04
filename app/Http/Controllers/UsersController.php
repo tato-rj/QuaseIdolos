@@ -29,6 +29,8 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user = null)
     {
+        $this->authorize('update', $user ?? User::class);
+
         $user = $user ?? auth()->user();
         
         $request->validate([
@@ -46,6 +48,8 @@ class UsersController extends Controller
 
     public function password(Request $request, User $user = null)
     {
+        $this->authorize('update', $user ?? User::class);
+
         $user = $user ?? auth()->user();
 
         $request->validate([
@@ -66,6 +70,8 @@ class UsersController extends Controller
 
     public function destroy(User $user = null)
     {
+        $this->authorize('update', $user ?? User::class);
+
         $user = $user ?? auth()->user();
 
         $user->delete();
