@@ -173,6 +173,7 @@ if (app.user) {
 
 function listenToEvents()
 {
+    log('Listening to events');
     window.Echo
           .channel('setlist')
           .listen('SongRequested', function(event) {
