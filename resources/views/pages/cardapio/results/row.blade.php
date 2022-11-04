@@ -1,6 +1,6 @@
 @component('components.song.row', ['song' => $song, 'loop' => $loop])
 @slot('name')
-	<a href="#" data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
+	<a href="#" data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="link-none mr-2 text-truncate">{{$song->name}}</a>
 	@include('components.song.user.icons')
 @endslot
 
@@ -9,7 +9,7 @@
 @endslot
 
 @slot('action')
-	<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">QUERO ESSA</button>
+	<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">@fa(['icon' => 'plus', 'mr' => 0])</button>
 
 	@include('pages.cardapio.components.song.modal')
 @endslot

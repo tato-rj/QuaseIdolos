@@ -339,6 +339,25 @@ $('.load-more').click(function() {
             });
         }
 </script>
+
+<script type="text/javascript">
+$(document).on('click', 'button[data-fontsize]', function() {
+    let $lyrics = $($(this).data('target'));
+    let size = parseInt($lyrics.css('font-size'));
+
+    if ($(this).data('fontsize') == 'increase') {
+        if (size < 28) {
+            let newSize = size + 1 + 'px';
+            $lyrics.css({'font-size': newSize});
+        }
+    } else {
+        if (size > 16) {
+            let newSize = size - 1 + 'px';
+            $lyrics.css({'font-size': newSize});
+        }
+    }
+});
+</script>
         @stack('scripts')
     </body>
 </html>
