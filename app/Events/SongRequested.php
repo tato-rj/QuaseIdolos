@@ -38,9 +38,4 @@ class SongRequested implements ShouldBroadcast
     {
         return new Channel('setlist');
     }
-
-    public function broadcastAs()
-    {
-        return 'song-requested';
-    }
 }

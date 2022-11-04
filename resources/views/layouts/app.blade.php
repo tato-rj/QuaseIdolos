@@ -175,7 +175,7 @@ function listenToEvents()
 {
     window.Echo
           .channel('setlist')
-          .listen('.song-requested', function(event) {
+          .listen('SongRequested', function(event) {
             log('Song requested');
             if (app.route == 'setlists.admin') {
                 getEventTable();
