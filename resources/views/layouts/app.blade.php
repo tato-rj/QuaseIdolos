@@ -179,7 +179,6 @@ function listenToEvents()
     window.Echo
           .channel('setlist')
           .listen('SongRequested', function(event) {
-            log('Song requested');
             if (app.route == 'setlists.admin') {
                 getEventTable();
             } else {
@@ -190,7 +189,6 @@ function listenToEvents()
     window.Echo
           .channel('setlist')
           .listen('SongCancelled', function(event) {
-            log('Song cancelled');
             if (app.route == 'setlists.admin') {
                 getEventTable();
             }
@@ -221,13 +219,9 @@ function getEventTable(newOrder = null)
 {
     axios.get('{!! route('setlists.table') !!}', {params: {newOrder: newOrder}})
         .then(function(response) {
-
             $('#setlist-container').html(response.data);
-
-            if (newOrder) {
-                listenToEvents();
-                enableDraggable();
-            }
+            listenToEvents();
+            enableDraggable();
         })
         .catch(function(error) {
             log(error);
