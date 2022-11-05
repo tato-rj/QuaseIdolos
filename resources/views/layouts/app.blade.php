@@ -13,12 +13,15 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
+* {
+  touch-action: manipulation;
+}
+  
+.plyr__controls { display: none!important }
 
-            .plyr__controls { display: none!important }
 .bg-transparent {
     background: rgba(0,0,0,0.1) !important;
 }
-
 
 body, p, input, .form-control {
     font-family: 'Varela Round', sans-serif;
