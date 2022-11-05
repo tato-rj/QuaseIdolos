@@ -3,7 +3,7 @@
     @label
     @endisset
 
-    <div class="form-control form-control-{{$size ?? null}} {{$classes ?? null}} d-flex">
+    <div class="form-control form-control-{{$size ?? null}} {{$classes ?? null}} d-flex align-items-center">
     	<div>
     		@fa(['icon' => 'lock', 'fa_color' => 'grey-light'])	
     	</div>
