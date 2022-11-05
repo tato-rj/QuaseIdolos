@@ -6,7 +6,7 @@
 @section('content')
 <section class="container">
 	<div class="row">
-		<div class="col-lg-4 col-md-6 col-10 mx-auto">
+		<div class="col-lg-4 col-md-6 col-11 mx-auto">
 			@include('components.pagetitle', ['title' => 'Vamos lá'])
 			<div class="mb-3">
 				@form(['method' => 'POST', 'url' => '#', 'data' => ['trigger' => 'loader']])
