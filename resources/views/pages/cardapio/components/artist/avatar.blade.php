@@ -1,4 +1,4 @@
-<div class="artist m-4 {{iftrue($selected ?? null, 'mb-5')}}" {{iftrue($selected ?? null, 'selected')}}>
+<div class="artist m-3 {{iftrue($selected ?? null, 'mb-5')}}" {{iftrue($selected ?? null, 'selected')}}>
 	<div class="d-center flex-column">
 		<div class="position-relative">
 			<img src="{{$artist->coverImage()}}" class="rounded-circle mb-2">
