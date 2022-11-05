@@ -1,4 +1,4 @@
-<section class="container mb-7">
+<section class="container mb-6">
 	<div class="row">
 		<h2 class="text-center">COMO FUNCIONA<span class="text-secondary">?</span></h2>
 		<div class="col-lg-8 col-10 mx-auto">

@@ -16,7 +16,7 @@
 	@include('pages.cardapio.genres')
 	@include('pages.cardapio.artists')
 
-	<div id="results">
+	<div id="results" class="p-0">
 		@include('pages.cardapio.results.table')
 	</div>
 </section>
