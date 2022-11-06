@@ -16,11 +16,11 @@
 
 	@if($list->finished_at)
 		@include('pages.setlists.user.status')
-		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">MAIS DETALHES</button>
+		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">@fa(['icon' => 'guitar', 'mr' => 0])</button>
 	@else
 	<div class="d-flex">
-		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate mr-3">@fa(['icon' => 'info-circle', 'fa_size' => 'lg', 'mr' => 0])</button>
-		<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$list->id}}-modal" class="btn btn-red btn-s">@fa(['icon' => 'trash-alt', 'fa_size' => 'lg', 'mr' => 0])</button>
+		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate mr-3">@fa(['icon' => 'guitar', 'mr' => 0])</button>
+		<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$list->id}}-modal" class="btn btn-red btn-s">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
 	</div>
 	@endif
 </div>

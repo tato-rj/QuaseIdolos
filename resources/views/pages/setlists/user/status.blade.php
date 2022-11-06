@@ -6,5 +6,7 @@
 	<span class="text-secondary text-center mb-2">@fa(['icon' => 'hourglass-half'])@choice('Falta|Faltam', $count) {{$count}}</span>
 	@endif
 @else
-	<span class="opacity-6 text-center mb-2">Cantada no dia {{$list->finished_at->format('j/n')}}</span>
+	<span class="opacity-6 text-center mb-2 text-truncate d-md-none">{{$list->finished_at->format('d/m')}}</span>
+
+	<span class="opacity-6 text-center mb-2 text-truncate d-none d-md-block">Cantada no dia {{$list->finished_at->format('d/m')}}</span>
 @endif
