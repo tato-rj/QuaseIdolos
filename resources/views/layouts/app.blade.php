@@ -220,8 +220,11 @@ function getEventTable(newOrder = null)
     axios.get('{!! route('setlists.table') !!}', {params: {newOrder: newOrder}})
         .then(function(response) {
             $('#setlist-container').html(response.data);
-            listenToEvents();
+            
             enableDraggable();
+            
+            if (newOrder)
+                listenToEvents();
         })
         .catch(function(error) {
             log(error);
