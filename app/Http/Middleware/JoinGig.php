@@ -20,10 +20,10 @@ class JoinGig
         if (auth()->check() && ! auth()->user()->gig()->exists()) {
             $gigs = Gig::ready();
 
-            if($gigs->count() == 1)
+            if($gigs->count() == 1 && $gigs->first()->isLive())
                 auth()->user()->join($gigs->first());
 
-            if($gigs->count() > 1 || ! $gigs->exists())
+            if($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive())
                 return redirect(route('gig.select'));
         }
 
