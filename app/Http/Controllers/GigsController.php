@@ -133,7 +133,12 @@ class GigsController extends Controller
             'is_paused' => $gig->is_live ? false : $gig->is_paused
         ]);
 
-        $message = $gig->is_live ? 'O evento começou' : 'O evento acabou';
+        if ($gig->is_live) {
+            $message = 'O evento começou';
+        } else {
+            $message = 'O evento acabou';
+            $gig->participants()->detach();
+        }
 
         return view('components.core.alerts.regular', [
             'message' => $message,

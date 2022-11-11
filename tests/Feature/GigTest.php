@@ -241,4 +241,32 @@ class GigTest extends AppTest
 
         $this->assertDatabaseMissing('participants', ['user_id' => auth()->user()->id]);
     }
+
+    /** @test */
+    public function all_participants_leave_when_a_gig_is_turned_off()
+    {
+        Gig::truncate();
+     
+        Admin::first()->update(['super_admin' => true]);
+
+        $this->signIn();
+        
+        $user = auth()->user();
+
+        $gig = Gig::factory()->create(['is_live' => true]);
+
+        auth()->user()->join($gig);
+
+        $this->assertTrue($gig->participants()->exists());
+
+        $this->signIn($this->admin);
+
+        $this->assertTrue($gig->fresh()->isLive());
+
+        $this->post(route('gig.status', $gig));
+
+        $this->assertFalse($gig->fresh()->isLive());
+
+        $this->assertFalse($gig->participants()->exists());
+    }
 }
