@@ -31,6 +31,6 @@ class WelcomeEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Bem-vindo(a) ao QuaseÍdolos 🎉')->markdown('emails.users.welcome');
+        return $this->subject('Bem-vindo(a) ao Quase Ídolos 🎉')->markdown('emails.users.welcome');
     }
 }
