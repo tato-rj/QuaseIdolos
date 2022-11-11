@@ -22,7 +22,6 @@
 @endpush
 
 @section('content')
-
 @include('pages.home.bands.header')
 @include('pages.home.bands.about')
 @if($topUsers)
