@@ -23,7 +23,7 @@ class JoinGig
             if($gigs->count() == 1)
                 auth()->user()->join($gigs->first());
 
-            if($gigs->count() > 1)
+            if($gigs->count() > 1 || ! $gigs->exists())
                 return redirect(route('gig.select'));
         }
 
