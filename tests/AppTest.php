@@ -10,6 +10,7 @@ class AppTest extends TestCase
 	{
 		parent::setUp();
 
+        \Mail::fake();
         \Event::fake();
         \Storage::fake();
         
