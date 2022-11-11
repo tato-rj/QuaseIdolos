@@ -182,5 +182,9 @@ Route::middleware('super-admin')->group(function() {
 
         Route::delete('{gig}', 'GigsController@destroy')->name('destroy');
     });
+
+    Route::prefix('emails')->name('mail.')->withoutMiddleware('join-gig')->group(function() {
+        Route::get('{mail}', 'MailController@preview');
+    });
 });
 

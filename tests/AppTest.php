@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Models\{Admin, User, Song};
+use App\Events\{LyricsRequested, ScoreSubmitted, SongCancelled, SongFinished, SongRequested};
 
 class AppTest extends TestCase
 {    
@@ -11,7 +12,13 @@ class AppTest extends TestCase
 		parent::setUp();
 
         \Mail::fake();
-        \Event::fake();
+        \Event::fake([
+            LyricsRequested::class,
+            ScoreSubmitted::class,
+            SongCancelled::class,
+            SongFinished::class,
+            SongRequested::class
+        ]);
         \Storage::fake();
         
         $this->admin = Admin::factory()->create()->user;

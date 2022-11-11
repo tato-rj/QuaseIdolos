@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Tests\AppTest;
 use App\Models\User;
 use App\Mail\Users\WelcomeEmail;
-use Illuminate\Auth\Events\Registered;
 
 class EmailTest extends AppTest
 {
@@ -21,10 +20,6 @@ class EmailTest extends AppTest
             'password_confirmation' => $request->password
         ]);
 
-        \Event::assertDispatched(Registered::class, function ($event) {
-            return $event->user->is(auth()->user());
-        });
-        
         \Mail::assertSent(WelcomeEmail::class);
     }
 }

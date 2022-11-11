@@ -1,6 +1,6 @@
 {
-    "/js/app.js": "/js/app.js?id=15fa07d4d8e558bf7b3a052055da8c5b",
-    "/css/app.css": "/css/app.css?id=cb2a5e39722d578b39ac16a6b95ade12",
+    "/js/app.js": "/js/app.js?id=81cc037812c42831f5fb924b83c08315",
+    "/css/app.css": "/css/app.css?id=de7540ee3821f4cd59894955aff32ed9",
     "/js/vendor/datepicker-pt-BR.js": "/js/vendor/datepicker-pt-BR.js?id=994a960cee7c1ab671a330ececbcf35e",
     "/images/bg.jpg": "/images/bg.jpg?id=e57b1815aac96b6434135e53453d1153",
     "/images/brand/logo_lg.svg": "/images/brand/logo_lg.svg?id=29b4df69d13be44c23616a45e3c0985e",
@@ -8,6 +8,8 @@
     "/images/guto.jpeg": "/images/guto.jpeg?id=6b2a28a3450ef803453f031c67371288",
     "/images/icons/arrow-left.svg": "/images/icons/arrow-left.svg?id=ff677705f540e205f724f94805feac8b",
     "/images/icons/arrow-right.svg": "/images/icons/arrow-right.svg?id=e6b81781ab8e36a942a15ef64b01d818",
+    "/images/icons/facebook.svg": "/images/icons/facebook.svg?id=16a8adfc7b019f1a4bc97322fe87ab2a",
+    "/images/icons/instagram.svg": "/images/icons/instagram.svg?id=dd22a9f0165a039b8ec66f61711a090e",
     "/images/video-poster.jpeg": "/images/video-poster.jpeg?id=5f5f66a9bc44b77a8de2d836355f3632",
     "/videos/promo.mp4": "/videos/promo.mp4?id=a25f3539f54cb67f7689b926ab2cbd9d"
 }
