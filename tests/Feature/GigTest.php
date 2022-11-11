@@ -26,7 +26,7 @@ class GigTest extends AppTest
 
         $gig->update(['is_live' => true]);
 
-        $this->get(route('home'));
+        $this->get(route('setlists.user'));
 
         $this->assertTrue(auth()->user()->gig()->exists());
     }
