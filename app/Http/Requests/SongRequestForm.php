@@ -15,24 +15,31 @@ class SongRequestForm extends FormRequest
      */
     public function authorize()
     {
-        $this->liveGig = liveGig();
+        if (auth()->user()->isAdmin())
+            return true;
+        
+        $this->liveGig = auth()->user()->liveGig();
 
-        return $this->isLive() && $this->isNotPaused() && $this->isNotFull() && $this->userCanMakeRequests();
+        return $this->gigIsLive() && 
+               $this->gigIsNotPaused() && 
+               $this->gigIsNotFull() && 
+               $this->userCanMakeRequests() &&
+               $this->songNotYetRequested();
     }
 
-    public function isLive()
+    public function gigIsLive()
     {
         return $this->liveGig ? true 
              : $this->failWithMessage('Não estamos recebendo pedidos agora');
     }
 
-    public function isNotPaused()
+    public function gigIsNotPaused()
     {
         return ! $this->liveGig->isPaused() ? true 
              : $this->failWithMessage('Paramos por um momento, voltamos já');
     }
 
-    public function isNotFull()
+    public function gigIsNotFull()
     {
         return ! $this->liveGig->isFull() ? true 
              : $this->failWithMessage('O limite de músicas desse set foi alcançado');
@@ -42,6 +49,12 @@ class SongRequestForm extends FormRequest
     {
         return ! $this->liveGig->userLimitReached() ? true 
              : $this->failWithMessage('O seu limite de músicas foi alcançado');
+    }
+
+    public function songNotYetRequested()
+    {
+        return ! auth()->user()->requestedTonight($this->song) ? true 
+             : $this->failWithMessage('Você já escolheu essa música');
     }
 
     public function rules()

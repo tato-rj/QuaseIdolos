@@ -39,9 +39,7 @@ class SongsController extends Controller
             'artist_id' => $request->artist_id,
             'genre_id' => $request->genre_id,
             'name' => $request->name,
-            'tags' => preg_replace('/\s+/', ' ', $request->tags),
             'duration' => $request->duration,
-            'level' => $request->level,
             'lyrics' => $request->lyrics,
             'chords_url' => $request->chords_url
         ]);
@@ -96,10 +94,8 @@ class SongsController extends Controller
 
         $song->update([
             'name' => $request->name,
-            'tags' => preg_replace('/\s+/', ' ', $request->tags),
             'duration' => $request->duration,
             'genre_id' => $request->genre_id,
-            'level' => $request->level,
             'lyrics' => $request->lyrics,
             'chords_url' => $request->chords_url
         ]);

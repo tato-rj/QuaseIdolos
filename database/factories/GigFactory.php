@@ -19,7 +19,8 @@ class GigFactory extends Factory
                 return User::factory()->create()->id;
             },
             'name' => $this->faker->word,
-            'date' => now()
+            'date' => now(),
+            'has_ratings' => true
         ];
     }
 }

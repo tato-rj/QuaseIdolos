@@ -28,6 +28,11 @@ class Song extends BaseModel
         return $this->hasMany(SongRequest::class);
     }
 
+    public function ratings()
+    {
+        return $this->hasManyThrough(Rating::class, SongRequest::class);
+    }
+    
 	public function favorites()
 	{
 		return $this->belongsToMany(User::class, 'favorites');
@@ -48,16 +53,10 @@ class Song extends BaseModel
     	return SongRequest::waitingFor($this)->first()->order;
     }
 
-	public function tags()
-	{
-		return explode(' ', $this->tags);
-	}
-
 	public function scopeSearch($query, $input)
 	{
 		return $query
 			->where('name', 'LIKE', '%'.$input.'%')
-			->orWhere('tags', 'LIKE', '%'.$input.'%')
 			->orWhereHas('genre', function($q) use ($input) {
 				$q->where('name', 'LIKE', '%'.$input.'%');
 			})

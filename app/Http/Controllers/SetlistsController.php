@@ -9,11 +9,11 @@ class SetlistsController extends Controller
 {
     public function admin()
     {
-        $gig = liveGig();
-        $setlist = $gig ? $gig->setlist()->waiting()->get() : collect();
+        $gig = auth()->user()->liveGig();
+        $setlist = $gig ? $gig->setlist()->orderBy('order')->get() : collect();
         $percentage = percentage($setlist->count(), $gig ? $gig->songs_limit : 0);
 
-        return view('pages.setlists.admin.show', compact(['setlist', 'gig', 'percentage']));
+        return view('pages.setlists.admin.index', compact(['setlist', 'gig', 'percentage']));
     }
 
     public function table(Request $request)
@@ -25,8 +25,8 @@ class SetlistsController extends Controller
             }
         }
 
-        $gig = liveGig();
-        $setlist = $gig->setlist()->waiting()->get();
+        $gig = auth()->user()->liveGig();
+        $setlist = $gig->setlist()->orderBy('order')->get();
         $percentage = percentage($setlist->count(), $gig->songs_limit);
 
         return view('pages.setlists.admin.table', compact(['setlist', 'percentage', 'gig']))->render();

@@ -40,7 +40,8 @@ class UsersController extends Controller
 
         $user->update([
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'has_ratings' => $request->has_ratings ? 1 : 0
         ]);
 
         return back()->with('success', 'Os seus dados foram alterados com sucesso');
@@ -73,6 +74,12 @@ class UsersController extends Controller
         $this->authorize('update', $user ?? User::class);
 
         $user = $user ?? auth()->user();
+
+        $user->favorites()->detach();
+
+        $user->ratings->each->delete();
+
+        $user->ratingsGiven->each->delete();
 
         $user->delete();
 

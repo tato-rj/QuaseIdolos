@@ -20,7 +20,10 @@ class AppTest extends TestCase
     protected function signIn($user = null)
     {
         $user = $user ?? User::factory()->create();
-        return $this->actingAs($user);
+
+        $this->actingAs($user);
+
+        return $user;
     }
 
     protected function logout()

@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, Artist, SongRequest, Favorite, User, Genre};
+use App\Models\{Song, Artist, SongRequest, Favorite, User, Genre, Rating};
 
 class SongTest extends AppTest
 {
@@ -20,11 +20,19 @@ class SongTest extends AppTest
     }
 
     /** @test */
+    public function it_has_many_ratings()
+    {
+        Rating::factory()->create(['song_request_id' => SongRequest::factory()->create(['song_id' => $this->song])]);
+
+        $this->assertInstanceOf(Rating::class, $this->song->ratings->first());
+    }
+
+    /** @test */
     public function it_can_belong_to_many_song_requests()
     {
         $this->signIn();
 
-        SongRequest::factory()->create(['song_id' => $this->song->id]);
+        SongRequest::factory()->create(['song_id' => $this->song]);
 
         $this->assertInstanceOf(SongRequest::class, $this->song->songRequests->first());
     }
@@ -34,9 +42,21 @@ class SongTest extends AppTest
     {
         $this->signIn();
 
-        Favorite::factory()->create(['song_id' => $this->song->id]);
+        Favorite::factory()->create(['song_id' => $this->song]);
 
         $this->assertInstanceOf(User::class, $this->song->favorites->first());
+    }
+
+    /** @test */
+    public function it_knows_its_average_rating()
+    {
+        $firstSongRequest = SongRequest::factory()->create(['song_id' => $this->song]);
+        $secondSongRequest = SongRequest::factory()->create(['song_id' => $this->song]);
+
+        Rating::factory()->create(['song_request_id' => $firstSongRequest, 'score' => 4]);
+        Rating::factory()->create(['song_request_id' => $secondSongRequest, 'score' => 2]);
+
+        $this->assertEquals(3, $this->song->ratings->avg('score'));
     }
 
     /** @test */
@@ -50,7 +70,7 @@ class SongTest extends AppTest
     {
         $this->assertEquals(0, $this->song->favorites_count);
 
-        Favorite::factory()->create(['song_id' => $this->song->id]);
+        Favorite::factory()->create(['song_id' => $this->song]);
         
         $this->assertEquals(1, $this->song->fresh()->favorites_count);
     }
@@ -60,8 +80,8 @@ class SongTest extends AppTest
     {
         $this->assertEquals(0, $this->song->completed_count);
 
-        SongRequest::factory()->create(['song_id' => $this->song->id]);
-        SongRequest::factory()->create(['song_id' => $this->song->id, 'finished_at' => now()]);
+        SongRequest::factory()->create(['song_id' => $this->song]);
+        SongRequest::factory()->create(['song_id' => $this->song, 'finished_at' => now()]);
         
         $this->assertEquals(1, $this->song->fresh()->completed_count);
     }

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Traits\Rateable;
 
 class Gig extends BaseModel
 {
+	use Rateable;
+	
 	protected $dates = ['starts_at', 'ends_at', 'date'];
 	protected $casts = [
 		'is_live' => 'boolean',
@@ -17,9 +20,19 @@ class Gig extends BaseModel
 		return $this->belongsTo(User::class, 'creator_id');
 	}
 
+	public function participants()
+	{
+		return $this->belongsToMany(User::class, 'participants');
+	}
+
     public function setlist()
     {
     	return $this->hasMany(SongRequest::class, 'gig_id');
+    }
+
+    public function ratings()
+    {
+    	return $this->hasManyThrough(Rating::class, SongRequest::class);
     }
     
 	public function scopeByEventDate($query)
@@ -36,6 +49,11 @@ class Gig extends BaseModel
 	{
 		return $query->whereNull('date');
 	}
+
+    public function scopeTonight($query)
+    {
+        // return $query->where('created_at', '>=', $gig->starts_at);
+    }
 
 	public function duplicate()
 	{
@@ -123,7 +141,7 @@ class Gig extends BaseModel
 
 		return $query->whereNull('date')
 					 ->orWhereDate('date', $start)
-					 ->orWhereBetween('date', [$start, $start->addDay()->addHours(4)]);
+					 ->orWhereBetween('date', [$start->copy()->subDay(), $start->addHours(4)]);
 	}
 
 	public function isReady()

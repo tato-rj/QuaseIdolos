@@ -7,3 +7,8 @@ function percentage($num, $total)
 
 	return (int)round(($num * 100) / $total);
 }
+
+function randomFromArray($array = [])
+{
+	return $array[array_rand($array)];
+}

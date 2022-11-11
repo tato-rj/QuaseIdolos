@@ -27,17 +27,8 @@
 	@endselect
 
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'required' => true])
-	@input(['placeholder' => 'Hastags', 'name' => 'tags'])
 	@input(['placeholder' => 'Duração', 'name' => 'duration', 'type' => 'number', 'min' => 1, 'required' => true])
-	@select([
-		'placeholder' => 'Dificuldade',
-		'name' => 'level',
-		'required' => true])
 
-		@foreach(['Fácil', 'Médio', 'Difícil'] as $level)
-		@option(['label' => $level, 'value' => $level, 'name' => 'level', 'selected' => $level == old('level')])
-		@endforeach
-	@endselect
 	@textarea(['placeholder' => 'Letra', 'name' => 'lyrics', 'value' => old('lyrics'), 'required' => true])
 
 	@submit(['label' => 'Adicionar música', 'theme' => 'secondary'])

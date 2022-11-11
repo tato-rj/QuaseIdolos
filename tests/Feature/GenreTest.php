@@ -21,7 +21,7 @@ class GenreTest extends AppTest
 
         $genre = Genre::first();
 
-        $song = Song::factory()->create(['genre_id' => $genre->id]);
+        $song = Song::factory()->create(['genre_id' => $genre]);
 
         Storage::disk('public')->assertExists($genre->image_path);
 
@@ -29,6 +29,6 @@ class GenreTest extends AppTest
 
         Storage::disk('public')->assertMissing($genre->image_path);
 
-        $this->assertDatabaseMissing('songs', ['id' => $song->id]);
+        $this->assertDatabaseMissing('songs', ['id' => $song]);
     }
 }

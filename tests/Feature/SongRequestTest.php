@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{Gig, Song, SongRequest};
-use App\Events\{SongRequested, SongCancelled};
+use App\Models\{Gig, Song, SongRequest, User};
+use App\Events\{SongRequested, SongCancelled, SongFinished};
 
 class SongRequestTest extends AppTest
 {
@@ -12,7 +12,7 @@ class SongRequestTest extends AppTest
     {
         parent::setUp();
 
-        Gig::factory()->create(['is_live' => true]);
+        $this->gig = Gig::factory()->create(['is_live' => true]);
     }
 
     /** @test */
@@ -30,7 +30,9 @@ class SongRequestTest extends AppTest
 
         $this->signIn();
 
-        $songRequestByAnotherUser = SongRequest::factory()->create();
+        auth()->user()->join($this->gig);
+
+        $songRequestByAnotherUser = SongRequest::factory()->create(['gig_id' => $this->gig->id]);
 
         $this->delete(route('song-requests.cancel', $songRequestByAnotherUser));
     }
@@ -38,6 +40,8 @@ class SongRequestTest extends AppTest
     /** @test */
     public function admins_can_cancel_any_user_request()
     {
+        Gig::truncate();
+
         $this->signIn($this->admin);
 
         $songRequest = SongRequest::factory()->create();
@@ -50,9 +54,53 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
-    public function users_cannot_request_the_same_song_while_it_is_in_the_waiting_list()
+    public function users_cannot_request_the_same_song_in_the_same_setlist()
     {
-        $this->assertTrue(true);
+        $this->expectException('\App\Exceptions\SetlistException');
+
+        $this->signIn();
+
+        $song = Song::factory()->create();
+
+        $this->post(route('song-requests.store', $song));
+
+        $this->post(route('song-requests.store', $song));
+    }
+
+    /** @test */
+    public function users_can_request_the_same_song_in_the_same_gig_on_a_different_day()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $this->signIn();
+
+        $gig = Gig::factory()->create(['is_live' => true, 'date' => null]);
+
+        auth()->user()->join($gig);
+
+        $song = Song::factory()->create();
+
+        $this->post(route('song-requests.store', $song));
+
+        $this->travel(1)->days();
+
+        $this->post(route('song-requests.store', $song));        
+    }
+
+    /** @test */
+    public function admins_can_mark_a_song_request_as_finished()
+    {
+        $this->signIn($this->admin);
+
+        auth()->user()->join($this->gig);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id]);
+
+        $this->assertFalse($songRequest->isOver());
+
+        $this->post(route('song-requests.finish', $songRequest));
+
+        $this->assertTrue($songRequest->fresh()->isOver());
     }
 
     /** @test */
@@ -64,6 +112,22 @@ class SongRequestTest extends AppTest
 
         \Event::assertDispatched(SongRequested::class, function ($event) {
             return $event->user === auth()->user();
+        });
+    }
+
+    /** @test */
+    public function when_a_user_finishes_a_song_an_event_is_fired()
+    {
+        $this->signIn($this->admin);
+
+        auth()->user()->join($this->gig);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id]);
+
+        $this->post(route('song-requests.finish', $songRequest));
+
+        \Event::assertDispatched(SongFinished::class, function ($event) use ($songRequest) {
+            return $event->songRequest->is($songRequest);
         });
     }
 
@@ -82,25 +146,77 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
-    public function a_user_only_gets_the_song_request_alert_for_the_gig_that_is_currently_live()
+    public function a_user_only_gets_the_song_request_alert_if_the_gig_it_joined_is_live()
     {
         $this->signIn();
 
-        $oldGig = liveGig();
+        (new SongRequest)->add(auth()->user(), $this->song, $this->gig);
 
-        (new SongRequest)->add(auth()->user(), $this->song, $oldGig);
+        $this->get(route('setlists.alert'))->assertSee($this->song->name);
 
-        $this->get(route('setlists.alert.user'))->assertSee($this->song->name);
+        $this->gig->update(['is_live' => false]);
 
-        $oldGig->update(['is_live' => false]);
+        $this->get(route('setlists.alert'))->assertDontSee($this->song->name);
+    }
 
-        $newGig = Gig::factory()->create(['is_live' => true]);
+    /** @test */
+    public function admins_only_see_requests_that_belong_to_the_same_event()
+    {
+        $this->signIn();
 
-        $this->get(route('setlists.alert.user'))->assertDontSee($this->song->name);
+        $firstSong = Song::factory()->create(['name' => 'Firstsong']);
 
-        $newGig->update(['is_live' => false]);
-        $oldGig->update(['is_live' => true]);
+        (new SongRequest)->add(auth()->user(), $firstSong, $this->gig);
 
-        $this->get(route('setlists.alert.user'))->assertSee($this->song->name);
+        $otherGig = Gig::factory()->create(['is_live' => true]);
+        $otherSong = Song::factory()->create(['name' => 'Othersong']);
+
+        $this->logout();
+
+        $this->signIn();
+        
+        (new SongRequest)->add(auth()->user(), $otherSong, $otherGig);
+
+        $this->logout();
+
+        $this->signIn($this->admin);
+
+        auth()->user()->join($this->gig);
+
+        $this->get(route('setlists.admin'))
+             ->assertSee($firstSong->name)
+             ->assertDontSee($otherSong->name);
+
+        auth()->user()->join($otherGig);
+
+        $this->get(route('setlists.admin'))
+             ->assertDontSee($firstSong->name)
+             ->assertSee($otherSong->name);
+    }
+
+    /** @test */
+    public function a_song_requested_by_an_admin_is_removed_when_finished()
+    {
+        $this->signIn($this->admin);
+        
+        $songRequest = SongRequest::factory()->create(['user_id' => auth()->user(), 'gig_id' => $this->gig]);
+
+        $songRequest->finish();
+
+        $this->assertDatabaseMissing('song_requests', ['id' => $songRequest->id]);
+    }
+
+    /** @test */
+    public function an_admin_can_request_the_same_song_many_times_in_the_same_night()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $this->signIn($this->admin);
+
+        $song = Song::factory()->create();
+
+        $this->post(route('song-requests.store', $song));
+
+        $this->post(route('song-requests.store', $song));
     }
 }

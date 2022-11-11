@@ -40,11 +40,11 @@ h1, h2 {
     letter-spacing: .5px;
 }
  
-h1, h2, button {
+h1, h2, button, .stroke-bold {
     -webkit-text-stroke: 2px black;
 }
 
-h3, h4, h5, h5, .btn, button, .nav-link {
+h3, h4, h5, h5, .btn, button, .nav-link, .stroke-light {
     -webkit-text-stroke: 1px black;
 }
 
@@ -132,24 +132,37 @@ a {
         'csrfToken' => csrf_token(),
         'url' => \Request::root(),
         'route' => \Request::route()->getName(),
-        'user' => auth()->check() ? auth()->user() : null
+        'user' => auth()->check() ? auth()->user() : null,
+        'gig' => auth()->check() ? auth()->user()->liveGig() : null
     ]); ?>
 </script>
 
         @stack('header')
     </head>
     <body class="bg-primary">
-        @include('layouts.header')
+            @auth
+            @include('pages.gigs.banner')
+            @endauth
+        <div class="position-relative">
+            @unless(isset($raw))
+            @include('layouts.header')
+            @endunless
 
-        <div id="page-content">
+            <div id="page-content">
+                
+                @yield('content')
             
-            @yield('content')
-        
+            </div>
+
+            @unless(isset($raw))
+            @include('layouts.footer')
+            @endunless
         </div>
-
-        @include('layouts.footer')
-
         @include('layouts.components.alerts')
+
+        @if($modal = session('modal'))
+        @include($modal)
+        @endif
 
         @unless(auth()->check())
         @include('auth.login.modal')
@@ -160,10 +173,6 @@ a {
         <script src="{{mix('js/vendor/datepicker-pt-BR.js')}}"></script>
 
 <script type="text/javascript">
-//////////////////////
-// GLOBAL VARIABLES //
-//////////////////////
-
 var sortable, sorting;
 
 if (app.user) {
@@ -176,23 +185,24 @@ if (app.user) {
 
 function listenToEvents()
 {
+    try {
     window.Echo
           .channel('setlist')
           .listen('SongRequested', function(event) {
-            if (app.route == 'setlists.admin') {
+            if (app.route == 'setlists.admin')
                 getEventTable();
-            } else {
-                getAdminAlert();
-            }
           });
 
     window.Echo
           .channel('setlist')
           .listen('SongCancelled', function(event) {
-            if (app.route == 'setlists.admin') {
+            if (app.route == 'setlists.admin')
                 getEventTable();
-            }
           });
+    } catch(error) {
+        log(error);
+        alert('Erro com o Pusher!!! ' + error);
+    }
 }
 
 function stopListening()
@@ -206,7 +216,7 @@ function stopListening()
 
 function getUserAlert()
 {
-    axios.get('{!! route('setlists.alert.user') !!}')
+    axios.get('{!! route('setlists.alert') !!}')
          .then(function(response) {
             $('body').append(response.data);
          })
@@ -231,23 +241,12 @@ function getEventTable(newOrder = null)
         });
 }
 
-function getAdminAlert()
-{
-    axios.get('{!! route('setlists.alert.admin') !!}')
-        .then(function(response) {
-            $('body').append(response.data);
-        })
-        .catch(function(error) {
-            log(error);
-        });
-}
-
 function enableDraggable() {
     sorting = false;
 
     sortable = new Sortable(setlist, {
         animation: 150,
-        filter: '.btn, .modal',
+        filter: '.btn, .btn-raw, .modal',
         forceFallback: true,
         scrollSensitivity: 120,
         ghostClass: 'dragged',
@@ -284,6 +283,12 @@ $('.load-more').click(function() {
 
     if($remaining.length == $slice.length)
         $(this).remove();
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.modal-autoshow').modal('show');
 });
 </script>
 

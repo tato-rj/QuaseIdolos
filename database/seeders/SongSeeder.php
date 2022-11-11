@@ -18,9 +18,7 @@ class SongSeeder extends Seeder
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'genre_id' => Genre::inRandomOrder()->first()->id,
                 'name' => 'Pais e Filhos',
-                'tags' => 'rock pop 80s',
                 'duration' => '3',
-                'level' => 'Médio',
                 'lyrics' => 'Estátuas e cofres, e paredes pintadas
 Ninguém sabe o que aconteceu
 Ela se jogou da janela do quinto andar
@@ -76,9 +74,7 @@ Quando você crescer?'
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Meninos e Meninas',
                 'genre_id' => Genre::inRandomOrder()->first()->id,
-                'tags' => 'rock pop 80s',
                 'duration' => '6',
-                'level' => 'Fácil',
                 'lyrics' => 'Quero me encontrar, mas não sei onde estou
 Vem comigo procurar algum lugar mais calmo
 Longe dessa confusão e dessa gente que não se respeita
@@ -121,9 +117,7 @@ E eu gosto de meninos e meninas'
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Geração Coca-Cola',
                 'genre_id' => Genre::inRandomOrder()->first()->id,
-                'tags' => 'rock pop 80s',
                 'duration' => '4',
-                'level' => 'Fácil',
                 'lyrics' => 'Quando nascemos fomos programados
 A receber o que vocês
 Nos empurraram com os enlatados
@@ -179,10 +173,8 @@ Geração Coca-cola'
         Song::create([
                 'artist_id' => Artist::byName('Legião Urbana')->id,
                 'name' => 'Ainda é Cedo',
-                'tags' => 'rock pop 80s',
                 'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => '5',
-                'level' => 'Fácil',
                 'lyrics' => 'Uma menina me ensinou
 Quase tudo que eu sei
 Era quase escravidão
@@ -239,9 +231,7 @@ Ah, eu dizia ainda é cedo.'
                 'artist_id' => Artist::byName('Babado Novo')->id,
                 'name' => 'Amor Perfeito',
                 'genre_id' => Genre::inRandomOrder()->first()->id,
-                'tags' => 'axe 2000s',
                 'duration' => '3',
-                'level' => 'Difícil',
                 'lyrics' => 'Fecho os olhos pra não ver passar o tempo
 Sinto falta de você
 Anjo bom, amor perfeito no meu peito
@@ -314,10 +304,8 @@ Cada minuto é muito tempo sem você, sem você'
         Song::create([
                 'artist_id' => Artist::byName('Babado Novo')->id,
                 'name' => 'Bola de Sabão',
-                'tags' => 'axe 2000s',
                 'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => '4',
-                'level' => 'Médio',
                 'lyrics' => 'Baby! Baby!
 Queria tanto te ver
 Vê se me liga às vezes
@@ -405,10 +393,8 @@ Hê! Hê! Hê! Hê! Hê!...'
         Song::create([
                 'artist_id' => Artist::byName('Caetano Veloso')->id,
                 'name' => 'Você é Linda',
-                'tags' => 'mpb lenta 90s',
                 'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => '3',
-                'level' => 'Fácil',
                 'lyrics' => 'Fonte de mel
 Nos olhos de gueixa
 Kabuki, máscara
@@ -487,9 +473,7 @@ E diz'
                 'artist_id' => Artist::byName('Caetano Veloso')->id,
                 'name' => 'Sozinho',
                 'genre_id' => Genre::inRandomOrder()->first()->id,
-                'tags' => 'mpb pop 90s',
                 'duration' => '3',
-                'level' => 'Fácil',
                 'lyrics' => 'Às vezes, no silêncio da noite
 Eu fico imaginando nós dois
 Eu fico ali sonhando acordado
@@ -531,9 +515,7 @@ Onde está você agora?'
                 'artist_id' => Artist::byName('Adele')->id,
                 'name' => 'Rolling in the Deep',
                 'genre_id' => Genre::inRandomOrder()->first()->id,
-                'tags' => 'soul pop 2010',
                 'duration' => '4',
-                'level' => 'Médio',
                 'lyrics' => 'There\'s a fire starting in my heart
 Reaching a fever pitch and it\'s bringing me out the dark
 Finally, I can see you crystal clear

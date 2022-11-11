@@ -17,6 +17,10 @@
 </section>
 
 <section class="mb-4">
+	@if($readyGigs->isEmpty() && $otherGigs->isEmpty())
+	@include('components.empty')
+	@endif
+
 	@table
 	@slot('header')
 	@unless($readyGigs->isEmpty())
@@ -25,11 +29,9 @@
 	@endslot
 
 	@slot('rows')
-		@forelse($readyGigs as $gig)
+		@foreach($readyGigs as $gig)
 		@include('pages.gigs.table.row', ['ready' => true])
-		@empty
-		@include('components.empty')
-		@endforelse
+		@endforeach
 	@endslot
 
 	@endtable

@@ -11,7 +11,7 @@ class SetlistTest extends AppTest
     {
         parent::setUp();
 
-        Gig::factory()->create(['is_live' => true]);
+        $this->gig = Gig::factory()->create(['is_live' => true]);
     }
 
     /** @test */
@@ -19,7 +19,9 @@ class SetlistTest extends AppTest
     {
         $this->signIn($this->admin);
 
-        (new SongRequest)->add(auth()->user(), $this->song, liveGig());
+        auth()->user()->join($this->gig);
+
+        (new SongRequest)->add(auth()->user(), $this->song, auth()->user()->liveGig());
 
         $this->get(route('setlists.admin'))->assertSee($this->song->name);
     }
@@ -31,7 +33,9 @@ class SetlistTest extends AppTest
 
         $this->signIn();
 
-        (new SongRequest)->add(auth()->user(), $this->song, liveGig());
+        auth()->user()->join($this->gig);
+
+        (new SongRequest)->add(auth()->user(), $this->song, auth()->user()->liveGig());
 
         $this->get(route('setlists.admin'));
     }
@@ -40,12 +44,14 @@ class SetlistTest extends AppTest
     public function admins_can_reorder_a_setlist()
     {
         $this->signIn();
+        
+        auth()->user()->join($this->gig);
+        
+        $gig = auth()->user()->liveGig();
 
-        $gig = liveGig();
-
-        (new SongRequest)->add(auth()->user(), Song::factory()->create(), liveGig());
-        (new SongRequest)->add(auth()->user(), Song::factory()->create(), liveGig());
-        (new SongRequest)->add(auth()->user(), Song::factory()->create(), liveGig());
+        (new SongRequest)->add(auth()->user(), Song::factory()->create(), $gig);
+        (new SongRequest)->add(auth()->user(), Song::factory()->create(), $gig);
+        (new SongRequest)->add(auth()->user(), Song::factory()->create(), $gig);
 
         $oldSetlist = $gig->setlist;
 
@@ -62,5 +68,41 @@ class SetlistTest extends AppTest
         $this->get(route('setlists.table', ['newOrder' => $newOrder]));
 
         $this->assertNotEquals($oldSetlist, $gig->fresh()->setlist);
+    }
+
+    /** @test */
+    public function admin_requests_can_exceed_the_user_limit_set_by_the_gig()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $this->signIn($this->admin);
+
+        $gig = Gig::factory()->create(['is_live' => true, 'songs_limit_per_user' => 1]);
+        
+        auth()->user()->join($gig);
+        
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+    }
+
+    /** @test */
+    public function admin_requests_can_exceed_the_total_limit_set_by_the_gig()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $this->signIn($this->admin);
+
+        $gig = Gig::factory()->create(['is_live' => true, 'songs_limit' => 1]);
+        
+        auth()->user()->join($gig);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        
+        $this->post(route('song-requests.store', Song::factory()->create()));
     }
 }

@@ -38,6 +38,16 @@
 
 		<div class="col-lg-9 col-12">
 			<div class="mb-5">
+				<h5 class="mb-3">@fa(['icon' => 'star', 'fa_color' => 'secondary'])Total de {{$user->ratings->count()}} @choice('voto|votos', $user->ratings->count())</h5>
+				@foreach($user->ratings as $rating)
+					@include('pages.users.rows.rating')
+					@if($loop->iteration == 4 && $loop->remaining)
+					@include('components.tables.rows.more')
+					@endif
+				@endforeach
+			</div>
+
+			<div class="mb-5">
 				<h5 class="mb-3">@fa(['icon' => 'heart', 'fa_color' => 'secondary'])Total de {{$favorites->count()}} @choice('favorito|favoritos', $favorites->count())</h5>
 				@foreach($favorites as $song)
 					@include('pages.users.rows.favorite')
@@ -46,6 +56,7 @@
 					@endif
 				@endforeach
 			</div>
+
 			<div>
 				<h5 class="mb-3">@fa(['icon' => 'microphone', 'fa_color' => 'secondary'])Total de {{$pastList->count()}} @choice('música|músicas', $pastList->count()) @choice('cantada|cantadas', $pastList->count())</h5>
 				@foreach($pastList as $list)

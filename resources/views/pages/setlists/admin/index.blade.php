@@ -10,9 +10,10 @@
 
 @section('content')
 <section class="container">
-	<div class="text-center ">
+	<div class="text-center">
 		<h2>SETLIST DE <span class="text-secondary">HOJE</span></h2>
 		@if($gig)
+		<a class="link-secondary" target="_blank" href="{{route('lyrics.index')}}"><h6 class="mb-3">Abrir página pra mostrar a letra</h6></a>
 		<a href="" data-bs-toggle="modal" data-bs-target="#gig-{{$gig->id}}-modal" class="link-secondary"><h3>@fa(['icon' => 'clipboard-list']){{$gig->name}}</h3></a>
 
 		@include('pages.setlists.admin.info')
@@ -33,6 +34,22 @@
 enableDraggable();
 </script>
 
+<script type="text/javascript">
+
+
+$(document).on('click', 'button.show-lyrics', function() {
+	let $btn = $(this);
+
+	axios.post($(this).data('url'))
+		 .then(function() {
+		 	$btn.animateCSS('bounce');
+		 })
+		 .catch(function(response) {
+		 	$btn.animateCSS('shakeX');
+		 });
+});
+
+</script>
 <script type="text/javascript">
 $('input[name="is_live"]').change(function() {
 	let $switch = $(this);

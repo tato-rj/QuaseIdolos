@@ -25,6 +25,9 @@
 
 @include('pages.home.bands.header')
 @include('pages.home.bands.about')
+@if($topUsers)
+@include('pages.home.bands.rankings')
+@endif
 @include('pages.home.bands.search')
 @include('pages.home.bands.contact')
 

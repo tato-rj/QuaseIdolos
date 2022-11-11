@@ -4,6 +4,16 @@
 //// CUSTOM CSS BELOW
 //////////////////////////////////////
 
+.rating {
+	button.star-rating:not(.selected):not(.temp-selected) {
+		@extend .opacity-2;
+	}
+
+	button.star-rating.selected, button.star-rating.temp-selected {
+		@extend .text-yellow;
+	}
+}
+
 .bg-center {
   background-size: cover;
   background-position: center;
@@ -172,7 +182,7 @@ input:checked + .slider:before {
 	}
 }
 
-.draggable:not(:first-of-type) {
+.draggable:not(:first-of-type), .confirmed-request {
 	width: 75%;
 	max-width: 700px;
 	h2 {

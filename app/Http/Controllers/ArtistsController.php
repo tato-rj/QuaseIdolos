@@ -29,7 +29,7 @@ class ArtistsController extends Controller
     {
         $request->validate([
             'name' => 'string|required|unique:artists',
-            'image' => 'required'
+            'image' => 'required|max:200|mimes:jpg,jpeg'
         ]);
 
         Artist::create([
@@ -70,6 +70,7 @@ class ArtistsController extends Controller
     {
         $request->validate([
             'name' => 'string|required',
+            'image' => 'sometimes|max:200|mimes:jpg,jpeg'
         ]);
 
         $artist->update([

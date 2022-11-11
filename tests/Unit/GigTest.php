@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Gig, User, SongRequest};
+use App\Models\{Gig, User, SongRequest, Participant, Rating};
 
 class GigTest extends AppTest
 {
@@ -26,9 +26,19 @@ class GigTest extends AppTest
     /** @test */
     public function it_has_many_song_requests()
     {
-        SongRequest::factory()->create(['gig_id' => $this->gig->id]);
+        SongRequest::factory()->create(['gig_id' => $this->gig]);
 
         return $this->assertInstanceOf(SongRequest::class, $this->gig->setlist->first());
+    }
+
+    /** @test */
+    public function it_has_many_participants()
+    {
+        $this->signIn();
+
+        Participant::factory()->create(['gig_id' => $this->gig, 'user_id' => auth()->user()]);
+
+        $this->assertInstanceOf(User::class, $this->gig->participants->first());
     }
 
     /** @test */
@@ -44,7 +54,7 @@ class GigTest extends AppTest
     {
         $this->assertFalse($this->gig->isFull());
 
-        SongRequest::factory()->count(2)->create(['gig_id' => $this->gig->id]);
+        SongRequest::factory()->count(2)->create(['gig_id' => $this->gig]);
 
         $this->assertTrue($this->gig->fresh()->isFull());
     }
@@ -56,7 +66,7 @@ class GigTest extends AppTest
 
         $this->assertFalse($this->gig->userLimitReached());
 
-        SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => auth()->user()->id]);
+        SongRequest::factory()->create(['gig_id' => $this->gig, 'user_id' => auth()->user()]);
 
         $this->assertTrue($this->gig->fresh()->userLimitReached());
     }
@@ -91,5 +101,19 @@ class GigTest extends AppTest
         $gig = Gig::factory()->create(['date' => null]);
 
         $this->assertTrue($gig->isReady());
+    }
+
+    /** @test */
+    public function it_knows_the_ranking_from_its_participants()
+    {
+        $this->signIn();
+
+        $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $gig, 'finished_at' => now()]);
+        
+        Rating::factory()->create(['user_id' => auth()->user(), 'song_request_id' => $songRequest]);
+
+        $this->assertInstanceOf(Rating::class, $gig->ratings->first());
     }
 }

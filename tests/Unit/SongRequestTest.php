@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, Artist, SongRequest, Gig, User};
+use App\Models\{Song, Artist, SongRequest, Gig, User, Rating};
 
 class SongRequestTest extends AppTest
 {
@@ -30,6 +30,32 @@ class SongRequestTest extends AppTest
     public function it_belongs_to_a_user()
     {
         return $this->assertInstanceOf(User::class, $this->songRequest->user);
+    }
+
+    /** @test */
+    public function it_has_many_ratings()
+    {
+        Rating::factory()->create(['song_request_id' => $this->songRequest->id]);
+
+        return $this->assertInstanceOf(Rating::class, $this->songRequest->ratings->first());
+    }
+
+    /** @test */
+    public function it_knows_its_average_score()
+    {
+        $this->signIn();
+
+        $songRequest = SongRequest::factory()->create();
+
+        $this->assertNull($songRequest->ratings->avg('score'));
+
+        auth()->user()->rate($songRequest, 4);
+
+        $this->signIn();
+
+        auth()->user()->rate($songRequest, 2);
+
+        $this->assertEquals(3, $songRequest->fresh()->ratings->avg('score'));
     }
 
     /** @test */
@@ -62,5 +88,19 @@ class SongRequestTest extends AppTest
         $this->songRequest->finish();
 
         $this->assertTrue($this->songRequest->isOver());
+    }
+
+    /** @test */
+    public function it_knows_how_to_get_only_song_requests_since_the_starting_time_of_the_gig()
+    {
+        $this->signIn();
+
+        $gig = Gig::factory()->create(['starts_at' => now()->copy()->subHour()]);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $gig->id, 'user_id' => auth()->user()->id, 'created_at' => now()->copy()->subHours(2)]);
+        $songRequest = SongRequest::factory()->create(['gig_id' => $gig->id, 'user_id' => auth()->user()->id]);
+
+        $this->assertCount(1, SongRequest::forGigTonight($gig)->get());
+        $this->assertCount(2, SongRequest::forGig($gig)->get());
     }
 }

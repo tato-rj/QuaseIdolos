@@ -1,4 +1,4 @@
-	<div class="w-100 rounded p-3" style="background: rgba(0,0,0,0.1)">
+	<div class="w-100 rounded p-3 bg-transparent">
 		<div class="d-apart">
 			<label class="opacity-6 p-2 m-0">LETRA</label>
 			<div class="d-flex align-items-baseline">

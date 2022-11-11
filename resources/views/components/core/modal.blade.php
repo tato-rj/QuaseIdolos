@@ -1,4 +1,4 @@
-<div class="modal fade" id="{{$id}}">
+<div class="modal fade {{iftrue($autoshow ?? null, 'modal-autoshow')}}" id="{{$id}}">
   <div class="modal-dialog modal-{{$size ?? null}}">
     <div class="modal-content bg-primary rounded">
       @isset($header)

@@ -20,6 +20,7 @@ class CreateGigsTable extends Migration
             $table->string('description')->nullable();
             $table->unsignedSmallInteger('songs_limit')->nullable();
             $table->unsignedSmallInteger('songs_limit_per_user')->nullable();
+            $table->boolean('has_ratings')->default(false);
             $table->boolean('is_live')->default(false);
             $table->date('date')->nullable();
             $table->boolean('is_paused')->default(false);

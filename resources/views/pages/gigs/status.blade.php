@@ -13,7 +13,9 @@
 					  @fa(['icon' => $gig->is_paused ? 'play' : 'pause', 'mr' => 0])
 					</button>
 
+					@unless(isset($pauseOnly))
 					@toggle(['name' => 'is_live', 'on' => $gig->is_live, 'url' => route('gig.status', $gig)])
+					@endunless
 					
 				</div>
 				@endif

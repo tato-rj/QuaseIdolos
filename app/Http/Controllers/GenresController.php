@@ -29,7 +29,7 @@ class GenresController extends Controller
     {
         $request->validate([
             'name' => 'string|required|unique:genres',
-            'image' => 'required'
+            'image' => 'required|max:200|mimes:jpg,jpeg'
         ]);
 
         Genre::create([
@@ -52,6 +52,7 @@ class GenresController extends Controller
     {
         $request->validate([
             'name' => 'string|required',
+            'image' => 'sometimes|max:200|mimes:jpg,jpeg'
         ]);
 
         $genre->update([

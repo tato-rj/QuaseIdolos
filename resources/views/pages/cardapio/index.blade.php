@@ -9,7 +9,7 @@
 @section('content')
 <section class="container">
 	@include('components.pagetitle', ['title' => 'Nosso cardápio', 'highlight' => 'musical'])
-	@include('pages.cardapio.search')
+	@include('pages.cardapio.search', ['url' => route('cardapio.search')])
 </section>
 
 <section class="container-fluid mb-6">

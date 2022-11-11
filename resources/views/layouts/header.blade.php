@@ -5,13 +5,17 @@
     @include('layouts.menu.components.logo')
 
     <div class="offcanvas offcanvas-end bg-primary" id="offcanvasNavbar">
-      @include('layouts.menu.guest')
+      @include('layouts.menu.guest.layout')
     </div>
 
+    @auth
+    @include('layouts.menu.layout')
+    @else
     <div class="d-flex align-items-center">
-      @include('layouts.menu.layout')
+      <a class="nav-link font-cursive rounded-pill px-2 py-1" href="#" data-bs-toggle="modal" data-bs-target="#login-modal">@fa(['icon' => 'user-circle'])Login</a>
       @include('layouts.menu.components.hamburger')
     </div>
+    @endauth
   </div>
 </nav>
 </section>

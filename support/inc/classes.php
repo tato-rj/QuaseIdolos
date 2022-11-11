@@ -1,10 +1,5 @@
 <?php
 
-function liveGig()
-{
-	return \App\Models\Gig::live()->first();
-}
-
 function aws()
 {
 	return (new App\Storage\Providers\AWS);

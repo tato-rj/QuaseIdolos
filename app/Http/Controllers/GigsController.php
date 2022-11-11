@@ -7,18 +7,33 @@ use Illuminate\Http\Request;
 
 class GigsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $readyGigs = Gig::ready()->get();
-        // return $readyGigs;
+
         $otherGigs = Gig::except($readyGigs->pluck('id'))->byEventDate()->paginate(8);
 
         return view('pages.gigs.index', compact(['readyGigs', 'otherGigs']));
+    }
+
+    public function select()
+    {
+        $gigs = Gig::ready()->get();
+
+        return view('pages.gigs.join.index', compact('gigs'));
+    }
+
+    public function join(Gig $gig)
+    {
+        if (! $gig->isLive())
+            return back()->with('error', 'Esse evento ainda não começou');
+
+        if ($gig->isPaused())
+            return back()->with('error', 'Esse evento volta daqui a pouco');
+
+        auth()->user()->join($gig);
+
+        return back()->with('modal', 'pages.gigs.join.modal');
     }
 
     /**
@@ -40,6 +55,7 @@ class GigsController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'songs_limit' => $request->songs_limit,
+            'has_ratings' => $request->has_ratings ? 1 : 0,
             'songs_limit_per_user' => $request->songs_limit_per_user,
             'date' => datePtToUs($request->date),
         ]);
@@ -77,6 +93,7 @@ class GigsController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'songs_limit' => $request->songs_limit,
+            'has_ratings' => $request->has_ratings ? 1 : 0,
             'songs_limit_per_user' => $request->songs_limit_per_user,
             'date' => datePtToUs($request->date) ?? $gig->date,
         ]);
@@ -109,22 +126,9 @@ class GigsController extends Controller
 
     public function status(Request $request, Gig $gig)
     {
-        $liveGig = liveGig();
-
-        if ($liveGig && ! $gig->is($liveGig)) {
-            return view('components.core.alerts.regular', [
-                'message' => 'Já existe um evento acontecendo',
-                'icon' => 'hand-paper', 
-                'color' => 'red', 
-                'pos' => 'top', 
-                'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown'], 
-                'countdown' => 3
-            ])->render();
-        }
-
         $gig->update([
             'is_live' => ! $gig->is_live,
-            'starts_at' => $gig->starts_at ?? now(),
+            'starts_at' => now(),
             'ends_at' => $gig->is_live ? now() : null,
             'is_paused' => $gig->is_live ? false : $gig->is_paused
         ]);
@@ -149,7 +153,10 @@ class GigsController extends Controller
      */
     public function destroy(Gig $gig)
     {
-        $gig->setlist()->waiting()->get()->each->delete();
+        if ($gig->setlist()->waiting()->exists())
+            return back()->with('error', 'O setlist ainda tem pedidos na espera');
+
+        $gig->participants()->detach();
         $gig->delete();
 
         return redirect(route('gig.index'))->with('success', 'O evento foi removido com sucesso');

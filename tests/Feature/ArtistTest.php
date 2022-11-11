@@ -21,7 +21,7 @@ class ArtistTest extends AppTest
 
         $artist = Artist::first();
 
-        $song = Song::factory()->create(['artist_id' => $artist->id]);
+        $song = Song::factory()->create(['artist_id' => $artist]);
 
         Storage::disk('public')->assertExists($artist->image_path);
 
@@ -29,6 +29,6 @@ class ArtistTest extends AppTest
 
         Storage::disk('public')->assertMissing($artist->image_path);
 
-        $this->assertDatabaseMissing('songs', ['id' => $song->id]);
+        $this->assertDatabaseMissing('songs', ['id' => $song]);
     }
 }

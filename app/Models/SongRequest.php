@@ -21,19 +21,37 @@ class SongRequest extends BaseModel
         return $this->belongsTo(User::class);
     }
 
-    public function scopeFrom($query, User $user)
+    public function ratings()
     {
-        return $this->where('user_id', $user->id);
+        return $this->hasMany(Rating::class);
     }
 
-    public function scopeForGig($query, Gig $gig)
+    public function scopeFrom($query, User $user)
     {
-        return $this->where('gig_id', $gig->id);
+        return $query->where('user_id', $user->id);
+    }
+
+    public function scopeForGig($query, Gig $gig = null)
+    {
+        return $query->where('gig_id', $gig ? $gig->id : null);
+    }
+
+    public function scopeForGigTonight($query, Gig $gig)
+    {
+        return $query->where('gig_id', $gig->id)
+                     ->where('created_at', '>=', $gig->starts_at);
     }
 
     public function scopeWaiting($query)
     {
         return $query->whereNull('finished_at')->orderBy('order');
+    }
+
+    public function scopeRateable($query)
+    {
+        return $query->whereHas('user', function($q) {
+            $q->where('has_ratings', true)->whereDoesntHave('admin');
+        });
     }
 
     public function scopeCompleted($query)
@@ -65,7 +83,10 @@ class SongRequest extends BaseModel
 
     public function finish()
     {
-        $this->update(['finished_at' => now()]);
+        if ($this->user->isAdmin())
+            return $this->delete();
+
+        return $this->update(['finished_at' => now()]);
     }
 
     public function isOver()

@@ -1,7 +1,7 @@
 <div class="d-apart">
-  <div class="mr-2 fw-bold">
+  <h6 class="mr-2 mb-0">
     {{$label ?? null}}
-  </div>
+  </h6>
   <label class="switch">
     <input name="{{$name}}" data-url="{{$url ?? null}}" type="checkbox" {{$on ? 'checked' : null}}>
     <span class="slider round"></span>

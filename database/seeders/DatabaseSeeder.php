@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             FavoriteSeeder::class,
             GigSeeder::class,
             SongRequestSeeder::class,
+            RatingSeeder::class,
         ]);
     }
 }

@@ -1,5 +1,6 @@
 @modal(['title' => 'Ficha Técnica', 'id' => 'gig-'.$gig->id.'-modal'])
-@include('pages.gigs.status')
+@include('pages.gigs.status', ['pauseOnly' => true])
+
 <div class="text-left">
 	<div class="mb-2">
 		<label class="text-secondary">Evento</label>
