@@ -20,6 +20,6 @@ class EmailTest extends AppTest
             'password_confirmation' => $request->password
         ]);
 
-        \Mail::assertSent(WelcomeEmail::class);
+        \Mail::assertQueued(WelcomeEmail::class);
     }
 }

@@ -9,7 +9,7 @@
 @section('content')
 <section class="container-fluid">
 	<div class="text-center mb-4">
-		<h2 class="mb-3">ESCOLHA UM <span class="text-secondary">EVENTO</span></h2>
+		<h2 class="mb-3">ONDE VOCÊ <span class="text-secondary">ESTÁ</span>?</h2>
 	</div>
 	<div class="row">
 		<div class="col-lg-6 col-md-8 col-12 mx-auto">

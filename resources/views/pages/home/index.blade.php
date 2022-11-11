@@ -23,12 +23,12 @@
 
 @section('content')
 @include('pages.home.bands.header')
+@include('pages.home.bands.contact')
 @include('pages.home.bands.about')
 @if(! $topUsers->isEmpty())
 @include('pages.home.bands.rankings')
 @endif
 @include('pages.home.bands.search')
-@include('pages.home.bands.contact')
 
 @endsection
 

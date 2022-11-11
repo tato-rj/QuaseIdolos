@@ -8,7 +8,9 @@
 
   <div class="px-4">
     <div>
+
        <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
+
        <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.user')}}">Minhas Notas</a>
       @include('layouts.menu.components.divider')
       @include('layouts.menu.guest.links')
