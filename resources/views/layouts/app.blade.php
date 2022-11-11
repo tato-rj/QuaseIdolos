@@ -175,7 +175,7 @@ a {
 <script type="text/javascript">
 var sortable, sorting;
 
-if (app.user) {
+if (app.user && app.gig) {
     if (app.user.is_admin) {
         listenToEvents();
     } else {
