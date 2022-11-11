@@ -26,7 +26,7 @@ class GigsController extends Controller
     public function join(Gig $gig)
     {
         if (! $gig->isLive())
-            return back()->with('error', 'Esse evento ainda não começou');
+            return back()->with('error', 'Esse evento não está aberto');
 
         if ($gig->isPaused())
             return back()->with('error', 'Esse evento volta daqui a pouco');
