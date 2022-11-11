@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 // GUEST ROUTES //
 //////////////////
 
-Route::get('', 'ViewsController@home')->name('home');
+Route::get('', 'ViewsController@home')->withoutMiddleware('join-gig')->name('home');
 
 Route::get('reservas', 'ViewsController@reservations')->withoutMiddleware('join-gig')->name('reservas');
 
