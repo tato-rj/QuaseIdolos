@@ -9,6 +9,16 @@
 @section('content')
 <section class="container mb-6">
 	@include('components.pagetitle', ['title' => 'Envie o seu', 'highlight' => 'voto'])
+
+	@if(! auth()->user()->liveGig()->participatesInRatings())
+	<div class="row">
+		<div class="col-lg-6 col-md-8 col-12 mx-auto">
+			<div class="bg-white p-4 rounded mt-4">
+				<h5 class="text-center m-0 text-red no-stroke">@fa(['icon' => 'door-closed'])Esse evento não permite votação</h5>
+			</div>
+		</div>
+	</div>
+	@else
 	<div class="text-center mx-auto mb-4" style="max-width: 600px">
 		@if(auth()->user()->isAdmin())
 		<a href="{{route('ratings.gig')}}" class="btn btn-secondary mx-auto mb-4">Ver resultados</a>
@@ -18,11 +28,6 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-6 col-md-8 col-12 mx-auto">
-			@if(! auth()->user()->liveGig()->participatesInRatings())
-			<div class="bg-white p-4 rounded mt-4">
-				<h5 class="text-center m-0 text-red no-stroke">@fa(['icon' => 'door-closed'])Esse evento não permite votação</h5>
-			</div>
-			@else
 			<div id="ratings-container">
 				@forelse($songRequests as $songRequest)
 				@include('pages.ratings.row')
@@ -30,9 +35,9 @@
 				@include('components.empty')
 				@endforelse
 			</div>
-			@endif
 		</div>
 	</div>
+	@endif
 </section>
 
 @endsection
