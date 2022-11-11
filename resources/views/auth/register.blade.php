@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Login'])
+@extends('layouts.app', ['title' => 'Registro'])
 
 @push('header')
 @endpush
