@@ -40,11 +40,9 @@ class SongRequestTest extends AppTest
     /** @test */
     public function admins_can_cancel_any_user_request()
     {
-        Gig::truncate();
-
         $this->signIn($this->admin);
 
-        $songRequest = SongRequest::factory()->create();
+        $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig]);
 
         $this->assertCount(1, SongRequest::all());
 

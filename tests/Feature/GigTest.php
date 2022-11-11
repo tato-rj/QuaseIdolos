@@ -18,7 +18,13 @@ class GigTest extends AppTest
 
         $this->assertFalse(auth()->user()->gig()->exists());
 
-        Gig::factory()->create();
+        $gig = Gig::factory()->create();
+
+        $this->get(route('home'));
+
+        $this->assertFalse(auth()->user()->gig()->exists());
+
+        $gig->update(['is_live' => true]);
 
         $this->get(route('home'));
 
@@ -141,6 +147,8 @@ class GigTest extends AppTest
 
         $gig = Gig::factory()->create(['is_live' => false]);
         
+        auth()->user()->join($gig);
+
         $this->post(route('song-requests.store', $this->song));
     }
 
