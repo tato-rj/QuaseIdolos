@@ -11,8 +11,8 @@
 	<h2 class="mb-5 text-center">MINHAS <span class="text-secondary">NOTAS</span></h2>
 
 	<div>
-		@forelse(auth()->user()->ratings as $rating)
-		@include('pages.ratings.show.row')
+		@forelse($ratings as $rating)
+		@include('pages.ratings.user.row')
 		@empty
 		@include('components.empty', ['message' => 'Nenhum voto nessa lista...', 'pt' => 2])
 		@endforelse

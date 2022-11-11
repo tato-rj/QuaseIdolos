@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function() {
     Route::prefix('votacao')->name('ratings.')->group(function() {
         Route::get('', 'RatingsController@index')->name('index');
 
-        Route::get('minhas-notas', 'RatingsController@show')->name('show');
+        Route::get('minhas-notas', 'RatingsController@user')->name('user');
 
         Route::get('candidato', 'RatingsController@candidate')->name('candidate');
         

@@ -15,9 +15,28 @@ class RatingsController extends Controller
         return view('pages.ratings.index', compact('songRequests'));
     }
 
-    public function show()
+    public function user()
     {
-        return view('pages.ratings.show.index');
+        $collection = auth()->user()->ratings;
+
+        $totalCount = $collection->count();
+
+        $ratings = collect();
+
+        $collection->groupBy('song_request_id')->map(function($item, $index) use ($ratings) {
+            $rating = collect([
+                'songRequest' => $item->first()->songRequest,
+                'average' => round($item->avg('score')),
+                'count' => $item->count(),
+                'created_at' => $item->first()->created_at
+            ]);
+
+            $ratings->push($rating);
+        });
+
+        $ratings = $ratings->sortByDesc('average')->values();
+
+        return view('pages.ratings.user.index', compact(['ratings', 'totalCount']));
     }
 
     public function gig()
