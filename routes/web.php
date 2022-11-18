@@ -24,6 +24,10 @@ Route::prefix('cardapio')->name('cardapio.')->group(function() {
     Route::get('busca', 'CardapioController@search')->name('search');
 });
 
+Route::prefix('calendario')->withoutMiddleware('join-gig')->name('calendar.')->group(function() {
+    Route::get('', 'CalendarController@index')->name('index');
+});
+
 /////////////////
 // AUTH ROUTES //
 /////////////////

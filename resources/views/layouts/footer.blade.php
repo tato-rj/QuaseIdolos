@@ -20,7 +20,7 @@
               <h6><a href="{{route('profile.show')}}" class="link-none">Meu perfil</a></h6>
               <h6><a href="{{route('setlists.user')}}" class="link-none">Minha Setlist</a></h6>
               <h6><a href="{{route('favorites.index')}}" class="link-none">Músicas Favoritas</a></h6>
-              <h6><a href="{{route('reservas')}}" class="link-none">Pedir Música</a></h6>
+              <h6><a href="{{route('calendar.index')}}" class="link-none">Calendário</a></h6>
             </div>
           </div>
         </div>
