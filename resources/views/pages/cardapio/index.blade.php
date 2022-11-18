@@ -14,7 +14,7 @@
 
 <section class="container-fluid mb-6">
 	@include('pages.cardapio.genres')
-	@include('pages.cardapio.alphabetical')
+	@include('pages.cardapio.artists')
 
 	<div id="results" class="p-0">
 		@include('pages.cardapio.results.table')
