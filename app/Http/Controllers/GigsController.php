@@ -22,13 +22,9 @@ class GigsController extends Controller
 
         $gigs = Gig::ready()->get();
 
-        try {
-            $gigs = $gigs->sortBy(function($gig, $index) {
-                return auth()->user()->distanceTo($gig);
-            });   
-        } catch (\Exception $e) {
-            //
-        }
+        $gigs = $gigs->sortBy(function($gig, $index) {
+            return auth()->user()->distanceTo($gig);
+        });
 
         return view('pages.gigs.join.index', compact('gigs'));
     }
