@@ -24,4 +24,13 @@ class Artist extends BaseModel
     {
         return $query->where('name', $name)->first();
     }
+
+    public function scopeAlphabetically($query)
+    {
+        $collection = $query->get()->groupBy(function($artist) {
+            return strtoupper(substr($artist->name, 0, 1));
+        });
+
+        return $collection->values();
+    }
 }
