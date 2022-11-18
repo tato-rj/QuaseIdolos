@@ -116,4 +116,20 @@ class GigTest extends AppTest
 
         $this->assertInstanceOf(Rating::class, $gig->ratings->first());
     }
+
+    /** @test */
+    public function it_knows_about_upcoming_events()
+    {
+        Gig::truncate();
+
+        $pastGig = Gig::factory()->create(['scheduled_for' => now()->subWeek()]);
+        $upcomingGig = Gig::factory()->create(['scheduled_for' => now()->addWeek()]);
+
+        $this->assertCount(1, Gig::upcoming()->get());
+        $this->assertTrue(Gig::upcoming()->first()->is($upcomingGig));
+
+        Gig::factory()->create(['scheduled_for' => now()->addWeek()]);
+
+        $this->assertCount(2, Gig::upcoming()->get());
+    }
 }

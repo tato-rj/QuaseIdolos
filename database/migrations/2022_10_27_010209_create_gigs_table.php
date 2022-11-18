@@ -27,6 +27,7 @@ class CreateGigsTable extends Migration
             $table->boolean('is_live')->default(false);
             $table->date('scheduled_for')->nullable();
             $table->boolean('is_paused')->default(false);
+            $table->boolean('is_private')->default(false);
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->timestamps();

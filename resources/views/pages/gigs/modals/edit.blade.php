@@ -21,6 +21,10 @@
 	@input(['label' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0, 'value' => $gig->songs_limit_per_user])
 
 	<div class="text-left mb-3"> 
+		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => $gig->isPrivate()])
+	</div>
+
+	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => $gig->participatesInRatings()])
 	</div>
 	

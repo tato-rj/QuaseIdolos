@@ -12,7 +12,8 @@ class Gig extends BaseModel
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for'];
 	protected $casts = [
 		'is_live' => 'boolean',
-		'is_paused' => 'boolean'
+		'is_paused' => 'boolean',
+		'is_private'
 	];
 
 	public function creator()
@@ -53,6 +54,16 @@ class Gig extends BaseModel
     public function scopeTonight($query)
     {
         // return $query->where('created_at', '>=', $gig->starts_at);
+    }
+
+    public function scopeUpcoming($query)
+    {
+    	return $query->where('scheduled_for', '>=', now()->startOfDay())->orWhereNull('scheduled_for');
+    }
+
+    public function scopePublic($query)
+    {
+		return $query->where('is_private', false);
     }
 
     public function rules()
@@ -97,6 +108,11 @@ class Gig extends BaseModel
 	public function isToday()
 	{
 		return $this->scheduled_for->isSameDay(now());
+	}
+
+	public function isPrivate()
+	{
+		return (bool) $this->is_private;
 	}
 
 	public function isPaused()

@@ -17,6 +17,9 @@
 	@input(['placeholder' => 'Limite total de músicas', 'name' => 'songs_limit', 'type' => 'number', 'min' => 0])
 	@input(['placeholder' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0])
 	<div class="text-left mb-3"> 
+		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => old('is_private') ?? false])
+	</div>
+	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => old('has_ratings') ?? true])
 	</div>
 	@datepicker([
