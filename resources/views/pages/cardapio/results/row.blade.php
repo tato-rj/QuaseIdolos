@@ -5,7 +5,7 @@
 @endslot
 
 @slot('artist')
-	<a href="{{route('cardapio.artist', $song->artist)}}" class="link-secondary">{{$song->artist->name}}</a>
+	<a href="{{route('cardapio.index', ['input' => strtolower($song->artist->name)])}}" class="link-secondary">{{$song->artist->name}}</a>
 @endslot
 
 @slot('action')
