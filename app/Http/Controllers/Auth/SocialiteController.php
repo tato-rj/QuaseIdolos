@@ -37,7 +37,7 @@ class SocialiteController extends Controller
 
         \Auth::login($user);
 
-        return back();
+        return redirect(route('home'));
     }
 
     public function validateDriver($driver)
