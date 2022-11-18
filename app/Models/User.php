@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Traits\{Searchable, Rateable};
+use App\Models\Traits\{Searchable, Rateable, Locateable};
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable;
 
     protected $appends = ['is_admin'];
 
@@ -50,10 +50,19 @@ class User extends Authenticatable
 
     public function rate(SongRequest $songRequest, $score)
     {
-        return Rating::updateOrCreate([
+        $attempt = Rating::from($this)->for($songRequest);
+    
+        if ($attempt->exists() && $attempt->first()->tooManyAttempts())
+            abort(429, 'Você não pode mais mudar esse voto'); 
+
+        $rating = Rating::updateOrCreate([
             'user_id' => $this->id,
             'song_request_id' => $songRequest->id
-        ], [ 'score' => $score]);
+        ], ['score' => $score]);
+
+        $rating->increment('attempts');
+
+        return $rating;
     }
 
     public function ratingFor(SongRequest $songRequest)
@@ -80,6 +89,7 @@ class User extends Authenticatable
 
     public function join(Gig $gig)
     {
+        $this->songRequests()->waiting()->delete();
         $this->gig()->detach();
         
         return $this->gig()->save($gig);

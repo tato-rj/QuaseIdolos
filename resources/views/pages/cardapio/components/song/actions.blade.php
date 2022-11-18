@@ -1,21 +1,20 @@
-@if(auth()->check() && auth()->user()->songRequests()->waitingFor($song)->exists())
-<button class="btn btn-secondary text-truncate w-100 mb-3">@fa(['icon' => 'check'])JÁ ESTÁ NA FILA</button>
+@if(auth()->check() && \App\Models\Gig::ready()->exists())
+	@if(auth()->user()->liveGig())
+		@if(auth()->user()->songRequests()->waitingFor($song)->exists())
+			@include('pages.cardapio.components.song.buttons.waiting')
+		@else
+			@include('pages.cardapio.components.song.buttons.sing')
+		@endif
+	@else
+		@include('pages.cardapio.components.song.buttons.closed')
+	@endif
 @else
-<form method="POST" action="{{route('song-requests.store', $song)}}" data-trigger="loader">
-	@csrf
-	<button class="btn btn-secondary text-truncate w-100 mb-3">@fa(['icon' => 'microphone'])CANTAR</button>
-</form>
+	@include('pages.cardapio.components.song.buttons.sing')
 @endif
 
+
 @if(auth()->check() && auth()->user()->favorited($song))
-<form method="POST" action="{{route('favorites.destroy', $song)}}" data-trigger="loader">
-	@csrf
-	@method('DELETE')
-	<button class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'heart'])REMOVER DOS FAVORITOS</button>
-</form>		
+	@include('pages.cardapio.components.song.buttons.unfavorite')
 @else
-<form method="POST" action="{{route('favorites.store', $song)}}" data-trigger="loader">
-	@csrf
-	<button class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'heart'])SALVAR PRA DEPOIS</button>
-</form>
+	@include('pages.cardapio.components.song.buttons.favorite')
 @endif

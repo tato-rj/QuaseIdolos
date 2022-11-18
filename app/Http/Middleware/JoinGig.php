@@ -18,13 +18,16 @@ class JoinGig
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check() && ! auth()->user()->gig()->exists()) {
-            $gigs = Gig::ready();
+            if (! Gig::ready()->live()->exists())
+                return $next($request);
 
+            $gigs = Gig::ready();
+            
             if($gigs->count() == 1 && $gigs->first()->isLive())
                 auth()->user()->join($gigs->first());
 
             if($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive())
-                return redirect(route('gig.select'));
+                return redirect(route('gig.select', ['origin' => \Route::currentRouteName()]));
         }
 
         return $next($request);

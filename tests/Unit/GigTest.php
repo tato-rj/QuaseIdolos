@@ -46,7 +46,7 @@ class GigTest extends AppTest
     {
         $this->assertTrue($this->gig->isToday());
 
-        $this->assertFalse(Gig::factory()->create(['date' => now()->copy()->subDay()])->isToday());
+        $this->assertFalse(Gig::factory()->create(['scheduled_for' => now()->copy()->subDay()])->isToday());
     }
 
     /** @test */
@@ -76,7 +76,7 @@ class GigTest extends AppTest
     {
         Gig::truncate();
         
-        $gig = Gig::factory()->create(['date' => now()->copy()->startOfDay()]);
+        $gig = Gig::factory()->create(['scheduled_for' => now()->copy()->startOfDay()]);
 
         $this->assertTrue($gig->isReady());
 
@@ -98,7 +98,7 @@ class GigTest extends AppTest
     {
         Gig::truncate();
 
-        $gig = Gig::factory()->create(['date' => null]);
+        $gig = Gig::factory()->create(['scheduled_for' => null]);
 
         $this->assertTrue($gig->isReady());
     }

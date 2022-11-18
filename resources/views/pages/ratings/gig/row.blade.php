@@ -1,6 +1,6 @@
 @php($user = $rating['songRequest']->user)
 @php($song = $rating['songRequest']->song)
-<div class="d-flex mb-3 animate__animated animate__bounceIn animate__slower">
+<div class="d-flex mb-3 animate__animated animate__fadeInUp" style="animation-delay: {{$loop->index / 20}}s;">
 	<div class="mr-2 d-center">
 		<h3 class="mb-0">{{$loop->iteration}}</h3>
 	</div>

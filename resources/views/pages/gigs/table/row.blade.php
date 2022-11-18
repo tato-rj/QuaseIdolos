@@ -9,16 +9,16 @@
 					</form>
 					<a href="{{route('gig.edit', $gig)}}" class="link-secondary fw-bold d-block" style="font-size: 1.2rem"><h5 class="m-0">{{$gig->name}}</h5></a>
 				</div>
-				<strong class="{{$ready ? null : 'opacity-6'}} d-md-none">{{$gig->dateForHumans ?? 'Diário'}}</strong>
+				<p class="{{$ready ? null : 'opacity-6'}} d-md-none m-0">{{$gig->dateForHumans ?? 'Diário'}}</p>
 			</div>
 			<div class="col-lg-3 col-md-3 d-none d-md-block text-truncate">
-				<strong class="{{$ready ? null : 'opacity-6'}}">{{$gig->dateForHumans ?? 'Diário'}}</strong>
+				<p class="{{$ready ? null : 'opacity-6'}} m-0">{{$gig->dateForHumans ?? 'Diário'}}</p>
 			</div>
 			<div class="col-lg-3 col-md-3 d-none d-md-block text-truncate">
-				<strong class="{{$ready ? null : 'opacity-6'}}">{{$gig->setlist()->completed()->count()}}</strong>
+				<p class="{{$ready ? null : 'opacity-6'}} m-0">{{$gig->setlist()->completed()->count()}}</p>
 			</div>
 			<div class="col-lg-3 col-md-3 col-6 text-truncate">
-				<strong class="{{$ready ? null : 'opacity-6'}}">{!! $gig->status !!}</strong>
+				<p class="{{$ready ? null : 'opacity-6'}} m-0">{!! $gig->status !!}</p>
 			</div>
 		</div>
 

@@ -8,8 +8,10 @@
 
   <div class="px-4">
     <div>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
-    @include('layouts.menu.components.divider')
+      @if(auth()->user()->liveGig() && auth()->user()->liveGig()->participatesInRatings())
+        <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
+        @include('layouts.menu.components.divider')
+      @endif
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('profile.show')}}">Meu Perfil</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('cardapio.index')}}">Cardápio</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlists.admin')}}">Setlist</a>
@@ -23,6 +25,7 @@
      @include('layouts.menu.components.divider')
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('gig.index')}}">Eventos</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('team.index')}}">Equipe</a>
+     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('stats.index')}}">Estatísticas</a>
      @endif
 
       <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1 mb-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">

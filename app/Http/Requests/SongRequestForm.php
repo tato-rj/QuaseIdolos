@@ -24,7 +24,8 @@ class SongRequestForm extends FormRequest
                $this->gigIsNotPaused() && 
                $this->gigIsNotFull() && 
                $this->userCanMakeRequests() &&
-               $this->songNotYetRequested();
+               $this->songNotYetRequestedByUser() &&
+               $this->songCanBeRequestedAgain();
     }
 
     public function gigIsLive()
@@ -51,10 +52,20 @@ class SongRequestForm extends FormRequest
              : $this->failWithMessage('O seu limite de músicas foi alcançado');
     }
 
-    public function songNotYetRequested()
+    public function songNotYetRequestedByUser()
     {
         return ! auth()->user()->requestedTonight($this->song) ? true 
              : $this->failWithMessage('Você já escolheu essa música');
+    }
+
+    public function songCanBeRequestedAgain()
+    {
+        $message = $this->liveGig->repeat_limit == 1 
+            ? 'Essa música já foi escolhida 1 vez' 
+            : 'Essa música já foi escolhida '.$this->liveGig->repeat_limit.' vezes';
+
+        return ! $this->liveGig->repeatLimitReachedFor($this->song) ? true
+             : $this->failWithMessage($message);
     }
 
     public function rules()

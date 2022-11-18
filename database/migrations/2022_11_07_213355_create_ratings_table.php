@@ -18,6 +18,7 @@ class CreateRatingsTable extends Migration
             $table->unsignedInteger('song_request_id');
             $table->unsignedInteger('user_id');
             $table->unsignedTinyInteger('score')->default(1);
+            $table->unsignedTinyInteger('attempts')->default(0);
             $table->timestamps();
 
             $table->unique(['user_id', 'song_request_id']);

@@ -16,14 +16,20 @@ class GigsController extends Controller
         return view('pages.gigs.index', compact(['readyGigs', 'otherGigs']));
     }
 
-    public function select()
+    public function select(Request $request)
     {
+        session(['origin' => $request->origin]);
+
         $gigs = Gig::ready()->get();
+
+        $gigs = $gigs->sortBy(function($gig, $index) {
+            return auth()->user()->distanceTo($gig);
+        });
 
         return view('pages.gigs.join.index', compact('gigs'));
     }
 
-    public function join(Gig $gig)
+    public function join(Request $request, Gig $gig)
     {
         if (! $gig->isLive())
             return back()->with('error', 'Esse evento não está aberto');
@@ -31,9 +37,12 @@ class GigsController extends Controller
         if ($gig->isPaused())
             return back()->with('error', 'Esse evento volta daqui a pouco');
 
+
         auth()->user()->join($gig);
 
-        return back()->with('modal', 'pages.gigs.join.modal');
+        $redirect = session()->has('origin') ? redirect(route(session('origin'))) : back();
+        
+        return $redirect->with('modal', 'pages.gigs.join.modal');
     }
 
     /**
@@ -46,6 +55,7 @@ class GigsController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'repeat_limit' => 'integer',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
         ]);
@@ -54,10 +64,13 @@ class GigsController extends Controller
             'creator_id' => auth()->user()->id,
             'name' => $request->name,
             'description' => $request->description,
+            'lat' => $request->latitude,
+            'lon' => $request->longitude,
+            'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'songs_limit_per_user' => $request->songs_limit_per_user,
-            'date' => datePtToUs($request->date),
+            'scheduled_for' => datePtToUs($request->scheduled_for),
         ]);
 
         return back()->with('success', 'O evento foi criado com sucesso');
@@ -85,6 +98,7 @@ class GigsController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'repeat_limit' => 'integer',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
         ]);
@@ -92,10 +106,13 @@ class GigsController extends Controller
         $gig->update([
             'name' => $request->name,
             'description' => $request->description,
+            'repeat_limit' => $request->repeat_limit,
+            'lat' => $request->latitude,
+            'lon' => $request->longitude,
             'songs_limit' => $request->songs_limit,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'songs_limit_per_user' => $request->songs_limit_per_user,
-            'date' => datePtToUs($request->date) ?? $gig->date,
+            'scheduled_for' => datePtToUs($request->scheduled_for) ?? $gig->scheduled_for,
         ]);
 
         return back()->with('success', 'O evento foi alterado com sucesso');

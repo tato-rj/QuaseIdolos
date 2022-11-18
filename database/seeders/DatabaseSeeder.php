@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
             SongRequestSeeder::class,
             RatingSeeder::class,
         ]);
+
+        \Artisan::call('cache:clear');        
     }
 }

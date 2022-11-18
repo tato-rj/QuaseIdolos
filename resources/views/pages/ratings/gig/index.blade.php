@@ -19,33 +19,35 @@
 
 @push('scripts')
 <script type="text/javascript">
-</script>
+let seconds = 10;
 
-<script type="text/javascript">
 if (app.gig) {
 	getRanking();
-	listenToRatingsEvent();
 }
 
-function listenToRatingsEvent()
-{
-	window.Echo
-      .channel('ratings.gig.' + app.gig.id)
-      .listen('ScoreSubmitted', function(event) {
-      	log(event);
-      	getRanking();
-      });
-}
+window.setInterval('counter()', 1000);
 
 function getRanking()
 {
     axios.get('{!! route('ratings.ranking') !!}')
          .then(function(response) {
             $('#ranking-container').html(response.data);
+            counter();
          })
          .catch(function(error) {
             alert(error);
          });
+}
+
+function counter()
+{
+   if (seconds == 0) {
+      getRanking();
+      seconds = 10;
+   } else {
+      $('#counter').text(seconds + 's');
+      seconds -= 1;
+   }
 }
 </script>
 @endpush

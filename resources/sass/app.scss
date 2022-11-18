@@ -5,11 +5,11 @@
 //////////////////////////////////////
 
 .rating {
-	button.star-rating:not(.selected):not(.temp-selected) {
+	button.star-rating:not(.selected):not(.temp-selected):not(.confirm-selected) {
 		@extend .opacity-2;
 	}
 
-	button.star-rating.selected, button.star-rating.temp-selected {
+	button.star-rating.selected, button.star-rating.temp-selected, button.star-rating.confirm-selected {
 		@extend .text-yellow;
 	}
 }
@@ -202,6 +202,14 @@ input:checked + .slider:before {
 
 .ui-datepicker {
 	@extend .rounded, .p-3;
+}
+
+.ui-datepicker-year {
+	@extend .rounded-right;
+}
+
+.ui-datepicker-month {
+	@extend .rounded-left;
 }
 
 .ui-datepicker-header {

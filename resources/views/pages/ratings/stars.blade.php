@@ -7,6 +7,6 @@
 		@else
 		style="cursor: default;" 
 		@endisset
-		>@fa(['icon' => 'star'])</button>
+		>@fa(['icon' => 'star', 'fa_size' => $size ?? null])</button>
 	@endfor
 </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SongRequest;
+use App\Models\{SongRequest, Rating};
 use App\Events\ScoreSubmitted;
 
 class RatingsController extends Controller
@@ -41,6 +41,8 @@ class RatingsController extends Controller
 
     public function gig()
     {
+        $song = SongRequest::find(42);
+
         return view('pages.ratings.gig.index');
     }
 
@@ -55,7 +57,7 @@ class RatingsController extends Controller
         $collection->groupBy('song_request_id')->map(function($item, $index) use ($ratings) {
             $rating = collect([
                 'songRequest' => $item->first()->songRequest,
-                'average' => round($item->avg('score')),
+                'average' => $item->first()->songRequest->score(true),
                 'count' => $item->count()
             ]);
 
@@ -64,7 +66,7 @@ class RatingsController extends Controller
 
         $ratings = $ratings->sortByDesc('average')->values();
 
-        return view('pages.ratings.gig.ranking', compact(['ratings', 'totalCount']));
+        return view('pages.ratings.gig.ranking', compact(['ratings', 'totalCount']))->render();
     }
 
     public function store(Request $request, SongRequest $songRequest)
@@ -72,7 +74,7 @@ class RatingsController extends Controller
         $this->authorize('create', [Rating::class, $songRequest]);
 
         $request->validate(['score' => 'required|integer']);
-        
+
         $rating = auth()->user()->rate($songRequest, $request->score);
 
         try {

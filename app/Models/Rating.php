@@ -25,4 +25,14 @@ class Rating extends BaseModel
             $q->where('user_id', $user->id);
         });
     }
+
+    public function scopeFor($query, SongRequest $songRequest)
+    {
+        return $query->where('song_request_id', $songRequest->id);
+    }
+
+    public function tooManyAttempts()
+    {
+        return $this->attempts == 3;
+    }
 }

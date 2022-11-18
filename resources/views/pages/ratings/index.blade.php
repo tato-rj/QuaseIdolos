@@ -18,6 +18,14 @@
 			</div>
 		</div>
 	</div>
+	@elseif(! auth()->user()->participatesInRatings())
+	<div class="row">
+		<div class="col-lg-6 col-md-8 col-12 mx-auto">
+			<div class="bg-white p-4 rounded mt-4">
+				<h5 class="text-center m-0 text-red no-stroke">@fa(['icon' => 'door-closed'])Você escolheu não participar da votação</h5>
+			</div>
+		</div>
+	</div>
 	@else
 	<div class="text-center mx-auto mb-4" style="max-width: 600px">
 		@if(auth()->user()->isAdmin())
@@ -50,7 +58,7 @@ $(document).on('click', 'button.star-rating', function() {
 	if ($('.rating.animate__tada').length)
 		return;
 
- 	selectStarsWith($btn, 'selected');
+ 	selectStarsWith($btn, 'confirm-selected');
 
 	axios.post($btn.data('url'))
 		 .then(function(response) {
@@ -62,8 +70,15 @@ $(document).on('click', 'button.star-rating', function() {
 
 		 	$btn.closest('.rating').animateCSS('tada', 'slower');
 		 })
-		 .catch(function() {
-		 	alert('Não conseguimos receber a sua nota agora');
+		 .catch(function(error) {
+		 	if (error.response.status == 429) {
+		 		alert(error.response.data.message);
+		 	} else {
+		 		alert('Não conseguimos receber o seu voto nesse momento');
+		 	}
+		 })
+		 .then(function() {
+		 	$('button.star-rating').removeClass('confirm-selected');
 		 });
 });
 

@@ -20,8 +20,10 @@ class GigSeeder extends Seeder
             'songs_limit' => 40,
             'description' => 'O Big Ben é um evento que realizamos de Segunda à Sábado a partir dat 19:00. Venha cantar e se divertir com agente!',
             'songs_limit_per_user' => 2,
+            'lat' => geoip()->getLocation()->lat,
+            'lon' => geoip()->getLocation()->lon,
             'has_ratings' => true,
-            'date' => now()->copy()->subDays(4),
+            'scheduled_for' => now()->copy()->subDays(4),
             'starts_at' => now()->copy()->subDays(4),
             'ends_at' => now()->copy()->subDays(4)->addMinutes(347)
         ]);
@@ -32,9 +34,11 @@ class GigSeeder extends Seeder
             'songs_limit' => 10,
             'description' => 'O Big Ben é um evento que realizamos de Segunda à Sábado a partir dat 19:00. Venha cantar e se divertir com agente!',
             'songs_limit_per_user' => 2,
+            'lat' => geoip()->getLocation()->lat,
+            'lon' => geoip()->getLocation()->lon,
             'has_ratings' => true,
             'is_live' => true,
-            'date' => now()->copy()->now(),
+            'scheduled_for' => now()->copy()->now(),
             'starts_at' => now()
         ]);
 
@@ -43,9 +47,11 @@ class GigSeeder extends Seeder
             'creator_id' => Admin::superAdmin()->first()->user->id,
             'songs_limit' => 40,
             'songs_limit_per_user' => 10,
+            'lat' => geoip()->getLocation()->lat,
+            'lon' => geoip()->getLocation()->lon,
             'has_ratings' => true,
             'is_live' => true,
-            'date' => now()->copy()->now(),
+            'scheduled_for' => now()->copy()->now(),
             'starts_at' => now()
         ]);
     }

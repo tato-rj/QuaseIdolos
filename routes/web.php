@@ -16,7 +16,7 @@ Route::prefix('auth/{driver}')->withoutMiddleware('join-gig')->group(function() 
     Route::get('callback', 'Auth\SocialiteController@callback');
 });
 
-Route::prefix('cardapio')->withoutMiddleware('join-gig')->name('cardapio.')->group(function() {
+Route::prefix('cardapio')->name('cardapio.')->group(function() {
     Route::get('', 'CardapioController@index')->name('index');
 
     Route::get('artista/{artist}', 'CardapioController@artist')->name('artist');
@@ -185,6 +185,10 @@ Route::middleware('super-admin')->group(function() {
 
     Route::prefix('emails')->name('mail.')->withoutMiddleware('join-gig')->group(function() {
         Route::get('{mail}', 'MailController@preview');
+    });
+
+    Route::prefix('estatisticas')->name('stats.')->withoutMiddleware('join-gig')->group(function() {
+        Route::get('', 'StatsController@index')->name('index');
     });
 });
 

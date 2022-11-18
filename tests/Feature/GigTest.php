@@ -87,7 +87,7 @@ class GigTest extends AppTest
 
         Gig::truncate();
 
-        $gig = Gig::factory()->create(['date' => now()->copy()->addDays(3)]);
+        $gig = Gig::factory()->create(['scheduled_for' => now()->copy()->addDays(3)]);
 
         $this->get(route('gig.index'))->assertDontSee(route('gig.status', $gig));
 
@@ -229,7 +229,7 @@ class GigTest extends AppTest
 
         $this->assertCount(2, Gig::all());
 
-        $this->assertNull(Gig::find(2)->date);
+        $this->assertNull(Gig::find(2)->scheduled_for);
     }
 
     /** @test */
@@ -276,5 +276,47 @@ class GigTest extends AppTest
         $this->assertFalse($gig->fresh()->isLive());
 
         $this->assertFalse($gig->participants()->exists());
+    }
+
+    /** @test */
+    public function a_gig_accepts_repeated_requests_up_to_the_limit()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $gig = Gig::factory()->create([
+            'is_live' => true,
+            'repeat_limit' => 2
+        ]);
+
+        $this->signIn();
+
+        $this->post(route('song-requests.store', $this->song));
+
+        $this->signIn();
+
+        $this->post(route('song-requests.store', $this->song));
+    }
+
+    /** @test */
+    public function a_gig_deny_repeated_requests_beyond_the_limit()
+    {
+        $this->expectException('App\Exceptions\SetlistException');
+
+        $gig = Gig::factory()->create([
+            'is_live' => true,
+            'repeat_limit' => 2
+        ]);
+
+        $this->signIn();
+
+        $this->post(route('song-requests.store', $this->song));
+
+        $this->signIn();
+
+        $this->post(route('song-requests.store', $this->song));
+
+        $this->signIn();
+
+        $this->post(route('song-requests.store', $this->song));
     }
 }

@@ -54,6 +54,20 @@ class SongRequest extends BaseModel
         });
     }
 
+    public function score($round = false)
+    {
+        if (! $this->gig->ratings()->exists())
+            return 0;
+
+        $average = $this->ratings->avg('score');
+
+        $weight = $this->ratings->count() * 5 / $this->gig->ratings->count();
+
+        $weightedAverage = ($average + $weight) / 2;
+
+        return $round ? round($weightedAverage) : $weightedAverage;
+    }
+
     public function scopeCompleted($query)
     {
         return $query->whereNotNull('finished_at');

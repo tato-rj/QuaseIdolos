@@ -4,8 +4,18 @@
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'required' => true])
 	@input(['placeholder' => 'Descrição (opcional)', 'name' => 'description'])
 
-	@input(['placeholder' => 'Limite total de músicas', 'name' => 'songs_limit', 'type' => 'number', 'min' => 1])
-	@input(['placeholder' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 1])
+	<div class="row">
+		<div class="col"> 
+			@input(['placeholder' => 'Latitude', 'name' => 'latitude'])
+		</div>
+		<div class="col"> 
+			@input(['placeholder' => 'Longitude', 'name' => 'longitude'])
+		</div>
+	</div>
+
+	@input(['placeholder' => 'Limite de músicas repetidas', 'name' => 'repeat_limit', 'type' => 'number', 'min' => 0])
+	@input(['placeholder' => 'Limite total de músicas', 'name' => 'songs_limit', 'type' => 'number', 'min' => 0])
+	@input(['placeholder' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0])
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => old('has_ratings') ?? true])
 	</div>
@@ -13,7 +23,7 @@
 		'label' => 'Data do evento',
 		'id' => uuid(),
 		'options' => ['fullwidth'],
-		'name' => 'date'])
+		'name' => 'scheduled_for'])
 	@submit(['label' => 'Criar evento', 'theme' => 'secondary'])
 </form>
 @endmodal

@@ -9,7 +9,7 @@ class Gig extends BaseModel
 {
 	use Rateable;
 	
-	protected $dates = ['starts_at', 'ends_at', 'date'];
+	protected $dates = ['starts_at', 'ends_at', 'scheduled_for'];
 	protected $casts = [
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean'
@@ -37,7 +37,7 @@ class Gig extends BaseModel
     
 	public function scopeByEventDate($query)
 	{
-		return $query->orderBy('date', 'desc');
+		return $query->orderBy('scheduled_for', 'desc');
 	}
 
 	public function scopeLive($query)
@@ -47,7 +47,7 @@ class Gig extends BaseModel
 
 	public function scopeUnscheduled($query)
 	{
-		return $query->whereNull('date');
+		return $query->whereNull('scheduled_for');
 	}
 
     public function scopeTonight($query)
@@ -55,12 +55,37 @@ class Gig extends BaseModel
         // return $query->where('created_at', '>=', $gig->starts_at);
     }
 
+    public function rules()
+    {
+    	$voting = $this->participatesInRatings() ? 
+    		'Este evento está aberto pra votação' : 
+    		'Este evento não está aberto pra votação';
+		
+		$userLimit = $this->songs_limit_per_user ? 'Limite de '.$this->songs_limit_per_user. ' ' . trans_choice('plurais.música', $this->songs_limit_per_user) . ' por pessoa' : null;
+
+		$songsLimit = $this->songs_limit ? 'Limite total de '.$this->songs_limit. ' ' . trans_choice('plurais.música', $this->songs_limit) : null;
+
+		$repetitionUser = 'Ninguém pode cantar a mesma música mais de uma vez';
+
+		if ($this->repeat_limit == 0) {
+			$repetitionLimit = 'Uma música não pode ser escolhida mais de uma vez no programa';
+		} else if ($this->repeat_limit == 1) {
+			$repetitionLimit = 'Uma música só pode ser repetida até 1 vez no programa';
+		} else {
+			$repetitionLimit = 'Uma música só pode ser repetida até '.$this->repeat_limit.' vezes no programa';
+		}
+
+		return collect([
+			$voting, $userLimit, $songsLimit, $repetitionUser, $repetitionLimit
+		]);
+    }
+
 	public function duplicate()
 	{
         $new = $this->replicate();
 
         $new->creator_id = auth()->user()->id;
-        $new->date = null;
+        $new->scheduled_for = null;
         $new->starts_at = null;
         $new->ends_at = null;
         $new->is_live = false;
@@ -71,7 +96,7 @@ class Gig extends BaseModel
 
 	public function isToday()
 	{
-		return $this->date->isSameDay(now());
+		return $this->scheduled_for->isSameDay(now());
 	}
 
 	public function isPaused()
@@ -100,14 +125,26 @@ class Gig extends BaseModel
 		return $this->setlist()->where('user_id', auth()->user()->id)->count() == $this->songs_limit_per_user;
 	}
 
+	public function repeatLimitReachedFor(Song $song)
+	{
+		if (! $this->repeat_limit)
+			return false;
+
+		$count = $this->setlist()->whereHas('song', function($q) use ($song) {
+			$q->where('song_id', $song->id);
+		})->count();
+
+		return $count >= $this->repeat_limit;
+	}
+
 	public function getFullNameAttribute()
 	{
-		return $this->date ? $this->name : $this->name . ' ' . $this->dateForHumans;
+		return $this->scheduled_for ? $this->name : $this->name . ' ' . $this->scheduled_for;
 	}
 
 	public function getDateForHumansAttribute()
 	{
-		return $this->date ? $this->date->format('j/n/y') : null;
+		return $this->scheduled_for ? $this->scheduled_for->format('j/n/y') : null;
 	}
 
 	public function getIsOverAttribute()
@@ -126,29 +163,29 @@ class Gig extends BaseModel
 		if ($this->is_over)
 			return fa('calendar-day', 'white', 'mr-2').'Terminou ' .$this->ends_at->diffForHumans();
 
-		// if (! $this->date)
+		// if (! $this->scheduled_for)
 			// return fa('circle', 'yellow', 'mr-2').'Sem data';
 
-		if (! $this->date || $this->date->lte(now()))
+		if (! $this->scheduled_for || $this->scheduled_for->lte(now()))
 			return fa('circle', 'yellow', 'mr-2').'Esperando pra começar';
 
-		return fa('calendar-day', 'white', 'mr-2').'Começa ' .$this->date->diffForHumans();
+		return fa('calendar-day', 'white', 'mr-2').'Começa ' .$this->scheduled_for->diffForHumans();
 	}
 
 	public function scopeReady($query)
 	{
 		$start = now()->copy()->startOfDay();
 
-		return $query->whereNull('date')
-					 ->orWhereDate('date', $start)
-					 ->orWhereBetween('date', [$start->copy()->subDay(), $start->addHours(4)]);
+		return $query->whereNull('scheduled_for')
+					 ->orWhereDate('scheduled_for', $start)
+					 ->orWhereBetween('scheduled_for', [$start->copy()->subDay(), $start->addHours(4)]);
 	}
 
 	public function isReady()
 	{
-		if (! $this->date)
+		if (! $this->scheduled_for)
 			return true;
 
-		return $this->date->isSameDay(now()) || now()->between($this->date, $this->date->addDay()->addHours(4));
+		return $this->scheduled_for->isSameDay(now()) || now()->between($this->scheduled_for, $this->scheduled_for->addDay()->addHours(4));
 	}
 }

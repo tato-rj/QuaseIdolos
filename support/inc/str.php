@@ -18,6 +18,13 @@ function datePtToUs($string)
 		return $pieces[1].'/'.$pieces[0].'/'.$pieces[2];
 }
 
+function monthname($number)
+{
+	$months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+	return $months[$number - 1];
+}
+
 function firstNChar($string, $count)
 {
 	return substr($string, 0, $count);

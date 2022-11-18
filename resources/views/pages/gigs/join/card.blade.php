@@ -5,6 +5,7 @@
 			<div class="mr-3">
 				<h3 class="mb-0 text-primary no-stroke text-truncate">{{$gig->name}}</h3>
 			</div>
+			@if($gig->isLive())
 			<form method="POST" action="{{route('gig.join', $gig)}}">
 				@csrf
 				@method('PATCH')
@@ -16,6 +17,9 @@
 					@endif
 				</button>
 			</form>
+			@else
+				<button disabled class="btn btn-secondary">@fa(['icon' => 'hourglass-half'])Ainda não começou</button>
+			@endif
 		</div>
 		@if($gig->description)
 		<p class="mb-0 mt-2 opacity-8 text-dark">{{$gig->description}}</p>

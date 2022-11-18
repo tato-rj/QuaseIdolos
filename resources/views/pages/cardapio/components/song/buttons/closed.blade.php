@@ -1,0 +1,1 @@
+<button disabled class="btn btn-secondary text-truncate w-100 mb-3">@fa(['icon' => 'hourglass-half'])O EVENTO NÃO ESTÁ ABERTO</button>

@@ -10,6 +10,7 @@
 <section class="container-fluid">
 	<div class="text-center mb-4">
 		<h2 class="mb-3">ONDE VOCÊ <span class="text-secondary">ESTÁ</span>?</h2>
+		<h6>Nós temos mais de um show acontendo hoje, por favor escolha abaixo em qual você está participando.</h6>
 	</div>
 	<div class="row">
 		<div class="col-lg-6 col-md-8 col-12 mx-auto">

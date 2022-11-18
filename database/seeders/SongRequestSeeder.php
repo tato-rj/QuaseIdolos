@@ -19,7 +19,7 @@ class SongRequestSeeder extends Seeder
 
     public function pastSongRequests()
     {
-        for ($i=0; $i<40; $i++) { 
+        for ($i=0; $i<mt_rand(40,50); $i++) { 
             SongRequest::create([
                 'gig_id' => Gig::first()->id,
                 'user_id' => User::guests()->inRandomOrder()->first()->id,

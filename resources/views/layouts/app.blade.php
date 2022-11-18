@@ -24,7 +24,7 @@
 }
 
 body, p, input, .form-control {
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 p {
@@ -131,7 +131,6 @@ a {
     window.app = <?php echo json_encode([
         'csrfToken' => csrf_token(),
         'url' => \Request::root(),
-        'route' => \Request::route()->getName(),
         'user' => auth()->check() ? auth()->user() : null,
         'gig' => auth()->check() ? auth()->user()->liveGig() : null
     ]); ?>
@@ -189,14 +188,12 @@ function listenToEvents()
     window.Echo
           .channel('setlist')
           .listen('SongRequested', function(event) {
-            if (app.route == 'setlists.admin')
                 getEventTable();
           });
 
     window.Echo
           .channel('setlist')
           .listen('SongCancelled', function(event) {
-            if (app.route == 'setlists.admin')
                 getEventTable();
           });
     } catch(error) {
@@ -227,6 +224,7 @@ function getUserAlert()
 
 function getEventTable(newOrder = null)
 {
+    if ($('#setlist-container').length) {
     axios.get('{!! route('setlists.table') !!}', {params: {newOrder: newOrder}})
         .then(function(response) {
             $('#setlist-container').html(response.data);
@@ -239,6 +237,7 @@ function getEventTable(newOrder = null)
         .catch(function(error) {
             log(error);
         });
+    }
 }
 
 function enableDraggable() {
@@ -362,6 +361,23 @@ $(document).on('click', 'button[data-fontsize]', function() {
         }
     }
 });
+</script>
+
+<script type="text/javascript">
+// $(document).on('click', '[data-action="sing"] button[type="submit"]', function(e) {
+//     e.preventDefault();
+
+//     let $form = $(this).closest('form');
+//     let url = $form.attr('action');
+    
+//     axios.post(url)
+//          .then(function(response) {
+//             log(response);
+//          })
+//          .catch(function(error) {
+//             log(error);
+//          });
+// });
 </script>
         @stack('scripts')
     </body>

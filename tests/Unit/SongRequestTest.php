@@ -43,19 +43,27 @@ class SongRequestTest extends AppTest
     /** @test */
     public function it_knows_its_average_score()
     {
-        $this->signIn();
+        $song = SongRequest::factory()->create();
 
-        $songRequest = SongRequest::factory()->create();
+        $this->assertTrue($song->score() == 0);
 
-        $this->assertNull($songRequest->ratings->avg('score'));
+        Rating::factory()->count(10)->create(['song_request_id' => $song]);
 
-        auth()->user()->rate($songRequest, 4);
+        $this->assertTrue($song->fresh()->score() > 0);
+    }
 
-        $this->signIn();
+    /** @test */
+    public function its_average_score_takes_into_account_the_number_of_votes()
+    {
+        $gig = Gig::factory()->create();
+        $songA = SongRequest::factory()->create(['gig_id' => $gig]);
+        $songB = SongRequest::factory()->create(['gig_id' => $gig]);
 
-        auth()->user()->rate($songRequest, 2);
+        Rating::factory()->count(8)->create(['song_request_id' => $songA, 'score' => randomFromArray([4,5])]);
 
-        $this->assertEquals(3, $songRequest->fresh()->ratings->avg('score'));
+        Rating::factory()->count(2)->create(['song_request_id' => $songB, 'score' => 5]);
+
+        $this->assertTrue($songA->score() > $songB->score());
     }
 
     /** @test */

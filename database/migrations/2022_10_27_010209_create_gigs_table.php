@@ -18,11 +18,14 @@ class CreateGigsTable extends Migration
             $table->unsignedInteger('creator_id');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lon')->nullable();
+            $table->unsignedSmallInteger('repeat_limit')->default(0);
             $table->unsignedSmallInteger('songs_limit')->nullable();
             $table->unsignedSmallInteger('songs_limit_per_user')->nullable();
             $table->boolean('has_ratings')->default(false);
             $table->boolean('is_live')->default(false);
-            $table->date('date')->nullable();
+            $table->date('scheduled_for')->nullable();
             $table->boolean('is_paused')->default(false);
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();

@@ -72,7 +72,7 @@ class SongRequestTest extends AppTest
 
         $this->signIn();
 
-        $gig = Gig::factory()->create(['is_live' => true, 'date' => null]);
+        $gig = Gig::factory()->create(['is_live' => true, 'scheduled_for' => null]);
 
         auth()->user()->join($gig);
 
@@ -147,6 +147,8 @@ class SongRequestTest extends AppTest
     public function a_user_only_gets_the_song_request_alert_if_the_gig_it_joined_is_live()
     {
         $this->signIn();
+        
+        auth()->user()->join($this->gig);
 
         (new SongRequest)->add(auth()->user(), $this->song, $this->gig);
 
@@ -216,5 +218,23 @@ class SongRequestTest extends AppTest
         $this->post(route('song-requests.store', $song));
 
         $this->post(route('song-requests.store', $song));
+    }
+
+    /** @test */
+    public function when_a_user_changes_gig_all_pending_requests_are_removed()
+    {
+        $otherGig = Gig::factory()->create(['is_live' => true]);
+
+        $this->signIn();
+
+        $pendingSong = Song::factory()->create();
+
+        (new SongRequest)->add(auth()->user(), $pendingSong, $this->gig);
+        
+        $this->assertDatabaseHas('song_requests', ['song_id' => $pendingSong->id]);
+
+        auth()->user()->join($otherGig);
+
+        $this->assertDatabaseMissing('song_requests', ['song_id' => $pendingSong->id]);
     }
 }

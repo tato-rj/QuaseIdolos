@@ -173,5 +173,25 @@ class UserTest extends AppTest
         
         $this->assertInstanceOf(SongRequest::class, auth()->user()->requestsSung()->first());
     }
+
+    /** @test */
+    public function it_knows_its_coordinates()
+    {
+        $this->assertNotNull(auth()->user()->coordinates()->lat);
+        $this->assertNotNull(auth()->user()->coordinates()->lon);
+    }
+
+    /** @test */
+    public function it_knows_if_it_is_in_the_same_location_of_a_gig_or_not()
+    {
+        request()->server->add(['REMOTE_ADDR' => '69.142.144.48']);
+
+        $closeGig = Gig::factory()->create(['lat' => 40.723733337989394, 'lon' => -74.04388244855596]);
+        $distantGig = Gig::factory()->create(['lat' => 40.7033193888562, 'lon' => -74.05109489307013]);
+
+        $this->assertFalse(auth()->user()->isLikelyInside($distantGig));
+
+        $this->assertTrue(auth()->user()->isLikelyInside($closeGig));
+    }
 }
 

@@ -96,9 +96,9 @@ class RatingTest extends AppTest
     {
         $this->signIn();
 
-        $userNotParticipating = auth()->user();
+        $userParticipating = auth()->user();
 
-        $userParticipating = User::factory()->create();
+        $userNotParticipating = User::factory()->create();
 
         $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);
 
@@ -221,5 +221,27 @@ class RatingTest extends AppTest
         $this->get(route('ratings.index'))
              ->assertDontSee($songRequestNotParticipating->song->name)
              ->assertSee($songRequestParticipating->song->name);
+    }
+
+    /** @test */
+    public function users_cannot_change_their_vote_more_than_three_times()
+    {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+
+        $this->signIn();
+
+        $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);
+
+        auth()->user()->join($gig);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $gig, 'finished_at' => now()]);
+
+        $this->post(route('ratings.store', ['songRequest' => $songRequest, 'score' => 1]));
+
+        $this->post(route('ratings.store', ['songRequest' => $songRequest, 'score' => 2]));
+
+        $this->post(route('ratings.store', ['songRequest' => $songRequest, 'score' => 3]));
+
+        $this->post(route('ratings.store', ['songRequest' => $songRequest, 'score' => 4]));
     }
 }

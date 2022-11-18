@@ -27,6 +27,7 @@
         "sass-loader": "^12.4.0"
     },
     "dependencies": {
+        "chart.js": "^4.0.1",
         "sortablejs": "^1.15.0"
     }
 }
