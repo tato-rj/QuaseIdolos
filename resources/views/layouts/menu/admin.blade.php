@@ -15,6 +15,7 @@
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('profile.show')}}">Meu Perfil</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('cardapio.index')}}">Cardápio</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlists.admin')}}">Setlist</a>
+      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('favorites.index')}}">Músicas Favoritas</a>
      @include('layouts.menu.components.divider')
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('artists.index')}}">Artistas</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('songs.index')}}">Músicas</a>
