@@ -15,7 +15,7 @@
 <section class="container-fluid mb-6">
 	@include('pages.cardapio.genres')
 
-		@include('pages.cardapio.artists')
+	@include('pages.cardapio.artists')
 
 	{{$artists->links()}}
 

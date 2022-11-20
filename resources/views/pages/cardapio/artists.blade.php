@@ -6,5 +6,4 @@
 		</a>
 		@endforeach
 	</div>
-	{{$artists->links()}}
 </div>
