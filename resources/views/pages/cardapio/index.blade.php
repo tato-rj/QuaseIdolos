@@ -70,9 +70,9 @@ $(document).ready(function() {
 		if (input.length == 0) {
 			clearResults();
 
-			$('#artists-container').show();
+			$('.artists-container').show();
 		} else if (input.length >= 3) {
-			$('#artists-container').hide();
+			$('.artists-container').hide();
 
 			search($(this).data('url'), input);
 		}
@@ -82,7 +82,7 @@ $(document).ready(function() {
 $(document).on('click', '#clear-results', function() {
 	clearResults();
 	$('input[name="search"]').val('');
-	$('#artists-container').show();
+	$('.artists-container').show();
 });
 </script>
 @endpush
