@@ -66,8 +66,14 @@
 
 .artist:not([selected]) {
 	width: 140px;
-	img {
+
+	> div {
 		width: 140px;
+		height: 140px;
+	}
+
+	img {
+		width: 100%;
 	}
 	span {
 		width: 28px; 
