@@ -30,6 +30,7 @@
 $('ul.pagination').hide();
 $(function() {
     $('.artists-container').jscroll({
+    	loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
         autoTrigger: true,
         padding: 0,
         nextSelector: '.pagination li.active + li a',
