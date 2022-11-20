@@ -6,4 +6,7 @@
 		</a>
 		@endforeach
 	</div>
+	@isset($withlinks)
+	{{$artists->links()}}
+	@endisset
 </div>
