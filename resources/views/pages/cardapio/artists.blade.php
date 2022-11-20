@@ -1,4 +1,4 @@
-<div id="artists-container" style="display: {{$songs->count() ? 'none' : 'block'}}">
+<div class="artists-container" style="display: {{$songs->count() ? 'none' : 'block'}}">
 	<div class="d-center flex-wrap"> 
 		@foreach($artists as $artist)
 		<a href="{{route('cardapio.index', ['input' => strtolower($artist->name)])}}" class="link-none">
@@ -6,4 +6,5 @@
 		</a>
 		@endforeach
 	</div>
+	{{$artists->links()}}
 </div>

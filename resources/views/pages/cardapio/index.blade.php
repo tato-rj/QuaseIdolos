@@ -14,7 +14,10 @@
 
 <section class="container-fluid mb-6">
 	@include('pages.cardapio.genres')
-	@include('pages.cardapio.artists')
+
+		@include('pages.cardapio.artists')
+
+	{{$artists->links()}}
 
 	<div id="results" class="p-0">
 		@include('pages.cardapio.results.table')
@@ -24,6 +27,21 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+<script type="text/javascript">
+$('ul.pagination').hide();
+$(function() {
+    $('.artists-container').jscroll({
+        autoTrigger: true,
+        padding: 0,
+        nextSelector: '.pagination li.active + li a',
+        contentSelector: '.artists-container',
+        callback: function() {
+            $('ul.pagination').remove();
+        }
+    });
+});
+</script>
 <script type="text/javascript">
 function clearResults()
 {
