@@ -36,7 +36,7 @@ $(function() {
         nextSelector: '.pagination li.active + li a',
         contentSelector: '.artists-container',
         callback: function() {
-            $('ul.pagination').remove();
+            $('ul.pagination').parent().remove();
         }
     });
 });
