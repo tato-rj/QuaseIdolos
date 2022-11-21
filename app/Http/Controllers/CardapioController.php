@@ -9,7 +9,7 @@ class CardapioController extends Controller
 {
     public function index()
     {
-        $artists = Artist::orderby('name')->paginate(24);
+        $artists = Artist::orderby('name')->has('songs')->paginate(24);
         $genres = Genre::orderby('name')->get();
 
         $songs = request()->has('input') ? Song::search(request()->input)->get() : collect();
