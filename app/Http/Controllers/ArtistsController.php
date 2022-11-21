@@ -14,7 +14,7 @@ class ArtistsController extends Controller
      */
     public function index()
     {
-        $artists = Artist::orderBy('name')->paginate(12);
+        $artists = Artist::orderBy('name')->paginate(28);
 
         return view('pages.artists.index', compact('artists'));
     }
@@ -43,7 +43,7 @@ class ArtistsController extends Controller
 
     public function search(Request $request)
     {
-        $artists = Artist::search($request->input)->orderBy('name')->paginate(12);
+        $artists = Artist::search($request->input)->orderBy('name')->paginate(28);
 
         return view('pages.artists.results', compact('artists'))->render();
     }
