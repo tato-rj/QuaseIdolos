@@ -7,19 +7,23 @@
 
 @section('content')
 <section class="container mb-6">
-	<div class="text-center">
+	<div class="text-center mb-4">
 		@include('components.pagetitle', ['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
+    @include('pages.stats.nav', ['pages' => [
+      'Eventos' => 'stats.gigs', 
+      'Artistas' => 'stats.artists'
+    ]])
 	</div>
   <div class="row">
   	<div class="col-lg-6 col-md-8 col-12">
-      @include('pages.stats.chart', [
+      @include('pages.stats.gig.chart', [
         'title' => 'Número de eventos', 
         'id' => 'gigs-chart', 
         'model' => \App\Models\Gig::class,
         'column' => 'scheduled_for'])
   	</div>
     <div class="col-lg-6 col-md-8 col-12">
-      @include('pages.stats.chart', [
+      @include('pages.stats.gig.chart', [
         'title' => 'Número de participantes', 
         'id' => 'participants-chart', 
         'model' => \App\Models\SongRequest::class,
@@ -46,8 +50,8 @@ $('.chart-container select[name="group_by"]').on('change', function() {
 });
 
 $(".datepicker").datepicker({
-      changeMonth: true,
-      changeYear: true,
+    changeMonth: true,
+    changeYear: true,
     onSelect: function(dateText) {
       reloadChart(this);
     }
@@ -70,6 +74,7 @@ function getChartData(options, id)
 {
   axios.get(window.location.href, {params: options})
        .then(function(response) {
+        log(response.data);
         renderChart(response.data, id);
        })
        .catch(function(error) {

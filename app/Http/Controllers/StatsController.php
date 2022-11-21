@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Gig;
+use App\Models\Artist;
 use App\Tools\ChartJS\Chart;
 
 class StatsController extends Controller
 {
-    public function index(Request $request)
+    public function gigs(Request $request)
     {
         if (! $request->wantsJson())
-            return view('pages.stats.index');
+            return view('pages.stats.gig.index');
 
         $from = $request->from ? carbon(datePtToUs($request->from)) : now()->subYear();
         $to = $request->to ? carbon(datePtToUs($request->to)) : now();
@@ -24,5 +24,12 @@ class StatsController extends Controller
             'labels' => $data->pluck('label'),
             'data' => $data->pluck('count')
         ]);
+    }
+
+    public function artists(Request $request)
+    {
+        $rankingBySongs = Artist::withCount('songs')->orderBy('songs_count', 'DESC')->take(9)->get();
+
+        return view('pages.stats.artists.index', compact(['rankingBySongs']));
     }
 }

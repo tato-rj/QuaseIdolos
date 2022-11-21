@@ -27,7 +27,7 @@
      @include('layouts.menu.components.divider')
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('gig.index')}}">Eventos</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('team.index')}}">Equipe</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('stats.index')}}">Estatísticas</a>
+     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('stats.gigs')}}">Estatísticas</a>
      @endif
 
       <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1 mb-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">
