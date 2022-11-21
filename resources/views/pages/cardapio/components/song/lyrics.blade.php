@@ -6,5 +6,5 @@
 				<button class="btn-raw px-1 text-secondary" data-fontsize="increase" data-target="#lyrics-{{$song->id}}" style="font-size: 1.5rem">A</button>
 			</div>
 		</div>
-		<p id="lyrics-{{$song->id}}" class="p-2 m-0" style="height: 400px; overflow-y: scroll; white-space: pre-wrap;">{{$song->lyrics}}</p>
+		<p id="lyrics-{{$song->id}}" class="p-2 m-0 modal-lyrics" style="height: 400px; overflow-y: scroll; white-space: pre-wrap;">{{$song->lyrics}}</p>
 	</div>
