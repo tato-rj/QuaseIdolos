@@ -24,9 +24,9 @@ class CardapioController extends Controller
 
     public function search(Request $request)
     {
-        $input = preg_replace("/(.)\\1+/", "$1", $request->input);
+        // $input = preg_replace("/(.)\\1+/", "$0", $request->input);
         
-        $songs = Song::search($input)->get();
+        $songs = Song::search($request->input)->get();
 
         return view('pages.cardapio.results.table', compact('songs'))->render();
     }

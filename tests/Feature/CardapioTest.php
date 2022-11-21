@@ -18,9 +18,9 @@ class CardapioTest extends AppTest
     /** @test */
     public function a_guest_can_search_by_artist()
     {
-        $song = Song::factory()->create(['artist_id' => Artist::factory()->create(['name' => 'John Doe'])]);
+        $song = Song::factory()->create(['artist_id' => Artist::factory()->create(['name' => 'Cassia Eller'])]);
 
-        $this->get(route('cardapio.search', ['input' => 'john']))->assertSee($song->name);
+        $this->get(route('cardapio.search', ['input' => 'cassia']))->assertSee($song->name);
     }
 
     /** @test */
