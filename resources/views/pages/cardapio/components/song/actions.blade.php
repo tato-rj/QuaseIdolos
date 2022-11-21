@@ -23,3 +23,7 @@
 @else
 	@include('pages.cardapio.components.song.buttons.favorite')
 @endif
+
+@admin
+<a href="{{$song->chords_url}}" target="_blank" class="btn btn-outline-secondary text-truncate w-100 mt-3">@fa(['icon' => 'music'])VER ACORDES</a>
+@endadmin
