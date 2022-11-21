@@ -1,4 +1,9 @@
-<h5 class=" ml-5">Total de {{$artists->count()}} @choice('artista|artistas', $artists->count())</h5>
+@if(hasPagination($artists))
+<h5 class="mb-3">Mostrando {{$artists->firstItem()}} a {{$artists->lastItem()}} de {{$artists->total()}} @choice('artista|artistas', $artists->count())</h5>
+@else
+<h5 class="mb-3">Mostrando {{$artists->count()}} @choice('artista|artistas', $artists->count())</h5>
+@endif
+
 <div class="d-flex justify-content-center flex-wrap"> 
 	@foreach($artists as $artist)
 	<a href="{{route('artists.edit', $artist)}}" class="link-none">
