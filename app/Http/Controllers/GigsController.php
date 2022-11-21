@@ -40,7 +40,7 @@ class GigsController extends Controller
 
         auth()->user()->join($gig);
 
-        $redirect = session()->has('origin') ? redirect(route(session('origin'))) : back();
+        $redirect = session()->has('origin') ? redirect(session('origin')) : back();
         
         return $redirect->with('modal', 'pages.gigs.join.modal');
     }

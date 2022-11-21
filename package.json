@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "chart.js": "^4.0.1",
+        "jscroll": "^2.4.1",
         "sortablejs": "^1.15.0"
     }
 }

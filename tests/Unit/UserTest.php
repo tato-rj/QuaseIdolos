@@ -186,8 +186,10 @@ class UserTest extends AppTest
     {
         request()->server->add(['REMOTE_ADDR' => '69.142.144.48']);
 
-        $closeGig = Gig::factory()->create(['lat' => 40.723733337989394, 'lon' => -74.04388244855596]);
-        $distantGig = Gig::factory()->create(['lat' => 40.7033193888562, 'lon' => -74.05109489307013]);
+        $location = geoip()->getLocation(request()->ip());
+
+        $closeGig = Gig::factory()->create(['lat' => $location->lat - .001, 'lon' => $location->lon - .001]);
+        $distantGig = Gig::factory()->create(['lat' => $location->lat - .002, 'lon' => $location->lat - .002]);
 
         $this->assertFalse(auth()->user()->isLikelyInside($distantGig));
 

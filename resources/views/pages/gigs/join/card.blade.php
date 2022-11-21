@@ -18,7 +18,7 @@
 				</button>
 			</form>
 			@else
-				<button disabled class="btn btn-secondary">@fa(['icon' => 'hourglass-half'])Ainda não começou</button>
+				<button disabled class="btn btn-secondary">@fa(['icon' => 'hourglass-half'])Evento está fechado</button>
 			@endif
 		</div>
 		@if($gig->description)

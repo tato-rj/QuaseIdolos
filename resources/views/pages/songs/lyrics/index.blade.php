@@ -16,9 +16,9 @@
 	</div>
 </section>
 
-<section class="container py-4">
+<section class="container pb-4">
 	<div class="row">
-		<div class="col-lg-8 col-12 mx-auto">
+		<div class="col-12 mx-auto">
 			@include('pages.songs.lyrics.show')
 		</div>
 	</div>

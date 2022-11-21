@@ -27,7 +27,7 @@ class JoinGig
                 auth()->user()->join($gigs->first());
 
             if($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive())
-                return redirect(route('gig.select', ['origin' => \Route::currentRouteName()]));
+                return redirect(route('gig.select', ['origin' => url()->previous()]));
         }
 
         return $next($request);

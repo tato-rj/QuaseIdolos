@@ -1,7 +1,8 @@
 {
     "/js/app.js": "/js/app.js?id=81cc037812c42831f5fb924b83c08315",
-    "/css/app.css": "/css/app.css?id=10a24ced6d9a5ed54f517f8554a1da24",
+    "/css/app.css": "/css/app.css?id=807ad3bd4b6db759cfc38c3d2314a9ce",
     "/js/vendor/datepicker-pt-BR.js": "/js/vendor/datepicker-pt-BR.js?id=994a960cee7c1ab671a330ececbcf35e",
+    "/js/vendor/jquery.jscroll.min.js": "/js/vendor/jquery.jscroll.min.js?id=28a82ab0a47326cce3a8627e741b7540",
     "/images/bg.jpg": "/images/bg.jpg?id=e57b1815aac96b6434135e53453d1153",
     "/images/brand/logo_lg.svg": "/images/brand/logo_lg.svg?id=29b4df69d13be44c23616a45e3c0985e",
     "/images/brand/logo_sm.svg": "/images/brand/logo_sm.svg?id=2988c2b4ee6e04cdbc1e24f07f3607f5",

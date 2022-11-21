@@ -21,8 +21,6 @@ trait Locateable
 
 	public function isLikelyInside(Gig $gig)
 	{
-		$coordinates = $this->coordinates();
-
 		return $this->distanceTo($gig) < $this->radius;
 	}
 
