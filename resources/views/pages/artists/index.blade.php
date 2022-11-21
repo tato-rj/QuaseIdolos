@@ -16,7 +16,11 @@
 	</div>
 
 	<div id="results-container">
+
+	</div>
+	<div id="artists-container">
 		@include('pages.artists.results')
+		{{$artists->links()}}
 	</div>
 </section>
 
@@ -33,7 +37,13 @@ $('input[name="search"]').keyup(function() {
 
 	axios.get($(this).data('url'), { params: { input: input } })
 		 .then(function(response) {
-		 	$('#results-container').html(response.data);
+		 	if (response.data) {
+			 	$('#artists-container').hide();
+			 	$('#results-container').html(response.data).show();
+			 } else {
+			 	$('#artists-container').show();
+			 	$('#results-container').html(response.data).hide();
+			 }
 		 })
 		 .catch(function(error) {
 			alert('Try again...');

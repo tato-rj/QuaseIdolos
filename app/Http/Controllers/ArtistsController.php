@@ -43,9 +43,9 @@ class ArtistsController extends Controller
 
     public function search(Request $request)
     {
-        $artists = Artist::search($request->input)->orderBy('name')->paginate(28);
+        $artists = $request->input ? Artist::search($request->input)->orderBy('name')->get() : null;
 
-        return view('pages.artists.results', compact('artists'))->render();
+        return $artists ? view('pages.artists.results', compact('artists'))->render() : null;
     }
 
     /**
