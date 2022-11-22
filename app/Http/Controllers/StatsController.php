@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Artist;
+use App\Models\{Artist, Genre};
 use App\Tools\ChartJS\Chart;
 
 class StatsController extends Controller
@@ -31,5 +31,12 @@ class StatsController extends Controller
         $rankingBySongs = Artist::withCount('songs')->orderBy('songs_count', 'DESC')->take(9)->get();
 
         return view('pages.stats.artists.index', compact(['rankingBySongs']));
+    }
+
+    public function genres(Request $request)
+    {
+        $rankingBySongs = Genre::withCount('songs')->orderBy('songs_count', 'DESC')->take(9)->get();
+
+        return view('pages.stats.genres.index', compact(['rankingBySongs']));
     }
 }
