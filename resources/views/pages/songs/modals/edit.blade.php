@@ -17,7 +17,14 @@
 	@input(['placeholder' => 'Duração', 'name' => 'duration', 'value' => $song->duration, 'type' => 'number', 'required' => true, 'min' => 1])
 
 	@textarea(['placeholder' => 'Letra', 'name' => 'lyrics', 'value' => $song->lyrics, 'required' => true])
-	@input(['placeholder' => 'Site com cifra', 'name' => 'chords_url', 'value' => $song->chords_url])
+	<div class="d-flex">
+		<div class="mr-2">
+			<a href="{{$song->chords_url}}" title="Ver acordes" target="_blank" class="btn btn-secondary form-control border-0">@fa(['icon' => 'external-link-alt', 'mr' => 0])</a>
+		</div>
+		<div class="w-100">
+			@input(['placeholder' => 'Site com cifra', 'name' => 'chords_url', 'value' => $song->chords_url])
+		</div>
+	</div>
 
 	@submit(['label' => 'Confirmar mudanças', 'theme' => 'secondary'])
 </form>
