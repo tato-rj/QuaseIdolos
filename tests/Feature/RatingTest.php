@@ -143,6 +143,26 @@ class RatingTest extends AppTest
     }
 
     /** @test */
+    public function gigs_with_a_winner_cannot_accept_any_more_ratings()
+    {
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
+        $this->signIn();
+
+        $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);
+
+        auth()->user()->join($gig);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $gig, 'finished_at' => now()]);
+
+        $score = 5;
+
+        $gig->winner()->associate($songRequest)->save();
+
+        $this->post(route('ratings.store', compact(['songRequest', 'score'])));
+    }
+
+    /** @test */
     public function git_with_disabled_rating_show_nothing_on_the_ratings_list()
     {
         $this->signIn();

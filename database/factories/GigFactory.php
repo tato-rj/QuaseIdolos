@@ -18,7 +18,7 @@ class GigFactory extends Factory
             'creator_id' => function() {
                 return User::factory()->create()->id;
             },
-            'name' => $this->faker->word,
+            'name' => ucfirst($this->faker->word),
             'scheduled_for' => now(),
             'lat' => geoip()->getLocation()->lat,
             'lon' => geoip()->getLocation()->lon,

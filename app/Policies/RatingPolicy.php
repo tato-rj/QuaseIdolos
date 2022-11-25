@@ -10,29 +10,6 @@ class RatingPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Rating  $rating
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Rating $rating)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
@@ -42,7 +19,11 @@ class RatingPolicy
     {
         $gig = $user->liveGig();
 
-        return ! $songRequest->user->isAdmin() && $gig && $user->participatesInRatings() && $gig->participatesInRatings();
+        return ! $songRequest->user->isAdmin() 
+                && $gig 
+                && $user->participatesInRatings() 
+                && $gig->participatesInRatings() 
+                && ! $gig->winner()->exists();
     }
 
     /**

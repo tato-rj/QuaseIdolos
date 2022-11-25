@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{SongRequest, Rating};
 use App\Events\ScoreSubmitted;
+use App\Mail\Users\WinnerEmail;
 
 class RatingsController extends Controller
 {
@@ -24,14 +25,13 @@ class RatingsController extends Controller
         $ratings = collect();
 
         $collection->groupBy('song_request_id')->map(function($item, $index) use ($ratings) {
-            $rating = collect([
-                'songRequest' => $item->first()->songRequest,
-                'average' => round($item->avg('score')),
-                'count' => $item->count(),
-                'created_at' => $item->first()->created_at
-            ]);
+            $entry = collect();
+            $entry->songRequest = $item->first()->songRequest;
+            $entry->average = $item->first()->songRequest->score(true);
+            $entry->count = $item->count();
+            $entry->created_at = $item->first()->created_at;
 
-            $ratings->push($rating);
+            $ratings->push($entry);
         });
 
         $ratings = $ratings->sortByDesc('average')->values();
@@ -39,34 +39,40 @@ class RatingsController extends Controller
         return view('pages.ratings.user.index', compact(['ratings', 'totalCount']));
     }
 
-    public function gig()
+    public function live()
     {
-        $song = SongRequest::find(42);
-
-        return view('pages.ratings.gig.index');
+        return view('pages.ratings.live.index');
     }
 
-    public function ranking()
+    public function votes()
     {
-        $collection = auth()->user()->liveGig()->ratings;
+        // $results = auth()->user()->liveGig()->ranking();
 
-        $totalCount = $collection->count();
+        // $totalCount = $results->totalCount;
+        // $ratings = $results->ratings;
 
-        $ratings = collect();
+        $ratings = auth()->user()->liveGig()->ratings->reverse();
+        $totalCount = $ratings->count();
 
-        $collection->groupBy('song_request_id')->map(function($item, $index) use ($ratings) {
-            $rating = collect([
-                'songRequest' => $item->first()->songRequest,
-                'average' => $item->first()->songRequest->score(true),
-                'count' => $item->count()
-            ]);
+        return view('pages.ratings.live.votes', compact(['ratings', 'totalCount']))->render();
+    }
 
-            $ratings->push($rating);
-        });
+    public function winner()
+    {
+        $gig = auth()->user()->liveGig();
+        $ranking = $gig->ranking();
 
-        $ratings = $ratings->sortByDesc('average')->values();
+        if ($ranking->ratings->isEmpty())
+            return back()->with('error', 'Esse evento ainda não tem nenhum voto');
 
-        return view('pages.ratings.gig.ranking', compact(['ratings', 'totalCount']))->render();
+        $winner = $ranking->ratings->first();
+
+        if (! $gig->winner()->exists())
+            \Mail::to($winner->songRequest->user->email)->queue(new WinnerEmail($winner->songRequest));
+
+        $gig->winner()->associate($winner->songRequest)->save();
+
+        return view('pages.ratings.winner.index', compact(['ranking', 'winner']));
     }
 
     public function store(Request $request, SongRequest $songRequest)

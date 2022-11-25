@@ -1,5 +1,4 @@
-@php($gigExists = \App\Models\Gig::ready()->exists())
-@if(auth()->check() && $gigExists)
+@if(auth()->check() && $gigCount)
 	@if(auth()->user()->liveGig())
 		@if(auth()->user()->songRequests()->waitingFor($song)->exists())
 			@include('pages.cardapio.components.song.buttons.waiting')
@@ -7,10 +6,10 @@
 			@include('pages.cardapio.components.song.buttons.sing')
 		@endif
 	@else
-		@include('pages.cardapio.components.song.buttons.closed')
+		@include('pages.cardapio.components.song.buttons.join')
 	@endif
 @else
-	@if($gigExists)
+	@if($gigCount)
 	@include('pages.cardapio.components.song.buttons.sing')
 	@else
 		@include('pages.cardapio.components.song.buttons.closed')

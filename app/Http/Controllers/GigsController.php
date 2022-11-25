@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gig;
 use Illuminate\Http\Request;
+use App\Events\GigFinished;
 
 class GigsController extends Controller
 {
@@ -141,30 +142,28 @@ class GigsController extends Controller
         ])->render();
     }
 
-    public function status(Request $request, Gig $gig)
+    public function open(Request $request, Gig $gig)
     {
         $gig->update([
-            'is_live' => ! $gig->is_live,
+            'is_live' => true,
             'starts_at' => now(),
-            'ends_at' => $gig->is_live ? now() : null,
-            'is_paused' => $gig->is_live ? false : $gig->is_paused
         ]);
 
-        if ($gig->is_live) {
-            $message = 'O evento começou';
-        } else {
-            $message = 'O evento acabou';
-            $gig->participants()->detach();
-        }
+        return back()->with('success', 'O evento começou');
+    }
 
-        return view('components.core.alerts.regular', [
-            'message' => $message,
-            'icon' => $gig->is_live ? 'thumbs-up' : 'hand-paper', 
-            'color' => $gig->is_live ? 'green' : 'yellow', 
-            'pos' => 'top', 
-            'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown'], 
-            'countdown' => 3
-        ])->render();
+    public function close(Request $request, Gig $gig)
+    {
+        GigFinished::dispatch($gig);
+
+        $gig->update([
+            'is_live' => false,
+            'ends_at' => now()
+        ]);
+
+        $gig->participants()->detach();
+
+        return back()->with('success', 'O evento terminou');
     }
 
     /**

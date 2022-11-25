@@ -1,3 +1,4 @@
+@php($gigCount = \App\Models\Gig::ready()->count())
 <div class="mt-">
 	@unless($songs->isEmpty())
 	<div class="text-center">

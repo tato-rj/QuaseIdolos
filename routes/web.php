@@ -16,7 +16,7 @@ Route::prefix('auth/{driver}')->withoutMiddleware('join-gig')->group(function() 
     Route::get('callback', 'Auth\SocialiteController@callback');
 });
 
-Route::prefix('cardapio')->name('cardapio.')->group(function() {
+Route::prefix('cardapio')->withoutMiddleware('join-gig')->name('cardapio.')->group(function() {
     Route::get('', 'CardapioController@index')->name('index');
 
     Route::get('artista/{artist}', 'CardapioController@artist')->name('artist');
@@ -148,9 +148,11 @@ Route::middleware('admin')->group(function() {
     });
 
     Route::prefix('votacao')->name('ratings.')->group(function() {
-        Route::get('evento', 'RatingsController@gig')->name('gig');
+        Route::get('ao-vivo', 'RatingsController@live')->name('live');
 
-        Route::get('ranking', 'RatingsController@ranking')->name('ranking');
+        Route::get('votos', 'RatingsController@votes')->name('votes');
+
+        Route::get('vencedor', 'RatingsController@winner')->name('winner');
     });
 });
 
@@ -180,7 +182,9 @@ Route::middleware('super-admin')->group(function() {
 
         Route::post('{gig}/duplicar', 'GigsController@duplicate')->name('duplicate');
 
-        Route::post('{gig}/status', 'GigsController@status')->name('status');
+        Route::post('{gig}/abrir', 'GigsController@open')->name('open');
+
+        Route::post('{gig}/fechar', 'GigsController@close')->name('close');
 
         Route::post('{gig}/pausar', 'GigsController@pause')->name('pause');
 

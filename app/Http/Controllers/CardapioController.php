@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Artist, Song, Genre};
+use App\Models\{Artist, Song, Genre, Gig};
 
 class CardapioController extends Controller
 {
     public function index()
     {
+        if (auth()->check())
+            auth()->user()->tryToJoin(Gig::ready());
+        
         $artists = Artist::orderby('name')->has('songs')->paginate(24);
         $genres = Genre::orderby('name')->has('songs')->get();
 
@@ -24,7 +27,8 @@ class CardapioController extends Controller
 
     public function search(Request $request)
     {
-        // $input = preg_replace("/(.)\\1+/", "$0", $request->input);
+        if (auth()->check())
+            auth()->user()->tryToJoin(Gig::ready());
         
         $songs = Song::search($request->input)->get();
 

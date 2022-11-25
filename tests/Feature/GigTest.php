@@ -89,11 +89,11 @@ class GigTest extends AppTest
 
         $gig = Gig::factory()->create(['scheduled_for' => now()->copy()->addDays(3)]);
 
-        $this->get(route('gig.index'))->assertDontSee(route('gig.status', $gig));
+        $this->get(route('gig.index'))->assertDontSee('Abrir');
 
         $this->travel(3)->days();
 
-        $this->get(route('gig.index'))->assertSee(route('gig.status', $gig));
+        $this->get(route('gig.index'))->assertSee('Abrir');
     }
 
     /** @test */
@@ -127,12 +127,12 @@ class GigTest extends AppTest
         
         auth()->user()->join($gigOne);
 
-        $this->post(route('gig.status', $gigOne));
+        $this->post(route('gig.open', $gigOne));
 
         $this->assertTrue($gigOne->fresh()->isLive());
         $this->assertFalse($gigTwo->fresh()->isLive());
 
-        $this->post(route('gig.status', $gigTwo));
+        $this->post(route('gig.open', $gigTwo));
 
         $this->assertTrue($gigOne->fresh()->isLive());
         $this->assertTrue($gigTwo->fresh()->isLive());
@@ -271,7 +271,7 @@ class GigTest extends AppTest
 
         $this->assertTrue($gig->fresh()->isLive());
 
-        $this->post(route('gig.status', $gig));
+        $this->post(route('gig.close', $gig));
 
         $this->assertFalse($gig->fresh()->isLive());
 

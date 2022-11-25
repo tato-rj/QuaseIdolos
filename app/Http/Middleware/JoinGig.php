@@ -23,13 +23,23 @@ class JoinGig
 
             $gigs = Gig::ready();
             
-            if($gigs->count() == 1 && $gigs->first()->isLive())
-                auth()->user()->join($gigs->first());
+            auth()->user()->tryToJoin($gigs);
 
             if($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive())
-                return redirect(route('gig.select', ['origin' => url()->previous()]));
+                return redirect(route('gig.select', ['origin' => $this->getOrigin($request)]));
         }
 
         return $next($request);
+    }
+
+    public function getOrigin($request)
+    {
+        if ($request->origin)
+            return $request->origin;
+
+        if ($request->method() == 'GET')
+            return url()->current();
+
+        return url()->previous();
     }
 }

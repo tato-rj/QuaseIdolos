@@ -101,14 +101,14 @@ input[type=file]::file-selector-button {
 	background: rgba(255, 255, 255, 0.8);
 }
 
-.switch, .pause-switch {
+.switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 28px;
 }
 
-.switch input, .pause-switch input { 
+.switch input { 
   opacity: 0;
   width: 0;
   height: 0;

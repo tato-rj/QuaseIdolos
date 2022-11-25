@@ -22,15 +22,23 @@
 			</div>
 		</div>
 
-		<div class="col-lg-2 col-md-2 col-3 text-right d-flex justify-content-end ">
+		<div class="col-lg-2 col-md-2 col-3 text-right d-flex justify-content-end align-items-center">
 			@if($ready)		
 				@if($gig->isLive())
-				<button class="pause-switch d-center btn rounded-circle btn-secondary" data-url="{{route('gig.pause', $gig)}}">
+				<button class="pause-switch btn btn-sm btn-secondary mr-2" data-url="{{route('gig.pause', $gig)}}">
 				  @fa(['icon' => $gig->is_paused ? 'play' : 'pause', 'mr' => 0])
 				</button>
 				@endif
 
-				@toggle(['name' => 'is_live', 'on' => $gig->is_live, 'url' => route('gig.status', $gig)])
+				@if($gig->isLive())
+				<button data-bs-toggle="modal" data-bs-target="#close-gig-{{$gig->id}}-modal" class="btn btn-red btn-sm text-nowrap">Fechar</button>
+				@include('pages.gigs.modals.close')
+				@else
+				<form method="POST" action="{{route('gig.open', $gig)}}">
+					@csrf
+					<button class="btn btn-secondary btn-sm text-nowrap">Abrir</button>
+				</form>
+				@endif
 			@endif
 		</div>
 	</div>

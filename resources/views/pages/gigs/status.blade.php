@@ -6,19 +6,6 @@
 						{!! $gig->status !!}
 					</div>
 				</div>
-				@if($gig->isReady())
-				<div class="d-center gig-controls">
-					
-					<button class="pause-switch d-center btn rounded-circle btn-secondary {{$gig->is_live ? null : 'd-none'}}" data-url="{{route('gig.pause', $gig)}}">
-					  @fa(['icon' => $gig->is_paused ? 'play' : 'pause', 'mr' => 0])
-					</button>
-
-					@unless(isset($pauseOnly))
-					@toggle(['name' => 'is_live', 'on' => $gig->is_live, 'url' => route('gig.status', $gig)])
-					@endunless
-					
-				</div>
-				@endif
 			</div>
 		</div>
 	</div>

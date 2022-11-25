@@ -9,14 +9,14 @@
 	</div>
 </div>
 
-<div class="text-center">
-	<h3 class="mb-4 no-stroke opacity-6" id="counter" style="font-size: 3.2rem">10s</h3>
+<div class="text-center" style="display: {{$ratings->count() ? 'block' : 'none'}}">
+	<h3 class="mb-4 no-stroke opacity-6" id="counter" style="font-size: 3.2rem">15s</h3>
 </div>
 
 <div class="row">
 	<div class="col-lg-6 col-md-8 col-12 mx-auto">
 		@forelse($ratings as $rating)
-			@include('pages.ratings.gig.row')
+			@include('pages.ratings.live.row')
 		@empty
 		@include('components.empty')
 		@endforelse

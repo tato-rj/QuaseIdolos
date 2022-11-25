@@ -13,12 +13,17 @@ class Gig extends BaseModel
 	protected $casts = [
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
-		'is_private'
+		'is_private' => 'boolean'
 	];
 
 	public function creator()
 	{
 		return $this->belongsTo(User::class, 'creator_id');
+	}
+
+	public function winner()
+	{
+		return $this->belongsTo(SongRequest::class);
 	}
 
 	public function participants()
@@ -64,6 +69,35 @@ class Gig extends BaseModel
     public function scopePublic($query)
     {
 		return $query->where('is_private', false);
+    }
+
+    public function ranking()
+    {
+    	if (! $this->participatesInRatings())
+    		return null;
+    	
+    	$results = collect();
+
+        $collection = $this->ratings;
+
+        $results->totalCount = $collection->count();
+
+        $ratings = collect();
+
+        $collection->groupBy('song_request_id')->map(function($item, $index) use ($ratings) {
+        	$entry = collect();
+            $entry->songRequest = $item->first()->songRequest;
+            $entry->average = $item->first()->songRequest->score(true);
+            $entry->count = $item->count();
+
+            $ratings->push($entry);
+        });
+
+        $results->ratings = $ratings->sortByDesc('average')->values();
+
+        $results->winner = $ratings->first() ? $ratings->first()->songRequest : null;
+
+        return $results;
     }
 
     public function rules()

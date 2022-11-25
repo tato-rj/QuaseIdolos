@@ -100,6 +100,12 @@ class User extends Authenticatable
         return $this->liveGig() && $this->liveGig()->is($gig);
     }
 
+    public function tryToJoin($gigs)
+    {
+        if($gigs->count() == 1 && $gigs->first()->isLive())
+            $this->join($gigs->first());
+    }
+
     public function scopeTeam($query)
     {
         return $query->has('admin')->where('id', '!=', auth()->user()->id);

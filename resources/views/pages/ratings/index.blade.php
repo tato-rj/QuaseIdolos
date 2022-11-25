@@ -26,10 +26,18 @@
 			</div>
 		</div>
 	</div>
+	@elseif(auth()->user()->liveGig()->winner()->exists())
+	<div class="row">
+		<div class="col-lg-6 col-md-8 col-12 mx-auto">
+			<div class="bg-white p-4 rounded mt-4">
+				<h5 class="text-center m-0 text-red no-stroke">@fa(['icon' => 'door-closed'])A votação para este evento está encerrada</h5>
+			</div>
+		</div>
+	</div>
 	@else
 	<div class="text-center mx-auto mb-4" style="max-width: 600px">
 		@if(auth()->user()->isAdmin())
-		<a href="{{route('ratings.gig')}}" class="btn btn-secondary mx-auto mb-4">Ver resultados</a>
+		<a href="{{route('ratings.live')}}" target="_blank" class="btn btn-secondary mx-auto mb-4">Votação ao vivo</a>
 		@endif
 		
 		<h6>Acompanhe aqui os cantores à medida em que eles vão cantando no palco do evento de hoje. Dê o seu voto e acompanhe o resultado!</h6>

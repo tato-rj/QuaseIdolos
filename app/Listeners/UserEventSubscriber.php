@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Auth\Events\Registered;
 use App\Mail\Users\WelcomeEmail;
+use App\Events\GigFinished;
 
 class UserEventSubscriber
 {
@@ -16,6 +17,7 @@ class UserEventSubscriber
     {
         return [
             Registered::class => 'handleUserRegistration',
+            // GigFinished::class => 'sendWinnerEmail'
         ];
     }
 }

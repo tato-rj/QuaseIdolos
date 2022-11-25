@@ -13,7 +13,7 @@
 	<div class="text-center">
 		@include('components.pagetitle', ['title' => 'Setlist de', 'highlight' => 'hoje'])
 		@if($gig)
-		<a class="link-secondary" target="_blank" href="{{route('lyrics.index')}}"><h6 class="mb-3">Abrir página pra mostrar a letra</h6></a>
+		<a class="btn btn-secondary mb-4" target="_blank" href="{{route('lyrics.index')}}">@fa(['icon' => 'font'])Ver as letras</a>
 		<a href="" data-bs-toggle="modal" data-bs-target="#gig-{{$gig->id}}-modal" class="link-secondary"><h3>@fa(['icon' => 'clipboard-list']){{$gig->name}}</h3></a>
 
 		@include('pages.setlists.admin.info')
