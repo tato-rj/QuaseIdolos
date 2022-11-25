@@ -49,6 +49,7 @@ function clearResults()
 
 function showResults(data)
 {
+	$('.artists-container').hide();
 	$('#results').html(data);
 }
 
@@ -72,8 +73,6 @@ $(document).ready(function() {
 
 			$('.artists-container').show();
 		} else if (input.length >= 3) {
-			$('.artists-container').hide();
-
 			search($(this).data('url'), input);
 		}
 	});
