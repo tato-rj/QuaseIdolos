@@ -327,13 +327,13 @@ class GigTest extends AppTest
     }
 
     /** @test */
-    public function a_gig_deny_repeated_requests_beyond_the_limit()
+    public function a_gig_denies_repeated_requests_beyond_the_limit()
     {
         $this->expectException('App\Exceptions\SetlistException');
 
         $gig = Gig::factory()->create([
             'is_live' => true,
-            'repeat_limit' => 2
+            'repeat_limit' => 1
         ]);
 
         $this->signIn();

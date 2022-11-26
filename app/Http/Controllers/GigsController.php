@@ -38,7 +38,6 @@ class GigsController extends Controller
         if ($gig->isPaused())
             return back()->with('error', 'Esse evento volta daqui a pouco');
 
-
         auth()->user()->join($gig);
 
         $redirect = session()->has('origin') ? redirect(session('origin')) : back();

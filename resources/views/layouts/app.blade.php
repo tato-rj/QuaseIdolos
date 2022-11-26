@@ -161,6 +161,7 @@ a {
 
         @if($modal = session('modal'))
         @include($modal)
+        @php(session()->forget('modal'))
         @endif
 
         @unless(auth()->check())
