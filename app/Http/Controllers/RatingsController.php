@@ -41,11 +41,14 @@ class RatingsController extends Controller
 
     public function live()
     {
-        return view('pages.ratings.live.index');
+        $timer = 10;
+
+        return view('pages.ratings.live.index', compact('timer'));
     }
 
-    public function votes()
+    public function votes(Request $request)
     {
+        $timer = $request->timer;
         // $results = auth()->user()->liveGig()->ranking();
 
         // $totalCount = $results->totalCount;
@@ -54,7 +57,7 @@ class RatingsController extends Controller
         $ratings = auth()->user()->liveGig()->ratings->reverse();
         $totalCount = $ratings->count();
 
-        return view('pages.ratings.live.votes', compact(['ratings', 'totalCount']))->render();
+        return view('pages.ratings.live.votes', compact(['ratings', 'totalCount', 'timer']))->render();
     }
 
     public function winner()

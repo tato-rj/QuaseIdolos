@@ -56,7 +56,6 @@ class GigsController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'repeat_limit' => 'integer',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
         ]);

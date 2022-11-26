@@ -21,7 +21,7 @@ class CreateGigsTable extends Migration
             $table->string('description')->nullable();
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
-            $table->unsignedSmallInteger('repeat_limit')->default(0);
+            $table->unsignedSmallInteger('repeat_limit')->nullable();
             $table->unsignedSmallInteger('songs_limit')->nullable();
             $table->unsignedSmallInteger('songs_limit_per_user')->nullable();
             $table->boolean('has_ratings')->default(false);

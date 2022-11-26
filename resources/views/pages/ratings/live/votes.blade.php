@@ -10,7 +10,7 @@
 </div>
 
 <div class="text-center" style="display: {{$ratings->count() ? 'block' : 'none'}}">
-	<h3 class="mb-4 no-stroke opacity-6" id="counter" style="font-size: 3.2rem">15s</h3>
+	<h3 class="mb-4 no-stroke opacity-6" id="counter" style="font-size: 3.2rem">{{$timer}}s</h3>
 </div>
 
 <div class="row">

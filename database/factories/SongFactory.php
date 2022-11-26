@@ -21,7 +21,7 @@ class SongFactory extends Factory
             'genre_id' => function() {
                 return Genre::factory()->create()->id;
             },
-            'name' => $this->faker->word,
+            'name' => ucfirst($this->faker->word),
         ];
     }
 }

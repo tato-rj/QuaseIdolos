@@ -9,7 +9,7 @@ class CardapioController extends Controller
 {
     public function index()
     {
-        if (auth()->check())
+        if (auth()->check() && ! auth()->user()->liveGig())
             auth()->user()->tryToJoin(Gig::ready());
         
         $artists = Artist::orderby('name')->has('songs')->paginate(24);

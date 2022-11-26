@@ -11,7 +11,6 @@ body *:not(html):not(style):not(br):not(tr):not(code) {
 body {
     -webkit-text-size-adjust: none;
     background-color: #ffffff;
-    color: #718096;
     height: 100%;
     line-height: 1.4;
     margin: 0;
@@ -40,14 +39,12 @@ a img {
 h1 {
     color: #3d4852;
     font-size: 18px;
-    font-weight: bold;
     margin-top: 0;
     text-align: left;
 }
 
 h2 {
     font-size: 16px;
-    font-weight: bold;
     margin-top: 0;
     text-align: left;
 }
@@ -301,6 +298,15 @@ img {
 }
 
 /* Custom */
+.font-brand {
+    font-family: 'Fredoka One', cursive;
+    letter-spacing: 1px;
+}
+
+body, p, h1, h2, h3, h4, h5, h5, button, .button {
+    font-family: 'Nunito', sans-serif;
+}
+
 .text-uppercase {
     text-transform: uppercase;
 }
