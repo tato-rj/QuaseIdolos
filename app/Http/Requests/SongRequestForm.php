@@ -60,9 +60,9 @@ class SongRequestForm extends FormRequest
 
     public function songCanBeRequestedAgain()
     {
-        $message = $this->liveGig->repeat_limit == 1 
+        $message = $this->liveGig->repeat_limit == 0 
             ? 'Essa música já foi escolhida 1 vez' 
-            : 'Essa música já foi escolhida '.$this->liveGig->repeat_limit.' vezes';
+            : 'Essa música já foi escolhida ' . $this->liveGig->repeat_limit + 1 . ' vezes';
 
         return ! $this->liveGig->repeatLimitReachedFor($this->song) ? true
              : $this->failWithMessage($message);

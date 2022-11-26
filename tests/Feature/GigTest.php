@@ -279,6 +279,35 @@ class GigTest extends AppTest
     }
 
     /** @test */
+    public function a_gig_accepts_infinite_repeated_requests_with_an_unset_limit()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $gig = Gig::factory()->create([
+            'is_live' => true,
+            'repeat_limit' => null
+        ]);
+
+        $this->signIn();
+
+        auth()->user()->join($gig);
+
+        $this->post(route('song-requests.store', $this->song));
+
+        $this->signIn();
+
+        auth()->user()->join($gig);
+
+        $this->post(route('song-requests.store', $this->song));
+
+        $this->signIn();
+        
+        auth()->user()->join($gig);
+
+        $this->post(route('song-requests.store', $this->song));
+    }
+
+    /** @test */
     public function a_gig_accepts_repeated_requests_up_to_the_limit()
     {
         $this->expectNotToPerformAssertions();

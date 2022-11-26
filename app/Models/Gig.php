@@ -177,14 +177,14 @@ class Gig extends BaseModel
 
 	public function repeatLimitReachedFor(Song $song)
 	{
-		if (! $this->repeat_limit)
+		if (is_null($this->repeat_limit))
 			return false;
 
 		$count = $this->setlist()->whereHas('song', function($q) use ($song) {
 			$q->where('song_id', $song->id);
 		})->count();
 
-		return $count >= $this->repeat_limit;
+		return $count > $this->repeat_limit;
 	}
 
 	public function getFullNameAttribute()
