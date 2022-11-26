@@ -24,6 +24,7 @@
 	</div>
 	@datepicker([
 		'label' => 'Data do evento',
+		'value' => now()->format('d/m/Y'),
 		'id' => uuid(),
 		'options' => ['fullwidth'],
 		'name' => 'scheduled_for'])
