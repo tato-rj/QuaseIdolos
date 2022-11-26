@@ -55,9 +55,9 @@ class RatingsController extends Controller
         // $ratings = $results->ratings;
 
         $ratings = auth()->user()->liveGig()->ratings->reverse();
-        $totalCount = $ratings->count();
+        $votersCount = $ratings->groupBy('user_id')->count();
 
-        return view('pages.ratings.live.votes', compact(['ratings', 'totalCount', 'timer']))->render();
+        return view('pages.ratings.live.votes', compact(['ratings', 'votersCount', 'timer']))->render();
     }
 
     public function winner()
