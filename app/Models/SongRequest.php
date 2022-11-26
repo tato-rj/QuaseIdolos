@@ -61,7 +61,7 @@ class SongRequest extends BaseModel
 
         $average = $this->ratings->avg('score');
 
-        $weight = $this->ratings->count() * 5 / $this->gig->ratings->count();
+        $weight = $this->ratings->count() * 5 / $this->gig->ratings->groupBy('user_id')->count();
 
         $weightedAverage = ($average + $weight) / 2;
 

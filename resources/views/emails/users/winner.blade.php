@@ -8,8 +8,8 @@
 <div class="d-center mb-4">
 <img src="http://quaseidolos.test/storage/artists/babado.jpeg" width="70" class="rounded-circle mr-2">
 <div>
-<h1 style="font-size: 1.4rem" class="m-0">{{$winner->song->name}}</h1>
-<h2 class="m-0">{{$winner->song->artist->name}}</h2>
+<h1 style="font-size: 1.4rem; line-height: 1" class="m-0">{{$winner->song->name}}</h1>
+<h2 class="m-0" style="opacity: .5"><strong>{{$winner->song->artist->name}}</strong></h2>
 </div>
 </div>
 

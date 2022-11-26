@@ -315,6 +315,18 @@ body, p, h1, h2, h3, h4, h5, h5, button, .button {
     color: #3d4852;
 }
 
+.text-white {
+    color: white;
+}
+
+.text-primary {
+    color: #b32743!important;
+}
+
+.text-secondary {
+    color: #f2cd3d!important;
+}
+
 .text-center {
     text-align: center;
 }
@@ -347,14 +359,6 @@ body, p, h1, h2, h3, h4, h5, h5, button, .button {
 
 .border-secondary {
     border-color: #f2cd3d!important;
-}
-
-.text-white {
-    color: white;
-}
-
-.text-primary {
-    color: #b32743!important;
 }
 
 .mx-auto {

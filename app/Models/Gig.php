@@ -80,7 +80,11 @@ class Gig extends BaseModel
 
         $collection = $this->ratings;
 
+        $uniqueVotes = $this->ratings->groupBy('user_id');
+
         $results->totalCount = $collection->count();
+
+        $results->votersCount = $uniqueVotes->count();
 
         $ratings = collect();
 

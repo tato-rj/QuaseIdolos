@@ -7,7 +7,7 @@
                      @if($user->hasAvatar())
                      @include('components.avatar.image', ['size' => '68px'])
                      @else
-                     @include('components.avatar.initial', ['size' => '68px'])
+                     @include('components.avatar.initial', ['size' => '68px', 'fontsize' => '1.8rem'])
                      @endif
                   </div>
                   <div class="mr-2">
