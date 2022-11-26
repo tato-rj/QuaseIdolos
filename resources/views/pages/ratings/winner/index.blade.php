@@ -90,7 +90,7 @@ var numberStage,
       number,
       dots = [],
       numberPixelCoordinates,
-      circleRadius = 2,
+      circleRadius = 3,
       colors = ['61, 207, 236', '255, 244, 174', '255, 211, 218', '151, 211, 226'];
 
 
