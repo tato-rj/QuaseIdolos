@@ -193,6 +193,22 @@ class GigTest extends AppTest
     }
 
     /** @test */
+    public function a_gig_will_not_accept_requests_if_the_voting_has_ended_and_the_winner_announced()
+    {
+        $this->expectException('App\Exceptions\SetlistException');
+
+        $this->signIn();
+
+        $gig = Gig::factory()->create(['is_live' => true]);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $gig->winner()->associate(SongRequest::factory()->create(['gig_id' => $gig]))->save();
+        
+        $this->post(route('song-requests.store', Song::factory()->create()));
+    }
+
+    /** @test */
     public function a_gig_cannot_be_deleted_if_there_are_requests_waiting()
     {
         Admin::first()->update(['super_admin' => true]);

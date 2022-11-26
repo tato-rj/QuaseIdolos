@@ -23,6 +23,7 @@ class SongRequestForm extends FormRequest
         return $this->gigIsLive() && 
                $this->gigIsNotPaused() && 
                $this->gigIsNotFull() && 
+               $this->votingHasNotFinished() && 
                $this->userCanMakeRequests() &&
                $this->songNotYetRequestedByUser() &&
                $this->songCanBeRequestedAgain();
@@ -44,6 +45,12 @@ class SongRequestForm extends FormRequest
     {
         return ! $this->liveGig->isFull() ? true 
              : $this->failWithMessage('O limite de músicas desse set foi alcançado');
+    }
+
+    public function votingHasNotFinished()
+    {
+        return ! $this->liveGig->winner()->exists() ? true 
+             : $this->failWithMessage('Esse evento não está recebendo mais pedidos');
     }
 
     public function userCanMakeRequests()
