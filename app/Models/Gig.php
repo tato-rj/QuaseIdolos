@@ -21,6 +21,11 @@ class Gig extends BaseModel
 		return $this->belongsTo(User::class, 'creator_id');
 	}
 
+	public function venue()
+	{
+		return $this->belongsTo(Venue::class);
+	}
+
 	public function winner()
 	{
 		return $this->belongsTo(SongRequest::class);
@@ -46,24 +51,19 @@ class Gig extends BaseModel
 		return $query->orderBy('scheduled_for', 'desc');
 	}
 
-	public function scopeLive($query)
-	{
-		return $query->where('is_live', true);
-	}
-
 	public function scopeUnscheduled($query)
 	{
 		return $query->whereNull('scheduled_for');
 	}
 
-    public function scopeTonight($query)
-    {
-        // return $query->where('created_at', '>=', $gig->starts_at);
-    }
+	public function scopeLive($query)
+	{
+		return $query->where('is_live', true);
+	}
 
     public function scopeUpcoming($query)
     {
-    	return $query->where('scheduled_for', '>=', now()->startOfDay())->orWhereNull('scheduled_for');
+    	return $query->where('scheduled_for', '>=', now()->startOfDay());
     }
 
     public function scopePublic($query)
@@ -145,6 +145,9 @@ class Gig extends BaseModel
 
 	public function isToday()
 	{
+		if (! $this->hasDate())
+			return null;
+
 		return $this->scheduled_for->isSameDay(now());
 	}
 
@@ -193,12 +196,12 @@ class Gig extends BaseModel
 
 	public function getFullNameAttribute()
 	{
-		return $this->scheduled_for ? $this->name : $this->name . ' ' . $this->scheduled_for;
+		return $this->name;
 	}
 
 	public function getDateForHumansAttribute()
 	{
-		return $this->scheduled_for ? $this->scheduled_for->format('j/n/y') : null;
+		return $this->scheduled_for->format('j/n/y');
 	}
 
 	public function getIsOverAttribute()
@@ -206,8 +209,28 @@ class Gig extends BaseModel
 		return $this->ends_at;
 	}
 
+	public function getDateInContextAttribute()
+	{
+		if (! $this->hasDate())
+			return null;
+
+		if ($this->scheduled_for->isToday())
+			return 'Hoje';
+
+		if ($this->scheduled_for->isYesterday())
+			return 'Ontem';
+
+		if ($this->scheduled_for->isTomorrow())
+			return 'Amanhã';
+
+		return $this->dateForHumans;
+	}
+
 	public function getStatusAttribute()
 	{
+		if (! $this->hasDate())
+			return fa('circle', 'grey', 'mr-2').'Sem data';
+
 		if ($this->is_paused)
 			return fa('circle', 'yellow', 'mr-2').'Pausado';
 
@@ -217,10 +240,7 @@ class Gig extends BaseModel
 		if ($this->is_over)
 			return fa('calendar-day', 'white', 'mr-2').'Terminou ' .$this->ends_at->diffForHumans();
 
-		// if (! $this->scheduled_for)
-			// return fa('circle', 'yellow', 'mr-2').'Sem data';
-
-		if (! $this->scheduled_for || $this->scheduled_for->lte(now()))
+		if ($this->isReady())
 			return fa('circle', 'yellow', 'mr-2').'Esperando pra começar';
 
 		return fa('calendar-day', 'white', 'mr-2').'Começa ' .$this->scheduled_for->diffForHumans();
@@ -230,15 +250,24 @@ class Gig extends BaseModel
 	{
 		$start = now()->copy()->startOfDay();
 
-		return $query->whereNull('scheduled_for')
-					 ->orWhereDate('scheduled_for', $start)
+		return $query->whereDate('scheduled_for', $start)
 					 ->orWhereBetween('scheduled_for', [$start->copy()->subDay(), $start->addHours(4)]);
+	}
+
+    public function scopeNotReady($query)
+    {
+		return $query->except($this->ready()->get('id'));
+    }
+
+	public function hasDate()
+	{
+		return (bool) $this->scheduled_for;
 	}
 
 	public function isReady()
 	{
-		if (! $this->scheduled_for)
-			return true;
+		if (! $this->hasDate())
+			return null;
 
 		return $this->scheduled_for->isSameDay(now()) || now()->between($this->scheduled_for, $this->scheduled_for->addDay()->addHours(4));
 	}

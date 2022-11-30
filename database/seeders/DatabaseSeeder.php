@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             GenreSeeder::class,
             SongSeeder::class,
             FavoriteSeeder::class,
+            VenueSeeder::class,
             GigSeeder::class,
             SongRequestSeeder::class,
             RatingSeeder::class,

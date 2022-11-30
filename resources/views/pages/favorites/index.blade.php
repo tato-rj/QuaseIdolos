@@ -1,3 +1,4 @@
+@php($gigCount = \App\Models\Gig::ready()->count())
 @extends('layouts.app', ['title' => 'Músicas Favoritas'])
 
 @push('header')

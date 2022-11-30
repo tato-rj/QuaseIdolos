@@ -16,11 +16,8 @@ class CreateGigsTable extends Migration
         Schema::create('gigs', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('creator_id');
+            $table->unsignedInteger('venue_id');
             $table->unsignedInteger('winner_id')->nullable();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('lon')->nullable();
             $table->unsignedSmallInteger('repeat_limit')->nullable();
             $table->unsignedSmallInteger('songs_limit')->nullable();
             $table->unsignedSmallInteger('songs_limit_per_user')->nullable();

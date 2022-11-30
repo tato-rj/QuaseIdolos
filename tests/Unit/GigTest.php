@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Gig, User, SongRequest, Participant, Rating};
+use App\Models\{Gig, User, SongRequest, Participant, Rating, Venue};
 
 class GigTest extends AppTest
 {
@@ -21,6 +21,12 @@ class GigTest extends AppTest
     public function it_belongs_to_a_creator()
     {
         return $this->assertInstanceOf(User::class, $this->gig->creator);
+    }
+
+    /** @test */
+    public function it_belongs_to_a_venue()
+    {
+        return $this->assertInstanceOf(Venue::class, $this->gig->venue);
     }
 
     /** @test */
@@ -101,16 +107,6 @@ class GigTest extends AppTest
         $this->travel(1)->hours();
 
         $this->assertFalse($gig->isReady());
-    }
-
-    /** @test */
-    public function if_it_has_no_date_it_is_ready_to_start_at_any_time()
-    {
-        Gig::truncate();
-
-        $gig = Gig::factory()->create(['scheduled_for' => null]);
-
-        $this->assertTrue($gig->isReady());
     }
 
     /** @test */

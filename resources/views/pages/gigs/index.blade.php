@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Músicas Favoritas'])
+@extends('layouts.app', ['title' => 'Eventos'])
 
 @push('header')
 <style type="text/css">
@@ -10,26 +10,29 @@
 <section class="container-fluid">
 	<div class="text-center mb-4">
 		<h2 class="mb-3">GERENCIE AQUI OS <span class="text-secondary">EVENTOS</span></h2>
-		@include('pages.gigs.search')
 		<button data-bs-toggle="modal" data-bs-target="#create-gig-modal" class="btn btn-secondary btn-lg">@fa(['icon' => 'plus'])Novo evento</button>
 		@include('pages.gigs.modals.create')
 	</div>
 </section>
 
-<section class="mb-4">
-	@if($readyGigs->isEmpty() && $otherGigs->isEmpty())
+<section class="mb-5">
+	<div class="container">
+		<h4>Eventos hoje</h4>
+	</div>
+
+	@if($today->isEmpty())
 	@include('components.empty')
 	@endif
 
 	@table
 	@slot('header')
-	@unless($readyGigs->isEmpty())
-		@include('pages.gigs.table.header')
-	@endif
+		@unless($today->isEmpty())
+			@include('pages.gigs.table.header')
+		@endif
 	@endslot
 
 	@slot('rows')
-		@foreach($readyGigs as $gig)
+		@foreach($today as $gig)
 		@include('pages.gigs.table.row', ['ready' => true])
 		@endforeach
 	@endslot
@@ -37,43 +40,31 @@
 	@endtable
 </section>
 
-{{-- @if($unscheduledGigs)
-<section class="mb-4">
-	@table
-	@slot('header')
-	@unless($unscheduledGigs->isEmpty())
-		@include('pages.gigs.table.header')
-	@endif
-	@endslot
-
-	@slot('rows')
-		@foreach($unscheduledGigs as $gig)
-		@include('pages.gigs.table.row', ['ready' => false])
+@if(! $unscheduled->isEmpty())
+<section class="mb-5">
+	<div class="container">
+		<h4>Sem data</h4>
+	</div>
+	<div>
+		@foreach($unscheduled as $gig)
+		@include('pages.gigs.table.unscheduled')
 		@endforeach
-	@endslot
-
-	@endtable
+	</div>
 </section>
-@endif --}}
+@endif
 
-<section class="mb-6">
-	@table
-	@slot('header')
-	@unless($otherGigs->isEmpty())
-		@include('pages.gigs.table.header')
-	@endunless
-	@endslot
-
-	@slot('rows')
-		@foreach($otherGigs as $gig)
-		@include('pages.gigs.table.row', ['ready' => false])
+@if(! $venues->isEmpty())
+<section class="container mb-5">
+	<h4>Outras datas</h4>
+	<div class="row">
+		@foreach($venues as $venue)
+		@if($venue->gigs()->notReady()->exists())
+		@include('pages.gigs.archives.card')
+		@endif
 		@endforeach
-	@endslot
-
-	@endtable
-
-	{{$otherGigs->links()}}
+	</div>
 </section>
+@endif
 @endsection
 
 @push('scripts')

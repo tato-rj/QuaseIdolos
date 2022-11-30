@@ -1,20 +1,18 @@
 @modal(['title' => 'Editar evento', 'id' => 'edit-gig-'.$gig->id.'-modal'])
-<form method="POST" action="{{route('gig.update', $gig)}}">
+<form method="POST" action="{{route('gig.update', $gig)}}" class="text-left">
 	@csrf
 	@method('PATCH')
 
-	@input(['label' => 'Nome', 'name' => 'name', 'value' => $gig->name, 'required' => true])
+	@isset($venues)
+	@select([
+		'label' => 'Contratante',
+		'name' => 'venue_id'])
 
-	@input(['label' => 'Descrição (opcional)', 'name' => 'description', 'value' => $gig->description])
-
-	<div class="row">
-		<div class="col"> 
-			@input(['label' => 'Latitude', 'name' => 'latitude', 'value' => $gig->lat])
-		</div>
-		<div class="col"> 
-			@input(['label' => 'Longitude', 'name' => 'longitude', 'value' => $gig->lon])
-		</div>
-	</div>
+		@foreach($venues as $venue)
+		@option(['label' => $venue->name, 'value' => $venue->id, 'name' => 'venue_id', 'selected' => $venue->id == $gig->venue_id])
+		@endforeach
+	@endselect
+	@endisset
 
 	@input(['label' => 'Limite de repetições por música', 'placeholder' => 'Sem limite', 'name' => 'repeat_limit', 'type' => 'number', 'min' => 0, 'value' => $gig->repeat_limit])
 	@input(['label' => 'Limite total de músicas', 'placeholder' => 'Sem limite', 'name' => 'songs_limit', 'type' => 'number', 'min' => 0, 'value' => $gig->songs_limit])
@@ -31,10 +29,12 @@
 	@datepicker([
 		'label' => 'Data do evento',
 		'id' => uuid(),
-		'value' => $gig->scheduled_for,
+		'value' => $gig->hasDate() ? $gig->dateForHumans : null,
 		'options' => ['fullwidth'],
 		'name' => 'scheduled_for'])
 
-	@submit(['label' => 'Confirmar alterações', 'theme' => 'secondary'])
+		<div class="text-center"> 
+			@submit(['label' => 'Confirmar alterações', 'theme' => 'secondary'])
+		</div>
 </form>
 @endmodal

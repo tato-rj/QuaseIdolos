@@ -171,7 +171,7 @@ class User extends Authenticatable
 
     public function requestsSung()
     {
-        return $this->songRequests()->whereNotNull('finished_at')->orderBy('finished_at', 'DESC')->get();
+        return $this->songRequests()->whereNotNull('finished_at')->orderBy('finished_at', 'DESC');
     }
 
     public function requestsWaiting()

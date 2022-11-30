@@ -12,7 +12,7 @@ class Artist extends BaseModel
 
     public function songs()
     {
-        return $this->hasMany(Song::class)->orderBy('name');        
+        return $this->hasMany(Song::class)->orderBy('name');
     }
 
     public function coverImage()

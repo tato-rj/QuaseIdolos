@@ -1,5 +1,5 @@
 @modal(['title' => 'Tem certeza?','id' => 'delete-gig-'.$gig->id.'-modal'])
-<form method="POST" action="{{route('gig.destroy', $gig)}}">
+<form method="POST" action="{{route('gig.destroy', $gig)}}" class="text-center">
 	@csrf
 	@method('DELETE')
 

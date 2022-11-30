@@ -4,7 +4,7 @@
 <div class="text-left">
 	<div class="mb-2">
 		<label class="text-secondary">Evento</label>
-		<h3>{{$gig->name}}</h3>
+		<h3>{{$gig->venue->name}}</h3>
 	</div>
 
 	@if($gig->starts_at)

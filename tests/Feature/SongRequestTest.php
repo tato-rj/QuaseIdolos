@@ -66,26 +66,6 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
-    public function users_can_request_the_same_song_in_the_same_gig_on_a_different_day()
-    {
-        $this->expectNotToPerformAssertions();
-
-        $this->signIn();
-
-        $gig = Gig::factory()->create(['is_live' => true, 'scheduled_for' => null]);
-
-        auth()->user()->join($gig);
-
-        $song = Song::factory()->create();
-
-        $this->post(route('song-requests.store', $song));
-
-        $this->travel(1)->days();
-
-        $this->post(route('song-requests.store', $song));        
-    }
-
-    /** @test */
     public function admins_can_mark_a_song_request_as_finished()
     {
         $this->signIn($this->admin);

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gig;
+use App\Models\{Gig, Venue};
 use Illuminate\Http\Request;
 use App\Events\GigFinished;
 
@@ -10,11 +10,11 @@ class GigsController extends Controller
 {
     public function index()
     {
-        $readyGigs = Gig::ready()->get();
+        $venues = Venue::all();
+        $today = Gig::ready()->get();
+        $unscheduled = Gig::unscheduled()->get();
 
-        $otherGigs = Gig::except($readyGigs->pluck('id'))->byEventDate()->paginate(8);
-
-        return view('pages.gigs.index', compact(['readyGigs', 'otherGigs']));
+        return view('pages.gigs.index', compact(['today', 'venues', 'unscheduled']));
     }
 
     public function select(Request $request)
@@ -54,17 +54,15 @@ class GigsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'venue_id' => 'required|exists:venues,id',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
+            'scheduled_for' => 'required',
         ]);
 
         Gig::create([
             'creator_id' => auth()->user()->id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'lat' => $request->latitude,
-            'lon' => $request->longitude,
+            'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
             'has_ratings' => $request->has_ratings ? 1 : 0,
@@ -83,7 +81,12 @@ class GigsController extends Controller
      */
     public function edit(Gig $gig)
     {
-        return view('pages.gigs.edit', compact('gig'));
+        if (! $gig->hasDate())
+            return redirect(route('gig.index'));
+
+        $venues = Venue::all();
+
+        return view('pages.gigs.edit', compact(['gig', 'venues']));
     }
 
     /**
@@ -96,17 +99,14 @@ class GigsController extends Controller
     public function update(Request $request, Gig $gig)
     {
         $request->validate([
-            'name' => 'required',
+            'venue_id' => 'required|exists:venues,id',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
         ]);
 
         $gig->update([
-            'name' => $request->name,
-            'description' => $request->description,
+            'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
-            'lat' => $request->latitude,
-            'lon' => $request->longitude,
             'songs_limit' => $request->songs_limit,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'songs_limit_per_user' => $request->songs_limit_per_user,
@@ -141,6 +141,8 @@ class GigsController extends Controller
 
     public function open(Request $request, Gig $gig)
     {
+        $this->authorize('open', $gig);
+        
         $gig->update([
             'is_live' => true,
             'starts_at' => now(),
@@ -155,6 +157,7 @@ class GigsController extends Controller
 
         $gig->update([
             'is_live' => false,
+            'is_paused' => false,
             'ends_at' => now()
         ]);
 

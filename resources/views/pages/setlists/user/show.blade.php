@@ -1,3 +1,5 @@
+@php($gigCount = \App\Models\Gig::ready()->count())
+
 @extends('layouts.app', ['title' => 'Minha Setlist'])
 
 @push('header')
@@ -25,6 +27,7 @@
 		@empty
 		@include('components.empty', ['pt' => 2])
 		@endforelse
+		{{$pastList->links()}}
 	</div>
 </section>
 

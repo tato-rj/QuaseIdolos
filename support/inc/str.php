@@ -10,6 +10,11 @@ function uuid()
 	return (string) \Str::uuid();
 }
 
+function simpleUrl($url)
+{
+	return explode("?", $url)[0];
+}
+
 function datePtToUs($string)
 {
 	$pieces = explode('/', $string);

@@ -8,6 +8,9 @@ use App\Models\Gig;
 
 class JoinGig
 {
+    protected $withModal = [
+        'cardapio.index'
+    ];
     /**
      * Handle an incoming request.
      *
@@ -25,8 +28,12 @@ class JoinGig
             
             auth()->user()->tryToJoin($gigs);
 
-            if($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive())
+            if ($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive()) {
+                if ($this->wantsModal())
+                    return redirect($this->getOrigin($request))->with('modal', 'pages.gigs.modals.select');
+
                 return redirect(route('gig.select', ['origin' => $this->getOrigin($request)]));
+            }
         }
 
         return $next($request);
@@ -41,5 +48,14 @@ class JoinGig
             return url()->current();
 
         return url()->previous();
+    }
+
+    public function wantsModal()
+    {
+        foreach($this->withModal as $routename) {
+            if (simpleUrl(url()->previous()) == route($routename)) {
+                return true;
+            }   
+        }
     }
 }

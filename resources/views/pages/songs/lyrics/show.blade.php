@@ -1,5 +1,5 @@
 <div id="lyrics-container" style="display: none">
-	<div class="mb-3">
+	<div class="mb-3 ml-4">
 		<h3 class="m-0" id="name"></h3>
 		<h6 class="m-0 text-secondary" id="artist"></h6>
 	</div>

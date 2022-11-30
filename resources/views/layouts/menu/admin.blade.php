@@ -25,6 +25,7 @@
 
      @if(auth()->user()->isSuperAdmin())
      @include('layouts.menu.components.divider')
+     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('venues.index')}}">Contratantes</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('gig.index')}}">Eventos</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('team.index')}}">Equipe</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('stats.gigs')}}">Estatísticas</a>

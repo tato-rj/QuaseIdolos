@@ -1,6 +1,6 @@
 <div class="form-group">
 	@isset($label)
-    @label
+    <h6 class="text-center">{{$label}}</h6>
     @endisset
 
 	<input type="hidden" id="{{$id}}" name="{{$name}}" value="{{$value ?? null}}">

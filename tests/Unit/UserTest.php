@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, SongRequest, Gig, Admin, Rating, User};
+use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue};
 
 class UserTest extends AppTest
 {
@@ -188,8 +188,12 @@ class UserTest extends AppTest
 
         $location = geoip()->getLocation(request()->ip());
 
-        $closeGig = Gig::factory()->create(['lat' => $location->lat - .001, 'lon' => $location->lon - .001]);
-        $distantGig = Gig::factory()->create(['lat' => $location->lat - .002, 'lon' => $location->lat - .002]);
+        $closeGig = Gig::factory()->create([
+            'venue_id' => Venue::factory()->create(['lat' => $location->lat - .001, 'lon' => $location->lon - .001])
+                ]);
+        $distantGig = Gig::factory()->create([
+            'venue_id' => Venue::factory()->create(['lat' => $location->lat - .002, 'lon' => $location->lat - .002])
+                ]);
 
         $this->assertFalse(auth()->user()->isLikelyInside($distantGig));
 

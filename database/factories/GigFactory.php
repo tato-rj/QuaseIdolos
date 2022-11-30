@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
+use App\Models\{User, Venue};
 
 class GigFactory extends Factory
 {
@@ -18,10 +18,10 @@ class GigFactory extends Factory
             'creator_id' => function() {
                 return User::factory()->create()->id;
             },
-            'name' => ucfirst($this->faker->word),
+            'venue_id' => function() {
+                return Venue::factory()->create()->id;
+            },
             'scheduled_for' => now(),
-            'lat' => geoip()->getLocation()->lat,
-            'lon' => geoip()->getLocation()->lon,
             'has_ratings' => true
         ];
     }

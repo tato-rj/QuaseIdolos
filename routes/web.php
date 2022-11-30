@@ -169,10 +169,20 @@ Route::middleware('super-admin')->group(function() {
         Route::patch('{user}', 'TeamController@update')->name('update');
     });
 
+    Route::prefix('contratantes')->name('venues.')->withoutMiddleware('join-gig')->group(function() {
+        Route::get('', 'VenuesController@index')->name('index');
+
+        Route::get('{venue}', 'VenuesController@show')->name('show');
+
+        Route::post('', 'VenuesController@store')->name('store');
+
+        Route::patch('{venue}', 'VenuesController@update')->name('update');
+
+        Route::delete('{venue}', 'VenuesController@destroy')->name('destroy');
+    });
+
     Route::prefix('eventos')->name('gig.')->withoutMiddleware('join-gig')->group(function() {
         Route::get('', 'GigsController@index')->name('index');
-
-        Route::get('buscar', 'GigsController@search')->name('search');
 
         Route::get('{gig}', 'GigsController@edit')->name('edit');
 

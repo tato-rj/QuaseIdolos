@@ -34,7 +34,7 @@ class SetlistsController extends Controller
 
     public function user()
     {
-        $pastList = auth()->user()->requestsSung();
+        $pastList = auth()->user()->requestsSung()->paginate(8);
         $waitingList = auth()->user()->requestsWaiting();
 
         return view('pages.setlists.user.show', compact(['pastList', 'waitingList']));    

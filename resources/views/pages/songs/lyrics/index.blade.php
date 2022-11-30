@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-<section class="my-4">
+<section class="pt-4">
 	@include('pages.cardapio.search', ['url' => route('lyrics.search')])
 	<div id="results" class="p-0">
 		<div id="lyrics-overlay" class="w-100 d-center opacity-4" style="font-size: 6rem; margin-top: 180px">
@@ -16,7 +16,7 @@
 	</div>
 </section>
 
-<section class="container pb-4">
+<section class="container-fluid pb-4">
 	<div class="row">
 		<div class="col-12 mx-auto">
 			@include('pages.songs.lyrics.show')

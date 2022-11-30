@@ -30,8 +30,8 @@ trait Locateable
 
 		$latFrom = deg2rad($coordinates->lat);
 		$lonFrom = deg2rad($coordinates->lon);
-		$latTo = deg2rad($gig->lat);
-		$lonTo = deg2rad($gig->lon);
+		$latTo = deg2rad($gig->venue->lat);
+		$lonTo = deg2rad($gig->venue->lon);
 
 		$latDelta = $latTo - $latFrom;
 		$lonDelta = $lonTo - $lonFrom;

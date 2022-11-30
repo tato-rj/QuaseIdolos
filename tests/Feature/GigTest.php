@@ -79,6 +79,20 @@ class GigTest extends AppTest
     }
 
     /** @test */
+    public function admins_cannot_start_a_gig_that_is_not_ready()
+    {
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+        
+        Admin::first()->update(['super_admin' => true]);
+
+        $this->signIn($this->admin);
+
+        $gig = Gig::factory()->create(['scheduled_for' => null]);
+
+        $this->post(route('gig.open', $gig));
+    }
+
+    /** @test */
     public function admins_dont_even_see_the_toggle_button_if_the_gig_is_not_ready()
     {
         Admin::first()->update(['super_admin' => true]);
@@ -244,8 +258,6 @@ class GigTest extends AppTest
         $this->post(route('gig.duplicate', $gig));
 
         $this->assertCount(2, Gig::all());
-
-        $this->assertNull(Gig::find(2)->scheduled_for);
     }
 
     /** @test */
