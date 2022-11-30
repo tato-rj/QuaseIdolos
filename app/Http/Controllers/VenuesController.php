@@ -29,6 +29,7 @@ class VenuesController extends Controller
 
         Venue::create([
             'name' => $request->name,
+            'slug' => str_slug($request->name),
             'description' => $request->description,
             'lat' => $request->lat,
             'lon' => $request->lon,
@@ -45,6 +46,7 @@ class VenuesController extends Controller
 
         $venue->update([
             'name' => $request->name,
+            'slug' => str_slug($request->name),
             'description' => $request->description,
             'lat' => $request->lat,
             'lon' => $request->lon,

@@ -16,6 +16,7 @@ class VenueSeeder extends Seeder
     {
         Venue::create([
             'name' => 'Big Ben',
+            'slug' => str_slug('Big Ben'),
             'description' => 'O Big Ben é um evento que realizamos de Segunda à Sábado a partir dat 19:00. Venha cantar e se divertir com agente!',
             'lat' => geoip()->getLocation()->lat,
             'lon' => geoip()->getLocation()->lon,
@@ -23,6 +24,7 @@ class VenueSeeder extends Seeder
 
         Venue::create([
             'name' => 'L\'Oreal',
+            'slug' => str_slug('L\'Oreal'),
             'lat' => geoip()->getLocation()->lat,
             'lon' => geoip()->getLocation()->lon,
         ]);

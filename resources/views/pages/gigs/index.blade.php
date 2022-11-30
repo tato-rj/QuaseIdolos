@@ -59,7 +59,7 @@
 	<div class="row">
 		@foreach($venues as $venue)
 		@if($venue->gigs()->notReady()->exists())
-		@include('pages.gigs.archives.card')
+		@include('pages.gigs.table.venue')
 		@endif
 		@endforeach
 	</div>

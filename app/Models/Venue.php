@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Traits\FindBySlug;
+
 class Venue extends BaseModel
 {
+    use FindBySlug;
+
     protected $withCount = ['gigs'];
     
     public function gigs()

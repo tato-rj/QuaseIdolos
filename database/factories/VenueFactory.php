@@ -13,8 +13,11 @@ class VenueFactory extends Factory
      */
     public function definition()
     {
+        $name = ucfirst($this->faker->unique()->word);
+
         return [
-            'name' => ucfirst($this->faker->unique()->word),
+            'name' => $name,
+            'slug' => str_slug($name),
             'lat' => geoip()->getLocation()->lat,
             'lon' => geoip()->getLocation()->lon,
         ];
