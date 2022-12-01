@@ -64,4 +64,9 @@ class Song extends BaseModel
 				$q->where('name', 'LIKE', '%'.$input.'%');
 			});
 	}
+
+    public function scopeAlphabetically($query)
+    {
+    	return $query->orderBy('name');
+    }
 }

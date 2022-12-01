@@ -17,7 +17,7 @@ class CardapioController extends Controller
         $artists = Artist::orderby('name')->has('songs')->paginate(24);
         $genres = Genre::orderby('name')->has('songs')->get();
 
-        $songs = request()->has('input') ? Song::search(request()->input)->get() : collect();
+        $songs = request()->has('input') ? Song::search(request()->input)->alphabetically()->get() : collect();
 
         return view('pages.cardapio.index', compact(['artists', 'songs', 'genres']));
     }
@@ -32,7 +32,7 @@ class CardapioController extends Controller
         if (auth()->check())
             auth()->user()->tryToJoin(Gig::ready());
         
-        $songs = Song::search($request->input)->get();
+        $songs = Song::search($request->input)->alphabetically()->get();
 
         return view('pages.cardapio.results.table', compact('songs'))->render();
     }
