@@ -16,7 +16,8 @@
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'value' => $song->name, 'required' => true])
 	@input(['placeholder' => 'Duração', 'name' => 'duration', 'value' => $song->duration, 'type' => 'number', 'required' => true, 'min' => 1])
 
-	@textarea(['placeholder' => 'Letra', 'name' => 'lyrics', 'value' => $song->lyrics, 'required' => true])
+
+
 	<div class="d-flex">
 		<div class="mr-2">
 			<a href="{{$song->chords_url}}" title="Ver acordes" target="_blank" class="btn btn-secondary form-control border-0">@fa(['icon' => 'external-link-alt', 'mr' => 0])</a>
