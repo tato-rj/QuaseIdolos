@@ -7,6 +7,10 @@
 	&-xl {border-width: 8px !important};
 }
 
+.border-bottom-dotted {
+	border-bottom: 8px dotted white;
+}
+
 .border-left {@extend .border-start;}
 .border-right {@extend .border-end;}
 

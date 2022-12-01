@@ -6,7 +6,7 @@
 			@include('pages.cardapio.components.song.buttons.sing')
 		@endif
 	@else
-
+	@include('pages.cardapio.components.song.buttons.sing')
 	@endif
 @else
 	@if($gigCount)

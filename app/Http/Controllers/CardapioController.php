@@ -8,7 +8,7 @@ use App\Models\{Artist, Song, Genre, Gig};
 class CardapioController extends Controller
 {
     public function index()
-    {   
+    {
         if (auth()->check() && ! auth()->user()->liveGig()) {
             if (auth()->user()->tryToJoin(Gig::ready()))
                 session()->flash('modal', 'pages.gigs.join.modal');

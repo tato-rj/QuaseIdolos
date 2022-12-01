@@ -15,56 +15,35 @@
 	</div>
 </section>
 
-<section class="mb-5">
-	<div class="container">
-		<h4>Eventos hoje</h4>
-	</div>
-
-	@if($today->isEmpty())
-	@include('components.empty')
-	@endif
-
-	@table
-	@slot('header')
-		@unless($today->isEmpty())
-			@include('pages.gigs.table.header')
-		@endif
-	@endslot
-
-	@slot('rows')
-		@foreach($today as $gig)
-		@include('pages.gigs.table.row', ['ready' => true])
-		@endforeach
-	@endslot
-
-	@endtable
+<section class="mb-5 container">
+	@table([
+		'title' => 'Eventos hoje',
+		'empty' => true,
+		'headers' => ['Contratante', 'Data', 'Músicas', 'Status', ''],
+		'legend' => 'evento|eventos',
+		'rows' => $today,
+		'view' => 'pages.gigs.rows.today'
+	])
 </section>
 
-@if(! $unscheduled->isEmpty())
-<section class="mb-5">
-	<div class="container">
-		<h4>Sem data</h4>
-	</div>
-	<div>
-		@foreach($unscheduled as $gig)
-		@include('pages.gigs.table.unscheduled')
-		@endforeach
-	</div>
+<section class="mb-5 container">
+	@table([
+		'title' => 'Sem data',
+		'headers' => ['Contratante', ''],
+		'legend' => 'evento|eventos',
+		'rows' => $unscheduled,
+		'view' => 'pages.gigs.rows.unscheduled'
+	])
 </section>
-@endif
 
-@if(! $venues->isEmpty())
-<section class="container mb-5">
-	<h4>Outras datas</h4>
-	<div class="row">
-		@foreach($venues as $venue)
-		@if($venue->gigs()->notReady()->exists())
-		@include('pages.gigs.table.venue')
-		@endif
-		@endforeach
-	</div>
+<section class="mb-5 container">
+	@table([
+		'title' => 'Outras datas',
+		'legend' => 'contratante|contratantes',
+		'rows' => $venues,
+		'view' => 'pages.gigs.rows.venue'
+	])
 </section>
-@endif
 @endsection
 
 @push('scripts')

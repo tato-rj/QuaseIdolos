@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-<section class="container ">
+<section class="container">
 	<div class="text-center mb-5">
 		<h2 class="mb-3">GERENCIE AQUI AS <span class="text-secondary">MÚSICAS</span></h2>
 		@include('pages.songs.search')
@@ -18,7 +18,6 @@
 		@include('pages.songs.results')
 	</div>
 </section>
-
 
 @endsection
 

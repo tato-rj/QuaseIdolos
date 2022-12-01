@@ -9,7 +9,8 @@ use App\Models\Gig;
 class JoinGig
 {
     protected $withModal = [
-        'cardapio.index'
+        'cardapio.index',
+        'favorites.index'
     ];
     /**
      * Handle an incoming request.
@@ -20,6 +21,8 @@ class JoinGig
      */
     public function handle(Request $request, Closure $next)
     {
+        session()->forget('origin');
+
         if (auth()->check() && ! auth()->user()->gig()->exists()) {
             if (! Gig::ready()->live()->exists())
                 return $next($request);

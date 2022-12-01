@@ -7,26 +7,34 @@
 @endpush
 
 @section('content')
-<section class="container-fluid">
+<section class="container">
 	<div class="text-center mb-4">
 		<h2 class="mb-3">EVENTOS NO <span class="text-secondary">{{$venue->name}}</span></h2>
 	</div>
 </section>
 
-@if($venue->gigs()->unscheduled()->exists())
-<section class="mb-5">
-	<div class="container">
-		<h4>Sem data</h4>
-	</div>
-	<div class="row">
-		@foreach($venue->gigs()->unscheduled()->get() as $gig)
-		@include('pages.gigs.table.unscheduled')
-		@endforeach
-	</div>
+<section class="mb-5 container">
+	@table([
+		'title' => 'Sem data',
+		'headers' => ['', ''],
+		'legend' => 'evento|eventos',
+		'rows' => $venue->gigs()->unscheduled()->get(),
+		'view' => 'pages.venues.show.unscheduled'
+	])
 </section>
-@endif
 
-<section class="mb-5">
+<section class="mb-5 container">
+	@table([
+		'title' => 'Eventos',
+		'empty' => true,
+		'headers' => ['Data', 'Participantes', 'Músicas', 'Status'],
+		'legend' => 'evento|eventos',
+		'rows' => $gigs,
+		'view' => 'pages.venues.show.row'
+	])
+</section>
+
+{{-- <section class="mb-5">
 	<div class="container">
 		<h4>Eventos</h4>
 	</div>
@@ -50,7 +58,7 @@
 	@endtable
 
 	{{$gigs->links()}}
-</section>
+</section> --}}
 @endsection
 
 @push('scripts')

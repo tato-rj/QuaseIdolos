@@ -1,16 +1,17 @@
-@component('components.song.row', ['song' => $song, 'loop' => $loop])
-@slot('name')
+@php($song = $row)
+
+@row
+  @slot('column1')
 	<a href="#" data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
 	@include('components.song.user.icons')
-@endslot
+	<div>
+		<a href="{{route('cardapio.index', ['input' => strtolower($song->artist->name)])}}" class="link-secondary">{{$song->artist->name}}</a>
+	</div>
+  @endslot
 
-@slot('artist')
-	<a href="{{route('cardapio.artist', $song->artist)}}" class="link-secondary">{{$song->artist->name}}</a>
-@endslot
-
-@slot('action')
+  @slot('actions')
 	<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">@fa(['icon' => 'guitar', 'mr' => 0])</button>
 
 	@include('pages.cardapio.components.song.modal')
-@endslot
-@endcomponent
+  @endslot
+@endrow

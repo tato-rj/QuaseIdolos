@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function() {
         Route::delete('{id}/cancelar', 'SongRequestsController@cancel')->name('cancel');
     });
 
-    Route::prefix('favoritos')->name('favorites.')->group(function() {
+    Route::prefix('favoritos')->withoutMiddleware('join-gig')->name('favorites.')->group(function() {
         Route::get('', 'FavoritesController@index')->name('index');
 
         Route::post('{song}', 'FavoritesController@store')->name('store');

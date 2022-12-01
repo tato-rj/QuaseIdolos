@@ -78,7 +78,7 @@ a {
     font-weight: bold;
 }
 
-.table-row:nth-of-type(even) {
+.table-row:nth-of-type(odd) {
    background: rgba(0,0,0,0.08);
  }
 

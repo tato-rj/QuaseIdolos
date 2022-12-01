@@ -14,18 +14,13 @@
 		@include('pages.genres.modals.create')
 	</div>
 
-	<section class="mb-4">
-		@table
-		@slot('rows')
-			@foreach($genres as $genre)
-			@include('pages.genres.table.row')
-			@endforeach
-		@endslot
-
-		@endtable
-
-		{{$genres->links()}}
-	</section>
+	<div class="mb-4">
+		@table([
+			'legend' => 'estilo|estilos',
+			'rows' => $genres,
+			'view' => 'pages.genres.row'
+		])
+	</div>
 </section>
 
 

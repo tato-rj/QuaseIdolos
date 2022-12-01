@@ -56,7 +56,7 @@ class ArtistsController extends Controller
      */
     public function edit(Artist $artist)
     {
-        return view('pages.artists.edit', compact('artist'));
+        return view('pages.artists.edit.index', compact('artist'));
     }
 
     /**

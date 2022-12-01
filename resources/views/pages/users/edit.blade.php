@@ -37,35 +37,26 @@
 		</div>
 
 		<div class="col-lg-9 col-12">
-			<div class="mb-5">
-				<h5 class="mb-3">@fa(['icon' => 'star', 'fa_color' => 'secondary'])Total de {{$user->ratings->count()}} @choice('voto|votos', $user->ratings->count())</h5>
-				@foreach($user->ratings as $rating)
-					@include('pages.users.rows.rating')
-					@if($loop->iteration == 4 && $loop->remaining)
-					@include('components.tables.rows.more')
-					@endif
-				@endforeach
-			</div>
+			@table([
+				'title' => 'Votos recebidos',
+				'legend' => 'voto|votos',
+				'rows' => $user->ratings,
+				'view' => 'pages.users.rows.rating'
+			])
 
-			<div class="mb-5">
-				<h5 class="mb-3">@fa(['icon' => 'heart', 'fa_color' => 'secondary'])Total de {{$favorites->count()}} @choice('favorito|favoritos', $favorites->count())</h5>
-				@foreach($favorites as $song)
-					@include('pages.users.rows.favorite')
-					@if($loop->iteration == 4 && $loop->remaining)
-					@include('components.tables.rows.more')
-					@endif
-				@endforeach
-			</div>
+			@table([
+				'title' => 'Lista de favoritos',
+				'legend' => 'música|músicas',
+				'rows' => $favorites,
+				'view' => 'pages.users.rows.favorite'
+			])
 
-			<div>
-				<h5 class="mb-3">@fa(['icon' => 'microphone', 'fa_color' => 'secondary'])Total de {{$pastList->count()}} @choice('música|músicas', $pastList->count()) @choice('cantada|cantadas', $pastList->count())</h5>
-				@foreach($pastList as $list)
-					@include('pages.users.rows.songrequest')
-					@if($loop->iteration == 4 && $loop->remaining)
-					@include('components.tables.rows.more')
-					@endif
-				@endforeach
-			</div>
+			@table([
+				'title' => 'Músicas cantadas',
+				'legend' => 'música|músicas',
+				'rows' => $pastList,
+				'view' => 'pages.users.rows.songrequest'
+			])
 		</div>
 	</div>
 </section>

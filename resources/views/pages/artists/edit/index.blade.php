@@ -26,12 +26,11 @@
 		</div>
 
 		<div class="col-lg-9 col-12">
-			<div>
-				<h5 class="mb-3">Total de {{$artist->songs_count}} @choice('música|músicas', $artist->songs_count)</h5>
-				@foreach($artist->songs as $song)
-					@include('pages.artists.song')
-				@endforeach
-			</div>
+			@table([
+				'legend' => 'música|músicas',
+				'rows' => $artist->songs,
+				'view' => 'pages.artists.edit.row'
+			])
 		</div>
 	</div>
 </section>

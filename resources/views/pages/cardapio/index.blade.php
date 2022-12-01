@@ -12,14 +12,14 @@
 	@include('pages.cardapio.search', ['url' => route('cardapio.search')])
 </section>
 
-<section class="container-fluid mb-6">
+<section class="container-fluid">
 	@include('pages.cardapio.genres')
 
 	@include('pages.cardapio.artists', ['withlinks' => true])
+</section>
 
-	<div id="results" class="p-0">
-		@include('pages.cardapio.results.table')
-	</div>
+<section id="results" class="container">
+	@include('pages.cardapio.results.table')
 </section>
 
 @endsection
