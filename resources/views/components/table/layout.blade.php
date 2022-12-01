@@ -18,25 +18,27 @@
     <label class="mb-3">Total de {{$total}} @choice($legend, $total)</label>
   </div>
   
-  <table class="table table-borderless table-container">
-    @isset($headers)
-    <thead>
-      <tr class="text-white">
-        @foreach($headers as $header)
-        <th class="px-3 pb-2" scope="col">{{$header}}</th>
+    <div class="results-container">
+    <table class="table table-borderless table-container mb-0">
+      @isset($headers)
+      <thead>
+        <tr class="text-white">
+          @foreach($headers as $header)
+          <th class="px-3 pb-2" scope="col">{{$header}}</th>
+          @endforeach
+        </tr>
+      </thead>
+      @endisset
+      <tbody>
+        @foreach($rows as $row)
+          @include($view)
         @endforeach
-      </tr>
-    </thead>
-    @endisset
-    <tbody>
-      @foreach($rows as $row)
-        @include($view)
-      @endforeach
-    </tbody>
-  </table>
+      </tbody>
+    </table>
 
-  @if($hasPagination)
-  {{ $rows->links() }}
-  @endif
+    @if($hasPagination)
+    {{ $rows->appends($_GET)->links() }}
+    @endif
+  </div>
 </div>
 @endif
