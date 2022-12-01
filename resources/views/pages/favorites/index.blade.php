@@ -12,6 +12,7 @@
 	<h2 class="mb-5 text-center">MÚSICAS <span class="text-secondary">FAVORITAS</span></h2>
 
 	@table([
+		'empty' => true,
 		'legend' => 'música|músicas',
 		'rows' => auth()->user()->favorites,
 		'view' => 'pages.favorites.row'
