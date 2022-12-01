@@ -20,6 +20,7 @@
 		])
 
 		@table([
+			'empty' => true,
 			'title' => 'Músicas que já cantei',
 			'legend' => 'música|músicas',
 			'rows' => $pastList,
