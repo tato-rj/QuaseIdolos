@@ -11,7 +11,6 @@
       @if(auth()->user()->liveGig() && auth()->user()->liveGig()->participatesInRatings())
       @if(auth()->user()->participatesInRatings())
        <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
-       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.user')}}">Minhas Notas</a>
        @include('layouts.menu.components.divider')
       @endif
 
@@ -21,6 +20,9 @@
        <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('profile.show')}}">Meu Perfil</a>
        <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlists.user')}}">Minha Setlist</a>
        <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('favorites.index')}}">Músicas Favoritas</a>
+       @if(auth()->user()->participatesInRatings())
+       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.user')}}">Minhas Notas</a>
+       @endif
 
        <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1 mb-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

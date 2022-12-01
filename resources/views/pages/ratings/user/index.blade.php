@@ -7,16 +7,15 @@
 @endpush
 
 @section('content')
-<section class="container-fluid mb-6 p-0">
+<section class="container mb-6">
 	<h2 class="mb-5 text-center">MINHAS <span class="text-secondary">NOTAS</span></h2>
 
-	<div>
-		@forelse($ratings as $rating)
-		@include('pages.ratings.user.row')
-		@empty
-		@include('components.empty', ['message' => 'Nenhum voto nessa lista...', 'pt' => 2])
-		@endforelse
-	</div>
+	@table([
+		'empty' => true,
+		'legend' => 'voto|votos',
+		'rows' => auth()->user()->ratings,
+		'view' => 'pages.users.rows.rating'
+	])
 </section>
 
 @endsection
