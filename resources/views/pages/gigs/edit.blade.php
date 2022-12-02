@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => $gig->venue->name])
+@extends('layouts.app', ['title' => $gig->name()])
 
 @push('header')
 <style type="text/css">
@@ -13,9 +13,9 @@
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 mb-4">
 			<div class="mb-3">
-				<h3 class="text-center m-0" style="font-size: 2.4rem">{{$gig->venue->name}}</h3>
+				<h3 class="text-center" style="font-size: 2.4rem">{{$gig->name()}}</h3>
 				<div class="">
-					<p class="m-0 opacity-8">{{$gig->description}}</p>
+					<p class="m-0 opacity-8">{{$gig->description()}}</p>
 				</div>
 			</div>
 

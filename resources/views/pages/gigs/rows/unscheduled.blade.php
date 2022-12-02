@@ -7,7 +7,7 @@
 				@csrf
 				<button class="btn-raw">@fa(['icon' => 'copy', 'fa_color' => 'white'])</button>
 			</form>
-			<div class="opacity-8">{{$gig->venue->name}}</div>
+			<div class="opacity-8">{{$gig->name()}}</div>
 		</div>
   @endslot
 

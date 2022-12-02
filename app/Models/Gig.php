@@ -45,6 +45,16 @@ class Gig extends BaseModel
     {
     	return $this->hasManyThrough(Rating::class, SongRequest::class);
     }
+
+    public function name()
+    {
+    	return $this->name ?? $this->venue->name;
+    }
+    
+    public function description()
+    {
+    	return $this->description ?? $this->venue->description;
+    }
     
 	public function scopeByEventDate($query)
 	{

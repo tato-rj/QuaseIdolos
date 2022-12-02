@@ -2,7 +2,7 @@
 @modal(['title' => 'Bem vindo(a)!', 'id' => 'gig-welcome-modal', 'autoshow' => true])
 <div class="text-center mb-4">
 	<h4>Você está participando do</h4>
-	<h2 class="mb-4">{{$gig->name}}</h2>
+	<h2 class="mb-4">{{$gig->name()}}</h2>
 </div>
 
 <div class="border border-secondary border-4 rounded py-3 px-2">

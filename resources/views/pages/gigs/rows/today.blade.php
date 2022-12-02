@@ -7,7 +7,7 @@
 				@csrf
 				<button class="btn-raw">@fa(['icon' => 'copy', 'fa_color' => 'white'])</button>
 			</form>
-			<a href="{{route('gig.edit', $gig)}}" class="link-secondary fw-bold d-block">{{$gig->venue->name}}</a>
+			<a href="{{route('gig.edit', $gig)}}" class="link-secondary fw-bold d-block">{{$gig->name()}}</a>
 		</div>
 		<div class="d-md-none m-0">{{$gig->dateInContext}}</div>
   @endslot

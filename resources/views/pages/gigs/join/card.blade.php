@@ -3,7 +3,7 @@
 	<div class="rounded border border-primary border-4 p-4">
 		<div class="d-apart">
 			<div class="mr-3">
-				<h3 class="mb-0 text-primary no-stroke text-truncate">{{$gig->venue->name}}</h3>
+				<h3 class="mb-0 text-primary no-stroke text-truncate">{{$gig->name()}}</h3>
 			</div>
 			@if($gig->isLive())
 			<form method="POST" action="{{route('gig.join', $gig)}}">
@@ -21,8 +21,8 @@
 				<button disabled class="btn btn-secondary">@fa(['icon' => 'hourglass-half'])Evento está fechado</button>
 			@endif
 		</div>
-		@if($gig->venue->description)
-		<p class="mb-0 mt-2 opacity-8 text-dark">{{$gig->venue->description}}</p>
+		@if($description = $gig->description())
+		<p class="mb-0 mt-2 opacity-8 text-dark">{{$description()}}</p>
 		@endif
 	</div>
 </div>

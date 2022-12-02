@@ -62,6 +62,8 @@ class GigsController extends Controller
 
         Gig::create([
             'creator_id' => auth()->user()->id,
+            'name' => $request->name,
+            'description' => $request->description,
             'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
@@ -105,6 +107,8 @@ class GigsController extends Controller
         ]);
 
         $gig->update([
+            'name' => $request->name,
+            'description' => $request->description,
             'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
