@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Traits\Rateable;
+use App\Archives\GigArchives;
 
 class Gig extends BaseModel
 {
@@ -54,6 +55,11 @@ class Gig extends BaseModel
     public function description()
     {
     	return $this->description ?? $this->venue->description;
+    }
+
+    public function archives()
+    {
+    	return new GigArchives($this);
     }
     
 	public function scopeByEventDate($query)

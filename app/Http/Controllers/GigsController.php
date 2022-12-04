@@ -168,6 +168,7 @@ class GigsController extends Controller
         ]);
 
         Participant::in($gig)->unconfirmed()->confirm();
+        // $gig->archives()->saveParticipants();
 
         return back()->with('success', 'O evento terminou');
     }

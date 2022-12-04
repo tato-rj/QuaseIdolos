@@ -28,8 +28,10 @@ class LyricsController extends Controller
         return view('pages.songs.lyrics.table', compact('songs'))->render();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.songs.lyrics.index');
+        $song = Song::find($request->song_id);
+
+        return view('pages.songs.lyrics.index', compact('song'));
     }
 }

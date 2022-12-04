@@ -4,9 +4,12 @@ namespace Tests;
 
 use App\Models\{Admin, User, Song};
 use App\Events\{LyricsRequested, ScoreSubmitted, SongCancelled, SongFinished, SongRequested};
+use Tests\Traits\InteractsWithRedis;
 
 class AppTest extends TestCase
-{    
+{
+    use InteractsWithRedis;
+
 	public function setUp() : void
 	{
 		parent::setUp();
@@ -21,8 +24,9 @@ class AppTest extends TestCase
         ]);
         \Storage::fake();
 
-        $this->redisPrefix = config('database.redis.prefix');
+        $this->redisPrefix = config('database.redis.options.prefix');
         
+        $this->superAdmin = Admin::factory()->superAdmin()->create()->user;
         $this->admin = Admin::factory()->create()->user;
         $this->song = Song::factory()->create();
 

@@ -21,4 +21,13 @@ class AdminFactory extends Factory
             'super_admin' => false
         ];
     }
+
+    public function superAdmin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'super_admin' => true,
+            ];
+        });
+    }
 }

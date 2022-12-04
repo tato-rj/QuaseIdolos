@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{Gig, Admin};
+use App\Models\Gig;
 
 class ParticipantTest extends AppTest
 {
@@ -12,8 +12,28 @@ class ParticipantTest extends AppTest
     // {
     //     Gig::truncate();
 
-    //     $gig = Gig::factory()->create(['is_live' => true]);
+    //     $gig = Gig::factory()->live()->create();
 
-    //     // $this->assertEmpty
+    //     $this->signIn($this->superAdmin);
+
+    //     $this->assertRedisEmpty();
+
+    //     $this->signIn();
+
+    //     auth()->user()->join($gig);
+
+    //     $this->assertCount(1, $gig->participants);
+
+    //     $this->assertCount(0, $gig->archives()->getParticipants());
+
+    //     $this->signIn($this->superAdmin);
+
+    //     $this->post(route('gig.close', $gig));
+
+    //     $this->assertCount(1, $gig->participants);
+
+    //     $this->assertCount(1, $gig->archives()->getParticipants());
+
+    //     $this->assertRedisHas('test:gig:'.$gig->id.':participants');
     // }
 }

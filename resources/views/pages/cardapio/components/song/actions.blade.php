@@ -26,6 +26,7 @@
 @admin
 <div class="mt-3">
 	@include('layouts.menu.components.divider')
-	<a href="{{$song->chords_url}}" target="_blank" class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'music'])VER ACORDES</a>
+	<a href="{{$song->chords_url}}" target="_blank" class="btn btn-outline-secondary text-truncate w-100 mb-3">@fa(['icon' => 'music'])VER ACORDES</a>
+	<a href="{{route('lyrics.index', ['song_id' => $song->id])}}" target="_blank" class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'file'])VER LETRA</a>
 </div>
 @endadmin

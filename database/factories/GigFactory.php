@@ -25,4 +25,14 @@ class GigFactory extends Factory
             'has_ratings' => true
         ];
     }
+
+    public function live()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'starts_at' => now(),
+                'is_live' => true,
+            ];
+        });
+    }
 }

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{User, Gig, SongRequest, Rating, Admin};
+use App\Models\{User, Gig, SongRequest, Rating};
 use App\Mail\Users\{WelcomeEmail, WinnerEmail};
 
 class EmailTest extends AppTest
@@ -26,8 +26,6 @@ class EmailTest extends AppTest
     /** @test */
     public function the_winner_can_receive_an_email_upon_announcement()
     {
-        Admin::first()->update(['super_admin' => true]);
-
         $this->signIn($this->admin);
 
         $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);
@@ -48,8 +46,6 @@ class EmailTest extends AppTest
     /** @test */
     public function the_winner_email_only_goes_out_once()
     {
-        Admin::first()->update(['super_admin' => true]);
-
         $this->signIn($this->admin);
 
         $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{Gig, Song, Admin, SongRequest, Participant};
+use App\Models\{Gig, Song, SongRequest, Participant};
 
 class GigTest extends AppTest
 {
@@ -82,7 +82,6 @@ class GigTest extends AppTest
     public function when_a_user_switches_gigs_the_participation_record_is_removed_if_unconfirmed()
     {
         Gig::truncate();
-        Admin::first()->update(['super_admin' => true]);
 
         $gigOne = Gig::factory()->create(['is_live' => true]);
         $gigTwo = Gig::factory()->create(['is_live' => true]);
@@ -100,7 +99,7 @@ class GigTest extends AppTest
         $this->assertFalse($gigOne->participants()->get()->contains(auth()->user()));
         $this->assertTrue($gigTwo->participants()->get()->contains(auth()->user()));
 
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
 
         $this->post(route('gig.close', $gigTwo));
 
@@ -116,10 +115,8 @@ class GigTest extends AppTest
     public function admins_cannot_start_a_gig_that_is_not_ready()
     {
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
-        
-        Admin::first()->update(['super_admin' => true]);
 
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
 
         $gig = Gig::factory()->create(['scheduled_for' => null]);
 
@@ -129,9 +126,7 @@ class GigTest extends AppTest
     /** @test */
     public function admins_dont_even_see_the_toggle_button_if_the_gig_is_not_ready()
     {
-        Admin::first()->update(['super_admin' => true]);
-
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
 
         Gig::truncate();
 
@@ -147,9 +142,7 @@ class GigTest extends AppTest
     /** @test */
     public function admins_dont_even_see_the_pause_button_if_the_gig_is_not_live()
     {
-        Admin::first()->update(['super_admin' => true]);
-
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
 
         Gig::truncate();
 
@@ -166,9 +159,8 @@ class GigTest extends AppTest
     public function many_gigs_can_go_live_simultaneously()
     {
         Gig::truncate();
-        Admin::first()->update(['super_admin' => true]);
 
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
 
         $gigOne = Gig::factory()->create(['is_live' => false]);
         $gigTwo = Gig::factory()->create(['is_live' => false]);
@@ -259,9 +251,7 @@ class GigTest extends AppTest
     /** @test */
     public function a_gig_cannot_be_deleted_if_there_are_requests_waiting()
     {
-        Admin::first()->update(['super_admin' => true]);
-
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
 
         $gig = Gig::factory()->create(['is_live' => true]);
 
@@ -281,9 +271,7 @@ class GigTest extends AppTest
     /** @test */
     public function a_gig_can_be_duplicated()
     {
-        Admin::first()->update(['super_admin' => true]);
-
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
 
         $gig = Gig::factory()->create();
 
@@ -297,9 +285,7 @@ class GigTest extends AppTest
     /** @test */
     public function all_participants_leave_when_a_gig_is_deleted()
     {
-        Admin::first()->update(['super_admin' => true]);
-
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
         
         $gig = Gig::factory()->create(['is_live' => true]);
 
@@ -316,8 +302,6 @@ class GigTest extends AppTest
     public function all_participants_records_are_confirmed_when_a_gig_is_turned_off()
     {
         Gig::truncate();
-     
-        Admin::first()->update(['super_admin' => true]);
 
         $this->signIn();
 
@@ -328,7 +312,7 @@ class GigTest extends AppTest
         $this->assertCount(0, Participant::in($gig)->confirmed()->get());
         $this->assertCount(1, Participant::in($gig)->unconfirmed()->get());
 
-        $this->signIn($this->admin);
+        $this->signIn($this->superAdmin);
 
         $this->post(route('gig.close', $gig));
 
