@@ -9,7 +9,7 @@ class CalendarController extends Controller
 {
     public function index()
     {
-        $gigs = Gig::public()->upcoming()->get();
+        $gigs = Gig::public()->upcoming()->orderBy('scheduled_for')->get();
 
         return view('pages.calendar.index', compact('gigs'));
     }

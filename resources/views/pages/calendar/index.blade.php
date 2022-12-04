@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-<section class="container mb-4">
+<section class="container mb-5">
 	<div class="text-center">
 		@pagetitle([
 			'title' => 'Nosso', 
@@ -16,23 +16,12 @@
 	</div>
 </section>
 
-<section class="mb-4">
-{{-- 	@table
-	@slot('header')
-	@unless($gigs->isEmpty())
-		@include('pages.calendar.table.header')
-	@endif
-	@endslot
-
-	@slot('rows')
-		@forelse($gigs as $gig)
-		@include('pages.calendar.table.row')
-		@empty
-		@include('components.empty')
-		@endforelse
-	@endslot
-
-	@endtable --}}
+<section class="container mb-4">
+	@table([
+		'empty' => true,
+		'rows' => $gigs,
+		'view' => 'pages.calendar.row'
+	])
 </section>
 @endsection
 

@@ -67,6 +67,7 @@ class GigsController extends Controller
             'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
+            'is_private' => $request->is_private ? 1 : 0,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'songs_limit_per_user' => $request->songs_limit_per_user,
             'scheduled_for' => datePtToUs($request->scheduled_for),
@@ -113,6 +114,7 @@ class GigsController extends Controller
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
             'has_ratings' => $request->has_ratings ? 1 : 0,
+            'is_private' => $request->is_private ? 1 : 0,
             'songs_limit_per_user' => $request->songs_limit_per_user,
             'scheduled_for' => datePtToUs($request->scheduled_for) ?? $gig->scheduled_for,
         ]);
