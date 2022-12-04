@@ -8,7 +8,9 @@
 
 @section('content')
 <section class="pt-4">
+{{-- 
 	@include('pages.cardapio.search', ['url' => route('lyrics.search')])
+	 --}}
 	<div id="results" class="p-0" style="display: {{empty($song) ? 'block' : 'none'}}">
 		<div id="lyrics-overlay" class="w-100 d-center opacity-4" style="font-size: 6rem; margin-top: 180px">
 			@fa(['icon' => 'music', 'mr' => 0])
