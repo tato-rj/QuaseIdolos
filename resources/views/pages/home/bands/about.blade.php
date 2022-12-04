@@ -1,6 +1,6 @@
 <section class="container mb-6">
 	<div class="row">
-		<h2 class="text-center">COMO FUNCIONA<span class="text-secondary">?</span></h2>
+		@pagetitle(['title' => 'Como funciona', 'highlight' => '?'])
 		<div class="col-lg-8 col-10 mx-auto">
 			<div class="row">
 				<div class="col-lg-4 col-md-4 col-12 text-center p-4">

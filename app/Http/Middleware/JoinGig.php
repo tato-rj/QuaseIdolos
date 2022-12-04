@@ -32,7 +32,7 @@ class JoinGig
             auth()->user()->tryToJoin($gigs);
 
             if ($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive()) {
-                if ($this->wantsModal())
+                if ($this->wantsModal() && $this->shouldReturn($request))
                     return redirect($this->getOrigin($request))->with('modal', 'pages.gigs.modals.select');
 
                 return redirect(route('gig.select', ['origin' => $this->getOrigin($request)]));
@@ -60,5 +60,10 @@ class JoinGig
                 return true;
             }   
         }
+    }
+
+    public function shouldReturn($request)
+    {
+        return $this->getOrigin($request) == url()->previous();
     }
 }

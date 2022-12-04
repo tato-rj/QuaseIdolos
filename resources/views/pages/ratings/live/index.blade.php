@@ -8,7 +8,7 @@
 
 @section('content')
 <section class="container mb-6 pt-5">
-	@include('components.pagetitle', ['title' => 'Votação ', 'highlight' => 'ao vivo'])
+	@pagetitle(['title' => 'Votação ', 'highlight' => 'ao vivo'])
    <div class="text-center">
       <button data-bs-toggle="modal" data-bs-target="#confirm-winner-modal" class="btn btn-secondary mx-auto mb-4">Ver ganhador</button>
 

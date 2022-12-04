@@ -6,7 +6,7 @@
 	<div class="mx-auto bg-white rounded-circle text-red d-center mb-3" style="width: 80px; height: 80px">
 		@fa(['icon' => 'thumbs-down', 'fa_size' => '2x', 'mr' => 0])
 	</div>
-	<p class="fw-bold">Tem certeza que quer cancelar esse pedido?</p>
+	<p class="text-left">Tem certeza que quer cancelar esse pedido?</p>
 
 	<button class="btn btn-secondary w-100">Sim, pode cancelar</button>
 </form>

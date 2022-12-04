@@ -9,19 +9,15 @@
 @section('content')
 <section class="container ">
 	<div class="text-center mb-4">
-		<h2 class="mb-3">GERENCIE AQUI OS <span class="text-secondary">CANTORES</span></h2>
+		@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'cantores'])
 		@include('pages.users.search')
 	</div>
 
+	<div id="users-container">
+		@include('pages.users.results')
+	</div>
 	<div id="results-container">
-		<h5 class=" ml-5">Total de {{$users->count()}} @choice('cantor|cantores', $users->count())</h5>
-		<div class="d-flex justify-content-center flex-wrap"> 
-			@foreach($users as $user)
-			<a href="{{route('users.edit', $user)}}" class="link-none">
-				@include('pages.users.avatar', ['size' => '100px', 'fontsize' => '2rem', 'namesize' => '1.2rem'])
-			</a>
-			@endforeach
-		</div>
+		
 	</div>
 </section>
 
@@ -38,7 +34,13 @@ $('input[name="search"]').keyup(function() {
 
 	axios.get($(this).data('url'), { params: { input: input } })
 		 .then(function(response) {
-		 	$('#results-container').html(response.data);
+		 	if (response.data) {
+			 	$('#users-container').hide();
+			 	$('#results-container').html(response.data).show();
+			 } else {
+			 	$('#users-container').show();
+			 	$('#results-container').html(response.data).hide();
+			 }
 		 })
 		 .catch(function(error) {
 			alert('Try again...');

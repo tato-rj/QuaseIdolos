@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{Gig, Song, Admin, SongRequest};
+use App\Models\{Gig, Song, Admin, SongRequest, Participant};
 
 class GigTest extends AppTest
 {
@@ -76,6 +76,40 @@ class GigTest extends AppTest
         $this->assertTrue(auth()->user()->liveGig()->is($gigOne));
 
         $this->assertFalse(auth()->user()->liveGig()->is($gigTwo));
+    }
+
+    /** @test */
+    public function when_a_user_switches_gigs_the_participation_record_is_removed_if_unconfirmed()
+    {
+        Gig::truncate();
+        Admin::first()->update(['super_admin' => true]);
+
+        $gigOne = Gig::factory()->create(['is_live' => true]);
+        $gigTwo = Gig::factory()->create(['is_live' => true]);
+        $gigThree = Gig::factory()->create(['is_live' => true]);
+
+        $user = $this->signIn();
+        
+        auth()->user()->join($gigOne);
+
+        $this->assertTrue($gigOne->participants->contains(auth()->user()));
+        $this->assertFalse($gigTwo->participants->contains(auth()->user()));
+
+        auth()->user()->join($gigTwo);
+
+        $this->assertFalse($gigOne->participants()->get()->contains(auth()->user()));
+        $this->assertTrue($gigTwo->participants()->get()->contains(auth()->user()));
+
+        $this->signIn($this->admin);
+
+        $this->post(route('gig.close', $gigTwo));
+
+        $this->signIn($user);
+
+        auth()->user()->join($gigThree);
+
+        $this->assertTrue($gigTwo->participants()->get()->contains(auth()->user()));
+        $this->assertTrue($gigThree->participants()->get()->contains(auth()->user()));
     }
 
     /** @test */
@@ -279,31 +313,29 @@ class GigTest extends AppTest
     }
 
     /** @test */
-    public function all_participants_leave_when_a_gig_is_turned_off()
+    public function all_participants_records_are_confirmed_when_a_gig_is_turned_off()
     {
         Gig::truncate();
      
         Admin::first()->update(['super_admin' => true]);
 
         $this->signIn();
-        
-        $user = auth()->user();
 
         $gig = Gig::factory()->create(['is_live' => true]);
 
         auth()->user()->join($gig);
 
-        $this->assertTrue($gig->participants()->exists());
+        $this->assertCount(0, Participant::in($gig)->confirmed()->get());
+        $this->assertCount(1, Participant::in($gig)->unconfirmed()->get());
 
         $this->signIn($this->admin);
 
-        $this->assertTrue($gig->fresh()->isLive());
-
         $this->post(route('gig.close', $gig));
 
-        $this->assertFalse($gig->fresh()->isLive());
+        $this->assertCount(1, Participant::in($gig)->confirmed()->get());
+        $this->assertCount(0, Participant::in($gig)->unconfirmed()->get());
 
-        $this->assertFalse($gig->participants()->exists());
+        $this->assertEmpty(auth()->user()->liveGig());
     }
 
     /** @test */

@@ -142,6 +142,7 @@ return [
             'database' => env('REDIS_CACHE_DB', '1'),
         ],
 
+        'prefix' => env('APP_ENV') == 'testing' ? 'test:' : null
     ],
 
 ];

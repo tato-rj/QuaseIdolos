@@ -89,8 +89,8 @@ class User extends Authenticatable
 
     public function join(Gig $gig)
     {
+        Participant::by($this)->unconfirmed()->delete();
         $this->songRequests()->waiting()->delete();
-        $this->gig()->detach();
         
         return $this->gig()->save($gig);
     }

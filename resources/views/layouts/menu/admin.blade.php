@@ -16,7 +16,6 @@
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('cardapio.index')}}">Cardápio</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlists.admin')}}">Setlist</a>
       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('favorites.index')}}">Músicas Favoritas</a>
-      {{-- <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('calendar.index')}}">Calendário</a> --}}
      @include('layouts.menu.components.divider')
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('artists.index')}}">Artistas</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('songs.index')}}">Músicas</a>
@@ -25,6 +24,7 @@
 
      @if(auth()->user()->isSuperAdmin())
      @include('layouts.menu.components.divider')
+      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('calendar.index')}}">Calendário</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('venues.index')}}">Contratantes</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('gig.index')}}">Eventos</a>
      <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('team.index')}}">Equipe</a>

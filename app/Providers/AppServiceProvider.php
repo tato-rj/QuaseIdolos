@@ -56,6 +56,9 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('components.core.forms.datepicker');
         \Blade::include('components.core.forms.timepicker');
 
+        \Blade::include('components.buttons.create');
+        \Blade::include('components.pagetitle');
+
         \Blade::include('components.table.layout', 'table');
         \Blade::aliasComponent('components.table.row');
 

@@ -35,9 +35,8 @@
         @endforeach
       </tbody>
     </table>
-
     @if($hasPagination)
-    {{ $rows->appends($_GET)->links() }}
+    {{ $rows->appends(array_filter(request()->all()))->links() }}
     @endif
   </div>
 </div>

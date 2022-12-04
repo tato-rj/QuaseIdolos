@@ -4,6 +4,7 @@ namespace App\Tools\ChartJS;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 abstract class ChartFactory
 {
@@ -23,9 +24,9 @@ abstract class ChartFactory
 		return $this;
 	}
 
-	public function between($from, $to)
+	public function between(Carbon $from, Carbon $to)
 	{
-		$this->interval = [$from, $to];
+		$this->interval = [$from->startOfDay(), $to->endOfDay()];
 			 
 		return $this;
 	}

@@ -169,6 +169,10 @@ Route::middleware('super-admin')->group(function() {
         Route::patch('{user}', 'TeamController@update')->name('update');
     });
 
+    Route::prefix('usuarios')->withoutMiddleware('join-gig')->name('users.')->group(function() {
+        Route::get('busca', 'UsersController@search')->name('search');
+    });
+
     Route::prefix('contratantes')->name('venues.')->withoutMiddleware('join-gig')->group(function() {
         Route::get('', 'VenuesController@index')->name('index');
 

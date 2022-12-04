@@ -8,7 +8,7 @@
 
 @section('content')
 <section class="container mb-6">
-	@include('components.pagetitle', ['title' => 'Envie o seu', 'highlight' => 'voto'])
+	@pagetitle(['title' => 'Envie o seu', 'highlight' => 'voto'])
 
 	@if(! auth()->user()->liveGig()->participatesInRatings())
 	<div class="row">

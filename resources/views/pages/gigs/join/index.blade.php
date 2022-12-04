@@ -9,12 +9,10 @@
 @section('content')
 <section class="container-fluid">
 	<div class="text-center mb-4">
-		<h2 class="mb-3">ONDE VOCÊ <span class="text-secondary">ESTÁ</span>?</h2>
-		@if($gigs->isEmpty())
-		<h6>Nenhum show marcado pra hoje</h6>
-		@else
-		<h6>Nós temos mais de um show acontendo hoje, por favor escolha abaixo em qual você está participando</h6>
-		@endif
+		@pagetitle([
+			'title' => 'Onde você',
+			'highlight' => 'está?',
+			'subtitle' => $gigs->isEmpty() ? 'Nenhum show marcado pra hoje' : 'Nós temos mais de um show acontendo hoje, por favor escolha abaixo em qual você está participando'])
 	</div>
 	<div class="row">
 		<div class="col-lg-6 col-md-8 col-12 mx-auto">

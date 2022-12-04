@@ -1,8 +1,6 @@
 <section class="mb-7">
-	<div class="container">
-		<h2 class="text-center mb-4">NOSSO CARDÁPIO <span class="text-secondary">MUSICAL</span></h2>
-	</div>
 	<div class="container-fluid">
+		@pagetitle(['title' => 'Nosso cardápio', 'highlight' => 'musical'])
 		<div class="row">
 			<div class="col-lg-10 col-12 mx-auto p-0">
 				<div class="container-fluid">

@@ -20,7 +20,7 @@ canvas {
 
 @section('content')
 <section class="container pt-5">
-	@include('components.pagetitle', ['title' => 'Resultado ', 'highlight' => 'final'])
+	@pagetitle(['title' => 'Resultado ', 'highlight' => 'final'])
    <div class="d-center mb-2">
       <div class="text-center mx-3">
          <h3 class="mb-0">@fa(['icon' => 'users', 'classes' => 'opacity-4 no-stroke']){{$ranking->votersCount}}</h3>

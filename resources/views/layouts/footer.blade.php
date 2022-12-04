@@ -11,16 +11,15 @@
           <div class="d-flex">
             <div class="mr-4">
               <h6><a href="{{route('home')}}" class="link-none">Início</a></h6>
-              <h6><a href="{{route('cardapio.index')}}" class="link-none">Cardápio</a></h6>
               <h6><a href="{{route('reservas')}}" class="link-none">Reservas</a></h6>
               <h6><a href="{{route('reservas')}}" class="link-none">Trabalhe conosco</a></h6>
               <h6><a href="{{route('reservas')}}" class="link-none">Política de Privacidade</a></h6>
             </div>
             <div>
+              <h6><a href="{{route('cardapio.index')}}" class="link-none">Cardápio</a></h6>
               <h6><a href="{{route('profile.show')}}" class="link-none">Meu perfil</a></h6>
-              <h6><a href="{{route('setlists.user')}}" class="link-none">Minha Setlist</a></h6>
               <h6><a href="{{route('favorites.index')}}" class="link-none">Músicas Favoritas</a></h6>
-              {{-- <h6><a href="{{route('calendar.index')}}" class="link-none">Calendário</a></h6> --}}
+              <h6><a href="{{route('calendar.index')}}" class="link-none">Calendário</a></h6>
             </div>
           </div>
         </div>

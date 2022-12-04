@@ -9,9 +9,8 @@
 @section('content')
 <section class="container ">
 	<div class="text-center mb-4">
-		@include('components.pagetitle', ['title' => 'Gerencie aqui os', 'highlight' => 'estilos'])
-		<button data-bs-toggle="modal" data-bs-target="#create-genre-modal" class="btn btn-secondary btn-lg">@fa(['icon' => 'plus'])Novo estilo</button>
-		@include('pages.genres.modals.create')
+		@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'estilos'])
+		@create(['name' => 'genre', 'label' => 'Novo estilo', 'folder' => 'genres'])
 	</div>
 
 	<div class="mb-4">

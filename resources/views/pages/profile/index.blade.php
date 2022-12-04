@@ -10,7 +10,7 @@
 <section class="container mb-6">
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 text-center mb-4">
-			@include('components.pagetitle', ['title' => 'Meu', 'highlight' => 'perfil'])
+			@pagetitle(['title' => 'Meu', 'highlight' => 'perfil'])
 			<div class="mb-4">
 
 				@if(auth()->user()->hasAvatar())

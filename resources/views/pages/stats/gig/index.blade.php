@@ -8,7 +8,7 @@
 @section('content')
 <section class="container mb-6">
 	<div class="text-center mb-4">
-		@include('components.pagetitle', ['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
+		@pagetitle(['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
     @include('pages.stats.nav')
 	</div>
   <div class="row">
@@ -23,8 +23,8 @@
       @include('pages.stats.gig.chart', [
         'title' => 'Número de participantes', 
         'id' => 'participants-chart', 
-        'model' => \App\Models\SongRequest::class,
-        'column' => 'finished_at'])
+        'model' => \App\Models\Participant::class,
+        'column' => 'created_at'])
     </div>
   </div>
 </section>

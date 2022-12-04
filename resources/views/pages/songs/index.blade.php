@@ -9,10 +9,9 @@
 @section('content')
 <section class="container">
 	<div class="text-center mb-5">
-		<h2 class="mb-3">GERENCIE AQUI AS <span class="text-secondary">MÚSICAS</span></h2>
+		@pagetitle(['title' => 'Gerencie aqui as', 'highlight' => 'músicas'])
 		@include('pages.songs.search')
-		<button data-bs-toggle="modal" data-bs-target="#create-song-modal" class="btn btn-secondary btn-lg">@fa(['icon' => 'plus'])Nova música</button>
-		@include('pages.songs.modals.create')
+		@create(['name' => 'song', 'label' => 'Nova música', 'folder' => 'songs'])
 	</div>
 	<div id="results-container">
 		@include('pages.songs.results')

@@ -11,7 +11,7 @@
 @section('content')
 <section class="container">
 	<div class="text-center">
-		@include('components.pagetitle', ['title' => 'Setlist de', 'highlight' => 'hoje'])
+		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje'])
 		@if($gig)
 		<a class="btn btn-secondary mb-4" target="_blank" href="{{route('lyrics.index')}}">Ver as letras</a>
 		<a href="" data-bs-toggle="modal" data-bs-target="#gig-{{$gig->id}}-modal" class="link-secondary"><h3>@fa(['icon' => 'clipboard-list']){{$gig->venue->name}}</h3></a>

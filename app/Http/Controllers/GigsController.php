@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Gig, Venue};
+use App\Models\{Gig, Venue, Participant};
 use Illuminate\Http\Request;
 use App\Events\GigFinished;
 
@@ -165,7 +165,7 @@ class GigsController extends Controller
             'ends_at' => now()
         ]);
 
-        $gig->participants()->detach();
+        Participant::in($gig)->unconfirmed()->confirm();
 
         return back()->with('success', 'O evento terminou');
     }

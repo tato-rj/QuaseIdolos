@@ -9,7 +9,7 @@
 
 @section('content')
 <section class="container mb-6 p-0">
-	<h2 class="mb-5 text-center">MÚSICAS <span class="text-secondary">FAVORITAS</span></h2>
+	@pagetitle(['title' => 'Músicas', 'highlight' => 'favoritas'])
 
 	@table([
 		'empty' => true,

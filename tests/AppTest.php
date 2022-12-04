@@ -20,9 +20,15 @@ class AppTest extends TestCase
             SongRequested::class
         ]);
         \Storage::fake();
+
+        $this->redisPrefix = config('database.redis.prefix');
         
         $this->admin = Admin::factory()->create()->user;
         $this->song = Song::factory()->create();
+
+        // $this->beforeApplicationDestroyed(function () {
+        //     $this->artisan('redis:flush ' . $this->redisPrefix);
+        // });
 	}
 
     protected function signIn($user = null)

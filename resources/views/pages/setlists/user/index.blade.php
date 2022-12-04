@@ -10,7 +10,7 @@
 
 @section('content')
 <section class="container mb-6">
-	<h2 class="mb-5 text-center">MINHA <span class="text-secondary">SETLIST</span></h2>
+	@pagetitle(['title' => 'MINHA', 'highlight' => 'SETLIST'])
 
 		@table([
 			'title' => 'Lista de espera',

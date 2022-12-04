@@ -9,9 +9,16 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::guests()->orderBy('name')->get();
+        $users = User::guests()->orderBy('name')->paginate(12);
 
         return view('pages.users.index', compact('users'));
+    }
+
+    public function search(Request $request)
+    {
+        $users = $request->input ? User::search($request->input)->orderBy('name')->get() : collect();
+
+        return view('pages.users.results', compact('users'))->render();
     }
 
     public function show()

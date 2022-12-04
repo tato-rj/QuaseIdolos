@@ -9,13 +9,15 @@
 @section('content')
 <section class="container mb-4">
 	<div class="text-center">
-		<h2 class="text-center m-0">NOSSO <span class="text-secondary">CALENDÁRIO</span></h2>
-		<h4 class="mb-6">Acompanhe aqui as datas dos nossos shows e venha cantar com a gente!</h4>
+		@pagetitle([
+			'title' => 'Nosso', 
+			'subtitle' => 'Acompanhe aqui as datas dos nossos shows e venha cantar com a gente!',
+			'highlight' => 'calendário'])
 	</div>
 </section>
 
 <section class="mb-4">
-	@table
+{{-- 	@table
 	@slot('header')
 	@unless($gigs->isEmpty())
 		@include('pages.calendar.table.header')
@@ -30,7 +32,7 @@
 		@endforelse
 	@endslot
 
-	@endtable
+	@endtable --}}
 </section>
 @endsection
 

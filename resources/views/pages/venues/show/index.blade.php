@@ -7,13 +7,9 @@
 @endpush
 
 @section('content')
-<section class="container">
-	<div class="text-center mb-4">
-		<h2 class="mb-3">EVENTOS NO <span class="text-secondary">{{$venue->name}}</span></h2>
-	</div>
-</section>
-
 <section class="mb-5 container">
+	@pagetitle(['title' => 'Eventos no', 'highlight' => $venue->name])
+
 	@table([
 		'title' => 'Sem data',
 		'headers' => ['', ''],

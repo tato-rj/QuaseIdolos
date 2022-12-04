@@ -22,7 +22,7 @@
 			@endif
 		</div>
 		@if($description = $gig->description())
-		<p class="mb-0 mt-2 opacity-8 text-dark">{{$description()}}</p>
+		<p class="mb-0 mt-2 opacity-8 text-dark">{{$description}}</p>
 		@endif
 	</div>
 </div>

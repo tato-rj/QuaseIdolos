@@ -7,7 +7,7 @@
 
 @section('content')
 <section class="container">
-	@include('components.pagetitle', ['title' => 'Nosso cardápio', 'highlight' => 'musical'])
+	@pagetitle(['title' => 'Nosso cardápio', 'highlight' => 'musical'])
 	@include('pages.cardapio.search', ['url' => route('cardapio.search')])
 </section>
 

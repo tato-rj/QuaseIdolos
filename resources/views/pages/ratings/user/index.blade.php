@@ -8,7 +8,7 @@
 
 @section('content')
 <section class="container mb-6">
-	<h2 class="mb-5 text-center">MINHAS <span class="text-secondary">NOTAS</span></h2>
+	@pagetitle(['title' => 'Minhas', 'highlight' => 'notas'])
 
 	@table([
 		'empty' => true,

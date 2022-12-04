@@ -9,7 +9,7 @@
 @section('content')
 <section class="container ">
 	<div class="text-center mb-4">
-		<h2 class="mb-3">GERENCIE AQUI A <span class="text-secondary">EQUIPE</span></h2>
+		@pagetitle(['title' => 'Gerencie aqui a', 'highlight' => 'equipe'])
 		@include('pages.team.search')
 	</div>
 
@@ -31,7 +31,7 @@ $('input[name="search"]').keyup(function() {
 
 	axios.get($(this).data('url'), { params: { input: input } })
 		 .then(function(response) {
-		 	$('#results-container').html(response.data);
+			$('#results-container').html(response.data);
 		 })
 		 .catch(function(error) {
 			alert('Try again...');

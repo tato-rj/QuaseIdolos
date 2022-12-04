@@ -9,9 +9,8 @@
 @section('content')
 <section class="container-fluid">
 	<div class="text-center mb-4">
-		<h2 class="mb-3">GERENCIE AQUI OS <span class="text-secondary">EVENTOS</span></h2>
-		<button data-bs-toggle="modal" data-bs-target="#create-gig-modal" class="btn btn-secondary btn-lg">@fa(['icon' => 'plus'])Novo evento</button>
-		@include('pages.gigs.modals.create')
+		@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'eventos'])
+		@create(['name' => 'gig', 'label' => 'Novo evento', 'folder' => 'gigs'])
 	</div>
 </section>
 

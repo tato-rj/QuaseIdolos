@@ -8,7 +8,7 @@
 @section('content')
 <section class="container mb-6">
 	<div class="text-center mb-4">
-		@include('components.pagetitle', ['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
+		@pagetitle(['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
     @include('pages.stats.nav')
 	</div>
   <div class="row">

@@ -9,8 +9,10 @@
 @section('content')
 <section class="container mb-6">
 	<div class="text-center">
-		<h2 class="text-center m-0">QUER AGENTE NO SEU <span class="text-secondary">EVENTO</span>?</h2>
-		<h4 class="mb-6">Solicite a sua reserva aqui!</h4>
+		@pagetitle([
+			'title' => 'Quer a gente no seu', 
+			'subtitle' => 'Solicite a sua reserva aqui!',
+			'highlight' => 'evento?'])
 
 		<div class="text-center mb-6">
 			<div class="mb-4">
