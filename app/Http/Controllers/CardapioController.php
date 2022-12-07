@@ -14,10 +14,16 @@ class CardapioController extends Controller
                 session()->flash('modal', 'pages.gigs.join.modal');
         }
         
-        if (Artist::bySlug($request->artista)->exists()) {
-            $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate(12);
+        if ($request->has('input')) {
+            $songs = Song::search($request->input)->alphabetically()->paginate(12);
         } else {
-            $songs = $request->has('input') ? Song::search($request->input)->alphabetically()->paginate(12) : collect();
+            if (Artist::bySlug($request->artista)->exists()) {
+                $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate(12);
+            } elseif (Genre::bySlug($request->estilo)->exists()) {
+                $songs = Genre::bySlug($request->estilo)->first()->songs()->alphabetically()->paginate(12);
+            } else {
+                $songs = collect();
+            }
         }
         
         $artists = Artist::orderby('name')->has('songs')->paginate(24);
