@@ -15,7 +15,7 @@ class CardapioController extends Controller
         }
         
         if (Artist::bySlug($request->artista)->exists()) {
-            $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate(12);
+            $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate(4);
         } else {
             $songs = $request->has('input') ? Song::search($request->input)->alphabetically()->paginate(12) : collect();
         }
