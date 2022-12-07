@@ -7,17 +7,21 @@ use App\Models\{Artist, Song, Genre, Gig};
 
 class CardapioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->check() && ! auth()->user()->liveGig()) {
             if (auth()->user()->tryToJoin(Gig::ready()))
                 session()->flash('modal', 'pages.gigs.join.modal');
         }
-
+        
+        if (Artist::bySlug($request->artista)->exists()) {
+            $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate(12);
+        } else {
+            $songs = $request->has('input') ? Song::search($request->input)->alphabetically()->paginate(12) : collect();
+        }
+        
         $artists = Artist::orderby('name')->has('songs')->paginate(24);
         $genres = Genre::orderby('name')->has('songs')->get();
-
-        $songs = request()->has('input') ? Song::search(request()->input)->alphabetically()->paginate(12) : collect();
 
         return view('pages.cardapio.index', compact(['artists', 'songs', 'genres']));
     }

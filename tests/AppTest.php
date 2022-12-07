@@ -30,9 +30,9 @@ class AppTest extends TestCase
         $this->admin = Admin::factory()->create()->user;
         $this->song = Song::factory()->create();
 
-        // $this->beforeApplicationDestroyed(function () {
-        //     $this->artisan('redis:flush ' . $this->redisPrefix);
-        // });
+        $this->beforeApplicationDestroyed(function () {
+            $this->artisan('redis:flush ' . $this->redisPrefix);
+        });
 	}
 
     protected function signIn($user = null)

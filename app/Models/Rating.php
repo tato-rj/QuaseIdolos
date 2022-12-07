@@ -31,8 +31,15 @@ class Rating extends BaseModel
         return $query->where('song_request_id', $songRequest->id);
     }
 
+    public function scopeForSong($query, Song $song)
+    {
+        return $query->whereHas('songRequest', function($q) use ($song) {
+            $q->where('song_id', $song->id);
+        });
+    }
+
     public function tooManyAttempts()
     {
-        return $this->attempts == 3;
+        return $this->attempts == 2;
     }
 }

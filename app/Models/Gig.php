@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Traits\Rateable;
-use App\Archives\GigArchives;
+use App\Models\Traits\{Rateable, Archiveable};
 
 class Gig extends BaseModel
 {
-	use Rateable;
-	
+	use Rateable, Archiveable;
+
+	protected $globalRules = ['Proibido subir com bebida no palco'];
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for'];
 	protected $casts = [
 		'is_live' => 'boolean',
@@ -55,11 +55,6 @@ class Gig extends BaseModel
     public function description()
     {
     	return $this->description ?? $this->venue->description;
-    }
-
-    public function archives()
-    {
-    	return new GigArchives($this);
     }
     
 	public function scopeByEventDate($query)
@@ -120,8 +115,11 @@ class Gig extends BaseModel
         return $results;
     }
 
-    public function rules()
+    public function rules($global = false)
     {
+    	if ($global)
+    		return collect($this->globalRules);
+    	
     	$voting = $this->participatesInRatings() ? 
     		'Este evento está aberto pra votação' : 
     		'Este evento não está aberto pra votação';

@@ -36,6 +36,11 @@ class SongRequest extends BaseModel
         return $query->where('gig_id', $gig ? $gig->id : null);
     }
 
+    public function scopeForSong($query, Song $song = null)
+    {
+        return $query->where('song_id', $song ? $song->id : null);
+    }
+
     public function scopeForGigTonight($query, Gig $gig)
     {
         return $query->where('gig_id', $gig->id)

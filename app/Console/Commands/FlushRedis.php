@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class FlushRedis extends Command
 {
-    protected $signature = 'redis:flush {namespace}';
+    protected $signature = 'redis:flush {namespace} {--confirm}';
     protected $description = 'This command clears all redis records related to a given namespace';
 
     /**
@@ -26,9 +26,10 @@ class FlushRedis extends Command
      */
     public function handle()
     {
+        $confirm = $this->option('confirm');
         $namespace = $this->argument('namespace');
 
-        if (testing() || $this->confirm('This will delete all records within the ' . $namespace . ' namespace. Are you sure?'))
+        if (testing() || $confirm || $this->confirm('This will delete all records within the ' . $namespace . ' namespace. Are you sure?'))
             $this->clear($namespace);
     }
 

@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Archiveable;
+
 class Song extends BaseModel
 {
+	use Archiveable;
+	
 	protected $withCount = ['favorites', 'songRequests'];
 
     protected static function booted()

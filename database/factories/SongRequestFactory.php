@@ -26,4 +26,13 @@ class SongRequestFactory extends Factory
             }
         ];
     }
+
+    public function finished()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'finished_at' => now()
+            ];
+        });
+    }
 }

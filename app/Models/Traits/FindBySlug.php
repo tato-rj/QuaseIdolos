@@ -11,6 +11,6 @@ trait FindBySlug
 
     public function scopeBySlug($query, $slug)
     {
-    	return $query->where('slug', $slug)->firstOrFail();
+    	return $query->where('slug', $slug);
     }
 }

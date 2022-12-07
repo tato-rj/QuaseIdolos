@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             RatingSeeder::class,
         ]);
 
-        \Artisan::call('cache:clear');        
+        \Artisan::call('cache:clear');
+        \Artisan::call('redis:flush quaseidolos --confirm');
     }
 }

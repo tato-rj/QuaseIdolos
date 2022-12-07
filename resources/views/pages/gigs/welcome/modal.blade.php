@@ -8,14 +8,15 @@
 <div class="border border-secondary border-4 rounded py-3 px-2">
 	<h6 class="text-secondary text-center">REGRAS DO JOGO</h6>
 	<div class="px-3">
+		<div class="rounded bg-white p-3 mb-3">
+			@foreach($gig->rules($global = true) as $rule)
+			@include('pages.gigs.welcome.global')
+			@endforeach
+		</div>
+		
 		@foreach($gig->rules() as $rule)
 		@if($rule)
-		<div class="d-flex align-items-center mb-2">
-			<div class="mr-2">
-				<h6 class="bg-secondary d-center rounded-circle mb-0" style="width: 32px; height: 32px">{{$loop->iteration}}</h6>
-			</div>
-			<h6 class="mb-0">{{$rule}}</h6>
-		</div>
+		@include('pages.gigs.welcome.rule')
 		@endif
 		@endforeach
 	</div>

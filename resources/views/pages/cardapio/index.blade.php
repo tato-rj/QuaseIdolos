@@ -55,6 +55,7 @@ $(function() {
 function clearResults()
 {
 	$('#results').html('');
+	url([]);
 }
 
 function showResults(data)
@@ -77,10 +78,10 @@ function search(url, input)
 $(document).ready(function() {
 	$('input[name="search"]').keyup(function() {
 		let input = $(this).val();
+		url(['input', input]);
 
 		if (input.length == 0) {
 			clearResults();
-
 			$('.artists-container').show();
 		} else if (input.length >= 3) {
 			search($(this).data('url'), input);

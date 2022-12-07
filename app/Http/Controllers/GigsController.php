@@ -42,7 +42,7 @@ class GigsController extends Controller
 
         $redirect = session()->has('origin') ? redirect(session('origin')) : back();
         
-        return $redirect->with('modal', 'pages.gigs.join.modal');
+        return $redirect->with('modal', 'pages.gigs.welcome.modal');
     }
 
     /**
@@ -168,7 +168,8 @@ class GigsController extends Controller
         ]);
 
         Participant::in($gig)->unconfirmed()->confirm();
-        // $gig->archives()->saveParticipants();
+
+        $gig->archives()->save();
 
         return back()->with('success', 'O evento terminou');
     }

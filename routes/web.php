@@ -18,8 +18,6 @@ Route::prefix('auth/{driver}')->withoutMiddleware('join-gig')->group(function() 
 
 Route::prefix('cardapio')->withoutMiddleware('join-gig')->name('cardapio.')->group(function() {
     Route::get('', 'CardapioController@index')->name('index');
-
-    Route::get('artista/{artist}', 'CardapioController@artist')->name('artist');
     
     Route::get('busca', 'CardapioController@search')->name('search');
 });
