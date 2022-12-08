@@ -6,6 +6,6 @@
 	@endfor
 
 	@isset($actions)
-	<td class="text-right align-middle p-3">{!!$actions!!}</td>
+	<td class="text-right align-middle p-3 text-truncate">{!!$actions!!}</td>
 	@endisset
 </tr>

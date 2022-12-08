@@ -3,7 +3,7 @@
 @include('pages.cardapio.components.song.header')
 @endslot
 
-<div class="row">
+<div id="info-container-{{$song->id}}" class="row">
 	<div class="col-lg-7 col-12">
 		@include('pages.cardapio.components.song.lyrics')
 	</div>
@@ -12,4 +12,8 @@
 		@include('pages.cardapio.components.song.info')
 	</div>
 </div>
+
+@auth
+@include('pages.cardapio.components.song.changeRequest')
+@endauth
 @endmodal

@@ -82,6 +82,22 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
+    public function a_song_request_can_be_changed_for_another_song_without_losing_the_place_in_line()
+    {
+        $this->signIn();
+
+        $this->post(route('song-requests.store', $this->song));
+
+        $originalSong = auth()->user()->songRequests->first()->song;
+
+        $newSong = Song::factory()->create();
+
+        $this->patch(route('song-requests.update', auth()->user()->songRequests->first()), ['new_song_id' => $newSong->id]);
+
+        $this->assertNotEquals(auth()->user()->fresh()->songRequests()->first()->song, $originalSong);
+    }
+
+    /** @test */
     public function when_a_user_requests_a_song_an_event_is_fired()
     {
         $this->signIn();

@@ -7,18 +7,22 @@
 @endpush
 
 @section('content')
-<section class="container mb-6 pt-5">
+<section class="container-fluid mb-6 pt-5 position-relative">
 	@pagetitle(['title' => 'Votação ', 'highlight' => 'ao vivo'])
    <div class="text-center">
       <button data-bs-toggle="modal" data-bs-target="#confirm-winner-modal" class="btn btn-secondary mx-auto mb-4">Ver ganhador</button>
 
       @modal(['title' => 'Tem certeza?','id' => 'confirm-winner-modal'])
          <h2 class="text-center no-stroke text-secondary">@fa(['icon' => 'exclamation-circle', 'mr' => 0])</h2>
-         <h5 class="mb-4">Ao continuar a votação desse evento será encerrada, e um email será enviado para o vencedor. Pode continuar?</h5>
+         <div class="rounded bg-white p-3 mb-4 text-left text-primary">
+            <h6 class="no-stroke">Ao continuar a votação desse evento será encerrada.</h6>
+            <h6 class="no-stroke m-0">Pode continuar?</h6>
+         </div>
          <a href="{{route('ratings.winner')}}" class="btn btn-secondary">Sim, ver ganhador</a>
       @endmodal
    </div>
-	<div id="ranking-container">
+
+	<div id="ranking-container" class="row">
 
 	</div>
 </section>

@@ -72,6 +72,11 @@ class Gig extends BaseModel
 		return $query->where('is_live', true);
 	}
 
+	public function scopeOrLive($query)
+	{
+		return $query->orWhere('is_live', true);
+	}
+
     public function scopeUpcoming($query)
     {
     	return $query->where('scheduled_for', '>=', now()->startOfDay());
@@ -80,6 +85,13 @@ class Gig extends BaseModel
     public function scopePublic($query)
     {
 		return $query->where('is_private', false);
+    }
+
+    public function sortSetlist()
+    {
+        $this->setlist()->waiting()->get()->each(function($songRequest, $index) {
+            $songRequest->update(['order' => $index]);
+        });
     }
 
     public function ranking()
@@ -262,10 +274,9 @@ class Gig extends BaseModel
 
 	public function scopeReady($query)
 	{
-		$start = now()->copy()->startOfDay();
+		$today = now()->copy()->startOfDay();
 
-		return $query->whereDate('scheduled_for', $start)
-					 ->orWhereBetween('scheduled_for', [$start->copy()->subDay(), $start->addHours(4)]);
+		return $query->whereBetween('scheduled_for', [$today->copy()->subHour(), $today->addDay()->addHours(4)]);
 	}
 
     public function scopeNotReady($query)
@@ -283,6 +294,6 @@ class Gig extends BaseModel
 		if (! $this->hasDate())
 			return null;
 
-		return $this->scheduled_for->isSameDay(now()) || now()->between($this->scheduled_for, $this->scheduled_for->addDay()->addHours(4));
+		return now()->between($this->scheduled_for, $this->scheduled_for->addDay()->addHours(4));
 	}
 }

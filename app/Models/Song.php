@@ -52,6 +52,38 @@ class Song extends BaseModel
         return $this->songRequests()->whereNotNull('finished_at')->count();
     }
 
+    public function getLyricsCompactAttribute()
+    {
+        $array = explode("\n\n", $this->lyrics);
+
+        if (count($array) <= 1)
+        	$array = explode("\r\n\r\n", $this->lyrics);
+
+        if (count($array) <= 1)
+        	return $this->lyrics;
+
+        $duplicates = array_count_values($array);
+
+        $index = 0;
+        $refrain;
+
+        foreach(array_count_values($array) as $paragraph => $count) {
+            if ($count > 1) {
+                $refrain = $paragraph;
+                break;
+            }
+
+            $index += 1;
+        }
+
+        foreach($array as $key => $paragraph) {
+            if ($paragraph == $refrain && $key != $index)
+                $array[$key] = '+ REFRÃO';
+        }
+
+        return implode("\n\n", $array);
+    }
+
     public function setlistPosition()
     {
     	return SongRequest::waitingFor($this)->first()->order;

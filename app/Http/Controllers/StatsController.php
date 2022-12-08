@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Artist, Genre};
+use App\Models\{Artist, Genre, Gig};
 use App\Tools\ChartJS\Chart;
 
 class StatsController extends Controller

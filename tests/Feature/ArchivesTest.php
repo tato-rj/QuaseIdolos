@@ -3,10 +3,30 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{Gig, SongRequest, Rating};
+use App\Models\{Gig, SongRequest, Rating, Participant};
 
 class ArchivesTest extends AppTest
 {
+    /** @test */
+    public function the_archives_know_the_total_number_of_participants_for_a_given_number_of_gigs()
+    {
+        Gig::truncate();
+
+        $gigOne = Gig::factory()->live()->create();
+        $gigTwo = Gig::factory()->live()->create();
+        $gigThree = Gig::factory()->live()->create();
+
+        Participant::factory()->confirmed()->count(3)->create(['gig_id' => $gigOne]);
+        Participant::factory()->confirmed()->count(1)->create(['gig_id' => $gigTwo]);
+
+        $gigOne->archives()->save();
+        $gigTwo->archives()->save();
+        $gigThree->archives()->save();
+
+        $this->assertEquals(3, $gigOne->archives()->count('participants'));
+        $this->assertEquals(1, $gigTwo->archives()->count('participants'));
+        $this->assertEquals(0, $gigThree->archives()->count('participants'));
+    }
     /** @test */
     public function the_list_of_participants_is_stored_on_redis_once_the_gig_is_closed()
     {

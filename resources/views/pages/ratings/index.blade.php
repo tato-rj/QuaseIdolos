@@ -82,7 +82,7 @@ $(document).on('click', 'button.star-rating', function() {
 		 	if (error.response.status == 429) {
 		 		alert(error.response.data.message);
 		 	} else {
-		 		alert('Não conseguimos receber o seu voto nesse momento');
+		 		alert('Não estamos recebendo votos agora');
 		 	}
 		 })
 		 .then(function() {

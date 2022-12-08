@@ -95,4 +95,10 @@ $(document).on('click', '#clear-results', function() {
 	$('.artists-container').show();
 });
 </script>
+<script type="text/javascript">
+$(document).on('click', 'button[name="change-song"]', function() {
+	$($(this).data('target-hide')).toggle();
+	$($(this).data('target-show')).toggle();
+});
+</script>
 @endpush

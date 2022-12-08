@@ -11,7 +11,7 @@ class GigsController extends Controller
     public function index()
     {
         $venues = Venue::all();
-        $today = Gig::ready()->get();
+        $today = Gig::ready()->orLive()->get();
         $unscheduled = Gig::unscheduled()->get();
 
         return view('pages.gigs.index', compact(['today', 'venues', 'unscheduled']));

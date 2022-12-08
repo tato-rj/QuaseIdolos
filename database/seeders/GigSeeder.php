@@ -20,9 +20,7 @@ class GigSeeder extends Seeder
             'songs_limit' => 40,
             'songs_limit_per_user' => 2,
             'has_ratings' => true,
-            'scheduled_for' => now()->copy()->subDays(4),
-            'starts_at' => now()->copy()->subDays(4),
-            'ends_at' => now()->copy()->subDays(4)->addMinutes(347)
+            'scheduled_for' => now()->addDays(4),
         ]);
 
         Gig::create([
@@ -53,9 +51,9 @@ class GigSeeder extends Seeder
             'songs_limit' => 10,
             'songs_limit_per_user' => 2,
             'has_ratings' => true,
-            'is_live' => true,
             'scheduled_for' => now()->subMonth(),
-            'starts_at' => now()
+            'starts_at' => now()->subMonth(),
+            'ends_at' => now()->subMonth()->addMinutes(347)
         ]);
     }
 }

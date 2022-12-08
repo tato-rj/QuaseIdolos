@@ -8,12 +8,9 @@
 
   <div class="px-4">
     <div>
-      @if(auth()->user()->liveGig() && auth()->user()->liveGig()->participatesInRatings())
-      @if(auth()->user()->participatesInRatings())
-       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
-       @include('layouts.menu.components.divider')
-      @endif
-
+      @if(\App\Models\Gig::ready()->exists() && auth()->user()->participatesInRatings())
+         <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
+         @include('layouts.menu.components.divider')
       @endif
       @include('layouts.menu.guest.links')
       @include('layouts.menu.components.divider')

@@ -1,28 +1,11 @@
-<div class="d-center mb-3">
-	<div class="text-center mx-3">
-		<h3 class="mb-0">@fa(['icon' => 'users', 'classes' => 'opacity-4 no-stroke']){{$votersCount}}</h3>
-		<h5 class="text-secondary">Pessoas votaram</h5>
-	</div>
-	<div class="text-center mx-3">
-		<h3 class="mb-0">@fa(['icon' => 'music', 'classes' => 'opacity-4 no-stroke']){{$ratings->groupBy('song_request_id')->count()}}</h3>
-		<h5 class="text-secondary">Músicas votadas</h5>
-	</div>
-	<div class="text-center mx-3">
-		<h3 class="mb-0">@fa(['icon' => 'vote-yea', 'classes' => 'opacity-4 no-stroke']){{$ratings->count()}}</h3>
-		<h5 class="text-secondary">Total de votos</h5>
-	</div>
-</div>
-
-<div class="text-center" style="display: {{$ratings->count() ? 'block' : 'none'}}">
-	<h3 class="mb-4 no-stroke opacity-6" id="counter" style="font-size: 3.2rem">{{$timer}}s</h3>
+<div class="position-absolute top-0 text-right" style="display: {{$ratings->count() ? 'inline-block' : 'none'}};">
+	<h3 class="no-stroke opacity-6" id="counter" style="font-size: 3.2rem">{{$timer}}s</h3>
 </div>
 
 <div class="row">
-	<div class="col-lg-6 col-md-8 col-12 mx-auto">
-		@forelse($ratings as $rating)
-			@include('pages.ratings.live.row')
-		@empty
-		@include('components.empty')
-		@endforelse
-	</div>
+	@forelse($ratings as $list)
+		@include('pages.ratings.live.row')
+	@empty
+	@include('components.empty')
+	@endforelse
 </div>

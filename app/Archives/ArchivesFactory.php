@@ -12,12 +12,22 @@ abstract class ArchivesFactory
 	public function __construct(Model $model)
 	{
 		$this->model = $model;
-		$this->namespace = strtolower(class_basename($this->model::class)).':'.$this->model->id.':';
+		$id = $this->model->exists ? $this->model->id : '*';
+		$this->namespace = strtolower(class_basename($this->model::class)).':'.$id.':';
 	}
 
 	public function get($field, $count = -1)
 	{
-		return Redis::lrange($this->namespace.$field, 0, $count);
+		$records = collect(Redis::lrange($this->namespace.$field, 0, $count));
+
+		return $records->map(function($record) {
+			return json_decode($record);
+		});
+	}
+
+	public function count($field, $count = -1)
+	{
+		return Redis::llen($this->namespace.$field);
 	}
 
 	public function set($field, $record)

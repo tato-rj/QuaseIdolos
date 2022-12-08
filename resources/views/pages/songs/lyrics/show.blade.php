@@ -15,6 +15,6 @@
 				<button class="btn-raw px-1 text-secondary" data-fontsize="increase" data-target="#lyrics" style="font-size: 1.5rem">A</button>
 			</div>
 		</div>
-		<p id="lyrics" class="p-2 m-0" style="white-space: pre-wrap; font-size: 22px; letter-spacing: 1px; column-count: 3;">{{$song ? $song->lyrics : null}}</p>
+		<p id="lyrics" class="p-2 m-0" style="white-space: pre-wrap; font-size: 22px; letter-spacing: 1px; column-count: 3;">{{$song ? $song->lyricsCompact : null}}</p>
 	</div>
 </div>

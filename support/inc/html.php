@@ -1,6 +1,6 @@
 <?php
 
-function fa($icon, $color, $classes = null) {
+function fa($icon, $color = null, $classes = null) {
 	return '<i title="" name="" class="fas 
 		   fa-'.$icon.' 
 		   text-'.$color.' 

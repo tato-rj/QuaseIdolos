@@ -42,6 +42,7 @@ class RatingsController extends Controller
     public function live()
     {
         $timer = 10;
+        $ratings = auth()->user()->liveGig()->ratings->reverse()->groupBy('song_request_id');
 
         return view('pages.ratings.live.index', compact('timer'));
     }
@@ -49,20 +50,16 @@ class RatingsController extends Controller
     public function votes(Request $request)
     {
         $timer = $request->timer;
-        // $results = auth()->user()->liveGig()->ranking();
+        $ratings = auth()->user()->liveGig()->ratings->reverse()->groupBy('song_request_id');
 
-        // $totalCount = $results->totalCount;
-        // $ratings = $results->ratings;
-
-        $ratings = auth()->user()->liveGig()->ratings->reverse();
-        $votersCount = $ratings->groupBy('user_id')->count();
-
-        return view('pages.ratings.live.votes', compact(['ratings', 'votersCount', 'timer']))->render();
+        return view('pages.ratings.live.votes', compact(['ratings', 'timer']))->render();
     }
 
     public function winner()
     {
         $gig = auth()->user()->liveGig();
+        $ratings = $gig->ratings->reverse()->groupBy('song_request_id');
+        $votersCount = $ratings->groupBy('user_id')->count();
         $ranking = $gig->ranking();
 
         if ($ranking->ratings->isEmpty())
@@ -75,7 +72,7 @@ class RatingsController extends Controller
 
         $gig->winner()->associate($winner->songRequest)->save();
 
-        return view('pages.ratings.winner.index', compact(['ranking', 'winner']));
+        return view('pages.ratings.winner.index', compact(['ranking', 'winner', 'ratings', 'votersCount']));
     }
 
     public function store(Request $request, SongRequest $songRequest)

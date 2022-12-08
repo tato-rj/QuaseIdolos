@@ -19,19 +19,20 @@ class LyricsController extends Controller
         return response(200);
     }
 
-    public function search(Request $request)
-    {
-        $input = preg_replace("/(.)\\1+/", "$1", $request->input);
+    // public function search(Request $request)
+    // {
+    //     $input = preg_replace("/(.)\\1+/", "$1", $request->input);
         
-        $songs = Song::search($input)->get();
+    //     $songs = Song::search($input)->get();
 
-        return view('pages.songs.lyrics.table', compact('songs'))->render();
-    }
+    //     return view('pages.songs.lyrics.table', compact('songs'))->render();
+    // }
 
     public function index(Request $request)
     {
         $song = Song::find($request->song_id);
 
+// return $song->lyricsCompact;
         return view('pages.songs.lyrics.index', compact('song'));
     }
 }

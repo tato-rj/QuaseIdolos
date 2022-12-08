@@ -24,9 +24,13 @@ canvas {
 </section>
 
 <section class="container" id="winner-container">
+   @include('pages.ratings.winner.stats')
+
    @include('pages.ratings.winner.trophy', ['animation' => 'tada'])
 
-   @include('pages.ratings.winner.row', ['animation' => 'bounce'])
+   @include('pages.ratings.winner.user', ['animation' => 'bounce'])
+
+   @include('pages.ratings.winner.song')
 
    @include('pages.ratings.winner.message', ['animation' => 'heartBeat'])
 </section>

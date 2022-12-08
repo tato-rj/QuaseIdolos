@@ -26,6 +26,17 @@ class SongRequest extends BaseModel
         return $this->hasMany(Rating::class);
     }
 
+    public function position($complete = false)
+    {
+        $order = $this->order + 1;
+        $suffix = $complete ? ' da fila' : null;
+        
+        if ($order == 1 && $complete)
+            return 'É a sua vez!';
+
+        return '#' . $order . $suffix;
+    }
+
     public function scopeFrom($query, User $user)
     {
         return $query->where('user_id', $user->id);

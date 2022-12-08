@@ -22,24 +22,36 @@ class SongRequestsController extends Controller
         return back()->with('success', 'O seu nome está na lista, vai se preparando!');
     }
 
+    public function update(Request $request, SongRequest $songRequest)
+    {
+        $request->validate(['new_song_id' => 'required|exists:songs,id']);
+
+        $songRequest->update(['song_id' => $request->new_song_id]);
+
+        try {
+            SongRequested::dispatch($songRequest);
+        } catch (\Exception $e) {
+            //
+        }
+        
+        return back()->with('success', 'O seu pedido foi modificado com sucesso');
+    }
+
     public function alert()
     {
-        if (auth()->user()->isAdmin()) {
-            $songRequest = SongRequest::waiting()->first();
+        if (auth()->user()->isAdmin())
+            return;
 
-            if ($songRequest)
-                return view('pages.song-requests.alerts.admin', compact('songRequest'))->render();
-        } else {
-            $songRequest = auth()->user()->songRequests()->forGig(auth()->user()->liveGig())->waiting()->first();
+        $songRequest = auth()->user()->songRequests()->forGig(auth()->user()->liveGig())->waiting()->first();
 
-            if ($songRequest)
-                return view('pages.song-requests.alerts.user', compact('songRequest'))->render();
-        }
+        if ($songRequest)
+            return view('pages.song-requests.alerts.banner', compact('songRequest'))->render();
     }
 
     public function finish(SongRequest $songRequest)
     {
         $songRequest->finish();
+        $songRequest->gig->sortSetlist();
 
         try {
             SongFinished::dispatch($songRequest);
@@ -66,6 +78,7 @@ class SongRequestsController extends Controller
         }
         
         $songRequest->delete();
+        $songRequest->gig->sortSetlist();
 
         return back()->with('success', 'O pedido foi cancelado com sucesso');
     }

@@ -3,6 +3,9 @@
 		@if(auth()->user()->songRequests()->waitingFor($song)->exists())
 			@include('pages.cardapio.components.song.buttons.waiting')
 		@else
+			@if(auth()->user()->songRequests()->waiting()->exists())
+			@include('pages.cardapio.components.song.buttons.change')
+			@endif
 			@include('pages.cardapio.components.song.buttons.sing')
 		@endif
 	@else
@@ -26,7 +29,10 @@
 @admin
 <div class="mt-3">
 	@include('layouts.menu.components.divider')
-	<a href="{{$song->chords_url}}" target="_blank" class="btn btn-outline-secondary text-truncate w-100 mb-3">@fa(['icon' => 'music'])VER ACORDES</a>
-	<a href="{{route('lyrics.index', ['song_id' => $song->id])}}" target="_blank" class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'file'])VER LETRA</a>
+	<div class="d-flex">
+		@include('pages.cardapio.components.song.buttons.admin.chords')
+		@include('pages.cardapio.components.song.buttons.admin.lyrics')
+		@include('pages.cardapio.components.song.buttons.admin.change')
+	</div>
 </div>
 @endadmin

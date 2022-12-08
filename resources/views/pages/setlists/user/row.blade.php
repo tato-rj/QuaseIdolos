@@ -3,10 +3,11 @@
 
 @row
   @slot('column1')
-	<a href="#" data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
-	@include('components.song.user.icons')
-	<div>
-		<a href="{{route('cardapio.index', ['input' => strtolower($song->artist->name)])}}" class="link-secondary">{{$song->artist->name}}</a>
+  <div class="d-flex align-items-center">
+  	@if(! $list->isOver())
+  	<h4 class="mb-0 mr-2 text-secondary text-truncate">{!! $list->position() !!}</h4>
+  	@endif
+		@include('pages.cardapio.results.row.name')
 	</div>
   @endslot
 
