@@ -11,7 +11,7 @@ class CardapioController extends Controller
     {
         if (auth()->check() && ! auth()->user()->liveGig()) {
             if (auth()->user()->tryToJoin(Gig::ready()))
-                session()->flash('modal', 'pages.gigs.join.modal');
+                session()->flash('modal', 'pages.gigs.welcome.modal');
         }
         
         if ($request->has('input')) {
