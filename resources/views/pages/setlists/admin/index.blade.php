@@ -9,7 +9,7 @@
 @endpush
 
 @section('content')
-<section class="container">
+<section class="container mb-3">
 	<div class="text-center">
 		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje'])
 		@if($gig)
