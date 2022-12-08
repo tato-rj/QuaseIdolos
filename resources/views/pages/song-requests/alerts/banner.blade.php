@@ -5,12 +5,12 @@
 	<div class="row">
 		<div class="col-lg-6 col-md-10 col-12 mx-auto py-2">
 			<div class="d-apart px-2">
-				<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center text-truncate">
 					<img src="{{$songRequest->song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 40px; height: 40px">
 
-					<div>
-						<h5 class="text-dark no-stroke mb-0 mr-2">{{$songRequest->song->name}}</h5>
-						<p class="fw-bold m-0 text-dark lh-1"><small>{{$songRequest->song->artist->name}}</small></p>
+					<div class="text-truncate">
+						<h5 class="text-dark no-stroke mb-0 mr-2 text-truncate">{{$songRequest->song->name}}</h5>
+						<p class="fw-bold m-0 text-dark lh-1 text-truncate"><small>{{$songRequest->song->artist->name}}</small></p>
 					</div>
 				</div>
 
