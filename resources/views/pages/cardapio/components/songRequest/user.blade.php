@@ -1,6 +1,9 @@
 <h6 class="text-left mb-4">
 	<div class="d-apart">
-		@include('pages.cardapio.results.row.name', ['song' => $songRequest->song])
+		@include('pages.cardapio.results.row.name', [
+			'song' => $songRequest->song,
+			'truncate' => true
+			])
 
 		<form method="POST" action="{{route('song-requests.update', $songRequest)}}" data-trigger="loader">
 			@csrf
