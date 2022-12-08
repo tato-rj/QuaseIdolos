@@ -41,10 +41,12 @@ class TruncateDB extends Command
         $table = $this->argument('table');
 
         if ($table == 'dev') {
-            if ($this->confirm('This will reset the following tables: '.implode(', ', $this->devTables).'. Tem certeza?')) {
+            if ($this->confirm('This will reset REDIS and the following tables: '.implode(', ', $this->devTables).'. Tem certeza?')) {
                 foreach ($this->devTables as $table) {
                     \DB::table($table)->truncate();
                 }
+
+                \Artisan::call('redis:flush quaseidolos --confirm');
 
                 return $this->info('All dev tables have been cleared');   
             } else {
