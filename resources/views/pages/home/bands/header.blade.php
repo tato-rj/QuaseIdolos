@@ -7,8 +7,10 @@
 				<h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2>
 			</div>
 			@if(auth()->check() && auth()->user()->isAdmin())
+			<div class="d-center flex-column">
 				<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])SETLIST DE HOJE</a>
 				<a href="{{route('cardapio.index')}}" class="btn btn-secondary btn-lg">NOSSO CARDÁPIO</a>
+			</div>
 			@else
 			<div class="d-center flex-column">
 				<a href="{{route('cardapio.index')}}" class="btn btn-secondary btn-lg mb-3">NOSSO CARDÁPIO</a>
