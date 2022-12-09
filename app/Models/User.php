@@ -87,6 +87,11 @@ class User extends Authenticatable
         return $this->gig()->live()->first();
     }
 
+    public function liveGigExists()
+    {
+        return $this->gig()->live()->exists();
+    }
+
     public function join(Gig $gig)
     {
         Participant::by($this)->unconfirmed()->delete();

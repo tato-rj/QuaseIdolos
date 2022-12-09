@@ -1,8 +1,13 @@
 @php($song = $row)
+
 @auth
-@php($songRequests = auth()->user()->isAdmin() ? auth()->user()->liveGig()->setlist()->waiting()->get() : auth()->user()->songRequests()->waiting()->get())
+  @admin
+    @php($songRequests = auth()->user()->liveGigExists() ? auth()->user()->liveGig()->setlist()->waiting()->get() : collect())
+  @else
+    @php($songRequests = auth()->user()->songRequests()->waiting()->get())
+  @endadmin
 @else
-@php($songRequests = collect())
+  @php($songRequests = collect())
 @endauth
 
 @row
