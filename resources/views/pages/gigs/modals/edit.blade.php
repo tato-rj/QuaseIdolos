@@ -36,8 +36,17 @@
 		'options' => ['fullwidth'],
 		'name' => 'scheduled_for'])
 
-		<div class="text-center"> 
-			@submit(['label' => 'Confirmar alterações', 'theme' => 'secondary'])
-		</div>
+	@select([
+		'placeholder' => 'Hora do evento (opcional)',
+		'name' => 'starting_time'])
+
+		@foreach(timeslots(16, 24) as $date => $time)
+		@option(['label' => $time, 'value' => $time, 'name' => 'starting_time', 'selected' => $time == $gig->starting_time])
+		@endforeach
+	@endselect
+	
+	<div class="text-center"> 
+		@submit(['label' => 'Confirmar alterações', 'theme' => 'secondary'])
+	</div>
 </form>
 @endmodal

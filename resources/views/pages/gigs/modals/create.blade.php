@@ -28,6 +28,16 @@
 		'id' => uuid(),
 		'options' => ['fullwidth'],
 		'name' => 'scheduled_for'])
+
+	@select([
+		'placeholder' => 'Hora do evento (opcional)',
+		'name' => 'starting_time'])
+
+		@foreach(timeslots(16, 24) as $date => $time)
+		@option(['label' => $time, 'value' => $time, 'name' => 'starting_time', 'selected' => $time == old('starting_time')])
+		@endforeach
+	@endselect
+	
 	@submit(['label' => 'Criar evento', 'theme' => 'secondary'])
 </form>
 @endmodal

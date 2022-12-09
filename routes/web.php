@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('', 'ViewsController@home')->withoutMiddleware('join-gig')->name('home');
 
+Route::get('a-banda', 'ViewsController@about')->withoutMiddleware('join-gig')->name('about');
+
 Route::get('reservas', 'ViewsController@reservations')->withoutMiddleware('join-gig')->name('reservas');
 
 Route::prefix('auth/{driver}')->withoutMiddleware('join-gig')->group(function() {

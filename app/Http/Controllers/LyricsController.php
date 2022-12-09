@@ -32,7 +32,6 @@ class LyricsController extends Controller
     {
         $song = Song::find($request->id);
 
-
         return view('pages.songs.lyrics.index', compact('song'));
     }
 }

@@ -18,6 +18,11 @@ class ViewsController extends Controller
         return view('pages.home.index', compact(['artists', 'genres', 'songs', 'topUsers']));
     }
 
+    public function about()
+    {
+        return redirect(route('home'));
+    }
+
     public function reservations()
     {
         return view('pages.reservas.index');

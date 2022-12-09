@@ -22,6 +22,7 @@ class GigFactory extends Factory
                 return Venue::factory()->create()->id;
             },
             'scheduled_for' => now(),
+            'starting_time' => '20:30',
             'has_ratings' => true
         ];
     }

@@ -20,6 +20,7 @@ class GigSeeder extends Seeder
             'songs_limit' => 40,
             'songs_limit_per_user' => 2,
             'has_ratings' => true,
+            'starting_time' => '21:00',
             'scheduled_for' => now()->addDays(4),
         ]);
 
@@ -30,6 +31,7 @@ class GigSeeder extends Seeder
             'songs_limit_per_user' => 2,
             'has_ratings' => true,
             'is_live' => true,
+            'starting_time' => '21:30',
             'scheduled_for' => now(),
             'starts_at' => now()
         ]);
@@ -41,6 +43,7 @@ class GigSeeder extends Seeder
             'songs_limit_per_user' => 10,
             'has_ratings' => true,
             'is_live' => true,
+            'starting_time' => '20:00',
             'scheduled_for' => now(),
             'starts_at' => now()
         ]);
@@ -51,6 +54,7 @@ class GigSeeder extends Seeder
             'songs_limit' => 10,
             'songs_limit_per_user' => 2,
             'has_ratings' => true,
+            'starting_time' => '17:00',
             'scheduled_for' => now()->subMonth(),
             'starts_at' => now()->subMonth(),
             'ends_at' => now()->subMonth()->addMinutes(347)
