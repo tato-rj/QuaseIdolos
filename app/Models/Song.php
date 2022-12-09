@@ -65,7 +65,7 @@ class Song extends BaseModel
         $duplicates = array_count_values($array);
 
         $index = 0;
-        $refrain;
+        $refrain = null;
 
         foreach(array_count_values($array) as $paragraph => $count) {
             if ($count > 1) {
