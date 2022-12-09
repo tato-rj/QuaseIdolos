@@ -54,20 +54,22 @@ class Song extends BaseModel
 
     public function getLyricsCompactAttribute()
     {
-        $array = explode("\n\n", $this->lyrics);
+        $paragraphs = explode("\n\n", $this->lyrics);
 
-        if (count($array) <= 1)
-        	$array = explode("\r\n\r\n", $this->lyrics);
+        if (count($paragraphs) <= 1)
+        	$paragraphs = explode("\r\n\r\n", $this->lyrics);
 
-        if (count($array) <= 1)
+        if (count($paragraphs) <= 1)
         	return $this->lyrics;
 
-        $duplicates = array_count_values($array);
+        foreach($paragraphs as $index => $paragraph) {
+            $paragraphs[$index] = str_replace(['(2x)', '(3x)', '.'], '', $paragraph);
+        }
 
         $index = 0;
         $refrain = null;
 
-        foreach(array_count_values($array) as $paragraph => $count) {
+        foreach(array_count_values($paragraphs) as $paragraph => $count) {
             if ($count > 1) {
                 $refrain = $paragraph;
                 break;
@@ -76,12 +78,12 @@ class Song extends BaseModel
             $index += 1;
         }
 
-        foreach($array as $key => $paragraph) {
+        foreach($paragraphs as $key => $paragraph) {
             if ($paragraph == $refrain && $key != $index)
-                $array[$key] = '+ REFRÃO';
+                $paragraphs[$key] = '+ REFRÃO';
         }
 
-        return implode("\n\n", $array);
+        return implode("\n\n", $paragraphs);
     }
 
     public function setlistPosition()

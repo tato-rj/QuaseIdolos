@@ -30,9 +30,9 @@ class LyricsController extends Controller
 
     public function index(Request $request)
     {
-        $song = Song::find($request->song_id);
+        $song = Song::find($request->id);
 
-// return $song->lyricsCompact;
+
         return view('pages.songs.lyrics.index', compact('song'));
     }
 }
