@@ -1,10 +1,10 @@
-@modal(['title' => $gig->name(), 'id' => 'info-gig-'.$gig->id.'-modal'])
+@modal(['title' => 'Mais detalhes', 'id' => 'info-gig-'.$gig->id.'-modal'])
 
 <div class="text-center">
-	<h2 class="mb-4">{{$gig->name()}}</h2>
-	<p>{{$gig->description}}</p>
+	<h2>{{$gig->name()}}</h2>
+	<p class="opacity-8">{{$gig->description()}}</p>
+	<h4 class="text-secondary">{{$gig->dateForHumans}}</h4>
+	<h3>{{$gig->starting_time}}</h3>
 </div>
 
-<h3 class="m-0">Quando?</h3>
-{{-- <h3 class="m-0">{{$gig->scheduled_for->}}</h3> --}}
 @endmodal

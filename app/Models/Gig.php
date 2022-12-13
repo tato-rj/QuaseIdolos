@@ -227,7 +227,10 @@ class Gig extends BaseModel
 
 	public function getDateForHumansAttribute()
 	{
-		return $this->scheduled_for->format('j/n/y');
+		$weekday = weekday($this->scheduled_for->dayOfWeek);
+		$month = month($this->scheduled_for->month);
+
+		return $weekday . ', ' . $this->scheduled_for->day . ' de ' . $month;
 	}
 
 	public function getIsOverAttribute()

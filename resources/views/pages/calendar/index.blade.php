@@ -17,11 +17,18 @@
 </section>
 
 <section class="container mb-4">
-	@table([
-		'empty' => true,
-		'rows' => $gigs,
-		'view' => 'pages.calendar.row'
-	])
+	<div class="row">
+		<div class="col-lg-8 col-md-10 col-11 mx-auto">
+			@foreach($calendar as $day => $gigs)
+			<div class="mb-4">
+				<h6 class="text-secondary">{{$day}}</h6>
+				@foreach($gigs as $gig)
+				@include('pages.calendar.row')
+				@endforeach
+			</div>
+			@endforeach
+		</div>
+	</div>
 </section>
 @endsection
 

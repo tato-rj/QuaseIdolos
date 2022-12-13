@@ -43,9 +43,20 @@ class GigSeeder extends Seeder
             'songs_limit_per_user' => 10,
             'has_ratings' => true,
             'is_live' => true,
+            'is_private' => true,
             'starting_time' => '20:00',
             'scheduled_for' => now(),
             'starts_at' => now()
+        ]);
+
+        Gig::create([
+            'venue_id' => Venue::byName('Big Ben')->id,
+            'creator_id' => Admin::superAdmin()->first()->user->id,
+            'songs_limit' => 30,
+            'songs_limit_per_user' => 1,
+            'has_ratings' => true,
+            'starting_time' => '21:00',
+            'scheduled_for' => now()->addMonth(),
         ]);
 
         Gig::create([

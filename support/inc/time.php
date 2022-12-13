@@ -17,3 +17,17 @@ function timeslots($first_hour = 8, $last_hour = 21, $frequency = 30)
 
 	return $slots;
 }
+
+function month($index)
+{
+	$array = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+	return $array[$index - 1];
+}
+
+function weekday($index)
+{
+	$array = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+
+	return $array[$index];
+}
