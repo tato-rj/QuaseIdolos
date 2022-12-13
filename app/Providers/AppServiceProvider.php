@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\{Paginator, LengthAwarePaginator};
 use Illuminate\Support\Collection;
 
 class AppServiceProvider extends ServiceProvider
@@ -64,6 +64,12 @@ class AppServiceProvider extends ServiceProvider
 
         \Blade::if('admin', function () {
             return auth()->check() && auth()->user()->isAdmin();
+        });
+
+        Collection::macro('paginate', function ($perPage) {
+            $page = Paginator::resolveCurrentPage();
+
+            return new LengthAwarePaginator($this->forPage($page, $perPage), $this->count(), $perPage, null, ['path' => Paginator::resolveCurrentPath()]);
         });
     }
 }

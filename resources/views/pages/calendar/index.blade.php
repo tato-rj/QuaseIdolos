@@ -27,6 +27,7 @@
 				@endforeach
 			</div>
 			@endforeach
+			{{$calendar->links()}}
 		</div>
 	</div>
 </section>
