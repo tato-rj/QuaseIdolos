@@ -1,9 +1,14 @@
-<div class="row mb-2">
-	<div class="col-lg-6 col-md-6 col-12">
-		<h3 class="m-0">{{$gig->name()}}</h3>
+<div class="d-apart mb-2">
+	<div class="text-truncate">
+		<h3 class="m-0 d-flex"><p class="mr-2 mb-0 no-stroke opacity-6">{{$gig->starting_time}}</p><span class="text-truncate">{{$gig->name()}}</span></h3>
 	</div>
-	<div class="col-lg-6 col-md-6 col-12 text-right">
-		<button data-bs-toggle="modal" data-bs-target="#info-gig-{{$gig->id}}-modal" class="btn btn-secondary btn-sm text-nowrap">@fa(['icon' => 'info-circle'])Mais detalhes</button>
+	<div>
+		<div class="d-none d-sm-block">
+			<button data-bs-toggle="modal" data-bs-target="#info-gig-{{$gig->id}}-modal" class="btn btn-secondary btn-sm text-nowrap">@fa(['icon' => 'info-circle'])Mais detalhes</button>
+		</div>
+		<div class="d-block d-sm-none">
+			<button data-bs-toggle="modal" data-bs-target="#info-gig-{{$gig->id}}-modal" class="btn btn-secondary text-nowrap">@fa(['icon' => 'info-circle', 'mr' => 0])</button>
+		</div>
 
 		@include('pages.calendar.info')
 	</div>
