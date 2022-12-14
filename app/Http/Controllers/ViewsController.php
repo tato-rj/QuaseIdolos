@@ -20,7 +20,9 @@ class ViewsController extends Controller
 
     public function about()
     {
-        return redirect(route('home'));
+        $members = User::team()->get();
+
+        return view('pages.about.index', compact('members'));
     }
 
     public function reservations()

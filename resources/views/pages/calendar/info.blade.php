@@ -1,4 +1,4 @@
-@modal(['title' => 'Mais detalhes', 'id' => 'info-gig-'.$gig->id.'-modal'])
+@modal(['id' => 'info-gig-'.$gig->id.'-modal'])
 
 <div class="text-center">
 	<h2>{{$gig->name()}}</h2>

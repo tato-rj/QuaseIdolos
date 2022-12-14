@@ -113,7 +113,9 @@ class User extends Authenticatable
 
     public function scopeTeam($query)
     {
-        return $query->has('admin')->where('id', '!=', auth()->user()->id);
+        $userId = auth()->check() ? auth()->user()->id : null;
+
+        return $query->has('admin')->where('id', '!=', $userId);
     }
 
     public function scopeGuests($query)

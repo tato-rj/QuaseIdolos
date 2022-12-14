@@ -25,7 +25,7 @@ class CardapioController extends Controller
                 $songs = collect();
             }
         }
-        
+
         $artists = Artist::orderby('name')->has('songs')->paginate(24);
         $genres = Genre::orderby('name')->has('songs')->get();
 

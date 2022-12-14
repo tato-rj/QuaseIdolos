@@ -1,6 +1,6 @@
 <div class="d-apart mb-2">
 	<div class="text-truncate">
-		<h3 class="m-0 d-flex"><p class="mr-2 mb-0 no-stroke opacity-6">{{$gig->starting_time}}</p><span class="text-truncate">{{$gig->name()}}</span></h3>
+		<h3 class="m-0 d-flex"><p class="mr-{{$gig->starting_time ? 2 : null}} mb-0 no-stroke opacity-6">{{$gig->starting_time}}</p><span class="text-truncate">{{$gig->name()}}</span></h3>
 	</div>
 	<div>
 		<div class="d-none d-sm-block">
