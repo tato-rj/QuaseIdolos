@@ -27,7 +27,9 @@
 <script type="text/javascript" src="{{asset('js/vendor/jquery.jscroll.min.js')}}"></script>
 <script type="text/javascript">
 $('ul.pagination').hide();
-$(function() {
+
+function enableScroll()
+{
     $('.artists-container').jscroll({
     	loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
         autoTrigger: true,
@@ -49,13 +51,16 @@ $(function() {
             $('ul.pagination').parent().remove();
         }
     });
-});
+}
+
+enableScroll();
 </script>
 <script type="text/javascript">
 function clearResults()
 {
 	$('#results').html('');
 	url([]);
+	enableScroll();
 }
 
 function showResults(data)
