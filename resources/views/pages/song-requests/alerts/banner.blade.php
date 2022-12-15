@@ -14,10 +14,14 @@
 					</div>
 				</div>
 
-				<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$songRequest->id}}-modal" class="btn btn-red">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
+				<div class="d-flex">
+					<button data-bs-toggle="modal" data-bs-target="#song-requests-change-{{$songRequest->id}}-modal" class="btn btn-secondary mr-2">@fa(['icon' => 'exchange-alt', 'mr' => 0])</button>
+					<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$songRequest->id}}-modal" class="btn btn-red">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 @include('pages.song-requests.modals.cancel', ['entry' => $songRequest])
+@include('pages.song-requests.modals.change', ['entry' => $songRequest])

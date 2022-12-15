@@ -14,6 +14,8 @@
 </div>
 
 @auth
+@isset($songRequests)
 @include('pages.cardapio.components.song.changeRequest')
+@endisset
 @endauth
 @endmodal

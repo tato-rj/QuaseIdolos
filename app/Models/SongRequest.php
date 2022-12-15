@@ -29,9 +29,6 @@ class SongRequest extends BaseModel
     public function position($complete = false)
     {
         $suffix = $complete ? ' da fila' : null;
-        
-        if (! $complete)
-            return '#' . $this->order + 1;
 
         if ($this->order == 0)
             return 'É a sua vez!';

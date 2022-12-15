@@ -3,7 +3,7 @@
 		@if(auth()->user()->songRequests()->waitingFor($song)->exists())
 			@include('pages.cardapio.components.song.buttons.waiting')
 		@else
-			@if(auth()->user()->songRequests()->waiting()->exists())
+			@if(auth()->user()->songRequests()->waiting()->exists() && isset($songRequests))
 			@include('pages.cardapio.components.song.buttons.change')
 			@endif
 			@include('pages.cardapio.components.song.buttons.sing')

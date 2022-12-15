@@ -6,21 +6,26 @@
 @endpush
 
 @section('content')
-<section class="container">
-	@pagetitle(['title' => 'Nosso cardápio', 'highlight' => 'musical'])
-	@include('pages.cardapio.search', ['url' => route('cardapio.search')])
-</section>
+<div id="cardapio">
+	<section class="container">
+		@pagetitle(['title' => 'Nosso cardápio', 'highlight' => 'musical'])
+		<div class="row"> 
+			<div class="col-lg-5 col-md-8 col-12 mx-auto d-flex">
+				@include('pages.cardapio.search', ['url' => route('cardapio.search'), 'id' => 'cardapio'])
+			</div>
+		</div>
+	</section>
 
-<section class="container-fluid">
-	@include('pages.cardapio.genres')
+	<section class="container-fluid">
+		@include('pages.cardapio.genres')
 
-	@include('pages.cardapio.artists', ['withlinks' => true])
-</section>
+		@include('pages.cardapio.artists', ['withlinks' => true])
+	</section>
 
-<section id="results" class="container">
-	@include('pages.cardapio.results.table')
-</section>
-
+	<section class="container results-container">
+		@include('pages.cardapio.results.table')
+	</section>
+</div>
 @endsection
 
 @push('scripts')
@@ -28,77 +33,7 @@
 <script type="text/javascript">
 $('ul.pagination').hide();
 
-function enableScroll()
-{
-    $('.artists-container').jscroll({
-    	loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
-        autoTrigger: true,
-        padding: 0,
-        nextSelector: '.pagination li.active + li a',
-        contentSelector: '.artists-container',
-        callback: function() {
-            $('ul.pagination').parent().remove();
-        }
-    });
-
-    $('.results-container').jscroll({
-    	loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
-        autoTrigger: true,
-        padding: 0,
-        nextSelector: '.pagination li.active + li a',
-        contentSelector: '.results-container',
-        callback: function() {
-            $('ul.pagination').parent().remove();
-        }
-    });
-}
-
 enableScroll();
-</script>
-<script type="text/javascript">
-function clearResults()
-{
-	$('#results').html('');
-	url([]);
-	enableScroll();
-}
-
-function showResults(data)
-{
-	$('.artists-container').hide();
-	$('#results').html(data);
-}
-
-function search(url, input)
-{
-	axios.get(url, { params: { input: input } })
-		 .then(function(response) {
-		 	showResults(response.data);
-		 })
-		 .catch(function(error) {
-			alert('Try again...');
-		});
-}
-
-$(document).ready(function() {
-	$('input[name="search"]').keyup(function() {
-		let input = $(this).val();
-		url(['input', input]);
-
-		if (input.length == 0) {
-			clearResults();
-			$('.artists-container').show();
-		} else if (input.length >= 3) {
-			search($(this).data('url'), input);
-		}
-	});
-});
-
-$(document).on('click', '#clear-results', function() {
-	clearResults();
-	$('input[name="search"]').val('');
-	$('.artists-container').show();
-});
 </script>
 <script type="text/javascript">
 $(document).on('click', 'button[name="change-song"]', function() {

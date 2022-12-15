@@ -173,6 +173,82 @@ a {
         <script src="{{mix('js/vendor/datepicker-pt-BR.js')}}"></script>
 
 <script type="text/javascript">
+function enableScroll()
+{
+    $('.artists-container').jscroll({
+        loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
+        autoTrigger: true,
+        padding: 0,
+        nextSelector: '.pagination li.active + li a',
+        contentSelector: '.artists-container',
+        callback: function() {
+            $('ul.pagination').parent().remove();
+        }
+    });
+
+    $('.results-container').jscroll({
+        loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
+        autoTrigger: true,
+        padding: 0,
+        nextSelector: '.pagination li.active + li a',
+        contentSelector: '.results-container',
+        callback: function() {
+            $('ul.pagination').parent().remove();
+        }
+    });
+}
+
+function clearResults()
+{
+    $('.results-container').html('');
+    $('input[name="search"]').val('');
+    url([]);
+    enableScroll();
+}
+
+function showResults(targetId, data)
+{
+    $(targetId).find('.artists-container').hide();
+    $(targetId).find('.results-container').html(data);
+}
+
+function search(targetId, url, table, input)
+{
+    axios.get(url, { params: { input: input, table: table } })
+         .then(function(response) {
+            showResults(targetId, response.data);
+         })
+         .catch(function(error) {
+            alert('Try again...');
+        });
+}
+
+$(document).ready(function() {
+    $(document).on('keyup', 'input[name="search"]', function() {
+        let input = $(this).val();
+        url(['input', input]);
+
+        if (input.length == 0) {
+            clearResults();
+            $('.artists-container').show();
+        } else if (input.length >= 3) {
+            search($(this).data('target'), $(this).data('url'), $(this).data('table'), input);
+        }
+    });
+});
+
+$(document).on('click', '#clear-results', function() {
+    clearResults();
+    
+    $('.artists-container').show();
+});
+
+$(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
+  clearResults();
+})
+</script>
+
+<script type="text/javascript">
 var sortable, sorting;
 
 if (app.user && app.gig) {
