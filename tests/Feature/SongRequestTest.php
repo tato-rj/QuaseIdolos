@@ -66,6 +66,22 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
+    public function users_cannot_change_a_song_to_another_they_had_already_chosen_before()
+    {
+        $this->expectException('\App\Exceptions\SetlistException');
+
+        $this->signIn();
+
+        $songOne = Song::factory()->create();
+        $songTwo = Song::factory()->create();
+
+        $this->post(route('song-requests.store', $songOne));
+        $this->post(route('song-requests.store', $songTwo));
+
+        $this->patch(route('song-requests.update', auth()->user()->songRequests->first()), ['new_song_id' => $songTwo->id]);
+    }
+
+    /** @test */
     public function admins_can_mark_a_song_request_as_finished()
     {
         $this->signIn($this->admin);

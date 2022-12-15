@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{Song, SongRequest};
 use App\Events\{SongRequested, SongFinished, SongCancelled};
-use App\Http\Requests\SongRequestForm;
+use App\Http\Requests\{SongRequestForm, ChangeSongRequestForm};
 
 class SongRequestsController extends Controller
 {
@@ -22,7 +22,7 @@ class SongRequestsController extends Controller
         return back()->with('success', 'O seu nome está na lista, vai se preparando!');
     }
 
-    public function update(Request $request, SongRequest $songRequest)
+    public function update(Request $request, SongRequest $songRequest, ChangeSongRequestForm $form)
     {
         $request->validate(['new_song_id' => 'required|exists:songs,id']);
 
