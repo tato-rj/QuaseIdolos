@@ -28,13 +28,12 @@ class SongRequest extends BaseModel
 
     public function position($complete = false)
     {
-        $order = $this->order + 1;
         $suffix = $complete ? ' da fila' : null;
         
-        if ($order == 1 && $complete)
-            return 'É a sua vez!';
+        if ($this->order == 0)
+            return $complete ? 'É a sua vez!' : 'Cantando';
 
-        return '#' . $order . $suffix;
+        return '#' . $this->order . $suffix;
     }
 
     public function scopeFrom($query, User $user)
