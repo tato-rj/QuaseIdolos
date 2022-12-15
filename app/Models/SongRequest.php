@@ -30,8 +30,11 @@ class SongRequest extends BaseModel
     {
         $suffix = $complete ? ' da fila' : null;
         
+        if (! $complete)
+            return '#' . $this->order + 1;
+
         if ($this->order == 0)
-            return $complete ? 'É a sua vez!' : '#' . $this->order + 1;
+            return 'É a sua vez!';
 
         return '#' . $this->order . $suffix;
     }
