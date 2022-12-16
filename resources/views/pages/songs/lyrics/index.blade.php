@@ -66,7 +66,7 @@ $.fn.isInViewport = function() {
 var elementTop = $(this).offset().top;
 var elementBottom = elementTop + $(this).outerHeight();
 var viewportBottom = $(window).height();
-return elementBottom < viewportBottom - 80;
+return elementBottom < viewportBottom - 50;
 };
 
 function adjustFontsize(id)
