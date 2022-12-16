@@ -177,6 +177,8 @@ a {
 <script type="text/javascript">
 function enableScroll()
 {
+    $('ul.pagination').parent().hide();
+
     $('.artists-container').jscroll({
         loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
         autoTrigger: true,
@@ -220,6 +222,7 @@ function search(targetId, url, table, input)
     axios.get(url, { params: { input: input, table: table } })
          .then(function(response) {
             showResults(targetId, response.data);
+            enableScroll();
          })
          .catch(function(error) {
             alert('Try again...');

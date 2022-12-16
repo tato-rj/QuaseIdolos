@@ -42,7 +42,7 @@ class CardapioController extends Controller
         if (auth()->check())
             auth()->user()->tryToJoin(Gig::ready());
         
-        $songs = Song::search($request->input)->alphabetically()->paginate(12);
+        $songs = Song::search($request->input)->alphabetically()->paginate(2);
         $table = $request->table ?? 'pages.cardapio.results.table';
         $songRequestId = $request->song_request_id;
 
