@@ -15,12 +15,12 @@ class CardapioController extends Controller
         }
         
         if ($request->has('input')) {
-            $songs = Song::search($request->input)->alphabetically()->paginate(12);
+            $songs = Song::search($request->input)->alphabetically()->paginate(2);
         } else {
             if (Artist::bySlug($request->artista)->exists()) {
-                $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate(12);
+                $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate(2);
             } elseif (Genre::bySlug($request->estilo)->exists()) {
-                $songs = Genre::bySlug($request->estilo)->first()->songs()->alphabetically()->paginate(12);
+                $songs = Genre::bySlug($request->estilo)->first()->songs()->alphabetically()->paginate(2);
             } else {
                 $songs = collect();
             }
