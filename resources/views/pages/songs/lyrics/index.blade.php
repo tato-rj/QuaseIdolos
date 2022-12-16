@@ -66,7 +66,7 @@ $.fn.isInViewport = function() {
 var elementTop = $(this).offset().top;
 var elementBottom = elementTop + $(this).outerHeight();
 var viewportBottom = $(window).height();
-return elementBottom < viewportBottom - 50;
+return elementBottom < viewportBottom - 100;
 };
 
 function adjustFontsize(id)
@@ -88,7 +88,7 @@ function adjustFontsize(id)
 }
 
 $(document).ready(function() {
-	// adjustFontsize('#lyrics');
+	adjustFontsize('#lyrics');
 });
 
 var resizeTimer;
