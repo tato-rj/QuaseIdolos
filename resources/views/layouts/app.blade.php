@@ -202,7 +202,8 @@ function enableScroll()
 
 function clearResults()
 {
-    $('.results-container').html('');
+    $('#results').html('');
+    $('#change-results').html('');
     $('input[name="search"]').val('');
     url([]);
     enableScroll();
@@ -210,8 +211,8 @@ function clearResults()
 
 function showResults(targetId, data)
 {
-    $(targetId).find('.artists-container').hide();
-    $(targetId).find('.results-container').html(data);
+    $(targetId).parent().find('.artists-container').hide();
+    $(targetId).html(data);
 }
 
 function search(targetId, url, table, input)

@@ -6,12 +6,12 @@
 @endpush
 
 @section('content')
-<div id="cardapio">
+<div>
 	<section class="container">
 		@pagetitle(['title' => 'Nosso cardápio', 'highlight' => 'musical'])
 		<div class="row"> 
 			<div class="col-lg-5 col-md-8 col-12 mx-auto d-flex">
-				@include('pages.cardapio.search', ['url' => route('cardapio.search'), 'id' => 'cardapio'])
+				@include('pages.cardapio.search', ['url' => route('cardapio.search'), 'target' => 'results'])
 			</div>
 		</div>
 	</section>
