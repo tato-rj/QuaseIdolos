@@ -46,6 +46,6 @@ class CardapioController extends Controller
         $table = $request->table ?? 'pages.cardapio.results.table';
         $songRequestId = $request->song_request_id;
 
-        // return view($table, compact(['songs', 'songRequestId']))->render();
+        return view($table, compact(['songs', 'songRequestId']))->render();
     }
 }
