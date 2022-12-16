@@ -5,6 +5,7 @@
 			@include('pages.cardapio.search', [
 				'url' => route('cardapio.search', ['song_request_id' => $entry->id]), 
 				'table' => 'pages.song-requests.change.table',
+				'paginate' => false,
 				'target' => 'change-results'])
 		</div>
 	</div>

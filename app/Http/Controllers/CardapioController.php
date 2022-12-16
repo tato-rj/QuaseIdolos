@@ -8,6 +8,7 @@ use App\Models\{Artist, Song, Genre, Gig};
 class CardapioController extends Controller
 {
     protected $songsPerPage = 12;
+    protected $artistsPerPage = 24;
 
     public function index(Request $request)
     {
@@ -28,7 +29,7 @@ class CardapioController extends Controller
             }
         }
 
-        $artists = Artist::orderby('name')->has('songs')->paginate(24);
+        $artists = Artist::orderby('name')->has('songs')->paginate($this->artistsPerPage);
         $genres = Genre::orderby('name')->has('songs')->get();
 
         return view('pages.cardapio.index', compact(['artists', 'songs', 'genres']));
@@ -44,7 +45,8 @@ class CardapioController extends Controller
         if (auth()->check())
             auth()->user()->tryToJoin(Gig::ready());
         
-        $songs = Song::search($request->input)->alphabetically()->paginate($this->songsPerPage);
+        $query = Song::search($request->input)->alphabetically();
+        $songs = $request->paginate ? $query->paginate($this->songsPerPage) : $query->get();
         $table = $request->table ?? 'pages.cardapio.results.table';
         $songRequestId = $request->song_request_id;
 

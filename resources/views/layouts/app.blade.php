@@ -194,6 +194,7 @@ function enableScroll()
         loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
         autoTrigger: true,
         padding: 0,
+        debug: true,
         nextSelector: '.pagination li.active + li a',
         contentSelector: '.results-container',
         callback: function() {
@@ -207,8 +208,9 @@ function clearResults()
     $('#results').html('');
     $('#change-results').html('');
     $('input[name="search"]').val('');
+    $('.artists-container').show();
     url([]);
-    enableScroll();
+    // enableScroll();
 }
 
 function showResults(targetId, data)
@@ -217,9 +219,10 @@ function showResults(targetId, data)
     $(targetId).html(data);
 }
 
-function search(targetId, url, table, input)
+function search(targetId, url, table, paginate, input)
 {
-    axios.get(url, { params: { input: input, table: table } })
+    log({paginate: paginate});
+    axios.get(url, { params: { input: input, table: table, paginate: paginate } })
          .then(function(response) {
             showResults(targetId, response.data);
             enableScroll();
@@ -238,20 +241,18 @@ $(document).ready(function() {
             clearResults();
             $('.artists-container').show();
         } else if (input.length >= 3) {
-            search($(this).data('target'), $(this).data('url'), $(this).data('table'), input);
+            search($(this).data('target'), $(this).data('url'), $(this).data('table'), $(this).data('paginate'), input);
         }
     });
 });
 
 $(document).on('click', '#clear-results', function() {
     clearResults();
-    
-    $('.artists-container').show();
 });
 
 $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
   clearResults();
-})
+});
 </script>
 
 <script type="text/javascript">

@@ -11,7 +11,10 @@
 		@pagetitle(['title' => 'Nosso cardápio', 'highlight' => 'musical'])
 		<div class="row"> 
 			<div class="col-lg-5 col-md-8 col-12 mx-auto d-flex">
-				@include('pages.cardapio.search', ['url' => route('cardapio.search'), 'target' => 'results'])
+				@include('pages.cardapio.search', [
+					'url' => route('cardapio.search'), 
+					'paginate' => true,
+					'target' => 'results'])
 			</div>
 		</div>
 	</section>
