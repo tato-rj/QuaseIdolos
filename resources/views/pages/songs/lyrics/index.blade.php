@@ -72,17 +72,20 @@ return elementBottom < viewportBottom - 100;
 function adjustFontsize(id)
 {
 	let $element = $(id);
-	let isOverflowing = ! $element.isInViewport();
 
-	if (isOverflowing) {
-		while (! $element.isInViewport()) {
-			let fontsize = parseInt($element.css('font-size'));
-			$element.css({'font-size': fontsize - 1});
-		}
-	} else {
-		while ($element.isInViewport()) {
-			let fontsize = parseInt($element.css('font-size'));
-			$element.css({'font-size': fontsize + 1});
+	if ($element.text().length) {
+		let isOverflowing = ! $element.isInViewport();
+
+		if (isOverflowing) {
+			while (! $element.isInViewport()) {
+				let fontsize = parseInt($element.css('font-size'));
+				$element.css({'font-size': fontsize - 1});
+			}
+		} else {
+			while ($element.isInViewport()) {
+				let fontsize = parseInt($element.css('font-size'));
+				$element.css({'font-size': fontsize + 1});
+			}
 		}
 	}
 }
