@@ -101,7 +101,7 @@ $(window).on('resize', function(e) {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(function() {
 
-    // adjustFontsize('#lyrics');
+    adjustFontsize('#lyrics');
             
   }, 250);
 
