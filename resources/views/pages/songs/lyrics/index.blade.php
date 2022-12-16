@@ -66,7 +66,7 @@ $.fn.isInViewport = function() {
 var elementTop = $(this).offset().top;
 var elementBottom = elementTop + $(this).outerHeight();
 var viewportBottom = $(window).height();
-return elementBottom < viewportBottom - 100;
+return elementBottom < viewportBottom - 80;
 };
 
 function adjustFontsize(id)
@@ -84,7 +84,7 @@ function adjustFontsize(id)
 		} else {
 			while ($element.isInViewport()) {
 				let fontsize = parseInt($element.css('font-size'));
-				$element.css({'font-size': fontsize + 4});
+				$element.css({'font-size': fontsize + 1});
 			}
 		}
 	}
