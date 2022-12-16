@@ -43,9 +43,9 @@ class CardapioController extends Controller
             auth()->user()->tryToJoin(Gig::ready());
         
         $songs = Song::search($request->input)->alphabetically()->paginate(12);
-        $table = $request->table ?? 'pages.cardapio.results.rowk';
+        $table = $request->table ?? 'pages.cardapio.results.table';
         $songRequestId = $request->song_request_id;
 
-        return view($table, compact(['songs', 'songRequestId']))->render();
+        // return view($table, compact(['songs', 'songRequestId']))->render();
     }
 }
