@@ -211,7 +211,7 @@ function clearResults()
 function showResults(targetId, data)
 {
     $(targetId).find('.artists-container').hide();
-    $(targetId).find('.results-container').html(data);
+    $(targetId).find('.results-container').first().html(data);
 }
 
 function search(targetId, url, table, input)
