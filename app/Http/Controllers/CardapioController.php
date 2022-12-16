@@ -7,6 +7,8 @@ use App\Models\{Artist, Song, Genre, Gig};
 
 class CardapioController extends Controller
 {
+    protected $songsPerPage = 12;
+
     public function index(Request $request)
     {
         if (auth()->check() && ! auth()->user()->liveGig()) {
@@ -15,12 +17,12 @@ class CardapioController extends Controller
         }
         
         if ($request->has('input')) {
-            $songs = Song::search($request->input)->alphabetically()->paginate(2);
+            $songs = Song::search($request->input)->alphabetically()->paginate($this->songsPerPage);
         } else {
             if (Artist::bySlug($request->artista)->exists()) {
-                $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate(2);
+                $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate($this->songsPerPage);
             } elseif (Genre::bySlug($request->estilo)->exists()) {
-                $songs = Genre::bySlug($request->estilo)->first()->songs()->alphabetically()->paginate(2);
+                $songs = Genre::bySlug($request->estilo)->first()->songs()->alphabetically()->paginate($this->songsPerPage);
             } else {
                 $songs = collect();
             }
@@ -42,7 +44,7 @@ class CardapioController extends Controller
         if (auth()->check())
             auth()->user()->tryToJoin(Gig::ready());
         
-        $songs = Song::search($request->input)->alphabetically()->paginate(2);
+        $songs = Song::search($request->input)->alphabetically()->paginate($this->songsPerPage);
         $table = $request->table ?? 'pages.cardapio.results.table';
         $songRequestId = $request->song_request_id;
 
