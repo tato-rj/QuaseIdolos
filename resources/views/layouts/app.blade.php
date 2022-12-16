@@ -140,7 +140,9 @@ a {
     </head>
     <body class="bg-primary">
             @auth
+            @unless(isset($raw))
             @include('pages.gigs.banner')
+            @endunless
             @endauth
         <div class="position-relative">
             @unless(isset($raw))

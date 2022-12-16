@@ -9,7 +9,7 @@
       @csrf
       @method('PATCH')
       <input type="hidden" name="new_song_id" value="{{$song->id}}">
-      <button type="submit" class="btn btn-secondary">TROCAR</button>
+      <button type="submit" class="btn btn-secondary btn-sm">TROCAR</button>
     </form>
   @endslot
 @endrow

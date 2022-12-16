@@ -125,7 +125,7 @@ Route::middleware('admin')->group(function() {
         Route::post('{songRequest}/confirmar', 'SongRequestsController@finish')->name('finish');
     });
 
-    Route::prefix('letra')->name('lyrics.')->group(function() {
+    Route::prefix('letra')->withoutMiddleware('join-gig')->name('lyrics.')->group(function() {
         Route::get('', 'LyricsController@index')->name('index');
 
         Route::get('busca', 'LyricsController@search')->name('search');

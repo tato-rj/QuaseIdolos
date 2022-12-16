@@ -8,6 +8,7 @@ class Artist extends BaseModel
 {
     use Searchable, FindBySlug;
 
+    protected $appends = ['image'];
     protected $withCount = ['songs'];
 
     public function songs()
@@ -18,6 +19,11 @@ class Artist extends BaseModel
     public function coverImage()
     {
         return asset('storage/' . $this->image_path);
+    }
+
+    public function getImageAttribute()
+    {
+        return $this->coverImage();
     }
 
     public function scopeByName($query, $name)
