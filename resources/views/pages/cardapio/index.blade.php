@@ -22,7 +22,7 @@
 		@include('pages.cardapio.artists', ['withlinks' => true])
 	</section>
 
-	<section class="container results-container">
+	<section id="results" class="container">
 		@include('pages.cardapio.results.table')
 	</section>
 </div>
