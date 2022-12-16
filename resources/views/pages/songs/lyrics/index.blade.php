@@ -79,12 +79,12 @@ function adjustFontsize(id)
 		if (isOverflowing) {
 			while (! $element.isInViewport()) {
 				let fontsize = parseInt($element.css('font-size'));
-				$element.css({'font-size': fontsize - 2});
+				$element.css({'font-size': fontsize - 1});
 			}
 		} else {
 			while ($element.isInViewport()) {
 				let fontsize = parseInt($element.css('font-size'));
-				$element.css({'font-size': fontsize + 2});
+				$element.css({'font-size': fontsize + 4});
 			}
 		}
 	}
