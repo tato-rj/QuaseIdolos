@@ -1,11 +1,11 @@
 <div class="draggable mb-3" data-id="{{$entry->id}}">
 	<div class="rounded border-secondary event-box py-3 px-2 row">
 		<div class="col-lg-8 col-12 d-flex justify-content-between">
-			<div class="">
+			<div class="text-truncate">
 				<h2 class="no-stroke text-primary font-cursive">{{$entry->user->firstName}}</h2>
 				<div class="d-flex align-items-center">
 					<img src="{{$entry->song->artist->coverImage()}}" class="rounded-circle mr-3" style="width: 56px">
-					<div>
+					<div class="text-truncate">
 						<h4 class="text-dark no-stroke m-0 text-truncate">{{$entry->song->name}}</h4>
 						<p class="text-dark no-stroke m-0 text-truncate fw-bold">{{$entry->song->artist->name}}</p>
 					</div>
