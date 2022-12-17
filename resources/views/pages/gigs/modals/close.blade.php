@@ -8,7 +8,7 @@
 	@if($participants || $requests)
 	<div class="text-left bg-white px-4 py-3 rounded mb-4">
 		@if($participants)
-		<p class="text-warning">@fa(['icon' => 'exclamation-circle']){{$participants}} @choice('pessoa|pessoas', $participants) participando</p>
+		<p class="text-warning m-0">@fa(['icon' => 'exclamation-circle']){{$participants}} @choice('pessoa|pessoas', $participants) participando</p>
 		@endif
 
 		@if($requests)
