@@ -14,8 +14,8 @@
 
       @modal(['title' => 'Tem certeza?','id' => 'confirm-winner-modal'])
          <div class="rounded bg-white p-3 mb-4 text-left text-primary">
-            <h6 class="no-stroke">Ao continuar a votação desse evento será encerrada.</h6>
-            <h6 class="no-stroke m-0">Pode continuar?</h6>
+            <h6 class="text-red no-stroke">Ao continuar a votação desse evento será encerrada.</h6>
+            <h6 class="text-dark no-stroke m-0">Pode continuar?</h6>
          </div>
          <a href="{{route('ratings.winner')}}" class="btn btn-secondary">Sim, ver ganhador</a>
       @endmodal
