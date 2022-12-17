@@ -15,11 +15,11 @@
 			<div class="d-flex">
 				@if($entry->ratings()->exists())
 				<div class="mr-2">
-					<button data-bs-toggle="modal" data-bs-target="#ratings-{{$entry->id}}-modal" class="btn-raw bg-secondary rounded-circle d-center" style="width: 48px; height: 48px;">@fa(['icon' => 'star', 'mr' => 0])</button>
+					<button data-bs-toggle="modal" data-bs-target="#ratings-{{$entry->id}}-modal" class="btn-raw bg-secondary rounded-circle d-center" style="width: 32px; height: 32px;">@fa(['icon' => 'star', 'mr' => 0, 'fa_size' => 'sm'])</button>
 				</div>
 				@endif
 				<div>
-					@fa(['icon' => 'check-circle', 'fa_color' => 'green', 'fa_size' => '3x', 'mr' => 0])
+					@fa(['icon' => 'check-circle', 'fa_color' => 'green', 'fa_size' => '2x', 'mr' => 0])
 				</div>
 			</div>
 		</div>
