@@ -42,10 +42,10 @@ class SongRequestsController extends Controller
         if (auth()->user()->isAdmin())
             return;
 
-        $songRequest = auth()->user()->songRequests()->forGig(auth()->user()->liveGig())->waiting()->first();
+        $songRequests = auth()->user()->songRequests()->forGig(auth()->user()->liveGig())->waiting()->get();
 
-        if ($songRequest)
-            return view('pages.song-requests.alerts.banner', compact('songRequest'))->render();
+        if (! $songRequests->isEmpty())
+            return view('pages.setlists.user.banner.index', compact('songRequests'))->render();
     }
 
     public function finish(SongRequest $songRequest)

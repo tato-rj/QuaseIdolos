@@ -16,7 +16,7 @@ class VenuesController extends Controller
 
     public function show(Venue $venue)
     {
-        $gigs = $venue->gigsNotToday()->orderBy('scheduled_for', 'DESC')->paginate(8);
+        $gigs = $venue->gigsNotToday()->orderBy('scheduled_for')->paginate(8);
 
         return view('pages.venues.show.index', compact(['gigs', 'venue']));
     }

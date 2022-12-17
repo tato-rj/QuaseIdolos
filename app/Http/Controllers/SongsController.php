@@ -49,31 +49,9 @@ class SongsController extends Controller
 
     public function search(Request $request)
     {
-        $songs = Song::search($request->input)->orderBy('name')->get();
+        $songs = Song::search($request->input)->orderBy('name')->paginate(12);
 
         return view('pages.songs.results', compact('songs'))->render();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Song  $song
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Song $song)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Song  $song
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Song $song)
-    {
-        //
     }
 
     /**

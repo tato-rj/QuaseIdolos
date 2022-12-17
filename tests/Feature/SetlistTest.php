@@ -105,4 +105,54 @@ class SetlistTest extends AppTest
         
         $this->post(route('song-requests.store', Song::factory()->create()));
     }
+
+    /** @test */
+    public function when_a_request_is_completed_the_order_of_the_rest_of_the_list_is_updated()
+    {
+        $this->signIn();
+
+        auth()->user()->join($this->gig);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $firstRequest = SongRequest::find(1);
+        $secondRequest = SongRequest::find(2);
+
+        $this->signIn($this->admin);
+
+        $this->assertEquals(1, $secondRequest->order);
+
+        $this->post(route('song-requests.finish', $firstRequest));
+
+        $this->assertEquals(0, $secondRequest->fresh()->order);
+    }
+
+    /** @test */
+    public function when_a_request_is_cancelled_the_order_of_the_rest_of_the_list_is_updated()
+    {
+        $this->signIn();
+
+        auth()->user()->join($this->gig);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $firstRequest = SongRequest::find(1);
+        $secondRequest = SongRequest::find(2);
+
+        $this->signIn($this->admin);
+
+        $this->assertEquals(1, $secondRequest->order);
+
+        $this->delete(route('song-requests.cancel', $firstRequest));
+
+        $this->assertEquals(0, $secondRequest->fresh()->order);
+    }
 }

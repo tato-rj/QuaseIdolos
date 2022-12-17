@@ -29,32 +29,6 @@
 		'view' => 'pages.venues.show.row'
 	])
 </section>
-
-{{-- <section class="mb-5">
-	<div class="container">
-		<h4>Eventos</h4>
-	</div>
-	@if($gigs->isEmpty())
-	@include('components.empty')
-	@endif
-
-	@table
-	@slot('header')
-		@unless($gigs->isEmpty())
-			@include('pages.venues.table.header')
-		@endif
-	@endslot
-
-	@slot('rows')
-		@foreach($gigs as $gig)
-		@include('pages.venues.table.row')
-		@endforeach
-	@endslot
-
-	@endtable
-
-	{{$gigs->links()}}
-</section> --}}
 @endsection
 
 @push('scripts')

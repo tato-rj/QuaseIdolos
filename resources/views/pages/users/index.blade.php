@@ -10,7 +10,10 @@
 <section class="container ">
 	<div class="text-center mb-4">
 		@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'cantores'])
-		@include('pages.users.search')
+		@searchbar([
+			'name' => 'search_user',
+			'placeholder' => 'Procure por usuário',
+			'url' => route('users.search')])
 	</div>
 
 	<div id="users-container">
@@ -26,7 +29,7 @@
 
 @push('scripts')
 <script type="text/javascript">
-$('input[name="search"]').keyup(function() {
+$('input[name="search_user"]').keyup(function() {
 	let input = $(this).val();
 
 	if (input.length > 0 && input.length < 3)

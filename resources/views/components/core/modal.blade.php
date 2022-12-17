@@ -1,4 +1,4 @@
-<div class="modal fade {{$class ?? null}}-modal {{iftrue($autoshow ?? null, 'modal-autoshow')}}" id="{{$id}}">
+<div class="modal fade {{$class ?? null}}-modal {{iftrue($autoshow ?? null, 'modal-autoshow')}}" id="{{$id}}" style="white-space: initial;">
   <div class="modal-dialog modal-{{$size ?? null}}">
     <div class="modal-content bg-primary rounded">
 

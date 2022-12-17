@@ -37,8 +37,7 @@
 
 <section class="mb-5 container">
 	@table([
-		'title' => 'Outras datas',
-		'legend' => 'contratante|contratantes',
+		'title' => 'Outros eventos',
 		'rows' => $venues,
 		'view' => 'pages.gigs.rows.venue'
 	])

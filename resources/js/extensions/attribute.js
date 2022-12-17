@@ -3,6 +3,15 @@ jQuery.fn.hasAttr = function(attr) {
 	return typeof value !== 'undefined' && value !== false;
 };
 
+jQuery.fn.toggleIcon = function(stateA, stateB) {
+	this.find('i').toggleClass('fa-'+stateA+' fa-'+stateB);
+	return this;
+};
+
+jQuery.fn.icon = function() {
+	return this.find('i');
+};
+
 jQuery.fn.animateCSS = function(animation, speed = 'slow') {
 	let element = this;
 

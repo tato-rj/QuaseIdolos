@@ -13,7 +13,7 @@
 	@endif
 @else
 	@if($gigCount)
-	@include('pages.cardapio.components.song.buttons.sing')
+		@include('pages.cardapio.components.song.buttons.sing')
 	@else
 		@include('pages.cardapio.components.song.buttons.closed')
 	@endif

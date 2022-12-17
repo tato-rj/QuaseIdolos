@@ -1,7 +1,7 @@
 @php($song = $row)
 @row
   @slot('column1')
-  @include('pages.cardapio.results.row.name')
+  @include('pages.cardapio.results.row.name', ['truncate' => true])
   @endslot
 
   @slot('actions')

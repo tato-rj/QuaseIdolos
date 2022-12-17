@@ -17,12 +17,14 @@ class SongSeeder extends Seeder
     {
         foreach (Artist::all() as $artist) {
                 for ($i=0; $i < rand(6,40); $i++) { 
-                        Song::create([
+                        Song::firstOrCreate([
                                 'artist_id' => $artist->id,
-                                'genre_id' => Genre::inRandomOrder()->first()->id,
                                 'name' => (new LoremIpsum)->wordsBetween(2,3),
+                        ], [
+                                'genre_id' => Genre::inRandomOrder()->first()->id,
                                 'duration' => rand(2,6),
-                                'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24)]);
+                                'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24)
+                        ]);
                 }
 
         }

@@ -173,8 +173,9 @@ a {
         <script src="{{ mix('js/app.js') }}"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
         <script src="{{mix('js/vendor/datepicker-pt-BR.js')}}"></script>
-
+        <script type="text/javascript" src="{{asset('js/vendor/jquery.jscroll.min.js')}}"></script>
 <script type="text/javascript">
+
 function enableScroll()
 {
     $('ul.pagination').parent().hide();
@@ -203,14 +204,18 @@ function enableScroll()
     });
 }
 
-function clearResults()
+function clearResults(container = null)
 {
-    $('#results').html('');
-    $('#change-results').html('');
-    $('input[name="search"]').val('');
-    $('.artists-container').show();
+    if (container) {
+        $(container).html('');
+    } else {
+        $('#results').html('');
+        $('#change-results').html('');
+        $('.artists-container').show();
+    }
+
     url([]);
-    // enableScroll();
+    $('input[name="search"]').val('');
 }
 
 function showResults(targetId, data)
@@ -221,14 +226,13 @@ function showResults(targetId, data)
 
 function search(targetId, url, table, paginate, input)
 {
-    log({paginate: paginate});
     axios.get(url, { params: { input: input, table: table, paginate: paginate } })
          .then(function(response) {
             showResults(targetId, response.data);
             enableScroll();
          })
          .catch(function(error) {
-            alert('Try again...');
+            log(error);
         });
 }
 
@@ -251,7 +255,7 @@ $(document).on('click', '#clear-results', function() {
 });
 
 $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
-  clearResults();
+  clearResults('#change-results');
 });
 </script>
 
@@ -444,6 +448,17 @@ $(document).on('click', 'button[data-fontsize]', function() {
             $lyrics.css({'font-size': newSize});
         }
     }
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $(document).on('click', '#toggle-waiting-list', function() {
+        let $btn = $(this);
+        $($btn.data('target')).slideToggle('fast', function() {
+            $btn.toggleIcon('chevron-up', 'chevron-down');
+        });
+    });
 });
 </script>
 

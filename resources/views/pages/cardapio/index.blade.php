@@ -9,14 +9,12 @@
 <div>
 	<section class="container">
 		@pagetitle(['title' => 'Nosso cardápio', 'highlight' => 'musical'])
-		<div class="row"> 
-			<div class="col-lg-5 col-md-8 col-12 mx-auto d-flex">
-				@include('pages.cardapio.search', [
-					'url' => route('cardapio.search'), 
-					'paginate' => true,
-					'target' => 'results'])
-			</div>
-		</div>
+
+		@searchbar([
+			'url' => route('cardapio.search'),
+			'paginate' => true,
+			'placeholder' => 'Procure por artista, música ou estilo',
+			'target' => 'results'])
 	</section>
 
 	<section class="container-fluid">
@@ -32,7 +30,6 @@
 @endsection
 
 @push('scripts')
-<script type="text/javascript" src="{{asset('js/vendor/jquery.jscroll.min.js')}}"></script>
 <script type="text/javascript">
 $('ul.pagination').hide();
 

@@ -10,7 +10,10 @@
 <section class="container ">
 	<div class="text-center mb-4">
 		@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'artistas'])
-		@include('pages.artists.search')
+		@searchbar([
+			'name' => 'search_artist',
+			'placeholder' => 'Procure por artista',
+			'url' => route('artists.search')])
 		@create(['name' => 'artist', 'label' => 'Novo artista', 'folder' => 'artists'])
 	</div>
 
@@ -28,7 +31,7 @@
 
 @push('scripts')
 <script type="text/javascript">
-$('input[name="search"]').keyup(function() {
+$('input[name="search_artist"]').keyup(function() {
 	let input = $(this).val();
 
 	if (input.length > 0 && input.length < 3)
