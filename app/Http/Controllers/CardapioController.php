@@ -42,8 +42,8 @@ class CardapioController extends Controller
 
     public function search(Request $request)
     {
-        if (auth()->check())
-            auth()->user()->tryToJoin(Gig::ready());
+        // if (auth()->check())
+            // auth()->user()->tryToJoin(Gig::ready());
         
         $query = Song::search($request->input)->alphabetically();
         $songs = $request->paginate ? $query->paginate($this->songsPerPage) : $query->get();
