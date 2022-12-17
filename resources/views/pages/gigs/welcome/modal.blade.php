@@ -14,9 +14,11 @@
 			@endforeach
 		</div>
 		
+		@php($count = 1)
 		@foreach($gig->rules() as $rule)
 		@if($rule)
 		@include('pages.gigs.welcome.rule')
+		@php($count += 1)
 		@endif
 		@endforeach
 	</div>
