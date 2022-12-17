@@ -61,7 +61,7 @@ class RatingsController extends Controller
         $ratings = $gig->ratings->reverse()->groupBy('song_request_id');
         $votersCount = $ratings->groupBy('user_id')->count();
         $ranking = $gig->ranking();
-return $ranking;
+return $ratings;
         if ($ranking->ratings->isEmpty())
             return back()->with('error', 'Esse evento ainda não tem nenhum voto');
 
