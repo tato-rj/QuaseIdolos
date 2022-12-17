@@ -13,7 +13,6 @@
       <button data-bs-toggle="modal" data-bs-target="#confirm-winner-modal" class="btn btn-secondary mx-auto mb-4">Ver ganhador</button>
 
       @modal(['title' => 'Tem certeza?','id' => 'confirm-winner-modal'])
-         <h2 class="text-center no-stroke text-secondary">@fa(['icon' => 'exclamation-circle', 'mr' => 0])</h2>
          <div class="rounded bg-white p-3 mb-4 text-left text-primary">
             <h6 class="no-stroke">Ao continuar a votação desse evento será encerrada.</h6>
             <h6 class="no-stroke m-0">Pode continuar?</h6>
