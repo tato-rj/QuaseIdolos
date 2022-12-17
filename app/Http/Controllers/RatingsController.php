@@ -59,7 +59,7 @@ class RatingsController extends Controller
     {
         $gig = auth()->user()->liveGig();
         $ratings = $gig->ratings->reverse()->groupBy('song_request_id');
-        $votersCount = $ratings->groupBy('user_id')->count();
+        $votersCount = $gig->ratings->groupBy('user_id')->count();
         $ranking = $gig->ranking();
 
         if ($ranking->ratings->isEmpty())
