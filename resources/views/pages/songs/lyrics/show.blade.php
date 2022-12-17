@@ -17,6 +17,11 @@
 				<button class="btn-raw px-1 text-secondary" data-fontsize="increase" data-target="#lyrics" style="font-size: 1.5rem">A</button>
 			</div>
 		</div> --}}
+		<div id="lyrics-overlay" class="h-100">
+			<div class="w-100 h-100 d-center">
+			  <img src="{{asset('images/brand/logo_sm.svg')}}" alt="" style="width: 220px;">
+			</div>
+		</div>
 		<p id="lyrics" class="p-2 m-0" style="white-space: pre-wrap; font-size: 22px; letter-spacing: 1px; column-count: 3;">{{$song ? $song->lyrics : null}}</p>
 	</div>
 
