@@ -226,10 +226,11 @@ function showResults(targetId, data)
 
 function search(targetId, url, table, paginate, input)
 {
+    log(url);
     axios.get(url, { params: { input: input, table: table, paginate: paginate } })
          .then(function(response) {
-            // showResults(targetId, response.data);
-            // enableScroll();
+            showResults(targetId, response.data);
+            enableScroll();
          })
          .catch(function(error) {
             log(error);
