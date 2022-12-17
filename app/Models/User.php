@@ -107,7 +107,7 @@ class User extends Authenticatable
 
     public function tryToJoin($gigs)
     {
-        if($gigs->count() == 1 && $gigs->first()->isLive())
+        if($gigs->count() == 1 && $gigs->first()->isLive() && ! $this->liveGig())
             return $this->join($gigs->first());
     }
 
