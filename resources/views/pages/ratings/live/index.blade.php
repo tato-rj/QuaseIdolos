@@ -43,7 +43,7 @@ function getRanking()
 {
     axios.get("{{ route('ratings.votes') }}", {params: {timer: "{{$timer}}"}})
          .then(function(response) {
-            log(response.data == $('#ranking-container').html());
+            log($(response.data) == $('#ranking-container').html());
             $('#ranking-container').html(response.data);
             counter();
          })
