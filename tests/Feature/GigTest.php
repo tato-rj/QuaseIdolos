@@ -38,15 +38,39 @@ class GigTest extends AppTest
 
         $this->signIn();
 
-        $this->get(route('home'));
+        $this->get(route('setlists.user'));
 
         $this->assertFalse(auth()->user()->gig()->exists());
 
         Gig::factory()->count(2)->create();
 
-        $this->get(route('home'));
+        $this->get(route('setlists.user'));
 
         $this->assertFalse(auth()->user()->gig()->exists());
+    }
+
+    /** @test */
+    public function users_do_not_join_a_gig_automatically_if_they_are_already_in_one()
+    {
+        Gig::truncate();
+
+        $this->signIn();
+
+        $this->get(route('cardapio.search'));
+
+        $this->assertFalse(auth()->user()->gig()->exists());
+
+        $gig = Gig::factory()->live()->create();
+
+        auth()->user()->join($gig);
+
+        SongRequest::factory()->create(['user_id' => auth()->user(), 'gig_id' => $gig]);
+
+        $this->assertTrue(auth()->user()->songRequests()->exists());
+
+        $this->get(route('cardapio.search'));
+
+        $this->assertTrue(auth()->user()->songRequests()->exists());
     }
 
     /** @test */

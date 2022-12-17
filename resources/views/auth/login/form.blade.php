@@ -22,7 +22,7 @@
 				</small>
 				<small class="text-nowrap">
 					<div class="form-group">
-						<a href="#" class="link-none label">Esqueceu a senha?</a>
+						<a href="{{route('password.request')}}" class="link-none label">Esqueceu a senha?</a>
 					</div>
 				</small>
 			</div>
@@ -34,7 +34,7 @@
 	@include('auth.social')
 
 	<div class="text-center">
-		<h6 class="opacity-08">Ainda não tem a sua conta?</h6>
+		<h6 class="opacity-08">Ainda não tem um cadastro?</h6>
 		<h6>
 			<a href="{{route('register')}}" class="link-secondary label">Vamos começar!</a>
 		</h6>

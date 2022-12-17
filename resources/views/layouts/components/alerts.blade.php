@@ -1,8 +1,8 @@
-@if($message = session('success'))
+@if(session('success') || session('status'))
 @alert([
     'color' => 'green',
     'headline' => 'Show',
-    'message' => $message,
+    'message' => session('success') ?? session('status'),
     'dismissible' => true,
     'countdown' => 4,
     'pos' => 'top',

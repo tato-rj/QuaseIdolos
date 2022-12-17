@@ -27,6 +27,8 @@
 		@include('pages.cardapio.results.table')
 	</section>
 </div>
+
+@include('components.scrolltop')
 @endsection
 
 @push('scripts')
@@ -39,6 +41,24 @@ enableScroll();
 $(document).on('click', 'button[name="change-song"]', function() {
 	$($(this).data('target-hide')).toggle();
 	$($(this).data('target-show')).toggle();
+});
+</script>
+<script type="text/javascript">
+$(window).scroll(function(){
+    if ($(this).scrollTop() > $(this).height()){
+       $('#scroll-top').fadeIn('fast');
+    }
+    else{
+       $('#scroll-top').fadeOut('fast');
+    }
+});
+
+$('#scroll-top button').click(function() {
+	window.scroll({
+		top: 0, 
+		left: 0, 
+		behavior: 'smooth'
+	});
 });
 </script>
 @endpush
