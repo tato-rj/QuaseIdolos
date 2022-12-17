@@ -7,12 +7,14 @@
 
 	@if($participants || $requests)
 	<div class="text-left bg-white px-4 py-3 rounded mb-4">
-		<p class="text-danger mb-1"><strong>@fa(['icon' => 'exclamation-circle'])Esse evento ainda tem</strong></p>
 		@if($participants)
-		<p class="text-dark m-0">{{$participants}} @choice('pessoa|pessoas', $participants) participando</p>
+		<p class="text-warning m-0">@fa(['icon' => 'exclamation-circle']){{$participants}} @choice('pessoa|pessoas', $participants) participando</p>
 		@endif
+
 		@if($requests)
-		<p class="text-dark m-0">{{$requests}} @choice('pedido|pedidos', $requests) na lista de espera</p>
+		<p class="text-red m-0">@fa(['icon' => 'exclamation-circle']){{$requests}} @choice('pedido|pedidos', $requests) na lista de espera</p>
+		@else
+		<p class="text-green m-0">@fa(['icon' => 'check-circle'])A lista de espera do setlist está vazia</p>
 		@endif
 	</div>
 	@endif
