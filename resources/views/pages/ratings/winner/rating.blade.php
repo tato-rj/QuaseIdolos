@@ -1,4 +1,4 @@
-   <div class="row mb-4">
+   <div class="row mb-5">
       <div class="col-lg-9 col-md-10 col-12 mx-auto animate__animated animate__slower animate__{{$animation}} animate__repeat-3" style="display: none">
          <div class="rating w-100 bg-white rounded-pill p-3">
             <div class="d-apart">

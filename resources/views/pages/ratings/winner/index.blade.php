@@ -28,7 +28,7 @@ canvas {
 
    @include('pages.ratings.winner.trophy', ['animation' => 'tada'])
 
-   @include('pages.ratings.winner.user', ['animation' => 'bounce'])
+   @include('pages.ratings.winner.rating', ['animation' => 'bounce'])
 
    @include('pages.ratings.winner.song')
 
