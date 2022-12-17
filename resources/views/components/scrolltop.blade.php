@@ -1,7 +1,7 @@
-<div id="scroll-top" class="position-fixed" style="bottom: 20px; right: 20px; display: none;">
+<div id="scroll-top" class="position-fixed x-auto" style="top: 20px; display: none;">
 	<div class="d-block d-sm-none">
-	<button class="btn-raw bg-secondary rounded-circle d-center opacity-8" style="width: 80px; height: 80px;">
-		@fa(['icon' => 'chevron-up', 'mr' => 0, 'fa_size' => '2x'])
+	<button class="btn btn-sm btn-secondary opacity-8">
+		@fa(['icon' => 'chevron-up'])voltar ao topo
 	</button>
 	</div>
 </div>
