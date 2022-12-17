@@ -10,13 +10,13 @@
 	</div>
 
 	<div id="lyrics-container" class="rounded p-3 bg-transparent" style="flex: 1; overflow-y: hidden;">
-		<div class="d-apart">
+{{-- 		<div class="d-apart">
 			<label class="opacity-6 p-2 m-0">LETRA</label>
 			<div class="d-flex align-items-baseline">
 				<button class="btn-raw px-1 text-secondary" data-fontsize="decrease" data-target="#lyrics" style="font-size: 0.9rem">A</button>
 				<button class="btn-raw px-1 text-secondary" data-fontsize="increase" data-target="#lyrics" style="font-size: 1.5rem">A</button>
 			</div>
-		</div>
+		</div> --}}
 		<p id="lyrics" class="p-2 m-0" style="white-space: pre-wrap; font-size: 22px; letter-spacing: 1px; column-count: 3;">{{$song ? $song->lyrics : null}}</p>
 	</div>
 
