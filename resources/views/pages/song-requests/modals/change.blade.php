@@ -6,9 +6,9 @@
 		'table' => 'pages.song-requests.change.table',
 		'placeholder' => 'Procure por artista, música ou estilo',
 		'paginate' => false,
-		'target' => 'change-results'])
+		'target' => 'change-results-'.$entry->id])
 
 
-	<div id="change-results" class="container"></div>
+	<div id="change-results-{{$entry->id}}" class="container"></div>
 
 @endmodal
