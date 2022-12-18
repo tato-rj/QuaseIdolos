@@ -19,7 +19,7 @@
     <label class="mb-3">Total de {{$total}} @choice($legend, $total)</label>
   </div>
   @endisset
-  <div style="overflow-x: scroll;">
+  
     <div class="results-container">
     <table class="table table-borderless table-container mb-0">
       @isset($headers)
@@ -41,6 +41,5 @@
     {{ $rows->appends(array_filter(request()->all()))->links() }}
     @endif
   </div>
-</div>
 </div>
 @endif
