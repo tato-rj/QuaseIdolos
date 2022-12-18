@@ -1,11 +1,24 @@
-<tr class="text-white table-row">
-	@for($i=1;$i<=5;$i++)
-	@isset(${'column'.$i})
-	<td class="align-middle text-truncate p-3"><h6 class="m-0">{!!${'column'.$i}!!}</h6></td>
-	@endisset
-	@endfor
+@php($columns = collect())
+@for($i=1;$i<=5;$i++)
+@isset(${'column'.$i})
+@php($columns->push('column'.$i))
+@endisset
+@endfor
+
+<div class="text-white striped-row d-flex">
+
+	@foreach($columns as $column)
+	<div class="align-middle p-3 text-truncate {{$columns->count() == 1 ? 'flex-grow-1' : 'col'}}">
+		<h6 class="m-0 table-cell">{!!${$column}!!}</h6>
+	</div>
+	@endforeach
 
 	@isset($actions)
-	<td class="text-right align-middle p-3 text-truncate">{!!$actions!!}</td>
+	<div class="col text-right align-middle p-3">
+		<div class="text-truncate">
+			{!!$actions!!}
+		</div>
+	</div>
 	@endisset
-</tr>
+
+</div>

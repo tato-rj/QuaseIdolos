@@ -78,11 +78,17 @@ a {
     font-weight: bold;
 }
 
-.table-row:nth-of-type(odd) {
+.table-cell *:not(img, .no-truncate) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.striped-row:nth-of-type(odd) {
    background: rgba(0,0,0,0.08);
  }
 
-.table-row:hover {
+.striped-row:hover {
     background: rgba(0,0,0,0.1) !important;
 }
 

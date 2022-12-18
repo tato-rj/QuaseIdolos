@@ -5,7 +5,7 @@
   @slot('column1')
   <div class="d-flex align-items-center">
   	@if(! $list->isOver())
-  	<h4 class="mb-0 mr-2 text-secondary text-truncate">{!! $list->position() !!}</h4>
+  	<h4 class="mb-0 mr-2 text-secondary no-truncate">{!! $list->position() !!}</h4>
   	@endif
 		@include('pages.cardapio.results.row.name')
 	</div>
