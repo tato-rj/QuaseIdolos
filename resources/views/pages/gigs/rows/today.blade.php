@@ -9,7 +9,6 @@
 			</form>
 			<a href="{{route('gig.edit', $gig)}}" class="link-secondary fw-bold d-block">{{$gig->name()}}</a>
 		</div>
-		<div class="d-md-none m-0">{{$gig->dateInContext}}</div>
   @endslot
 
   @slot('column2')

@@ -1,4 +1,14 @@
 @modal(['title' => 'Editar evento', 'id' => 'edit-gig-'.$gig->id.'-modal'])
+@isset($pausable)
+<div class="d-flex justify-content-between align-items-end mb-3">
+	<h6 class="m-0">{!! $gig->status !!}</h6>
+	<button class="pause-switch btn btn-sm btn-secondary" data-url="{{route('gig.pause', $gig)}}">
+	  @fa(['icon' => $gig->is_paused ? 'play' : 'pause', 'mr' => 0])
+	</button>
+</div>
+@divider
+@endisset
+
 <form method="POST" action="{{route('gig.update', $gig)}}" class="text-left">
 	@csrf
 	@method('PATCH')
@@ -12,6 +22,8 @@
 		@option(['label' => $venue->name, 'value' => $venue->id, 'name' => 'venue_id', 'selected' => $venue->id == $gig->venue_id])
 		@endforeach
 	@endselect
+	@else
+	<input type="hidden" name="venue_id" value="{{$gig->venue->id}}">
 	@endisset
 	
 	@input(['label' => 'Nome', 'placeholder' => $gig->venue->name, 'name' => 'name', 'value' => $gig->name])

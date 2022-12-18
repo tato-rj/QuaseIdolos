@@ -328,6 +328,10 @@ function getEventTable(newOrder = null)
     }
 }
 
+function disableDraggable() {
+    sortable.option("disabled", true);
+}
+
 function enableDraggable() {
     sorting = false;
 
@@ -345,7 +349,7 @@ function enableDraggable() {
 
         onEnd: function (e) {
             if (sorting)
-                sortable.option("disabled", true);
+                disableDraggable();
 
             let newOrder = [];
 

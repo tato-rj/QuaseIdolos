@@ -14,9 +14,10 @@
 		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje'])
 		@if($gig)
 		<a class="btn btn-secondary mb-4" target="_blank" href="{{route('lyrics.index')}}">Ver as letras</a>
-		<a href="" data-bs-toggle="modal" data-bs-target="#gig-{{$gig->id}}-modal" class="link-secondary"><h3>@fa(['icon' => 'clipboard-list']){{$gig->venue->name}}</h3></a>
 
-		@include('pages.setlists.admin.info')
+		<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h3>@fa(['icon' => 'clipboard-list'])Editar evento</h3></a>
+
+		@include('pages.gigs.modals.edit', ['pausable' => true])
 		@else
 		<h5>Não tem nenhum evento acontecendo agora</h5>
 		@endif
@@ -51,27 +52,6 @@ $(document).on('click', 'button.show-lyrics', function() {
 
 </script>
 <script type="text/javascript">
-$('input[name="is_live"]').change(function() {
-	let $switch = $(this);
-	let state = $switch.prop('checked');
-
-	axios.post($(this).data('url'))
-		 .then(function(response) {
-		 	log('here');
-		 	(new Popup(response.data)).show();
-		 	let $pauseSwitch = $switch.closest('.gig-controls').find('.pause-switch');
-
-		 	$pauseSwitch.toggleClass('d-none');
-
-		 	if (! state)
-		 		$pauseSwitch.find('i').removeClass('fa-play').addClass('fa-pause');
-		 })
-		 .catch(function(error) {
-		 	$switch.prop('checked', ! state);
-		 	alert(error.response.data.message);
-		 });
-});
-
 $('.pause-switch').click(function() {
 	let $button = $(this);
 	let $icon = $button.find('i');
@@ -84,6 +64,15 @@ $('.pause-switch').click(function() {
 		 .catch(function(error) {
 		 	alert(error.response.data.message);
 		 });
+});
+</script>
+<script type="text/javascript">
+$(document).on('hidden.bs.modal', '.modal', function (e) {
+  enableDraggable();
+});
+
+$(document).on('show.bs.modal', '.modal', function (e) {
+  disableDraggable();
 });
 </script>
 @endpush
