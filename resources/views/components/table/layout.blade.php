@@ -20,8 +20,7 @@
   </div>
   @endisset
   
-    <div class="results-container">
-      <div class="table-responsive">
+    <div class="results-container" style="overflow-x: scroll;">
     <table class="table table-borderless table-container mb-0">
       @isset($headers)
       <thead>
@@ -38,7 +37,6 @@
         @endforeach
       </tbody>
     </table>
-  </div>
     @if($hasPagination)
     {{ $rows->appends(array_filter(request()->all()))->links() }}
     @endif
