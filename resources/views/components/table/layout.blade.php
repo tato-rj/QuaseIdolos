@@ -20,7 +20,7 @@
   </div>
   @endisset
   
-    <div class="results-container table-responsive">
+    <div class="results-container">
     <table class="table table-borderless table-container mb-0">
       @isset($headers)
       <thead>
