@@ -3,11 +3,13 @@
     @isset($headers)
     @include('components.table.headers')
     @endisset
+
     <div>
       @foreach($rows as $row)
         @include($view)
       @endforeach
     </div>
+    
   </div>
 
   @if($hasPagination)
