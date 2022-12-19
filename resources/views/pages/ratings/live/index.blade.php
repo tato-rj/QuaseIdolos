@@ -31,7 +31,6 @@
 @push('scripts')
 <script type="text/javascript">
 let seconds = {{$timer}};
-let votesCount = 0;
 
 if (app.gig) {
 	getRanking();
@@ -44,7 +43,6 @@ function getRanking()
     axios.get("{{ route('ratings.votes') }}", {params: {timer: "{{$timer}}"}})
          .then(function(response) {
             $('#ranking-container').html(response.data);
-            countVotes();
             counter();
          })
          .catch(function(error) {
@@ -61,14 +59,6 @@ function counter()
       $('#counter').text(seconds + 's');
       seconds -= 1;
    }
-}
-
-function countVotes()
-{
-   if ($('.rating').length > votesCount)
-      $('.rating').first().parent().addClass('animate__bounce');
-   
-   votesCount = $('.rating').length;
 }
 </script>
 @endpush

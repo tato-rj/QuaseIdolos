@@ -1,7 +1,7 @@
 @php($songRequest = $list->first()->songRequest)
 @php($user = $songRequest->user)
 @php($song = $songRequest->song)
-<div class="col-lg-4 col-md-6 col-12 d-flex mb-3 animate__animated animate__slower">
+<div class="col-lg-4 col-md-6 col-12 d-flex mb-3">
 	<div class="rating w-100 bg-white rounded-pill p-3">
 		<div class="d-apart">
 			<div class="d-flex align-items-center mr-1" style="width: 50%">
