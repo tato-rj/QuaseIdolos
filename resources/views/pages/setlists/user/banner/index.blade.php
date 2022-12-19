@@ -1,4 +1,4 @@
-<div class="position-fixed bottom-0 left-0 w-100" style="background: rgba(255,255,255,0.8);">
+<div class="position-fixed bottom-0 left-0 w-100 animate__animated animate__fadeInUp" style="background: rgba(255,255,255,0.8);">
 	<div class="bg-secondary p-1 text-center">
 		<h6 class="m-0 text-red no-stroke"><small>{!! $songRequests->first()->position(true) !!}</small></h6>
 	</div>
