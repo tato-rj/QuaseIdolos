@@ -1,6 +1,6 @@
 @php($gig = $row)
 
-@row
+@row(['optional' => [2,3]])
   @slot('column1')
 		<div class="d-flex align-items-center">
 			<form method="POST" action="{{route('gig.duplicate', $gig)}}">

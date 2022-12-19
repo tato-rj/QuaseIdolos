@@ -8,7 +8,7 @@
 <div class="text-white striped-row d-flex align-items-center">
 
 	@foreach($columns as $column)
-	<div class="align-middle p-3 text-truncate {{$loop->iteration > 2 ? 'd-none d-md-block' : null}} {{$columns->count() == 1 ? 'flex-grow-1' : 'col'}}">
+	<div class="align-middle p-3 text-truncate {{in_array($loop->iteration, $optional ?? []) ? 'd-none d-md-block' : null}} {{$columns->count() == 1 ? 'flex-grow-1' : 'col'}}">
 		<h6 class="m-0 table-cell">{!!${$column}!!}</h6>
 	</div>
 	@endforeach

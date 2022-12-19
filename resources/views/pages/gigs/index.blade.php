@@ -20,6 +20,7 @@
 		'empty' => true,
 		'headers' => ['Contratante', 'Data', 'Músicas', 'Status', ''],
 		'legend' => 'evento|eventos',
+		'optional' => [2,3],
 		'rows' => $today,
 		'view' => 'pages.gigs.rows.today'
 	])

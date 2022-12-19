@@ -20,8 +20,7 @@
 		'DATA' => $winner->dateForHumans,
 		'RANKING' => '1° Lugar',
 		'PARTICIPANTES' => $ranking->votersCount . ' cantores',
-		'VOTOS RECEBIDOS' => $ranking->ratings->first()->count . ' votos',
-		'PONTUAÇÃO MÉDIA' => $ranking->ratings->first()->average . ' pontos',
+		'VOTOS RECEBIDOS' => $ranking->ratings->first()->count . ' votos'
 	]
 ])
 
