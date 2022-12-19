@@ -5,7 +5,7 @@
 @endisset
 @endfor
 
-<div class="text-white striped-row d-flex">
+<div class="text-white striped-row d-flex align-items-center">
 
 	@foreach($columns as $column)
 	<div class="align-middle p-3 text-truncate {{$loop->iteration > 2 ? 'd-none d-md-block' : null}} {{$columns->count() == 1 ? 'flex-grow-1' : 'col'}}">
