@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\Users\{WelcomeEmail, WinnerEmail};
-use App\Models\SongRequest;
+use App\Voting\Ranking;
 
 class MailController extends Controller
 {
@@ -30,8 +30,8 @@ class MailController extends Controller
 
     public function winnerEmail()
     {
-        $winner = SongRequest::factory()->make();
+        $ranking = (new Ranking)->mock()->create();
 
-        return new WinnerEmail($winner);
+        return new WinnerEmail($ranking);
     }
 }

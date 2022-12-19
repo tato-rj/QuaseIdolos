@@ -6,22 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\SongRequest;
+use App\Models\Rating;
+use Illuminate\Support\Collection;
 
 class WinnerEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $winner;
+    public $winner, $ranking;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(SongRequest $winner)
+    public function __construct(Collection $ranking)
     {
-        $this->winner = $winner;
+        $this->ranking = $ranking;
+        $this->winner = $ranking->ratings->first()->songRequest;
     }
 
     /**

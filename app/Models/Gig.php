@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Traits\{Rateable, Archiveable};
+use App\Voting\{Ranking, Rules};
 
 class Gig extends BaseModel
 {
 	use Rateable, Archiveable;
 
-	protected $globalRules = ['Proibido subir com bebida no palco'];
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for'];
 	protected $casts = [
 		'is_live' => 'boolean',
@@ -99,60 +99,12 @@ class Gig extends BaseModel
     	if (! $this->participatesInRatings())
     		return null;
     	
-    	$results = collect();
-
-        $collection = $this->ratings;
-
-        $uniqueVotes = $this->ratings->groupBy('user_id');
-
-        $results->totalCount = $collection->count();
-
-        $results->votersCount = $uniqueVotes->count();
-
-        $ratings = collect();
-
-        $collection->groupBy('song_request_id')->map(function($item, $index) use ($ratings) {
-        	$entry = collect();
-            $entry->songRequest = $item->first()->songRequest;
-            $entry->average = $item->first()->songRequest->score(true);
-            $entry->count = $item->count();
-
-            $ratings->push($entry);
-        });
-
-        $results->ratings = $ratings->sortByDesc('average')->values();
-
-        $results->winner = $ratings->first() ? $ratings->first()->songRequest : null;
-
-        return $results;
+    	return (new Ranking)->getVotes($this->ratings)->create();
     }
 
     public function rules($global = false)
     {
-    	if ($global)
-    		return collect($this->globalRules);
-    	
-    	$voting = $this->participatesInRatings() ? 
-    		'Este evento está aberto pra votação' : 
-    		'Este evento não está aberto pra votação';
-		
-		$userLimit = $this->songs_limit_per_user ? 'Limite de '.$this->songs_limit_per_user. ' ' . trans_choice('plurais.música', $this->songs_limit_per_user) . ' por pessoa' : null;
-
-		$songsLimit = $this->songs_limit ? 'Limite total de '.$this->songs_limit. ' ' . trans_choice('plurais.música', $this->songs_limit) : null;
-
-		$repetitionUser = 'Ninguém pode cantar a mesma música mais de uma vez';
-
-		if ($this->repeat_limit == 0) {
-			$repetitionLimit = 'Uma música não pode ser escolhida mais de uma vez no programa';
-		} else if ($this->repeat_limit == 1) {
-			$repetitionLimit = 'Uma música só pode ser repetida até 1 vez no programa';
-		} else {
-			$repetitionLimit = 'Uma música só pode ser repetida até '.$this->repeat_limit.' vezes no programa';
-		}
-
-		return collect([
-			$voting, $userLimit, $songsLimit, $repetitionUser, $repetitionLimit
-		]);
+    	return (new Rules($this))->isGlobal($global)->create();
     }
 
 	public function duplicate()

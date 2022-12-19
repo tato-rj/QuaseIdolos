@@ -10,7 +10,7 @@ body *:not(html):not(style):not(br):not(tr):not(code) {
 
 body {
     -webkit-text-size-adjust: none;
-    background-color: #ffffff;
+    background-color: #f7f7f7;
     height: 100%;
     line-height: 1.4;
     margin: 0;
@@ -37,7 +37,7 @@ a img {
 /* Typography */
 
 h1 {
-    color: #3d4852;
+    color: #000;
     font-size: 18px;
     margin-top: 0;
     text-align: left;
@@ -77,7 +77,7 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: white;
+    background-color: #f7f7f7;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -95,7 +95,7 @@ img {
 /* Header */
 
 .header {
-    padding: 25px 0 0 0;
+    padding: 25px 0 20px 0;
     text-align: center;
 }
 
@@ -242,7 +242,7 @@ img {
     border-color: #b32743;
     border-radius: 2rem !important;
     padding-top: .5rem !important;
-    padding-bottom: .5rem !important;
+    padding-bottom: .4rem !important;
     padding-right: 1.5rem !important;
     padding-left: 1.5rem !important;
 }
@@ -272,14 +272,19 @@ img {
     margin: 21px 0;
 }
 
+.panel-secondary {
+    background-color: #fdf5d8 !important;
+    border-color: #f2cd3d !important;
+}
+
 .panel-content {
-    background-color: white;
-    color: #718096;
+/*    background-color: white;*/
+/*    color: #718096;*/
     padding: 16px;
 }
 
 .panel-content p {
-    color: #718096;
+/*    color: #718096;*/
 }
 
 .panel-item {
@@ -335,6 +340,12 @@ body, p, h1, h2, h3, h4, h5, h5, button, .button {
     display: flex !important;
 }
 
+.d-apart {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .d-center {
     display: flex !important;
     justify-content: center !important;
@@ -357,6 +368,19 @@ body, p, h1, h2, h3, h4, h5, h5, button, .button {
     background: #fdf5d8!important;
 }
 
+.border-bottom {
+    border-bottom: 1px solid;
+}
+
+.border-light {
+    border-color: rgba(0,0,0,0.2) !important;
+}
+
+.border-bottom-dotted {
+    border-bottom-style: dotted !important;
+    border-bottom-width: 8px !important;
+}
+
 .border-secondary {
     border-color: #f2cd3d!important;
 }
@@ -368,6 +392,14 @@ body, p, h1, h2, h3, h4, h5, h5, button, .button {
 
 .m-0 {
     margin: 0 !important;
+}
+
+.m-1 {
+    margin: 0.25rem !important;
+}
+
+.m-2 {
+    margin: 0.5rem !important;
 }
 
 .mb-1 {
@@ -476,4 +508,27 @@ body, p, h1, h2, h3, h4, h5, h5, button, .button {
 .py-4 {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
+}
+
+.link-none {
+    text-decoration: none;
+}
+
+.heading {
+    text-align: center;
+    font-size: 1.5rem;
+    padding-bottom: 6px;
+}
+
+.opacity-6 {
+    opacity: .6;
+}
+
+.lh-1 {
+    line-height: 1;
+}
+
+.list-table {
+    border-left: #2d3748 solid 4px;
+    margin: 21px 0;
 }

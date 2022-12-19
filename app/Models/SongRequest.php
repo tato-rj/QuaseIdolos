@@ -69,6 +69,14 @@ class SongRequest extends BaseModel
         });
     }
 
+    public function getDateForHumansAttribute()
+    {
+        $weekday = weekday($this->created_at->dayOfWeek);
+        $month = month($this->created_at->month);
+
+        return $weekday . ', ' . $this->created_at->day . ' de ' . $month;
+    }
+
     public function score($round = false)
     {
         if (! $this->gig->ratings()->exists())

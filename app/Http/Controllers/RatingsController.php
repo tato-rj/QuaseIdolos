@@ -68,7 +68,7 @@ class RatingsController extends Controller
         $winner = $ranking->ratings->first();
 
         if (! $gig->winner()->exists())
-            \Mail::to($winner->songRequest->user->email)->queue(new WinnerEmail($winner->songRequest));
+            \Mail::to($winner->songRequest->user->email)->queue(new WinnerEmail($ranking));
 
         $gig->winner()->associate($winner->songRequest)->save();
 

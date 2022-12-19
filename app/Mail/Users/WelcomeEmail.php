@@ -6,13 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
+use App\Models\{User, Artist};
 
 class WelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $user, $artists;
 
     /**
      * Create a new message instance.
@@ -22,6 +22,7 @@ class WelcomeEmail extends Mailable
     public function __construct(User $user)
     {
         $this->user = $user;
+        $this->artists = Artist::inRandomOrder()->take(12)->get();
     }
 
     /**

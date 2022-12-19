@@ -1,19 +1,31 @@
 @component('mail::message')
-<div class="text-center mb-4">
-<h1 class="text-center text-primary text-uppercase mb-3 font-brand" style="font-size: 1.4rem">Parabéns {{$winner->user->first_name}}!!</h1>
+<div class="text-center mb-3">
+<h1 class="heading text-primary m-0 lh-1" style="font-size: 2rem">Parabéns {{$winner->user->first_name}}!!</h1>
+<h4 class="m-0 mb-4">Você ganhou o <strong><u>1° Lugar</u></strong> na votação de hoje</h4>
 <img src="{{asset('images/music-award.png')}}" width="200" class="mb-3">
-<h1 class="text-center m-0" style="font-size: 1.6rem">Você ganhou o 1<sup>o</sup> lugar cantando</h1>
 </div>
 
 <div class="d-center mb-4">
 <img src="{{$winner->song->artist->coverImage()}}" width="70" class="rounded-circle mr-2">
 <div>
-<h1 style="font-size: 1.4rem; line-height: 1" class="m-0">{{$winner->song->name}}</h1>
-<h2 class="m-0" style="opacity: .5"><strong>{{$winner->song->artist->name}}</strong></h2>
+<h1 class="heading m-0 lh-1">{{$winner->song->name}}</h1>
+<h2 class="m-0 lh-1" style="opacity: .5"><strong>{{$winner->song->artist->name}}</strong></h2>
 </div>
 </div>
 
-Obrigado por participar do evento <strong>{{$winner->gig->name}}</strong> com a banda Quase Ídolos, esperamos ver você cantando com a gente de novo em breve.
+@include('mail::list', [
+	'theme' => 'secondary', 
+	'items' => [
+		'EVENTO' => $winner->gig->name(),
+		'DATA' => $winner->dateForHumans,
+		'RANKING' => '1° Lugar',
+		'PARTICIPANTES' => $ranking->votersCount . ' cantores',
+		'VOTOS RECEBIDOS' => $ranking->ratings->first()->count . ' votos',
+		'PONTUAÇÃO MÉDIA' => $ranking->ratings->first()->average . ' pontos',
+	]
+])
+
+<p>Obrigado por participar do evento <strong>{{$winner->gig->name()}}</strong> com a banda Quase Ídolos, esperamos ver você cantando com a gente de novo em breve.</p>
 
 Até a próxima,<br>
 Equipe do {{ config('app.name') }}
