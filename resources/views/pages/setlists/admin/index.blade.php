@@ -2,6 +2,19 @@
 
 @push('header')
 <style type="text/css">
+@keyframes example {
+  0%   {opacity: .4;}
+  50%  {opacity: .1;}
+  100% {opacity: .4;}
+}
+
+.status-icon-backdrop {
+  animation-name: example;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
 .dragged {
 	opacity: 0.2;
 }
