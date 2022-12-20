@@ -21,6 +21,8 @@
 				<button data-bs-toggle="modal" data-bs-target="#delete-user-modal" class="btn btn-outline-secondary mb-2 text-truncate">@fa(['icon' => 'trash-alt'])Deletar conta</button>
 				@admin
 				<small class="opacity-6">Último login {{$user->updated_at->diffForHumans()}}</small>
+				@else
+				<small class="opacity-6">Cadastro feito em {{$user->created_at->format('d/m/Y')}}</small>
 				@endadmin
 
 				<div class="d-center mt-4">
