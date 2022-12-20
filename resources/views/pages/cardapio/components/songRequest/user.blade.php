@@ -1,4 +1,4 @@
-<h6 class="text-left mb-2">
+<h6 class="text-left mb-3">
 	<div class="d-apart">
 		<div>
 		    <div>{{$songRequest->song->name}}</div>
