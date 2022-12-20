@@ -1,4 +1,4 @@
-<h6 class="text-left mb-4">
+<h6 class="text-left mb-3">
 	<div class="mb-2">
 		<span class="text-secondary">{!! $songRequest->position() !!}</span> {{$songRequest->user->name}}
 	</div>
