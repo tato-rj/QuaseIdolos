@@ -8,3 +8,4 @@ include 'inc/classes.php';
 include 'inc/html.php';
 include 'inc/num.php';
 include 'inc/time.php';
+include 'inc/array.php';

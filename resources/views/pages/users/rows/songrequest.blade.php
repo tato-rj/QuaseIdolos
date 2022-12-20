@@ -2,9 +2,14 @@
 
 @row
   @slot('column1')
-	<a href="#" data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
-	<div>
-		<a href="{{route('cardapio.index', ['input' => strtolower($song->artist->name)])}}" class="link-secondary">{{$song->artist->name}}</a>
+  <div class="d-flex align-items-center">
+  	<div>
+  		@fa(['icon' => 'trophy', 'fa_color' => $row->winners->count() ? 'yellow' : 'transparent', 'fa_size' => 'lg'])
+  	</div>
+  	<div>
+			<div>{{$song->name}}</div>
+			<div class="text-secondary">{{$song->artist->name}}<div>
+		</div>
 	</div>
   @endslot
 

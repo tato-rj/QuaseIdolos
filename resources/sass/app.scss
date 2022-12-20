@@ -256,3 +256,7 @@ input:checked + .slider:before {
 .ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
     margin-top: -7px;
 }
+
+.text-transparent {
+	color: rgba(255,255,255,0.4)
+}

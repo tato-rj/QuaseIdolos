@@ -28,6 +28,7 @@
 	@include('pages.setlists.admin.table')
 </section>
 
+@include('pages.setlists.admin.status')
 @endsection
 
 @push('scripts')

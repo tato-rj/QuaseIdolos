@@ -8,8 +8,6 @@
 
 @section('content')
 <section class="container py-4">
-	@include('pages.gigs.status')
-
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 mb-4">
 			<div class="mb-3">
@@ -32,7 +30,7 @@
 		<div class="col-lg-9 col-12">
 			<div class="row w-100">
 				<div class="col-6 mb-4 text-center">
-					<h4>@fa(['icon' => 'calendar-day', 'classes' => 'opacity-4 no-stroke']){{$gig->dateForHumans}}</h4>
+					<h4>@fa(['icon' => 'calendar-day', 'classes' => 'opacity-4 no-stroke']){{$gig->dateForHumans()}}</h4>
 					<h5 class="text-secondary">Dia do evento</h5>
 				</div>
 				<div class="col-6 mb-4 text-center">

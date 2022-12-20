@@ -21,7 +21,7 @@ class GigFactory extends Factory
             'venue_id' => function() {
                 return Venue::factory()->create()->id;
             },
-            'scheduled_for' => now(),
+            'scheduled_for' => now()->startOfDay(),
             'starting_time' => '20:30',
             'has_ratings' => true
         ];
@@ -31,7 +31,7 @@ class GigFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'starts_at' => now(),
+                'starts_at' => now()->startOfDay(),
                 'is_live' => true,
             ];
         });

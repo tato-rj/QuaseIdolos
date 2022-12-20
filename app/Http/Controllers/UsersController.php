@@ -28,10 +28,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        $pastList = $user->requestsSung;
-        $favorites = $user->favorites;
-
-        return view('pages.users.edit', compact(['user', 'favorites', 'pastList']));
+        return view('pages.users.edit', compact(['user']));
     }
 
     public function update(Request $request, User $user = null)

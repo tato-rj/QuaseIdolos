@@ -33,6 +33,32 @@ class UserTest extends AppTest
     }
 
     /** @test */
+    public function it_has_many_victories()
+    {
+        $gig = Gig::factory()->live()->create();
+        
+        $songRequest = SongRequest::factory()->create(['user_id' => auth()->user(), 'gig_id' => $gig]);
+        
+        $gig->update(['winner_id' => $songRequest->id]);
+
+        return $this->assertInstanceOf(SongRequest::class, auth()->user()->songRequests()->has('winners')->first());
+    }
+
+    /** @test */
+    public function it_knows_if_a_specific_song_was_a_winner()
+    {
+        $gig = Gig::factory()->live()->create();
+        
+        $songRequest = SongRequest::factory()->create(['user_id' => auth()->user(), 'gig_id' => $gig]);
+ 
+        $this->assertFalse(auth()->user()->songRequests->first()->has('winners')->exists());
+
+        $gig->update(['winner_id' => $songRequest->id]);
+
+        $this->assertTrue(auth()->user()->songRequests->first()->has('winners')->exists());
+    }
+
+    /** @test */
     public function it_receives_many_ratings()
     {
         $this->signIn();

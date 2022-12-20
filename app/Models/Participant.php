@@ -9,6 +9,13 @@ class Participant extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    public function scopeGuests($query)
+    {
+        return $query->whereHas('user', function($q) {
+            $q->doesntHave('admin');
+        });
+    }
+
     public function gig()
     {
         return $this->belongsTo(Gig::class);

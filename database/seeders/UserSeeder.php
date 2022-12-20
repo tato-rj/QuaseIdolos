@@ -56,7 +56,9 @@ class UserSeeder extends Seeder
             'name' => 'Bernardo de Carvalho',
             'email' => 'bernardo@email.com',
             'password' => \Hash::make('maiden'),
-        ]);   
+        ]);
+
+        User::factory()->count(40)->create();
     }
 }
 

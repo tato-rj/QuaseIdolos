@@ -16,6 +16,11 @@ class SongRequest extends BaseModel
         return $this->belongsTo(Song::class);
     }
 
+    public function winners()
+    {
+        return $this->hasMany(Gig::class, 'winner_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

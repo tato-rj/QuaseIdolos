@@ -1,5 +1,5 @@
 @php($venue = $row)
-@php($count = $venue->gigs()->notReady()->count())
+@php($count = $venue->gigs()->count())
 
 <div class="py-2 px-3 mb-3 border border-2 border-transparent rounded-pill">
 	<div class="d-apart">

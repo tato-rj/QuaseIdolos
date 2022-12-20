@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\{SongRequest, Song, User, Gig};
+use App\Models\{SongRequest, Song, Participant, Gig};
 
 class SongRequestSeeder extends Seeder
 {
@@ -19,14 +19,20 @@ class SongRequestSeeder extends Seeder
 
     public function pastSongRequests()
     {
-        for ($i=0; $i<mt_rand(40,50); $i++) { 
-            SongRequest::create([
-                'gig_id' => Gig::first()->id,
-                'user_id' => User::guests()->inRandomOrder()->first()->id,
-                'song_id' => Song::inRandomOrder()->first()->id,
-                'order' => SongRequest::waiting()->count(),
-                'finished_at' => now()->copy()->subDays(rand(0, 180))
-            ]);
+        foreach (Participant::guests()->inRandomOrder()->get() as $participant) {
+            $gigs = Gig::live()->orPast()->inRandomOrder()->get();
+
+            foreach ($gigs as $gig) {
+                if ($gig->songRequestsLeft() > 2) {
+                    $songRequest = SongRequest::create([
+                        'gig_id' => $gig->id,
+                        'user_id' => $participant->user->id,
+                        'song_id' => Song::inRandomOrder()->first()->id,
+                        'order' => SongRequest::waiting()->count(),
+                        'finished_at' => $gig->scheduled_for
+                    ]);
+                }
+            }
         }
     }
 }

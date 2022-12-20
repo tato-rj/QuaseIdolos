@@ -1,14 +1,18 @@
 @modal(['title' => 'Novo evento', 'id' => 'create-gig-modal'])
 <form method="POST" action="{{route('gig.store')}}">
 	@csrf
+
+	@isset($venue)
+	<input type="hidden" name="venue_id" value="{{$venue->id}}">
+	@else
 	@select([
 		'placeholder' => 'Contratante',
 		'name' => 'venue_id'])
-
 		@foreach($venues as $venue)
 		@option(['label' => $venue->name, 'value' => $venue->id, 'name' => 'venue_id', 'selected' => $venue->id == old('venue_id')])
 		@endforeach
 	@endselect
+	@endisset
 
 	@input(['placeholder' => 'Nome (opcional)', 'name' => 'name'])
 	@input(['placeholder' => 'Descrição (opcional)', 'name' => 'description'])

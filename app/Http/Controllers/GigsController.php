@@ -85,7 +85,7 @@ class GigsController extends Controller
      */
     public function edit(Gig $gig)
     {
-        if (! $gig->hasDate())
+        if ($gig->isUnscheduled())
             return redirect(route('gig.index'));
 
         $venues = Venue::all();
@@ -137,14 +137,16 @@ class GigsController extends Controller
 
         $message = $gig->is_paused ? 'O evento está pausado' : 'O evento voltou';
 
-        return view('components.core.alerts.regular', [
-            'message' => $message,
-            'icon' => ! $gig->is_paused ? 'play' : 'pause', 
-            'color' => ! $gig->is_paused ? 'green' : 'yellow', 
-            'pos' => 'top', 
-            'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown'], 
-            'countdown' => 3
-        ])->render();
+        return back()->with('success', $message);
+
+        // return view('components.core.alerts.regular', [
+        //     'message' => $message,
+        //     'icon' => ! $gig->is_paused ? 'play' : 'pause', 
+        //     'color' => ! $gig->is_paused ? 'green' : 'yellow', 
+        //     'pos' => 'top', 
+        //     'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown'], 
+        //     'countdown' => 3
+        // ])->render();
     }
 
     public function open(Request $request, Gig $gig)

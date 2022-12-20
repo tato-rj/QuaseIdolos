@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             FavoriteSeeder::class,
             VenueSeeder::class,
             GigSeeder::class,
+            ParticipantSeeder::class,
             SongRequestSeeder::class,
             RatingSeeder::class,
         ]);

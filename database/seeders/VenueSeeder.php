@@ -28,5 +28,7 @@ class VenueSeeder extends Seeder
             'lat' => geoip()->getLocation()->lat,
             'lon' => geoip()->getLocation()->lon,
         ]);
+
+        Venue::factory()->count(rand(1,3))->create();
     }
 }

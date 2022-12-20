@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\{SongRequest, User};
+use App\Models\{SongRequest, User, Gig};
 
 class RatingSeeder extends Seeder
 {
@@ -14,8 +14,17 @@ class RatingSeeder extends Seeder
      */
     public function run()
     {
-        foreach(SongRequest::take(20)->get() as $songRequest) {
-            User::inRandomOrder()->first()->rate($songRequest, randomFromArray([1,2,3,4,5]));
+        foreach (Gig::past()->get() as $gig) {
+            foreach ($gig->setlist as $songRequest) {
+                $gig->participants()
+                    ->inRandomOrder()
+                    ->take(rand(2,40))
+                    ->get()
+                    ->each->rate($songRequest, randomFromArray([1,2,3,4,5]));
+            }
+
+            if ($winner = $gig->ranking()->ratings->first())
+                $gig->update(['winner_id' => $winner->songRequest->id]);
         }
     }
 }

@@ -8,6 +8,7 @@
 			@endif
 		</div>
 		<div>
+			<a href="{{route('venues.show', $venue)}}" class="btn btn-secondary text-truncate w-100 mb-2">@fa(['icon' => 'list-ul'])Eventos</a>
 			<button data-bs-toggle="modal" data-bs-target="#edit-venue-{{$venue->id}}-modal" class="btn btn-secondary text-truncate mb-2 w-100">@fa(['icon' => 'pencil-alt'])Editar</button>
 			<button data-bs-toggle="modal" data-bs-target="#delete-venue-{{$venue->id}}-modal" class="btn btn-outline-secondary text-truncate w-100">@fa(['icon' => 'trash-alt'])Remover</button>
 

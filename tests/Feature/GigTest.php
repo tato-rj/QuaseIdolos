@@ -380,8 +380,7 @@ class GigTest extends AppTest
     {
         $this->expectNotToPerformAssertions();
 
-        $gig = Gig::factory()->create([
-            'is_live' => true,
+        $gig = Gig::factory()->live()->create([
             'repeat_limit' => 2
         ]);
 

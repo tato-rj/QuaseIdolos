@@ -26,6 +26,7 @@
 
 		@isset($id)id="{{$id}}"@endisset
 
+		{{iftrue($disabled ?? null, 'disabled')}}
 		{{iftrue($required ?? null, 'required')}}
 		{{iftrue($readonly ?? null, 'readonly')}}>
 	</div>

@@ -41,6 +41,14 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
+    public function it_has_many_victories()
+    {
+        $gig = Gig::factory()->create(['winner_id' => $this->songRequest]);
+
+        return $this->assertInstanceOf(Gig::class, $this->songRequest->winners()->first());
+    }
+
+    /** @test */
     public function it_knows_its_average_score()
     {
         $song = SongRequest::factory()->create();

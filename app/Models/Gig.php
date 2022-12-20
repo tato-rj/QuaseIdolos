@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Traits\{Rateable, Archiveable};
+use App\Models\Traits\{Rateable, Archiveable, GigStates};
 use App\Voting\{Ranking, Rules};
+use App\Tools\Gig\Status;
 
 class Gig extends BaseModel
 {
-	use Rateable, Archiveable;
+	use Rateable, Archiveable, GigStates;
 
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for'];
 	protected $casts = [
@@ -67,6 +68,11 @@ class Gig extends BaseModel
 		return $query->whereNull('scheduled_for');
 	}
 
+	public function scopeScheduled($query)
+	{
+		return $query->whereNotNull('scheduled_for');
+	}
+
 	public function scopeLive($query)
 	{
 		return $query->where('is_live', true);
@@ -82,9 +88,27 @@ class Gig extends BaseModel
     	return $query->where('scheduled_for', '>=', now()->startOfDay());
     }
 
+    public function scopePast($query)
+    {
+    	return $query->where('scheduled_for', '<', now()->startOfDay());
+    }
+
+    public function scopeOrPast($query)
+    {
+    	return $query->orWhere('scheduled_for', '<', now()->startOfDay());
+    }
+
     public function scopePublic($query)
     {
 		return $query->where('is_private', false);
+    }
+
+    public function songRequestsLeft()
+    {
+    	if ($this->songs_limit)
+	    	return $this->songs_limit - $this->setlist()->count();
+
+	    return null;
     }
 
     public function sortSetlist()
@@ -121,37 +145,6 @@ class Gig extends BaseModel
         $new->push();
 	}
 
-	public function isToday()
-	{
-		if (! $this->hasDate())
-			return null;
-
-		return $this->scheduled_for->isSameDay(now());
-	}
-
-	public function isPrivate()
-	{
-		return (bool) $this->is_private;
-	}
-
-	public function isPaused()
-	{
-		return $this->is_paused;
-	}
-
-	public function isLive()
-	{
-		return $this->is_live;
-	}
-
-	public function isFull()
-	{
-		if (is_null($this->songs_limit))
-			return false;
-
-		return $this->setlist->count() == $this->songs_limit;
-	}
-
 	public function userLimitReached()
 	{
 		if (is_null($this->songs_limit_per_user))
@@ -177,22 +170,20 @@ class Gig extends BaseModel
 		return $this->name;
 	}
 
-	public function getDateForHumansAttribute()
+	public function dateForHumans($showWeek = true)
 	{
 		$weekday = weekday($this->scheduled_for->dayOfWeek);
 		$month = month($this->scheduled_for->month);
 
-		return $weekday . ', ' . $this->scheduled_for->day . ' de ' . $month;
+		if ($showWeek)
+			return $weekday . ', ' . $this->scheduled_for->day . ' de ' . $month;
+
+		return $this->scheduled_for->day . ' de ' . $month;
 	}
 
-	public function getIsOverAttribute()
+	public function dateInContext()
 	{
-		return $this->ends_at;
-	}
-
-	public function getDateInContextAttribute()
-	{
-		if (! $this->hasDate())
+		if ($this->isUnscheduled())
 			return null;
 
 		if ($this->scheduled_for->isToday())
@@ -207,48 +198,21 @@ class Gig extends BaseModel
 		return $this->dateForHumans;
 	}
 
-	public function getStatusAttribute()
+	public function status($withText = true)
 	{
-		if (! $this->hasDate())
-			return fa('circle', 'grey', 'mr-2').'Sem data';
-
-		if ($this->is_paused)
-			return fa('circle', 'yellow', 'mr-2').'Pausado';
-
-		if ($this->is_live)
-			return fa('circle', 'green', 'mr-2').'Ao vivo!';
-
-		if ($this->is_over)
-			return fa('calendar-day', 'white', 'mr-2').'Terminou ' .$this->ends_at->diffForHumans();
-
-		if ($this->isReady())
-			return fa('circle', 'yellow', 'mr-2').'Esperando pra começar';
-
-		return fa('calendar-day', 'white', 'mr-2').'Começa ' .$this->scheduled_for->diffForHumans();
+		return (new Status($this))->withText($withText)->get();
 	}
 
 	public function scopeReady($query)
 	{
 		$today = now()->copy()->startOfDay();
 
-		return $query->whereBetween('scheduled_for', [$today->copy()->subHour(), $today->addDay()->addHours(4)]);
+		return $query->whereDate('scheduled_for', '>=', $today)
+					 ->whereDate('scheduled_for', '<', $today->addDay()->addHours(4));
 	}
 
     public function scopeNotReady($query)
     {
 		return $query->except($this->ready()->get('id'));
     }
-
-	public function hasDate()
-	{
-		return (bool) $this->scheduled_for;
-	}
-
-	public function isReady()
-	{
-		if (! $this->hasDate())
-			return null;
-
-		return now()->between($this->scheduled_for, $this->scheduled_for->addDay()->addHours(4));
-	}
 }

@@ -1,36 +1,32 @@
 @php($gig = $row)
 
-@row(['optional' => [2,3]])
+@row(['optional' => $optional ?? []])
   @slot('column1')
 		<div class="d-flex align-items-center">
+			{!! $gig->status($withText = false) !!}
 			<form method="POST" action="{{route('gig.duplicate', $gig)}}">
 				@csrf
-				<button class="btn-raw">@fa(['icon' => 'copy', 'fa_color' => 'white'])</button>
+				<button class="btn-raw" style="vertical-align: sub;">@fa(['icon' => 'copy', 'fa_color' => 'white'])</button>
 			</form>
-			<a href="{{route('gig.edit', $gig)}}" class="link-secondary fw-bold d-block">{{$gig->name()}}</a>
+			<a href="{{route('gig.edit', $gig)}}" class="link-secondary fw-bold d-block mr-3 h5 mb-0">{{$gig->name()}}</a>
 		</div>
-  @endslot
-
-  @slot('column2')
-  {{$gig->dateInContext}}
-  @endslot
-
-  @slot('column3')
-  {{$gig->setlist()->completed()->count()}}
-  @endslot
-
-  @slot('column4')
-  {!! $gig->status !!}
   @endslot
 
   @slot('actions')
 		@if($gig->isLive())
-		<button class="pause-switch btn btn-sm btn-secondary mr-2" data-url="{{route('gig.pause', $gig)}}">
+
+{{-- 		<button class="pause-switch btn btn-sm btn-secondary mr-2" data-url="{{route('gig.pause', $gig)}}">
 		  @fa(['icon' => $gig->is_paused ? 'play' : 'pause', 'mr' => 0])
-		</button>
+		</button> --}}
 		@endif
 
 		@if($gig->isLive())
+		<form method="POST" action="{{route('gig.pause', $gig)}}" class="d-inline mr-2">
+			@csrf
+			<button type="submit" class="btn btn-sm btn-secondary">
+			  @fa(['icon' => $gig->isPaused() ? 'play' : 'pause', 'mr' => 0])
+			</button>
+		</form>
 		<button data-bs-toggle="modal" data-bs-target="#close-gig-{{$gig->id}}-modal" class="btn btn-red btn-sm text-nowrap">Fechar</button>
 		@include('pages.gigs.modals.close')
 		@else
