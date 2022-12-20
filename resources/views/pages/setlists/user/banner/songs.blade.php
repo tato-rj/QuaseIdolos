@@ -5,7 +5,7 @@
 				<h6 class="text-primary m-0 no-stroke">{{$songRequests->count()}} Pedidos na lista</h6>
 			</div>
 
-			<button class="btn-raw text-primary no-stroke">@fa(['icon' => 'chevron-up', 'mr' => 0])</button>
+			<button class="btn-raw text-primary no-stroke px-1">@fa(['icon' => 'chevron-up', 'mr' => 0])</button>
 		</div>
 	</div>
 </div>
