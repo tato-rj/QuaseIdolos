@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-<section class="container mb-6 p-0">
+<section class="container mb-6">
 	@pagetitle(['title' => 'Músicas', 'highlight' => 'favoritas'])
 
 	@table([
