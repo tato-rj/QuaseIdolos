@@ -1,7 +1,15 @@
 @php($song = $row)
 @row
   @slot('column1')
-  @include('pages.cardapio.results.row.name', ['truncate' => true])
+    <div class="d-flex">
+      {{-- <img src="{{$song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 43px; height: 43px"> --}}
+      <div>
+        {{$song->name}}
+        <div>
+          {{$song->artist->name}}
+        </div>
+      </div>
+    </div>
   @endslot
 
   @slot('actions')
