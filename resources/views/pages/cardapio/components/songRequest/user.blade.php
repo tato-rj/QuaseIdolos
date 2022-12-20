@@ -9,7 +9,7 @@
 			@csrf
 			@method('PATCH')
 			<input type="hidden" name="new_song_id" value="{{$song->id}}">
-			<button type="submit" class="btn btn-secondary">@fa(['icon' => 'exchange-alt', 'mr' => 0])</button>
+			<button type="submit" class="btn btn-secondary btn-sm">@fa(['icon' => 'exchange-alt', 'mr' => 0])</button>
 		</form>
 	</div>
 </h6>
