@@ -9,7 +9,8 @@
 		<div class="d-block d-sm-none">
 			<button data-bs-toggle="modal" data-bs-target="#info-gig-{{$gig->id}}-modal" class="btn btn-secondary text-nowrap">@fa(['icon' => 'info-circle', 'mr' => 0])</button>
 		</div>
-
+{{-- 
 		@include('pages.calendar.info')
+		 --}}
 	</div>
 </div>
