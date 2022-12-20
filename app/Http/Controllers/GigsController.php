@@ -83,14 +83,14 @@ class GigsController extends Controller
      * @param  \App\Models\Gig  $gig
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gig $gig)
+    public function show(Gig $gig)
     {
         if ($gig->isUnscheduled())
             return redirect(route('gig.index'));
 
         $venues = Venue::all();
 
-        return view('pages.gigs.edit', compact(['gig', 'venues']));
+        return view('pages.gigs.show.index', compact(['gig', 'venues']));
     }
 
     /**
@@ -192,6 +192,9 @@ class GigsController extends Controller
         $gig->participants()->detach();
         $gig->delete();
 
-        return redirect(route('gig.index'))->with('success', 'O evento foi removido com sucesso');
+        if (url()->previous() == route('gig.show', $gig))
+            return redirect(route('gig.index'))->with('success', 'O evento foi removido com sucesso');
+
+        return back()->with('success', 'O evento foi removido com sucesso');
     }
 }

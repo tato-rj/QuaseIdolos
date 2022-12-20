@@ -9,13 +9,13 @@
 @endpush
 
 @section('content')
-<section class="container mb-3">
+<section class="container mb-4">
 	<div class="text-center">
 		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje'])
 		@if($gig)
-		<a class="btn btn-secondary mb-4" target="_blank" href="{{route('lyrics.index')}}">Ver as letras</a>
+		<a class="btn btn-secondary mb-3" target="_blank" href="{{route('lyrics.index')}}">Ver as letras</a>
 
-		<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h3>@fa(['icon' => 'clipboard-list'])Editar evento</h3></a>
+		<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h4>@fa(['icon' => 'clipboard-list'])Editar evento</h4></a>
 
 		@include('pages.gigs.modals.edit', ['pausable' => true])
 		@else

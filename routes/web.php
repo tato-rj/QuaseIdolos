@@ -190,7 +190,7 @@ Route::middleware('super-admin')->group(function() {
     Route::prefix('eventos')->name('gig.')->withoutMiddleware('join-gig')->group(function() {
         Route::get('', 'GigsController@index')->name('index');
 
-        Route::get('{gig}', 'GigsController@edit')->name('edit');
+        Route::get('{gig}', 'GigsController@show')->name('show');
 
         Route::post('', 'GigsController@store')->name('store');
 

@@ -7,7 +7,7 @@
   </div>
 
   <div class="px-4">
-    <div>
+    <div>      
       @if(auth()->user()->liveGig() && auth()->user()->liveGig()->participatesInRatings())
         <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
         @include('layouts.menu.components.divider')

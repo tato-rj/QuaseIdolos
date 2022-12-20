@@ -29,7 +29,7 @@ class SongRequestSeeder extends Seeder
                         'user_id' => $participant->user->id,
                         'song_id' => Song::inRandomOrder()->first()->id,
                         'order' => SongRequest::waiting()->count(),
-                        'finished_at' => $gig->scheduled_for
+                        'finished_at' => $gig->starts_at->addMinutes(rand(30,240))
                     ]);
                 }
             }

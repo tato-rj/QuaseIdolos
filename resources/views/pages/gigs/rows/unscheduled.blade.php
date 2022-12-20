@@ -13,7 +13,12 @@
 
   @slot('actions')
 		<button data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="btn btn-sm btn-secondary text-truncate mr-2">@fa(['icon' => 'pencil-alt', 'mr' => 0])</button>
-		<button data-bs-toggle="modal" data-bs-target="#delete-gig-{{$gig->id}}-modal" class="btn btn-sm btn-outline-secondary text-truncate">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
+
+		<form method="POST" action="{{route('gig.destroy', $gig)}}" class="d-inline">
+			@csrf
+			@method('DELETE')
+			<button class="btn btn-sm btn-outline-secondary">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
+		</form>
 
 		@include('pages.gigs.modals.edit')
 		@include('pages.gigs.modals.delete')

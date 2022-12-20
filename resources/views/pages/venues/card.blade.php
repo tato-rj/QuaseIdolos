@@ -3,9 +3,6 @@
 		<div class="mb-4">
 			<h4 class="m-0">{{$venue->name}}</h4>
 			<h6 class="text-secondary m-0">{{$venue->gigs_count}} @choice('evento|eventos', $venue->gigs_count)</h6>
-			@if($venue->description)
-			<p class="opacity-6 mt-2 mb-0">{{$venue->description}}</p>
-			@endif
 		</div>
 		<div>
 			<a href="{{route('venues.show', $venue)}}" class="btn btn-secondary text-truncate w-100 mb-2">@fa(['icon' => 'list-ul'])Eventos</a>
