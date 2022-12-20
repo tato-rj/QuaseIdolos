@@ -5,7 +5,7 @@
       {{-- <img src="{{$song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 43px; height: 43px"> --}}
       <div>
         {{$song->name}}
-        <div>
+        <div class="text-secondary">
           {{$song->artist->name}}
         </div>
       </div>
@@ -17,7 +17,7 @@
       @csrf
       @method('PATCH')
       <input type="hidden" name="new_song_id" value="{{$song->id}}">
-      <button type="submit" class="btn btn-secondary btn-sm">TROCAR</button>
+      <button type="submit" class="btn btn-secondary btn-sm">@fa(['icon' => 'exchange-alt', 'mr' => 0])</button>
     </form>
   @endslot
 @endrow
