@@ -91,6 +91,9 @@ $(document).on('click', 'button.star-rating', function() {
 });
 
 $(document).on('mouseenter', 'button.star-rating', function() {
+	if ($('.rating.animate__tada').length)
+		return;
+	
 	selectStarsWith($(this), 'temp-selected');
 });
 
