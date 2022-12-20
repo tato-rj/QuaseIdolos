@@ -170,6 +170,11 @@ class Gig extends BaseModel
 		return $this->name;
 	}
 
+	public function getDateForHumansAttribute()
+	{
+		return $this->dateForHumans();
+	}
+
 	public function dateForHumans($showWeek = true)
 	{
 		$weekday = weekday($this->scheduled_for->dayOfWeek);
