@@ -13,7 +13,7 @@
           </div>
         </div>
 
-        <div class="col-6 mx-auto">
+        <div class="col-lg-6 col-md-6 col-10 mx-auto">
           <div class="d-flex">
             <div class="mr-4">
               <h6><a href="{{route('home')}}" class="link-none">Início</a></h6>
