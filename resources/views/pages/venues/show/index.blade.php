@@ -37,7 +37,6 @@
 	@table([
 		'title' => 'Outros eventos',
 		'optional' => [2,3],
-		'empty' => true,
 		'headers' => ['Data', 'Participantes', 'Músicas', 'Status', ''],
 		'legend' => 'evento|eventos',
 		'rows' => $venue->gigs()->scheduled()->notReady()->orderBy('scheduled_for')->paginate(8),
