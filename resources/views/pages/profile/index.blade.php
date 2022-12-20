@@ -24,8 +24,9 @@
 			<div class="d-flex flex-column">
 				<button data-bs-toggle="modal" data-bs-target="#edit-profile-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])Editar Perfil</button>
 				<button data-bs-toggle="modal" data-bs-target="#edit-password-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'lock'])Mudar Senha</button>
-				<button data-bs-toggle="modal" data-bs-target="#delete-user-modal" class="btn btn-outline-secondary text-truncate">@fa(['icon' => 'trash-alt'])Deletar conta</button>
-
+				<button data-bs-toggle="modal" data-bs-target="#delete-user-modal" class="btn btn-outline-secondary text-truncate mb-2">@fa(['icon' => 'trash-alt'])Deletar conta</button>
+				<small class="opacity-6">Cadastro feito em {{auth()->user()->created_at->format('d/m/Y')}}</small>
+				
 				@include('pages.profile.modals.profile')
 				@include('pages.profile.modals.password')
 				@include('pages.profile.modals.delete')
