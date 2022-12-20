@@ -1,15 +1,8 @@
 @php($song = $row)
 @row
   @slot('column1')
-    <div class="d-flex">
-      {{-- <img src="{{$song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 43px; height: 43px"> --}}
-      <div>
-        {{$song->name}}
-        <div class="text-secondary">
-          {{$song->artist->name}}
-        </div>
-      </div>
-    </div>
+    <div>{{$song->name}}</div>
+    <div class="text-secondary">{{$song->artist->name}}</div>
   @endslot
 
   @slot('actions')
