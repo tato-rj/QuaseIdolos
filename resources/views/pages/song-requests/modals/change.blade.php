@@ -9,6 +9,6 @@
 		'target' => 'change-results-'.$entry->id])
 
 
-	<div id="change-results-{{$entry->id}}" class="container-fluid"></div>
+	<div id="change-results-{{$entry->id}}" class="container p-0"></div>
 
 @endmodal
