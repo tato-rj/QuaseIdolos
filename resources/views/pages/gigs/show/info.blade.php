@@ -19,7 +19,7 @@
 <div class="col-lg-4 col-md-4 col-12">
 	<div class="mb-4">
 		@php($count = $gig->repeat_limit)
-		<h6 class="text-secondary">@fa(['icon' => 'redo'])Número de repetições por música</h6>
+		<h6 class="text-secondary">@fa(['icon' => 'redo'])Repetições por música</h6>
 		<h6>
 			@if(is_null($count))
 			Sem limite

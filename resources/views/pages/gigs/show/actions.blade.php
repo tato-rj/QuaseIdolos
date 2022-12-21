@@ -7,7 +7,7 @@
 	</div>
 
 	<div class="d-flex flex-column text-center">
-		<button {{$gig->setlist()->exists() ? null : 'disabled'}} 
+		<button 
 			data-bs-toggle="modal" 
 			data-bs-target="#setlist-gig-{{$gig->id}}-modal" 
 			class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'users'])Ver setlist</button>

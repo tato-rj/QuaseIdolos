@@ -9,7 +9,7 @@
 @section('content')
 <section class="container py-4">
 	<div class="row">		
-		@include('pages.gigs.show.manage')
+		@include('pages.gigs.show.actions')
 		@include('pages.gigs.show.info')
 	</div>
 </section>
