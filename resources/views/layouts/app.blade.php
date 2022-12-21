@@ -433,6 +433,7 @@ $(document).ready(function() {
                 let $element = $(this);
                 $element.datepicker({
                     minDate: new Date(),
+                    dateFormat: 'd/m/Y',
                     defaultDate: new Date($element.data('datepicker')),
                     onSelect: function() {
                         if ($element.attr('data-input'))
