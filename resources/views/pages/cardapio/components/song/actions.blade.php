@@ -32,7 +32,9 @@
 	<div class="d-flex">
 		@include('pages.cardapio.components.song.buttons.admin.chords')
 		@include('pages.cardapio.components.song.buttons.admin.lyrics')
+		@if(! $songRequests->isEmpty())
 		@include('pages.cardapio.components.song.buttons.admin.change')
+		@endif
 	</div>
 </div>
 @endadmin
