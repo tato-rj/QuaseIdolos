@@ -433,7 +433,7 @@ $(document).ready(function() {
                 let $element = $(this);
                 $element.datepicker({
                     minDate: new Date(),
-                    defaultDate: new Date($element.data('datepicker')),
+                    defaultDate: new Date('12/25/2022'),
                     onSelect: function() {
                         if ($element.attr('data-input'))
                             $($element.data('input')).val(this.value);
