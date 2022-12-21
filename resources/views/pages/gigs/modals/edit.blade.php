@@ -50,7 +50,7 @@
 	@datepicker([
 		'label' => 'Data do evento',
 		'id' => uuid(),
-		'value' => $gig->isUnscheduled() ? null : $gig->scheduled_for->format('d/m/Y'),
+		'value' => $gig->isUnscheduled() ? null : $gig->scheduled_for->format('m/d/Y'),
 		'options' => ['fullwidth'],
 		'name' => 'scheduled_for'])
 
