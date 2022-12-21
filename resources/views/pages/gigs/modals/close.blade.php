@@ -19,10 +19,16 @@
 				@endif
 			@endif
 
+			@if($gig->isFull())
+			<p class="text-green m-0">@fa(['icon' => 'check'])O setlist está completo</p>
+			@else
+			<p class="text-red m-0">@fa(['icon' => 'exclamation-circle'])O setlist ainda tem espaço pra mais músicas</p>
+			@endif
+
 			@if($requests)
 			<p class="text-red m-0">@fa(['icon' => 'exclamation-circle']){{$requests}} @choice('pedido|pedidos', $requests) na lista de espera</p>
 			@else
-			<p class="text-green m-0">@fa(['icon' => 'check-circle'])A lista de espera do setlist está vazia</p>
+			<p class="text-green m-0">@fa(['icon' => 'check-circle'])A lista de espera está vazia</p>
 			@endif
 
 		</div>
