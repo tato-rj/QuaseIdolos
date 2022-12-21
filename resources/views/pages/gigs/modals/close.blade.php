@@ -6,7 +6,7 @@
 	@csrf
 
 	<div class="text-left bg-white px-4 py-3 rounded mb-3">
-		<div class="mb-1">
+		<div class="mb-2">
 			@if($participants)
 			<p class="text-warning m-0">@fa(['icon' => 'exclamation-circle']){{$participants}} @choice('pessoa|pessoas', $participants) participando</p>
 			@endif
