@@ -41,7 +41,9 @@
 	@include('pages.setlists.admin.table')
 </section>
 
+@isset($gig)
 @include('pages.setlists.admin.status')
+@endisset
 @endsection
 
 @push('scripts')

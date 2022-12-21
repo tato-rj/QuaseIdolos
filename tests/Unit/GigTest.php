@@ -100,7 +100,7 @@ class GigTest extends AppTest
 
         $this->assertTrue($gig->isReady());
 
-        $this->travel(4)->hours();
+        $this->travel(3)->hours();
 
         $this->assertTrue($gig->isReady());
 

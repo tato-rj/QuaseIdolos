@@ -7,17 +7,16 @@
 @endpush
 
 @section('content')
-<section class="container-fluid">
-	<div class="text-center mb-4">
-		@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'eventos'])
-		@create(['name' => 'gig', 'label' => 'Novo evento', 'folder' => 'gigs'])
-	</div>
+<section class="container-fluid text-center mb-5">
+	@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'eventos'])
+	@create(['name' => 'gig', 'label' => 'Novo evento', 'folder' => 'gigs'])
 </section>
 
 <section class="mb-5 container">
 	@table([
 		'title' => 'Eventos hoje',
 		'empty' => true,
+		'headers' => ['Evento', 'Status', ''],
 		'legend' => 'evento|eventos',
 		'rows' => $today,
 		'view' => 'pages.gigs.rows.today'

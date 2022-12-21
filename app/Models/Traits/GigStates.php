@@ -41,7 +41,7 @@ trait GigStates
 
 	public function isPast()
 	{
-		return $this->scheduled_for->lt(now());
+		return ! $this->isReady() && $this->scheduled_for->lt(now());
 	}
 
 	public function isUnscheduled()
@@ -51,8 +51,10 @@ trait GigStates
 
 	public function isReady()
 	{
-		return $this->isUnscheduled() ? false 
-			: now()->between($this->scheduled_for, $this->scheduled_for->addDay()->addHours(4));
+		if ($this->isUnscheduled())
+			return false;
+
+		return now()->gte($this->scheduled_for) && now()->lt($this->scheduled_for->addDay()->addHours(4));
 	}
 
 	public function isLater()

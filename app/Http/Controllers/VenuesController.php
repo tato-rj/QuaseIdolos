@@ -14,9 +14,25 @@ class VenuesController extends Controller
         return view('pages.venues.index', compact('venues'));
     }
 
-    public function show(Venue $venue)
+    public function today(Venue $venue)
     {
-        return view('pages.venues.show.index', compact('venue'));
+        $table = view('pages.venues.show.tables.today', compact('venue'));
+
+        return view('pages.venues.show.index', compact(['table', 'venue']));
+    }
+
+    public function past(Venue $venue)
+    {
+        $table = view('pages.venues.show.tables.past', compact('venue'));
+
+        return view('pages.venues.show.index', compact(['table', 'venue']));
+    }
+
+    public function upcoming(Venue $venue)
+    {
+        $table = view('pages.venues.show.tables.upcoming', compact('venue'));
+
+        return view('pages.venues.show.index', compact(['table', 'venue']));
     }
 
     public function store(Request $request)

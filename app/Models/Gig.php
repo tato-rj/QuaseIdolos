@@ -73,6 +73,11 @@ class Gig extends BaseModel
 		return $query->whereNotNull('scheduled_for');
 	}
 
+	public function scopeNotLive($query)
+	{
+		return $query->where('is_live', false);
+	}
+
 	public function scopeLive($query)
 	{
 		return $query->where('is_live', true);
@@ -203,9 +208,9 @@ class Gig extends BaseModel
 		return $this->dateForHumans;
 	}
 
-	public function status($withText = true)
+	public function status()
 	{
-		return (new Status($this))->withText($withText)->get();
+		return (new Status($this));
 	}
 
 	public function scopeReady($query)
@@ -213,7 +218,8 @@ class Gig extends BaseModel
 		$today = now()->copy()->startOfDay();
 
 		return $query->whereDate('scheduled_for', '>=', $today)
-					 ->whereDate('scheduled_for', '<', $today->addDay()->addHours(4));
+					 ->whereDate('scheduled_for', '<', $today->addDay()->addHours(4))
+					 ->orWhere('is_live', true);
 	}
 
     public function scopeNotReady($query)

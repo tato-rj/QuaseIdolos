@@ -8,11 +8,11 @@ class Status extends StatusFactory
 		'unscheduled',
 		'paused',
 		'live',
-		'off',
 		'over',
-		'ready',
 		'past',
-		'later'
+		'later',
+		'ready',
+		'off',
 	];
 
 	public function whenUnscheduled()
@@ -37,17 +37,23 @@ class Status extends StatusFactory
 
 	public function whenOver()
 	{
-		return $this->create(fa('calendar-day', 'transparent', 'mr-2'), 'Terminou ' .$this->gig->ends_at->diffForHumans());
+		$icon = $this->gig->isReady() ? fa('circle', 'yellow', 'mr-2') : fa('calendar-day', 'transparent', 'mr-2');
+
+		return $this->create($icon, 'Terminou ' .$this->gig->ends_at->diffForHumans());
 	}
 
 	public function whenReady()
 	{
-		return $this->create(fa('circle', 'yellow', 'mr-2'), 'Esperando pra começar');
+		$text = $this->gig->isOver() ? 'Terminou ' .$this->gig->ends_at->diffForHumans() : 'Esperando pra começar';
+
+		return $this->create(fa('circle', 'yellow', 'mr-2'), $text);
 	}
 
 	public function whenPast()
 	{
-		return $this->create(fa('hourglass-half', 'white', 'mr-2'), 'Começou ' .$this->gig->scheduled_for->diffForHumans());
+		$icon = $this->gig->isReady() ? fa('circle', 'yellow', 'mr-2') : fa('hourglass-half', 'white', 'mr-2');
+
+		return $this->create($icon, 'Começou ' .$this->gig->scheduled_for->diffForHumans());
 	}
 
 	public function whenLater()

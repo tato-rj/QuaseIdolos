@@ -4,6 +4,17 @@
 @if($rows->isEmpty())
 
   @isset($empty)
+
+  @isset($title)
+  <h4 class="">@fa(['icon' => 'list-ul']){{$title}}</h4> 
+  @endisset
+
+  @isset($legend)
+  <div>
+    <label class="mb-3">Total de {{$total}} @choice($legend, $total)</label>
+  </div>
+  @endisset
+  
   @include('components.empty')
   @endisset
 

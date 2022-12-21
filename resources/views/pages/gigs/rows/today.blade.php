@@ -3,13 +3,17 @@
 @row(['optional' => $optional ?? []])
   @slot('column1')
 		<div class="d-flex align-items-center">
-			{!! $gig->status($withText = false) !!}
+			{!! $gig->status()->noText()->get() !!}
 			<form method="POST" action="{{route('gig.duplicate', $gig)}}">
 				@csrf
 				<button class="btn-raw" style="vertical-align: sub;">@fa(['icon' => 'copy', 'fa_color' => 'white'])</button>
 			</form>
 			<a href="{{route('gig.show', $gig)}}" class="link-secondary fw-bold d-block mr-3 h5 mb-0">{{$gig->name()}}</a>
 		</div>
+  @endslot
+
+  @slot('column2')
+  {{$gig->status()->onlyText()->get()}}
   @endslot
 
   @slot('actions')

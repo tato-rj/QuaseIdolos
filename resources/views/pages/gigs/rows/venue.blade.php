@@ -9,7 +9,7 @@
 		</div>
 
 		<div class="">
-			<a href="{{route('venues.show', $venue)}}" class="btn btn-sm btn-secondary text-truncate w-100">@fa(['icon' => 'list-ul'])Eventos</a>
+			<a href="{{route('venues.show.today', $venue)}}" class="btn btn-sm btn-secondary text-truncate w-100">@fa(['icon' => 'list-ul'])Eventos</a>
 		</div>
 	</div>
 </div>

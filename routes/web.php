@@ -178,7 +178,13 @@ Route::middleware('super-admin')->group(function() {
     Route::prefix('contratantes')->name('venues.')->withoutMiddleware('join-gig')->group(function() {
         Route::get('', 'VenuesController@index')->name('index');
 
-        Route::get('{venue}', 'VenuesController@show')->name('show');
+        Route::prefix('{venue}')->name('show.')->group(function() {
+            Route::get('hoje', 'VenuesController@today')->name('today');
+
+            Route::get('passado', 'VenuesController@past')->name('past');
+            
+            Route::get('futuro', 'VenuesController@upcoming')->name('upcoming');
+        });
 
         Route::post('', 'VenuesController@store')->name('store');
 

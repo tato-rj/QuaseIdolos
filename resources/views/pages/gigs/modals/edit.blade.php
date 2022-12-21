@@ -1,7 +1,7 @@
 @modal(['title' => 'Editar evento', 'id' => 'edit-gig-'.$gig->id.'-modal'])
 @isset($pausable)
 <div class="d-flex justify-content-between align-items-end mb-3">
-	<h6 class="m-0">{!! $gig->status() !!}</h6>
+	<h6 class="m-0">{!! $gig->status()->get() !!}</h6>
 	<form method="POST" action="{{route('gig.pause', $gig)}}">
 		@csrf
 		<button type="submit" class="btn btn-sm btn-secondary">

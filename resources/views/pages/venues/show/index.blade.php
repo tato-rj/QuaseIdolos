@@ -8,20 +8,19 @@
 
 @section('content')
 <section class="mb-5 container">
-	<div class="text-center">
+	<div class="text-center mb-4">
 		@pagetitle(['title' => 'Eventos no', 'highlight' => $venue->name])
 		@create(['name' => 'gig', 'label' => 'Novo evento', 'folder' => 'gigs'])
 	</div>
+    @nav(['pages' => [
+      'Hoje' => route('venues.show.today', $venue), 
+      'Passado' => route('venues.show.past', $venue),
+      'Futuro' => route('venues.show.upcoming', $venue)
+    ]])
 </section>
 
 <section class="mb-5 container">
-	@table([
-		'title' => 'Eventos hoje',
-		'empty' => true,
-		'legend' => 'evento|eventos',
-		'rows' => $venue->gigs()->ready()->get(),
-		'view' => 'pages.gigs.rows.today'
-	])
+	{!!$table!!}
 </section>
 
 <section class="mb-5 container">
@@ -30,17 +29,6 @@
 		'legend' => 'evento|eventos',
 		'rows' => $venue->gigs()->unscheduled()->get(),
 		'view' => 'pages.venues.show.unscheduled'
-	])
-</section>
-
-<section class="mb-5 container">
-	@table([
-		'title' => 'Outros eventos',
-		'optional' => [2,3],
-		'headers' => ['Data', 'Participantes', 'Músicas', 'Status', ''],
-		'legend' => 'evento|eventos',
-		'rows' => $venue->gigs()->scheduled()->notReady()->orderBy('scheduled_for')->paginate(8),
-		'view' => 'pages.venues.show.row'
 	])
 </section>
 @endsection

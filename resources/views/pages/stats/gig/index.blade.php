@@ -9,7 +9,11 @@
 <section class="container mb-6">
 	<div class="text-center mb-4">
 		@pagetitle(['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
-    @include('pages.stats.nav')
+    @nav(['pages' => [
+      'Eventos' => route('stats.gigs'), 
+      'Artistas' => route('stats.artists'),
+      'Estilos' => route('stats.genres')
+    ]])
 	</div>
   <div class="row">
   	<div class="col-lg-6 col-md-8 col-12">

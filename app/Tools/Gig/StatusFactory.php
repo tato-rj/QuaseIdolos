@@ -6,16 +6,24 @@ use App\Models\Gig;
 
 abstract class StatusFactory
 {
-	protected $gig, $withText;
+	protected $gig, $withText, $onlyText;
 
 	public function __construct(Gig $gig)
 	{
 		$this->gig = $gig;
+		$this->withText = true;
 	}
 
-	public function withText($withText = true)
+	public function onlyText()
 	{
-		$this->withText = $withText;
+		$this->onlyText = true;
+
+		return $this;
+	}
+
+	public function noText()
+	{
+		$this->withText = false;
 
 		return $this;
 	}
@@ -28,6 +36,9 @@ abstract class StatusFactory
 
 	public function create($icon, $text)
 	{
+		if ($this->onlyText)
+			return $text;
+		
 		return $this->withText ? $icon . $text : $icon;
 	}
 
