@@ -20,7 +20,7 @@
 			@endif
 
 			@if($gig->isFull())
-			<p class="text-green m-0">@fa(['icon' => 'check'])O setlist está completo</p>
+			<p class="text-green m-0">@fa(['icon' => 'check-circle'])O setlist está completo</p>
 			@else
 			<p class="text-red m-0">@fa(['icon' => 'exclamation-circle'])O setlist ainda tem espaço pra mais músicas</p>
 			@endif
