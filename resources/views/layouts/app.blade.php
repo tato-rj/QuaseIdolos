@@ -432,7 +432,7 @@ $(document).ready(function() {
             $('[data-datepicker]').each(function() {
                 let $element = $(this);
                 $element.datepicker({
-                    minDate: new Date(),
+                    // minDate: new Date(),
                     // defaultDate: new Date($element.data('datepicker')),
                     onSelect: function() {
                         if ($element.attr('data-input'))
