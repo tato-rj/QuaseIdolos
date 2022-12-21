@@ -11,11 +11,20 @@
 			<p class="text-warning m-0">@fa(['icon' => 'exclamation-circle']){{$participants}} @choice('pessoa|pessoas', $participants) participando</p>
 			@endif
 
+			@if($gig->participatesInRatings())
+				@if($gig->winner()->exists())
+					<p class="text-green m-0">@fa(['icon' => 'check-circle'])O vencedor já foi escolhido</p>
+				@else
+					<p class="text-warning m-0">@fa(['icon' => 'exclamation-circle'])A votação ainda está aberta</p>
+				@endif
+			@endif
+
 			@if($requests)
 			<p class="text-red m-0">@fa(['icon' => 'exclamation-circle']){{$requests}} @choice('pedido|pedidos', $requests) na lista de espera</p>
 			@else
 			<p class="text-green m-0">@fa(['icon' => 'check-circle'])A lista de espera do setlist está vazia</p>
 			@endif
+
 		</div>
 
 		<p class="text-dark m-0">Confirma que o evento acabou?</p>
