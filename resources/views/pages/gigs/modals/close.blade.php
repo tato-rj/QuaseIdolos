@@ -1,4 +1,3 @@
-@php($participants = $gig->participants()->guests()->count())
 @php($requests = $gig->setlist()->waiting()->count())
 
 @modal(['title' => 'Fechar evento', 'id' => 'close-gig-'.$gig->id.'-modal'])
@@ -7,10 +6,6 @@
 
 	<div class="text-left bg-white px-4 py-3 rounded mb-3">
 		<div class="mb-2">
-			@if($participants)
-			<p class="text-warning m-0">@fa(['icon' => 'exclamation-circle']){{$participants}} @choice('pessoa|pessoas', $participants) participando</p>
-			@endif
-
 			@if($gig->participatesInRatings())
 				@if($gig->winner()->exists())
 					<p class="text-green m-0">@fa(['icon' => 'check-circle'])O vencedor já foi escolhido</p>
