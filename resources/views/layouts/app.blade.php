@@ -433,8 +433,8 @@ $(document).ready(function() {
                 let $element = $(this);
                 $element.datepicker({
                     minDate: new Date(),
-                    dateFormat: 'd/m/Y',
-                    defaultDate: new Date($element.data('datepicker')),
+                    dateFormat: 'dd/mm/yy',
+                    defaultDate: moment($element.data('datepicker'), 'DD/MM/YYYY')._d,
                     onSelect: function() {
                         if ($element.attr('data-input'))
                             $($element.data('input')).val(this.value);
