@@ -1,4 +1,4 @@
-<div class="position-absolute top-0 text-right" style="display: {{$ratings->count() ? 'inline-block' : 'none'}};">
+<div class="position-absolute top-0 right-0 pr-2" style="display: {{$ratings->count() ? 'inline-block' : 'none'}};">
 	<h3 class="no-stroke opacity-6" id="counter" style="font-size: 3.2rem">{{$timer}}s</h3>
 </div>
 
