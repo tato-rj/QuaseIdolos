@@ -22,7 +22,7 @@
       @endmodal
    </div>
 
-	<div id="ranking-container" class="row">
+	<div id="ranking-container">
 
 	</div>
 </section>
