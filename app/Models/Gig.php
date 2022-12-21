@@ -144,6 +144,7 @@ class Gig extends BaseModel
         $new->scheduled_for = null;
         $new->starts_at = null;
         $new->ends_at = null;
+        $new->winner_id = null;
         $new->is_live = false;
         $new->is_paused = false;
 
