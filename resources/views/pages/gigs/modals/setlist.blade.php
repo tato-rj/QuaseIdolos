@@ -2,6 +2,7 @@
 <div class="text-left" id="setlist-accordion">
 	@table([
 		'legend' => 'música|músicas',
+		'empty' => true,
 		'rows' => $gig->setlist,
 		'view' => 'pages.gigs.show.rows.setlist'
 	])
