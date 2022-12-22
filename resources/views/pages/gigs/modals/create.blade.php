@@ -14,8 +14,8 @@
 	@endselect
 	@endisset
 
-	@input(['placeholder' => 'Nome (opcional)', 'name' => 'name'])
-	@textarea(['placeholder' => 'Descrição (opcional)', 'name' => 'description'])
+	@input(['placeholder' => 'Nome (opcional)', 'name' => 'name', 'value' => old('name')])
+	@textarea(['placeholder' => 'Descrição (opcional)', 'name' => 'description', 'value' => old('description'), 'rows' => 3])
 	@input(['placeholder' => 'Limite de repetições por música', 'name' => 'repeat_limit', 'type' => 'number', 'min' => 0])
 	@input(['placeholder' => 'Limite total de músicas', 'name' => 'songs_limit', 'type' => 'number', 'min' => 0])
 	@input(['placeholder' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0])
