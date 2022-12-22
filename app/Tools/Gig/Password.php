@@ -25,4 +25,9 @@ class Password
     {
     	return (bool) $this->gig->password;
     }
+
+    public function digits()
+    {
+    	return str_split($this->gig->password);
+    }
 }

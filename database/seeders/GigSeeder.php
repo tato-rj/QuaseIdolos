@@ -61,6 +61,7 @@ class GigSeeder extends Seeder
         Gig::create([
             'venue_id' => Venue::byName('L\'Oreal')->id,
             'creator_id' => Admin::superAdmin()->first()->user->id,
+            'password' => '1234',
             'songs_limit' => 40,
             'songs_limit_per_user' => 10,
             'has_ratings' => true,

@@ -490,6 +490,68 @@ $(document).ready(function() {
 //          });
 // });
 </script>
+<script type="text/javascript">
+$(document).on('click', 'button[name="show_password_container"]', function(event) {
+    $(this).closest('.join-content').hide();
+    $($(this).data('target')).fadeIn('fast');
+});
+
+$(document).on('keyup', '.password-digits input[name="digit"]', function(event) {
+    let $input = $(this);
+    let $container = $input.closest('.password-digits');
+    let $inputs = $container.find('input[name="digit"]');
+    let $next = $($input.data('next'));
+    let $password = $($(this).data('target'));
+
+    if (! isNumber(event.keyCode)) {
+        $input.val('');
+        return;
+    }
+
+    setTimeout(function() {
+    $input.prop('disabled', true);
+
+    if ($next.length) {
+        $next.focus();
+    } else {
+        if (verifyPassword($inputs, $password.data('real'))) {
+            $inputs.each(function(i) {
+                let $input = $(this);
+                setTimeout(function() {
+                    $input.toggleClass('alert-green bg-transparent').animateCSS('bounceIn', 'slower');  
+                }, i*100);
+            });
+            
+            setTimeout(function() {
+                $container.find('form').submit();
+            }, ($inputs.length * 100) * 3);
+        } else {
+            $inputs.toggleClass('alert-red bg-transparent').animateCSS('shakeX', 'slow');
+
+            setTimeout(function() {
+                $inputs.val('').prop('disabled', false).toggleClass('alert-red bg-transparent animate__shakeX');
+                $inputs.first().focus();
+            }, 400);
+        }
+    }
+    }, 100);
+});
+
+function isNumber(code) {
+    return code >= 48 && code <= 57;
+}
+
+function verifyPassword($inputs, password)
+{
+    let input = '';
+
+    $inputs.each(function() {
+        input = input + $(this).val();
+    });
+
+    return password == input;
+}
+</script>
         @stack('scripts')
     </body>
 </html>
