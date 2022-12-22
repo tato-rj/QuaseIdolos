@@ -415,4 +415,22 @@ class GigTest extends AppTest
 
         $this->post(route('song-requests.store', $this->song));
     }
+
+    /** @test */
+    public function all_requests_in_the_waiting_list_are_removed_when_a_gig_is_closed()
+    {
+        $gig = Gig::factory()->live()->create();
+
+        $this->signIn();
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->signIn($this->superAdmin);
+
+        $this->assertCount(1, $gig->setlist()->get());
+
+        $this->post(route('gig.close', $gig));
+
+        $this->assertCount(0, $gig->setlist()->get());
+    }
 }

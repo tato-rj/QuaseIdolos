@@ -171,6 +171,7 @@ class GigsController extends Controller
             'ends_at' => now()
         ]);
 
+        $gig->setlist()->waiting()->delete();
         Participant::in($gig)->unconfirmed()->confirm();
 
         $gig->archives()->save();
