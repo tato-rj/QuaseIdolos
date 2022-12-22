@@ -33,9 +33,7 @@
 			@endif
 		</h6>
 		@elseif($over)
-		<h6 class="border border-muted no-stroke rounded-pill w-100 mt-3 text-center p-1 mb-0">Terminou {{$gig->starts_at->diffForHumans()}}</h6>
-		@else
-		<h6 class="border border-muted no-stroke rounded-pill w-100 mt-3 text-center p-1 mb-0">Ainda não começou</h6>
+		<h6 class="border border-muted no-stroke rounded-pill w-100 mt-3 text-center p-1 mb-0">{{$gig->status()->onlyText()->get()}}</h6>
 		@endif
 	</div>
 </div>
