@@ -1,5 +1,5 @@
 <div>
-	@include('pages.setlists.admin.counter')
+	@include('pages.setlists.admin.counter', ['setlist' => $setlist->where('user_id', '!=', auth()->user()->id)])
 
 	<div id="setlist"> 
 		@forelse($setlist->whereNull('finished_at') as $entry)
