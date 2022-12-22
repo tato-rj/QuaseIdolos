@@ -38,11 +38,18 @@ class GigsController extends Controller
         if ($gig->isPaused())
             return back()->with('error', 'Esse evento volta daqui a pouco');
 
+        $this->authorize('join', $gig);
+
         auth()->user()->join($gig);
 
         $redirect = session()->has('origin') ? redirect(session('origin')) : back();
         
         return $redirect->with('modal', 'pages.gigs.welcome.modal');
+    }
+
+    public function verifyPassword(Request $request, Gig $gig)
+    {
+        return $gig->password()->verify($request->password) ? response(200) : response('A senha está incorreta', 401);
     }
 
     /**

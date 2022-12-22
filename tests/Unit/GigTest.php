@@ -138,4 +138,10 @@ class GigTest extends AppTest
 
         $this->assertCount(2, Gig::upcoming()->get());
     }
+
+    /** @test */
+    public function it_knows_how_to_generate_a_random_password()
+    {
+        $this->assertEquals(4, strlen($this->gig->password()->generate()));
+    }
 }

@@ -36,4 +36,13 @@ class GigFactory extends Factory
             ];
         });
     }
+
+    public function withPassword()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'password' => 'pass'
+            ];
+        });
+    }
 }

@@ -433,4 +433,28 @@ class GigTest extends AppTest
 
         $this->assertCount(0, $gig->setlist()->get());
     }
+
+    /** @test */
+    public function a_gig_can_require_a_password_for_guests_to_join()
+    {
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
+        $gig = Gig::factory()->live()->withPassword()->create();
+
+        $this->signIn();
+
+        $this->patch(route('gig.join', $gig));
+    }
+
+    /** @test */
+    public function a_gig_can_verify_if_a_password_is_correct()
+    {
+        $this->signIn();
+
+        $gig = Gig::factory()->live()->withPassword()->create();
+
+        $this->post(route('gig.verify-password', $gig), ['password' => 'foo'])->assertStatus(401);
+
+        $this->post(route('gig.verify-password', $gig), ['password' => $gig->password])->assertStatus(200);
+    }
 }

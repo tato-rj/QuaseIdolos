@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function() {
         Route::get('entrar', 'GigsController@select')->name('select');
 
         Route::patch('entrar/{gig}', 'GigsController@join')->name('join');
+
+        Route::post('senha/{gig}', 'GigsController@verifyPassword')->name('verify-password');
     });
 
     Route::prefix('votacao')->name('ratings.')->group(function() {

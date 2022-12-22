@@ -14,4 +14,15 @@ class GigPolicy
     {
         return $gig->isReady();
     }
+
+    public function join(User $user, Gig $gig)
+    {
+        if (! $gig->password()->required())
+            return true;
+
+        if ($gig->password != request()->password)
+            return $this->deny('Você precisa ter a senha pra entrar nesse evento');
+
+        return true;
+    }
 }

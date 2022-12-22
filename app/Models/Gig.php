@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Traits\{Rateable, Archiveable, GigStates};
 use App\Voting\{Ranking, Rules};
-use App\Tools\Gig\Status;
+use App\Tools\Gig\{Status, Password};
 
 class Gig extends BaseModel
 {
@@ -56,6 +56,11 @@ class Gig extends BaseModel
     public function description()
     {
     	return $this->description ?? $this->venue->description;
+    }
+
+    public function password()
+    {
+    	return new Password($this);
     }
     
 	public function scopeByEventDate($query)
