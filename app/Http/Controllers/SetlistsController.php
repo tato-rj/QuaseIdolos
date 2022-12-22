@@ -11,9 +11,8 @@ class SetlistsController extends Controller
     {
         $gig = auth()->user()->liveGig();
         $setlist = $gig ? $gig->setlist()->orderBy('order')->get() : collect();
-        $percentage = percentage($setlist->count(), $gig ? $gig->songs_limit : 0);
 
-        return view('pages.setlists.admin.index', compact(['setlist', 'gig', 'percentage']));
+        return view('pages.setlists.admin.index', compact(['setlist', 'gig']));
     }
 
     public function table(Request $request)
