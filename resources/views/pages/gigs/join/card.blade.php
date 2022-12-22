@@ -32,7 +32,7 @@
 			Abriu {{$gig->starts_at->diffForHumans()}}
 			@endif
 		</h6>
-		@elseif($over)
+		@else
 		<h6 class="border border-muted no-stroke rounded-pill w-100 mt-3 text-center p-1 mb-0">{{$gig->status()->onlyText()->get()}}</h6>
 		@endif
 	</div>
