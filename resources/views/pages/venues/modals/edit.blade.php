@@ -3,13 +3,13 @@
 	@csrf
 	@method('PATCH')
 	@input(['label' => 'Nome', 'name' => 'name', 'value' => $venue->name, 'required' => true])
-	@textarea(['label' => 'Descrição (opcional)', 'value' => $venue->description, 'name' => 'description', 'rows' => 3])
+	@textarea(['label' => 'Descrição (opcional)', 'placeholder' => , 'placeholder' => 'Sem descrição', 'value' => $venue->description, 'name' => 'description', 'rows' => 3])
 	<div class="row">
 		<div class="col"> 
-			@input(['label' => 'Latitude', 'value' => $venue->lat, 'name' => 'lat'])
+			@input(['label' => 'Latitude', 'placeholder' => '12.34567', 'value' => $venue->lat, 'name' => 'lat'])
 		</div>
 		<div class="col"> 
-			@input(['label' => 'Longitude', 'value' => $venue->lon, 'name' => 'lon'])
+			@input(['label' => 'Longitude', 'placeholder' => '-12.34567', 'value' => $venue->lon, 'name' => 'lon'])
 		</div>
 	</div>
 
