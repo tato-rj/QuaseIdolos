@@ -2,7 +2,7 @@
 <form method="POST" action="{{route('venues.store')}}">
 	@csrf
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'required' => true])
-	@input(['placeholder' => 'Descrição (opcional)', 'name' => 'description'])
+	@textarea(['placeholder' => 'Descrição (opcional)', 'name' => 'description'])
 	<div class="row">
 		<div class="col"> 
 			@input(['placeholder' => 'Latitude', 'name' => 'lat'])

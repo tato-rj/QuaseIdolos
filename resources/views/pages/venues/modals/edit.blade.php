@@ -3,7 +3,7 @@
 	@csrf
 	@method('PATCH')
 	@input(['label' => 'Nome', 'name' => 'name', 'value' => $venue->name, 'required' => true])
-	@input(['label' => 'Descrição (opcional)', 'value' => $venue->description, 'name' => 'description'])
+	@textarea(['label' => 'Descrição (opcional)', 'value' => $venue->description, 'name' => 'description'])
 	<div class="row">
 		<div class="col"> 
 			@input(['label' => 'Latitude', 'value' => $venue->lat, 'name' => 'lat'])
