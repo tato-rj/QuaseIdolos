@@ -33,7 +33,7 @@
 	@endisset
 	
 	@input(['label' => 'Nome', 'placeholder' => $gig->venue->name, 'name' => 'name', 'value' => $gig->name])
-	@input(['label' => 'Descrição', 'placeholder' => $gig->venue->description ?? 'Sem descrição', 'name' => 'description', 'value' => $gig->description])
+	@textarea(['label' => 'Descrição', 'placeholder' => $gig->venue->description ?? 'Sem descrição', 'name' => 'description', 'value' => $gig->description])
 
 	@input(['label' => 'Limite de repetições por música', 'placeholder' => 'Sem limite', 'name' => 'repeat_limit', 'type' => 'number', 'min' => 0, 'value' => $gig->repeat_limit])
 	@input(['label' => 'Limite total de músicas', 'placeholder' => 'Sem limite', 'name' => 'songs_limit', 'type' => 'number', 'min' => 0, 'value' => $gig->songs_limit])
