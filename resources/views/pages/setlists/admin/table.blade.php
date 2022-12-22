@@ -1,6 +1,8 @@
 <div>
+	@isset($gig)
 	@include('pages.setlists.admin.counter', ['setlist' => $setlist->where('user_id', '!=', auth()->user()->id)])
-
+	@endisset
+	
 	<div id="setlist"> 
 		@forelse($setlist->whereNull('finished_at') as $entry)
 		@include('pages.setlists.admin.song-request')
