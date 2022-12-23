@@ -30,4 +30,14 @@ class Password
     {
     	return str_split($this->gig->password);
     }
+
+    public function update()
+    {
+    	$this->gig->update(['password' => $this->generate()]);
+    }
+
+    public function destroy()
+    {
+    	$this->gig->update(['password' => null]);
+    }
 }

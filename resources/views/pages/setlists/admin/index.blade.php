@@ -2,18 +2,7 @@
 
 @push('header')
 <style type="text/css">
-@keyframes example {
-  0%   {opacity: .4;}
-  50%  {opacity: .1;}
-  100% {opacity: .4;}
-}
 
-.status-icon-backdrop {
-  animation-name: example;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
 
 .dragged {
 	opacity: 0.2;
@@ -40,10 +29,6 @@
 <section class="container mb-6" id="setlist-container">
 	@include('pages.setlists.admin.table')
 </section>
-
-@isset($gig)
-@include('pages.setlists.admin.status')
-@endisset
 @endsection
 
 @push('scripts')

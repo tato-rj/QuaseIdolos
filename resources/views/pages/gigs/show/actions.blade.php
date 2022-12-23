@@ -16,7 +16,15 @@
 			data-bs-toggle="modal" 
 			data-bs-target="#edit-gig-{{$gig->id}}-modal" 
 			class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'edit'])Editar evento</button>
-		
+
+		@if($gig->password()->required())
+		<form method="POST" action="{{route('gig.update-password', $gig)}}">
+			@csrf
+			@method('PATCH')
+			<button type="submit" class="btn btn-secondary mb-2 text-truncate w-100">@fa(['icon' => 'key'])Mudar senha</button>
+		</form>
+		@endif
+
 		<button {{$gig->isPast() && ! $gig->isLive() ? 'disabled' : null}} 
 			data-bs-toggle="modal" 
 			data-bs-target="#delete-gig-{{$gig->id}}-modal" 

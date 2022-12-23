@@ -1,4 +1,4 @@
-<div class="join-password" style="display: none" id="gig-{{$gig->id}}-password-container">
+<div class="join-password" style="display: {{! isset($showPassword) ? 'none' : null}}" id="gig-{{$gig->id}}-password-container">
 	<h5 class="text-center no-stroke text-dark mb-3">SENHA DO EVENTO</h5>
 	<div class="row password-digits">
 		<input id="gig-{{$gig->id}}-password" data-real="{{$gig->password}}" type="hidden">

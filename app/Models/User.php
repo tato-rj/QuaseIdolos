@@ -110,8 +110,14 @@ class User extends Authenticatable
         if ($this->liveGig())
             return null;
 
-        if ($gigs->count() == 1 && $gigs->first()->isLive())
-            return $this->join($gigs->first());
+        if ($gigs->count() == 1 && $gigs->first()->isLive()){
+            if (! $gigs->first()->password()->required()) {
+                $this->join($gigs->first());
+                $modal = 'pages.gigs.welcome.modal';
+            } else {
+                return 'pages.gigs.modals.password';
+            }
+        }
     }
 
     public function scopeTeam($query)

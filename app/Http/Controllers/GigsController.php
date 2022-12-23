@@ -67,7 +67,7 @@ class GigsController extends Controller
             'scheduled_for' => 'required',
         ]);
 
-        Gig::create([
+        $gig = Gig::create([
             'creator_id' => auth()->user()->id,
             'name' => $request->name,
             'description' => $request->description,
@@ -80,6 +80,10 @@ class GigsController extends Controller
             'songs_limit_per_user' => $request->songs_limit_per_user,
             'scheduled_for' => datePtToUs($request->scheduled_for),
         ]);
+
+        if ($request->has_password) {
+            $gig->password()->update();
+        }
 
         return back()->with('success', 'O evento foi criado com sucesso');
     }
@@ -128,7 +132,21 @@ class GigsController extends Controller
             'scheduled_for' => datePtToUs($request->scheduled_for) ?? $gig->scheduled_for,
         ]);
 
+        if ($request->has_password) {
+            if (! $gig->password()->required())
+                $gig->password()->update();
+        } else {
+            $gig->password()->destroy();
+        }
+
         return back()->with('success', 'O evento foi alterado com sucesso');
+    }
+
+    public function updatePassword(Request $request, Gig $gig)
+    {
+        $gig->password()->update();
+
+        return back()->with('success', 'A senha foi alterada com sucesso');
     }
 
     public function duplicate(Request $request, Gig $gig)

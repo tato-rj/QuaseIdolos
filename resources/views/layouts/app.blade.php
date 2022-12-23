@@ -132,6 +132,19 @@ a {
         background-position: 0 !important;
       }
 
+      @keyframes example {
+  0%   {opacity: .4;}
+  50%  {opacity: .1;}
+  100% {opacity: .4;}
+}
+
+.status-icon-backdrop {
+  animation-name: example;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
         </style>
 <script>
     window.app = <?php echo json_encode([
@@ -145,11 +158,16 @@ a {
         @stack('header')
     </head>
     <body class="bg-primary">
-            @auth
-            @unless(isset($raw))
-            @include('pages.gigs.banner')
-            @endunless
-            @endauth
+        @auth
+        @unless(isset($raw))
+        @include('pages.gigs.banner')
+        @endunless
+
+        @admin
+        @include('pages.gigs.status')
+        @endadmin
+        @endauth
+
         <div class="position-relative">
             @unless(isset($raw))
             @include('layouts.header')
@@ -492,8 +510,11 @@ $(document).ready(function() {
 </script>
 <script type="text/javascript">
 $(document).on('click', 'button[name="show_password_container"]', function(event) {
+    let $passwords = $($(this).data('target'));
     $(this).closest('.join-content').hide();
-    $($(this).data('target')).fadeIn('fast');
+    
+    $passwords.fadeIn('fast');
+    $passwords.find('input[name="digit"]').first().focus();
 });
 
 $(document).on('keyup', '.password-digits input[name="digit"]', function(event) {

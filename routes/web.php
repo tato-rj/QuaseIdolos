@@ -204,6 +204,8 @@ Route::middleware('super-admin')->group(function() {
 
         Route::patch('{gig}', 'GigsController@update')->name('update');
 
+        Route::patch('{gig}/password', 'GigsController@updatePassword')->name('update-password');
+
         Route::post('{gig}/duplicar', 'GigsController@duplicate')->name('duplicate');
 
         Route::post('{gig}/abrir', 'GigsController@open')->name('open');

@@ -44,6 +44,10 @@
 	</div>
 
 	<div class="text-left mb-3"> 
+		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => $gig->password()->required() ?? true])
+	</div>
+
+	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => $gig->participatesInRatings()])
 	</div>
 	

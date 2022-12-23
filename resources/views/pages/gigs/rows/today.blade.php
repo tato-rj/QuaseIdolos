@@ -8,7 +8,12 @@
 				@csrf
 				<button class="btn-raw" style="vertical-align: sub;">@fa(['icon' => 'copy', 'fa_color' => 'white'])</button>
 			</form>
-			<a href="{{route('gig.show', $gig)}}" class="link-secondary fw-bold d-block mr-3 h5 mb-0">{{$gig->name()}}</a>
+			<a href="{{route('gig.show', $gig)}}" class="link-secondary fw-bold d-block mr-3 h5 mb-0">
+				{{$gig->name()}}
+				@if($gig->password()->required())
+				<span class="ml-1 opacity-6 text-white">{{$gig->password}}</span>
+				@endif
+			</a>
 		</div>
   @endslot
 
