@@ -21,7 +21,7 @@
 
 		@table([
 			'empty' => true,
-			'title' => 'Músicas que já cantei',
+			'title' => ! $waitingList->isEmpty() ? 'Músicas que já cantei' : null,
 			'legend' => 'música|músicas',
 			'rows' => $pastList,
 			'view' => 'pages.setlists.user.row'
