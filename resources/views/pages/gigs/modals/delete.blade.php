@@ -1,5 +1,5 @@
 @modal(['title' => 'Tem certeza?','id' => 'delete-gig-'.$gig->id.'-modal'])
-@form(['method' => 'DELETE', 'url' => route('gig.destroy', $gig), 'classes' => 'text-center', 'data' => ['trigger' => 'loader']])
+@form(['method' => 'DELETE', 'url' => route('gig.destroy', $gig), 'data' => ['trigger' => 'loader']])
 
 	<div class="text-left bg-white px-4 py-3 rounded mb-3">
 		<p class="text-danger mb-1"><strong>@fa(['icon' => 'exclamation-circle'])Essa ação é irreversível</strong></p>
