@@ -11,6 +11,6 @@
 			@input(['placeholder' => 'Longitude', 'name' => 'lon', 'value' => old('lon')])
 		</div>
 	</div>
-	@submit(['label' => 'Adicionar contratante', 'theme' => 'secondary'])
+	@submit(['label' => 'Criar contratante', 'theme' => 'secondary'])
 </form>
 @endmodal

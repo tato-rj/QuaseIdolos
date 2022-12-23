@@ -113,7 +113,7 @@ class User extends Authenticatable
         if ($gigs->count() == 1 && $gigs->first()->isLive()){
             if (! $gigs->first()->password()->required()) {
                 $this->join($gigs->first());
-                $modal = 'pages.gigs.welcome.modal';
+                return 'pages.gigs.welcome.modal';
             } else {
                 return 'pages.gigs.modals.password';
             }

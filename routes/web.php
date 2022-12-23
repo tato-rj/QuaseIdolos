@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function() {
     Route::prefix('votacao')->name('ratings.')->group(function() {
         Route::get('', 'RatingsController@index')->name('index');
 
-        Route::get('minhas-notas', 'RatingsController@user')->name('user');
+        Route::get('minhas-notas', 'RatingsController@user')->withoutMiddleware('join-gig')->name('user');
 
         Route::get('candidato', 'RatingsController@candidate')->name('candidate');
         

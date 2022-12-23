@@ -29,11 +29,20 @@ class JoinGig
 
             $gigs = Gig::ready();
 
-            auth()->user()->tryToJoin($gigs);
+            $modal = auth()->user()->tryToJoin($gigs);
+            // if ($modal = auth()->user()->tryToJoin($gigs))
+                // session()->flash('modal', $modal);
+
+            if ($gigs->count() == 1 && $gigs->first()->password()->required()) {
+                if ($this->shouldReturn($request))
+                    return redirect($this->getOrigin($request))->with('modal', $modal ?? 'pages.gigs.modals.select');
+
+                session()->flash('modal', $modal);
+            }
 
             if ($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive()) {
                 if ($this->wantsModal() && $this->shouldReturn($request))
-                    return redirect($this->getOrigin($request))->with('modal', 'pages.gigs.modals.select');
+                    return redirect($this->getOrigin($request))->with('modal', $modal ?? 'pages.gigs.modals.select');
 
                 return redirect(route('gig.select', ['origin' => $this->getOrigin($request)]));
             }

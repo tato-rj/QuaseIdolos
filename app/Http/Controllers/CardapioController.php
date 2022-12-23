@@ -13,8 +13,8 @@ class CardapioController extends Controller
     public function index(Request $request)
     {
         if (auth()->check() && ! auth()->user()->liveGig()) {
-            if ($modal = auth()->user()->tryToJoin(Gig::ready()))
-                session()->flash('modal', $modal);
+            // if ($modal = auth()->user()->tryToJoin(Gig::ready()))
+                // session()->flash('modal', $modal);
         }
         
         if ($request->has('input')) {

@@ -152,6 +152,7 @@ class Gig extends BaseModel
         $new->winner_id = null;
         $new->is_live = false;
         $new->is_paused = false;
+        $new->password = $this->password()->required() ? $this->password()->generate() : null;
 
         $new->push();
 	}
