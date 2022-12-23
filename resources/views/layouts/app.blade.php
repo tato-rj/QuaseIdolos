@@ -526,14 +526,15 @@ $(document).on('keyup', '.password-digits input[name="digit"]', function(event) 
     let $next = $($input.data('next'));
     let $password = $($(this).data('target'));
 
-    if (! isNumber(event.keyCode)) {
+    if (! isNumber(event.keyCode) || ! $input.val().length) {
         $input.val('');
         return;
     }
 
-    setTimeout(function() {
     $input.prop('disabled', true);
+    $next.prop('disabled', false);
 
+    setTimeout(function() {
     if ($next.length) {
         $next.focus();
     } else {

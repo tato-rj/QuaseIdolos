@@ -1,6 +1,7 @@
 <div class="col">
 	<input data-target="#gig-{{$gig->id}}-password"
 	name="digit" 
+	{{! $loop->first ? 'disabled' : null}}
 	id="gig-{{$gig->id}}-digit-{{$loop->iteration}}"
 	@if(! $loop->last)
 	data-next="#gig-{{$gig->id}}-digit-{{$loop->iteration + 1}}"
