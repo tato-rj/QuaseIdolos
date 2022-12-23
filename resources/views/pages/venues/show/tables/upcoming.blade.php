@@ -1,5 +1,4 @@
 @table([
-	'title' => 'Eventos futuros',
 	'optional' => [2,3],
 	'empty' => true,
 	'headers' => ['Data', 'Participantes', 'Músicas', 'Status', ''],

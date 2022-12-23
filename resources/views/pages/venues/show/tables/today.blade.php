@@ -1,5 +1,4 @@
 @table([
-	'title' => 'Eventos hoje',
 	'legend' => 'evento|eventos',
 	'empty' => true,
 	'headers' => ['Evento', 'Data', ''],
