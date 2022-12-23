@@ -23,7 +23,7 @@
 		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => old('is_private') ?? false])
 	</div>
 	<div class="text-left mb-3"> 
-		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => old('has_password') ?? true])
+		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => old('has_password') ?? false])
 	</div>
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => old('has_ratings') ?? true])
