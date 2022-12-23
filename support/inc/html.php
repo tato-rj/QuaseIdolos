@@ -9,3 +9,10 @@ function fa($icon, $color = null, $classes = null) {
 		   t-2
 		   " style=" "></i>';
 }
+
+function formMethod($method) {
+	if (in_array(strtolower($method), ['delete', 'patch']))
+		return 'POST';
+
+	return $method;
+}

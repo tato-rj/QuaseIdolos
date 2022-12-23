@@ -1,4 +1,4 @@
-<form method="{{$method}}"
+<form method="{{formMethod($method)}}"
 	@isset($data)
 	@foreach($data as $type => $action)
 	data-{{$type}}="{{$action}}"

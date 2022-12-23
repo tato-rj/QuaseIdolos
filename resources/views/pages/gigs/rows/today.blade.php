@@ -11,7 +11,7 @@
 			<a href="{{route('gig.show', $gig)}}" class="link-secondary fw-bold d-block mr-3 h5 mb-0">
 				{{$gig->name()}}
 				@if($gig->password()->required())
-				<span class="ml-1 opacity-6 text-white rounded-pill bg-transparent px-2 py-1">@fa(['icon' => 'key', 'fa_size' => 'xs']){{$gig->password}}</span>
+				<span class="ml-1 opacity-6 text-white rounded-pill bg-transparent px-2 py-1">@fa(['icon' => 'key', 'fa_size' => 'xs', 'fa_color' => 'secondary']){{$gig->password}}</span>
 				@endif
 			</a>
 		</div>
