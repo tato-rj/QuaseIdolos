@@ -511,6 +511,8 @@ $(document).ready(function() {
 <script type="text/javascript">
 $(document).on('click', 'button[name="show_password_container"]', function(event) {
     let $passwords = $($(this).data('target'));
+    $('.join-content').show();
+    $('.join-password').hide();
     $(this).closest('.join-content').hide();
     
     $passwords.fadeIn('fast');
