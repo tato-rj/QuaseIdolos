@@ -1,5 +1,6 @@
 @modal(['title' => 'Tem certeza?','id' => 'delete-gig-'.$gig->id.'-modal'])
-<form method="POST" action="{{route('gig.destroy', $gig)}}" class="text-center">
+@form(['method' => 'DELETE', 'url' => route('gig.destroy', $gig), 'data' => ['trigger' => 'loader']])
+
 	@csrf
 	@method('DELETE')
 
@@ -10,5 +11,5 @@
 	</div>
 
 	@submit(['label' => 'Sim, deletar evento', 'theme' => 'secondary'])
-</form>
+@endform
 @endmodal
