@@ -30,8 +30,6 @@ class JoinGig
             $gigs = Gig::ready();
 
             $modal = auth()->user()->tryToJoin($gigs);
-            // if ($modal = auth()->user()->tryToJoin($gigs))
-                // session()->flash('modal', $modal);
 
             if ($gigs->count() == 1 && $gigs->first()->password()->required()) {
                 if ($this->shouldReturn($request))

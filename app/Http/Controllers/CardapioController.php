@@ -11,12 +11,7 @@ class CardapioController extends Controller
     protected $artistsPerPage = 24;
 
     public function index(Request $request)
-    {
-        if (auth()->check() && ! auth()->user()->liveGig()) {
-            // if ($modal = auth()->user()->tryToJoin(Gig::ready()))
-                // session()->flash('modal', $modal);
-        }
-        
+    {        
         if ($request->has('input')) {
             $songs = Song::search($request->input)->alphabetically()->paginate($this->songsPerPage);
         } else {
