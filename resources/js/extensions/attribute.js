@@ -12,6 +12,10 @@ jQuery.fn.icon = function() {
 	return this.find('i');
 };
 
+jQuery.fn.grandparent = function() {
+	return this.parent().parent();
+};
+
 jQuery.fn.animateCSS = function(animation, speed = 'slow') {
 	let element = this;
 

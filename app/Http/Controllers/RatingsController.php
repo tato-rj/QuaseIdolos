@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{SongRequest, Rating};
 use App\Events\ScoreSubmitted;
-use App\Mail\Users\WinnerEmail;
 
 class RatingsController extends Controller
 {
@@ -53,26 +52,6 @@ class RatingsController extends Controller
         $ratings = auth()->user()->liveGig()->ratings->reverse()->groupBy('song_request_id');
 
         return view('pages.ratings.live.votes', compact(['ratings', 'timer']))->render();
-    }
-
-    public function winner()
-    {
-        $gig = auth()->user()->liveGig();
-        $ratings = $gig->ratings->reverse()->groupBy('song_request_id');
-        $votersCount = $gig->ratings->groupBy('user_id')->count();
-        $ranking = $gig->ranking();
-
-        if ($ranking->ratings->isEmpty())
-            return back()->with('error', 'Esse evento ainda não tem nenhum voto');
-
-        $winner = $ranking->ratings->first();
-
-        if (! $gig->winner()->exists())
-            \Mail::to($winner->songRequest->user->email)->queue(new WinnerEmail($ranking));
-
-        $gig->winner()->associate($winner->songRequest)->save();
-
-        return view('pages.ratings.winner.index', compact(['ranking', 'winner', 'ratings', 'votersCount']));
     }
 
     public function store(Request $request, SongRequest $songRequest)

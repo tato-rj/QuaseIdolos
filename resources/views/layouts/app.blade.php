@@ -158,16 +158,16 @@ a {
         @stack('header')
     </head>
     <body class="bg-primary">
-        @auth
+
         @unless(isset($raw))
-        @include('pages.gigs.banner')
+            @auth
+            @include('pages.gigs.banner')
+            @admin
+            @include('pages.gigs.status')
+            @endadmin
+            @endauth
         @endunless
-
-        @admin
-        @include('pages.gigs.status')
-        @endadmin
-        @endauth
-
+        
         <div class="position-relative">
             @unless(isset($raw))
             @include('layouts.header')
@@ -183,15 +183,18 @@ a {
             @include('layouts.footer')
             @endunless
         </div>
-        @include('layouts.components.alerts')
 
-        @if($modal = session('modal'))
-        @include($modal)
-        @php(session()->forget('modal'))
-        @endif
+        @unless(isset($raw))
+            @include('layouts.components.alerts')
 
-        @unless(auth()->check())
-        @include('auth.login.modal')
+            @if($modal = session('modal'))
+            @include($modal)
+            @php(session()->forget('modal'))
+            @endif
+
+            @unless(auth()->check())
+            @include('auth.login.modal')
+            @endunless
         @endunless
 
         <script src="{{ mix('js/app.js') }}"></script>

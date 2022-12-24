@@ -156,7 +156,11 @@ Route::middleware('admin')->group(function() {
 
         Route::get('votos', 'RatingsController@votes')->name('votes');
 
-        Route::get('vencedor', 'RatingsController@winner')->name('winner');
+        Route::prefix('vencedor')->name('winner.')->group(function() {
+            Route::get('', 'WinnersController@show')->name('show');
+
+            Route::get('anunciar', 'WinnersController@broadcast')->name('broadcast');
+        });
     });
 });
 
@@ -199,6 +203,8 @@ Route::middleware('super-admin')->group(function() {
         Route::get('', 'GigsController@index')->name('index');
 
         Route::get('{gig}', 'GigsController@show')->name('show');
+
+        Route::get('{gig}/senha', 'GigsController@password')->name('password');
 
         Route::post('', 'GigsController@store')->name('store');
 

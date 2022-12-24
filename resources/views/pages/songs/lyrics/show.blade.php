@@ -9,7 +9,7 @@
 		</h3>
 	</div>
 
-	<div id="lyrics-container" class="rounded p-3 bg-transparent" style="flex: 1; overflow-y: hidden;">
+	<div id="lyrics-container" style="flex: 1; overflow-y: hidden;">
 {{-- 		<div class="d-apart">
 			<label class="opacity-6 p-2 m-0">LETRA</label>
 			<div class="d-flex align-items-baseline">

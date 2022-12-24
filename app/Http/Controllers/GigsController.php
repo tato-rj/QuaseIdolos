@@ -17,6 +17,14 @@ class GigsController extends Controller
         return view('pages.gigs.index', compact(['today', 'venues', 'unscheduled']));
     }
 
+    public function password(Gig $gig)
+    {
+        if (! $gig->password()->required())
+            return back()->with('error', 'Esse evento não precisa de senha');
+
+        return view('pages.gigs.show.password', compact('gig'));
+    }
+
     public function select(Request $request)
     {
         session(['origin' => $request->origin]);

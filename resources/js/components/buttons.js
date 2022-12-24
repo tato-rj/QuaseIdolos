@@ -3,5 +3,5 @@
 });
 
 $(document).on('click', '.btn[data-trigger="loader"]', function() {
-    $(this).addLoader();
+   $(this).prop('disabled', true).addLoader();
 });

@@ -76,4 +76,16 @@ $(document).on('show.bs.modal', '.modal', function (e) {
   disableDraggable();
 });
 </script>
+
+<script type="text/javascript">
+$('#show-winner').click(function() {
+	$(this).toggle();
+	$(this).siblings('div').toggle();
+});
+
+$('#show-winner-cancel').click(function() {
+	$(this).grandparent().toggle();
+	$(this).grandparent().siblings('button').toggle();
+});
+</script>
 @endpush
