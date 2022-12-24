@@ -15,7 +15,7 @@
 	<div class="text-center">
 		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje'])
 		@if($gig)
-		<a class="btn btn-secondary mb-3" target="_blank" href="{{route('lyrics.index')}}">Mostrar letras</a>
+		@include('pages.setlists.admin.screens')
 
 		<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h4>@fa(['icon' => 'clipboard-list'])Editar evento</h4></a>
 

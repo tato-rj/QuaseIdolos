@@ -36,10 +36,6 @@
 	</div>
 	@else
 	<div class="text-center mx-auto mb-4" style="max-width: 600px">
-		@if(auth()->user()->isAdmin())
-		<a href="{{route('ratings.live')}}" target="_blank" class="btn btn-secondary mx-auto mb-4">Votação ao vivo</a>
-		@endif
-		
 		<h6>Acompanhe aqui os cantores à medida em que eles vão cantando no palco do evento de hoje. Dê o seu voto e acompanhe o resultado!</h6>
 	</div>
 	<div class="row">
