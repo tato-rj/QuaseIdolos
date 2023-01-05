@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasMany(SongRequest::class)->with(['song', 'user']);
     }
 
+    public function suggestions()
+    {
+        return $this->hasMany(Suggestion::class);
+    }
+
     public function ratings()
     {
         return $this->hasManyThrough(Rating::class, SongRequest::class);

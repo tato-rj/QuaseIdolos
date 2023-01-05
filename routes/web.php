@@ -82,6 +82,11 @@ Route::middleware('auth')->group(function() {
         
         Route::post('{songRequest}', 'RatingsController@store')->name('store');
     });
+
+    Route::prefix('sugestoes')->withoutMiddleware('join-gig')->name('suggestions.')->group(function() {
+        Route::post('', 'SuggestionsController@store')->name('store');
+    });
+
 });
 
 //////////////////
@@ -125,6 +130,15 @@ Route::middleware('admin')->group(function() {
 
     Route::prefix('pedido-de-musica')->name('song-requests.')->group(function() {
         Route::post('{songRequest}/confirmar', 'SongRequestsController@finish')->name('finish');
+    });
+
+
+    Route::prefix('sugestoes')->withoutMiddleware('join-gig')->name('suggestions.')->group(function() {
+        Route::get('', 'SuggestionsController@index')->name('index');
+
+        Route::post('{suggestion}', 'SuggestionsController@confirm')->name('confirm');
+
+        Route::delete('{suggestion}', 'SuggestionsController@destroy')->name('destroy');
     });
 
     Route::prefix('letra')->withoutMiddleware('join-gig')->name('lyrics.')->group(function() {

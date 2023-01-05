@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div class="mb-4">
 	<h2 class="mb-0 text-center text-uppercase px-2">
 		{{$title}} <span class="text-secondary">{{$highlight ?? null}}</span>
 	</h2>

@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ParticipantSeeder::class,
             SongRequestSeeder::class,
             RatingSeeder::class,
+            SuggestionSeeder::class,
         ]);
 
         \Artisan::call('cache:clear');

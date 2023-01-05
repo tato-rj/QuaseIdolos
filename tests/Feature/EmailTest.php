@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{User, Gig, SongRequest, Rating};
-use App\Mail\Users\{WelcomeEmail, WinnerEmail};
+use App\Models\{User, Gig, SongRequest, Rating, Suggestion};
+use App\Mail\Users\{WelcomeEmail, WinnerEmail, SuggestionEmail};
 
 class EmailTest extends AppTest
 {
@@ -36,7 +36,7 @@ class EmailTest extends AppTest
         Rating::factory()->create(['song_request_id' => $winnerRequest, 'score' => 5]);
         Rating::factory()->create(['song_request_id' => $loserRequest, 'score' => 1]);
 
-        $this->get(route('ratings.winner'));
+        $this->get(route('ratings.winner.show'));
 
         \Mail::assertQueued(function(WinnerEmail $mail) use ($winnerRequest, $loserRequest) {
             return $mail->winner->is($winnerRequest) && ! $mail->winner->is($loserRequest);
@@ -58,8 +58,22 @@ class EmailTest extends AppTest
 
         $gig->winner()->associate($winnerRequest)->save();
 
-        $this->get(route('ratings.winner'));
+        $this->get(route('ratings.winner.show'));
 
         \Mail::assertNotQueued(WinnerEmail::class);
+    }
+
+    /** @test */
+    public function an_email_is_sent_to_the_user_when_a_suggestion_is_confirmed()
+    {
+        $suggestion = Suggestion::factory()->create();
+
+        $this->signIn($this->admin);
+
+        $this->post(route('suggestions.confirm', $suggestion));
+
+        \Mail::assertQueued(function(SuggestionEmail $mail) use ($suggestion) {
+            return $mail->suggestion->is($suggestion);
+        });
     }
 }

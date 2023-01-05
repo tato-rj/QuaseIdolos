@@ -61,6 +61,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('components.searchbar');
         \Blade::include('components.nav');
         \Blade::include('layouts.menu.components.divider');
+        \Blade::include('layouts.menu.components.link');
 
         \Blade::include('components.table.layout', 'table');
         \Blade::aliasComponent('components.table.row');

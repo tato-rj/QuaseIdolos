@@ -9,24 +9,29 @@
   <div class="px-4">
     <div>      
       @if(auth()->user()->liveGig() && auth()->user()->liveGig()->participatesInRatings())
-        <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
+        @link(['route' => 'ratings.index', 'label' => 'Votação', 'icon' => 'trophy'])
         @include('layouts.menu.components.divider')
       @endif
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('profile.show')}}">Meu Perfil</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('cardapio.index')}}">Cardápio</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlists.admin')}}">Setlist</a>
+
+     @link(['route' => 'profile.show', 'label' => 'Meu Perfil'])
+     @link(['route' => 'cardapio.index', 'label' => 'Cardápio'])
+     @link(['route' => 'setlists.admin', 'label' => 'Setlist'])
+
      @include('layouts.menu.components.divider')
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('artists.index')}}">Artistas</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('songs.index')}}">Músicas</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('genres.index')}}">Estilos</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('users.index')}}">Cantores</a>
+
+     @link(['route' => 'artists.index', 'label' => 'Artistas'])
+     @link(['route' => 'songs.index', 'label' => 'Músicas'])
+     @link(['route' => 'genres.index', 'label' => 'Estilos'])
+     @link(['route' => 'users.index', 'label' => 'Cantores'])
+     @link(['route' => 'suggestions.index', 'label' => 'Sugestões', 'count' => \App\Models\Suggestion::unconfirmed()->count()])
 
      @if(auth()->user()->isSuperAdmin())
      @include('layouts.menu.components.divider')
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('venues.index')}}">Contratantes</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('gig.index')}}">Eventos</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('team.index')}}">Equipe</a>
-     <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('stats.gigs')}}">Estatísticas</a>
+
+     @link(['route' => 'venues.index', 'label' => 'Contratantes'])
+     @link(['route' => 'gig.index', 'label' => 'Eventos'])
+     @link(['route' => 'team.index', 'label' => 'Equipe'])
+     @link(['route' => 'stats.gigs', 'label' => 'Estatísticas'])
      @endif
 
       <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1 mb-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">

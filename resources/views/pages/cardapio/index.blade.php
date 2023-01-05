@@ -15,6 +15,12 @@
 			'paginate' => true,
 			'placeholder' => 'Procure por artista, música ou estilo',
 			'target' => 'results'])
+
+		<div class="text-center mb-4">
+			<h6>Não encontrou alguma música?</h6>
+			<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#suggestion-modal">Envie a sua sugestão</button>
+			@include('pages.suggestions.create')
+		</div>
 	</section>
 
 	<section class="container-fluid">
