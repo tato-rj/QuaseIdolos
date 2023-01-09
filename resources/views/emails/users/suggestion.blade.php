@@ -5,7 +5,7 @@ O seu pedido da música <strong>{{$suggestion->song_name}}</strong> foi confirma
 
 <div>
 IMAGEM
-<img src="{{asset('images/brand/logo_sm.svg')}}" alt="" width="100">
+<img src="{{'https://quaseidolos.com.br/images/brand/logo_sm.svg'}}" alt="" width="100">
 </div>
 
 @component('mail::button', ['url' => route('cardapio.index')])
