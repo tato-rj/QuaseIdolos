@@ -9,6 +9,9 @@ class ViewsController extends Controller
 {
     public function home()
     {
+        // if (auth()->check())
+        //     \Mail::to('arthurvillar@gmail.com')->queue(new \App\Mail\Users\WelcomeEmail(auth()->user()));
+
         $artists = Artist::inRandomOrder()->has('songs')->orderby('name')->take(10)->get();
         $genres = Genre::inRandomOrder()->has('songs')->orderby('name')->take(10)->get();
         $topUsers = User::ranking()->take(5)->get();
@@ -28,5 +31,15 @@ class ViewsController extends Controller
     public function reservations()
     {
         return view('pages.reservas.index');
+    }
+
+    public function terms()
+    {
+        return view('pages.legal.terms');
+    }
+
+    public function privacy()
+    {
+        return view('pages.legal.privacy');
     }
 }

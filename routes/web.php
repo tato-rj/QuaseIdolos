@@ -6,26 +6,31 @@ use Illuminate\Support\Facades\Route;
 // GUEST ROUTES //
 //////////////////
 
-Route::get('', 'ViewsController@home')->withoutMiddleware('join-gig')->name('home');
+Route::withoutMiddleware('join-gig')->group(function() {
+    Route::get('', 'ViewsController@home')->name('home');
 
-Route::get('a-banda', 'ViewsController@about')->withoutMiddleware('join-gig')->name('about');
+    Route::get('a-banda', 'ViewsController@about')->name('about');
 
-Route::get('reservas', 'ViewsController@reservations')->withoutMiddleware('join-gig')->name('reservas');
+    Route::get('reservas', 'ViewsController@reservations')->name('reservas');
 
-Route::prefix('auth/{driver}')->withoutMiddleware('join-gig')->group(function() {
-    Route::get('redirect', 'Auth\SocialiteController@redirect')->name('socialite');
+    Route::prefix('auth/{driver}')->group(function() {
+        Route::get('redirect', 'Auth\SocialiteController@redirect')->name('socialite');
 
-    Route::get('callback', 'Auth\SocialiteController@callback');
-});
+        Route::get('callback', 'Auth\SocialiteController@callback');
+    });
 
-Route::prefix('cardapio')->withoutMiddleware('join-gig')->name('cardapio.')->group(function() {
-    Route::get('', 'CardapioController@index')->name('index');
-    
-    Route::get('busca', 'CardapioController@search')->name('search');
-});
+    Route::prefix('cardapio')->name('cardapio.')->group(function() {
+        Route::get('', 'CardapioController@index')->name('index');
+        
+        Route::get('busca', 'CardapioController@search')->name('search');
+    });
 
-Route::prefix('calendario')->withoutMiddleware('join-gig')->name('calendar.')->group(function() {
-    Route::get('', 'CalendarController@index')->name('index');
+    Route::prefix('calendario')->name('calendar.')->group(function() {
+        Route::get('', 'CalendarController@index')->name('index');
+    });
+
+    Route::get('termos-de-uso', 'ViewsController@terms')->name('terms');
+    Route::get('privacidade', 'ViewsController@privacy')->name('privacy');
 });
 
 /////////////////
