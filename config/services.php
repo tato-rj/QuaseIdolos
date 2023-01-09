@@ -43,9 +43,9 @@ return [
     ],
 
     'instagram' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => env('FACEBOOK_CLIENT_REDIRECT_URL'),
+        'client_id' => env('INSTAGRAM_CLIENT_ID'),
+        'client_secret' => env('INSTAGRAM_CLIENT_SECRET'),
+        'redirect' => env('INSTAGRAM_CLIENT_REDIRECT_URL'),
     ],
 
     'google' => [
