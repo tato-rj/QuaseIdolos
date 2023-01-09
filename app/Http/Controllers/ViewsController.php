@@ -7,11 +7,22 @@ use App\Models\{Artist, Genre, User};
 
 class ViewsController extends Controller
 {
+    public function testMail()
+    {
+        if (auth()->check())
+            \Mail::to('arthurvillar@gmail.com')->queue(new \App\Mail\Users\WelcomeEmail(auth()->user()));
+
+        $artists = Artist::inRandomOrder()->has('songs')->orderby('name')->take(10)->get();
+        $genres = Genre::inRandomOrder()->has('songs')->orderby('name')->take(10)->get();
+        $topUsers = User::ranking()->take(5)->get();
+
+        $songs = collect();
+
+        return view('pages.home.index', compact(['artists', 'genres', 'songs', 'topUsers']));
+    }
+
     public function home()
     {
-        // if (auth()->check())
-        //     \Mail::to('arthurvillar@gmail.com')->queue(new \App\Mail\Users\WelcomeEmail(auth()->user()));
-
         $artists = Artist::inRandomOrder()->has('songs')->orderby('name')->take(10)->get();
         $genres = Genre::inRandomOrder()->has('songs')->orderby('name')->take(10)->get();
         $topUsers = User::ranking()->take(5)->get();

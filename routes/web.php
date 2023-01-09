@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::withoutMiddleware('join-gig')->group(function() {
     Route::get('', 'ViewsController@home')->name('home');
 
+    Route::get('test-mail', 'ViewsController@testMail')->name('home');
+
     Route::get('a-banda', 'ViewsController@about')->name('about');
 
     Route::get('reservas', 'ViewsController@reservations')->name('reservas');
