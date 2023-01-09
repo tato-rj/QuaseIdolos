@@ -23,7 +23,7 @@ class SocialiteController extends Controller
         $this->validateDriver($driver);
 
         $socialUser = Socialite::driver($driver)->user();
-
+dd($socialUser);
         $user = User::updateOrCreate([
             'email' => $socialUser->email
         ], [
