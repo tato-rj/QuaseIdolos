@@ -42,12 +42,6 @@ return [
         'redirect' => env('FACEBOOK_CLIENT_REDIRECT_URL'),
     ],
 
-    'instagram' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => env('FACEBOOK_CLIENT_REDIRECT_URL'),
-    ],
-
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),

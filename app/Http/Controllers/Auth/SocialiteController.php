@@ -9,7 +9,7 @@ use App\Models\User;
 
 class SocialiteController extends Controller
 {
-    protected $drivers = ['github', 'facebook', 'google', 'instagram'];
+    protected $drivers = ['github', 'facebook', 'google'];
 
     public function redirect($driver)
     {
