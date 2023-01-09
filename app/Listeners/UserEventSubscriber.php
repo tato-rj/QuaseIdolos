@@ -10,7 +10,8 @@ class UserEventSubscriber
 {
     public function handleUserRegistration($event)
     {
-        \Mail::to($event->user->email)->queue(new WelcomeEmail($event->user));
+        if ($event->user->email)
+            \Mail::to($event->user->email)->queue(new WelcomeEmail($event->user));
     }
 
     public function subscribe($events)
