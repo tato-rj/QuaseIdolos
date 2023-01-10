@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Traits\{Searchable, Rateable, Locateable, Archiveable};
+use App\Models\Traits\{Searchable, Rateable, Locateable, Archiveable, HasAvatar};
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable, Archiveable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable, Archiveable, HasAvatar;
 
     protected $appends = ['is_admin'];
 
@@ -208,5 +208,13 @@ class User extends Authenticatable
     public function hasOwnAvatar()
     {
         return $this->hasAvatar() && ! \Str::contains($this->avatar_url, 'http');
+    }
+
+    public function avatar()
+    {
+        if ($this->hasOwnAvatar())
+            return $this->coverImage('avatar_url');
+
+        return $this->avatar_url;
     }
 }

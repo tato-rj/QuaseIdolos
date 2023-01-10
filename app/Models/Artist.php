@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Traits\{Searchable, FindBySlug};
+use App\Models\Traits\{Searchable, FindBySlug, HasAvatar};
 
 class Artist extends BaseModel
 {
-    use Searchable, FindBySlug;
+    use Searchable, FindBySlug, HasAvatar;
 
     protected $appends = ['image'];
     protected $withCount = ['songs'];
@@ -14,11 +14,6 @@ class Artist extends BaseModel
     public function songs()
     {
         return $this->hasMany(Song::class)->orderBy('name');
-    }
-
-    public function coverImage()
-    {
-        return asset('storage/' . $this->image_path);
     }
 
     public function getImageAttribute()
