@@ -3,7 +3,7 @@
 	@local
 		@include('components.core.forms.social', ['service' => 'github'])
 	@else
-		@include('components.core.forms.social', ['service' => 'instagram'])
+		{{-- @include('components.core.forms.social', ['service' => 'instagram']) --}}
 		@include('components.core.forms.social', ['service' => 'facebook'])
 		@include('components.core.forms.social', ['service' => 'google'])
 	@endlocal
