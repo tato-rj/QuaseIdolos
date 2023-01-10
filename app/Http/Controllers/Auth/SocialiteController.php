@@ -28,19 +28,21 @@ class SocialiteController extends Controller
             'email' => $socialUser->email
         ], [
             'name' => $socialUser->name,
-            'avatar_url' => $this->getLargeImage($socialUser->avatar),
             //SOCIAL CREDENTIALS
             'social_id' => $socialUser->id,
             'social_token' => $socialUser->token,
             'social_refresh_token' => $socialUser->refreshToken
         ]);
 
+        if (! $user->hasOwnAvatar())
+            $user->update(['avatar_url' => $this->saveAvatar($socialUser->avatar)]);
+
         \Auth::login($user);
 
         return redirect(route('home'));
     }
 
-    public function getLargeImage($image)
+    public function saveAvatar($image)
     {
         return str_replace('=s96-c', '=s400-c', str_replace('type=normal', 'type=large', $image));
     }

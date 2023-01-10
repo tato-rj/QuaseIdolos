@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function() {
 
         Route::post('senha/{user?}', 'UsersController@password')->name('password');
 
+        Route::delete('avatar/{user?}', 'UsersController@destroyAvatar')->name('destroy-avatar');
+
         Route::delete('{user?}', 'UsersController@destroy')->name('destroy');
     });
 

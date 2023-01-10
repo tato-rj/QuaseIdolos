@@ -204,4 +204,9 @@ class User extends Authenticatable
     {
         return (bool) $this->avatar_url;
     }
+
+    public function hasOwnAvatar()
+    {
+        return $this->hasAvatar() && ! \Str::contains($this->avatar_url, 'http');
+    }
 }

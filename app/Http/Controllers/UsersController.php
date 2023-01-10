@@ -36,10 +36,11 @@ class UsersController extends Controller
         $this->authorize('update', $user ?? User::class);
 
         $user = $user ?? auth()->user();
-        
+     
         $request->validate([
             'name' => 'string|required',
-            'email' => 'nullable|email'
+            'email' => 'nullable|email',
+            'avatar' => 'sometimes|max:600|mimes:jpg,jpeg|dimensions:ratio=1/1'
         ]);
 
         $user->update([
@@ -47,6 +48,9 @@ class UsersController extends Controller
             'email' => $request->email,
             'has_ratings' => $request->has_ratings ? 1 : 0
         ]);
+
+        if ($file = $request->file('avatar'))
+            $user->update(['avatar_url' => $file->store('users/avatars', 'public')]);
 
         return back()->with('success', 'Os seus dados foram alterados com sucesso');
     }
@@ -71,6 +75,15 @@ class UsersController extends Controller
         ]);
 
         return back()->with('success', 'A senha foi alterada com sucesso');
+    }
+
+    public function destroyAvatar()
+    {
+        \Storage::disk('public')->delete(auth()->user()->avatar_url);
+
+        auth()->user()->update(['avatar_url' => null]);
+
+        return back()->with('success', 'A sua imagem foi removida com sucesso');
     }
 
     public function destroy(User $user = null)
