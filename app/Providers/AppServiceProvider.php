@@ -70,6 +70,10 @@ class AppServiceProvider extends ServiceProvider
             return auth()->check() && auth()->user()->isAdmin();
         });
 
+        \Blade::if('local', function () {
+            return local();
+        });        
+
         Collection::macro('paginate', function ($perPage) {
             $page = Paginator::resolveCurrentPage();
 

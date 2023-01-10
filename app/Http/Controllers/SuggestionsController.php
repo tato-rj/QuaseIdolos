@@ -45,8 +45,7 @@ class SuggestionsController extends Controller
     {
         $suggestion->confirm();
 
-        if ($suggestion->user->email)
-            \Mail::to($suggestion->user->email)->queue(new SuggestionEmail($suggestion));
+        \Mail::to($suggestion->user->email)->queue(new SuggestionEmail($suggestion));
 
         return back()->with('success', 'A sugestão foi confirmada com sucesso');
     }
