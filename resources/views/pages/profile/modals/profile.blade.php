@@ -6,7 +6,7 @@
 	@php($user = $user ?? auth()->user())
 
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'value' => $user->name, 'required' => true])
-	@input(['placeholder' => 'Email', 'name' => 'email', 'value' => $user->email, 'required' => true])
+	@input(['placeholder' => 'Email', 'name' => 'email', 'value' => $user->email])
 
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Participar das votações?', 'name' => 'has_ratings', 'on' => $user->participatesInRatings()])

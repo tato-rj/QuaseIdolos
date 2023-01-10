@@ -39,7 +39,7 @@ class UsersController extends Controller
         
         $request->validate([
             'name' => 'string|required',
-            'email' => 'email|required'
+            'email' => 'email'
         ]);
 
         $user->update([

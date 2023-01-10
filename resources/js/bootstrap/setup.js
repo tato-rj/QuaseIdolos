@@ -1,5 +1,4 @@
 window._ = require('lodash');
-window.bootstrap = require('bootstrap');
 
 require('../_dependencies');
 
