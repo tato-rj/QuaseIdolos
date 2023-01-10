@@ -38,6 +38,9 @@ class TruncateDB extends Command
      */
     public function handle()
     {
+        if (production())
+            return $this->info('You can\'t do this here.');
+
         $table = $this->argument('table');
 
         if ($table == 'dev') {

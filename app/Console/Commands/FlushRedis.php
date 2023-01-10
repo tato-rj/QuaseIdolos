@@ -26,6 +26,9 @@ class FlushRedis extends Command
      */
     public function handle()
     {
+        if (production())
+            return $this->info('You can\'t do this here.');
+        
         $confirm = $this->option('confirm');
         $namespace = $this->argument('namespace');
 
