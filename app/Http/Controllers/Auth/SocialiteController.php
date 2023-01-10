@@ -40,6 +40,11 @@ class SocialiteController extends Controller
         return redirect(route('home'));
     }
 
+    public function largeImage($image)
+    {
+        return str_replace('=s96-c', '=s400-c', str_replace('type=normal', 'type=large', $image));
+    }
+
     public function validateDriver($driver)
     {
         if (! in_array($driver, $this->drivers))
