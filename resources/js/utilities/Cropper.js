@@ -33,9 +33,9 @@ class SimpleCropper
 		obj.$imageInput.on('change', function(event) {
 		  let target = $(this).attr('data-target');
 		  let file = event.target.files[0];
-		  let maxSize = 1048576;
+		  let maxSize = 104857600000;
 
-		  if (file.name.match(/\.(jpg|jpeg|png)$/i)) {
+		  if (file.name.match(/\.(jpg|jpeg|png|heic)$/i)) {
 		    if (file.size < maxSize) {
 
 		    	obj._selectImage(this, target);
