@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Tools\Cropper\ImageUpload;
 
 class UsersController extends Controller
 {
@@ -40,7 +41,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'string|required',
             'email' => 'nullable|email',
-            'avatar' => 'sometimes|max:600|mimes:jpg,jpeg|dimensions:ratio=1/1'
+            'avatar' => 'sometimes|max:800|mimes:jpg,jpeg'
         ]);
 
         $user->update([
@@ -50,7 +51,9 @@ class UsersController extends Controller
         ]);
 
         if ($file = $request->file('avatar'))
-            $user->update(['avatar_url' => $file->store('users/avatars', 'public')]);
+            $user->update(['avatar_url' => (new ImageUpload($request))->take('avatar')
+                                                       ->cropped()
+                                                       ->upload()]);
 
         return back()->with('success', 'Os seus dados foram alterados com sucesso');
     }

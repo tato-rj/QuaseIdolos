@@ -1,8 +1,9 @@
 @extends('layouts.app', ['title' => 'Meu Perfil'])
 
 @push('header')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.3/cropper.min.css">
 <style type="text/css">
-
+.image-container canvas { width: 100% !important; }
 </style>
 @endpush
 
@@ -45,25 +46,38 @@
 @endsection
 
 @push('scripts')
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.3/cropper.min.js"></script>
+
 <script type="text/javascript">
+(new SimpleCropper({
+  ratio: 1/1,
+  imageInput: 'input#image-input',
+  uploadButton: '#upload-button',
+  confirmButton: '#confirm-button',
+  cancelButton: '#cancel-button',
+  submitButton: 'button[type="submit"]'
+})).create();
+
 $('label[for="upload"]').mouseover(function() {
 	$(this).removeClass('opacity-8');
 }).mouseleave(function() {
 	$(this).addClass('opacity-8');
 });
 
-$('input#upload').on('change', function() {
-	let $image = $(this).closest('#avatar-upload').find('img');
+// $('input#upload').on('change', function() {
+// 	let $image = $('img[name="temp-avatar"]');
 
-	if (this.files && this.files[0]) {
-		let reader = new FileReader();
+// 	if (this.files && this.files[0]) {
+// 		let reader = new FileReader();
 
-        reader.onload = function (e) {
-            $image.attr('src', e.target.result);
-        }
+//         reader.onload = function (e) {
+//             $image.attr('src', e.target.result);
+//         }
 
-        reader.readAsDataURL(this.files[0]);
-	}
-});
+//         reader.readAsDataURL(this.files[0]);
+
+//         $('#user-avatar').hide();
+// 	}
+// });
 </script>
 @endpush
