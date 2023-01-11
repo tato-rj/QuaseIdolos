@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\{Paginator, LengthAwarePaginator};
 use Illuminate\Support\Collection;
+use Jenssegers\Agent\Agent;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -72,12 +73,14 @@ class AppServiceProvider extends ServiceProvider
 
         \Blade::if('local', function () {
             return local();
-        });        
+        });       
 
         Collection::macro('paginate', function ($perPage) {
             $page = Paginator::resolveCurrentPage();
 
             return new LengthAwarePaginator($this->forPage($page, $perPage), $this->count(), $perPage, null, ['path' => Paginator::resolveCurrentPath()]);
         });
+
+        \View::share('agent', new Agent());
     }
 }

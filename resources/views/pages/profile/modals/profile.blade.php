@@ -5,9 +5,11 @@
 
 	@php($user = $user ?? auth()->user())
 
+	@if(! $agent->isMobile())
 	<div class="mx-auto mb-4" style="width: 300px">
 		@include('pages.profile.avatar')
 	</div>
+	@endif
 
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'value' => $user->name, 'required' => true])
 	@input(['placeholder' => 'Email', 'name' => 'email', 'value' => $user->email])
