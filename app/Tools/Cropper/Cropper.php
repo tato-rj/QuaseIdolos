@@ -42,6 +42,8 @@ class Cropper
 
 	public function store($folder)
 	{
+		$this->image->resize(200,200);
+		
 		$path = $this->getPath($folder);
 
 		\Storage::disk('public')->put($path, (string) $this->image->encode());
