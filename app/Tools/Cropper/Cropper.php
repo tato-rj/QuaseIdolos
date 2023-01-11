@@ -42,7 +42,7 @@ class Cropper
 
 	public function store($folder)
 	{
-		if ($this->image->with() > 400)
+		if ($this->image->width() > 400)
 			$this->image->resize(400,400);
 
 		$path = $this->getPath($folder);
