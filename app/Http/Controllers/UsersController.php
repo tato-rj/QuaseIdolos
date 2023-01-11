@@ -43,7 +43,7 @@ class UsersController extends Controller
             'email' => 'nullable|email',
             'avatar' => 'sometimes|max:80000|mimes:jpg,jpeg,png'
         ]);
-dd('here');
+
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
