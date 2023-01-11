@@ -46,10 +46,10 @@ class SimpleCropper
 		    	obj._toggleButtons();
 
 		    } else {
-		      alert('This image is too large ('+formatBytes(file.size)+'). You can\'t upload images larger than '+formatBytes(maxSize)+'.');
+		      alert('Essa imagem é muito grande ('+formatBytes(file.size)+'). O tamanho máximo é de '+formatBytes(maxSize)+'.');
 		    }
 		  } else {
-		    alert('This is not a valid image format. Only jpg, jpeg or png will be accepted.');
+		    alert('Somente imagens .jpg, .jpeg ou .png podem ser usadas.');
 		  }
 		});
 	}
