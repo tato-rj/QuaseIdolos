@@ -151,7 +151,7 @@ a {
         'csrfToken' => csrf_token(),
         'url' => \Request::root(),
         'user' => auth()->check() ? auth()->user() : null,
-        'gig' => auth()->check() ? auth()->user()->liveGig() : null
+        'gig' => auth()->check() ? auth()->user()->liveGig : null
     ]); ?>
 </script>
 

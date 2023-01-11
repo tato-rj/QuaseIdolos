@@ -9,7 +9,7 @@ class SetlistsController extends Controller
 {
     public function admin()
     {
-        $gig = auth()->user()->liveGig();
+        $gig = auth()->user()->liveGig;
         $setlist = $gig ? $gig->setlist()->orderBy('order')->get() : collect();
 
         return view('pages.setlists.admin.index', compact(['setlist', 'gig']));
@@ -24,7 +24,7 @@ class SetlistsController extends Controller
             }
         }
 
-        $gig = auth()->user()->liveGig();
+        $gig = testing() ? auth()->user()->gig()->live()->first() : auth()->user()->liveGig;
         $setlist = $gig->setlist()->orderBy('order')->get();
         $percentage = percentage($setlist->count(), $gig->songs_limit);
 

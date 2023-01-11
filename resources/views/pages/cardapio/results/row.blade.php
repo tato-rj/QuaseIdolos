@@ -2,7 +2,7 @@
 
 @auth
   @admin
-    @php($songRequests = auth()->user()->liveGigExists() ? auth()->user()->liveGig()->setlist()->waiting()->get() : collect())
+    @php($songRequests = auth()->user()->liveGigExists() ? auth()->user()->liveGig->setlist()->waiting()->get() : collect())
   @else
     @php($songRequests = auth()->user()->songRequests()->waiting()->get())
   @endadmin

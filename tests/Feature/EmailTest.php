@@ -30,6 +30,8 @@ class EmailTest extends AppTest
 
         $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);
 
+        auth()->user()->join($gig);
+        
         $winnerRequest = SongRequest::factory()->create(['gig_id' => $gig]);
         $loserRequest = SongRequest::factory()->create(['gig_id' => $gig]);
 
@@ -49,6 +51,8 @@ class EmailTest extends AppTest
         $this->signIn($this->admin);
 
         $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);
+
+        auth()->user()->join($gig);
 
         $winnerRequest = SongRequest::factory()->create(['gig_id' => $gig]);
         $loserRequest = SongRequest::factory()->create(['gig_id' => $gig]);

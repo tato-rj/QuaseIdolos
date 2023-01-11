@@ -1,5 +1,5 @@
 @if(auth()->check() && $gigCount)
-	@if(auth()->user()->liveGig())
+	@if(auth()->user()->liveGig)
 		@if(auth()->user()->songRequests()->waitingFor($song)->exists())
 			@include('pages.cardapio.components.song.buttons.waiting')
 		@else

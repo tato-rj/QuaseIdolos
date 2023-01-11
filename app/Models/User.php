@@ -87,14 +87,19 @@ class User extends Authenticatable
         return $this->belongsToMany(Gig::class, 'participants');
     }
 
-    public function liveGig()
+    public function checkLiveGig()
     {
-        return $this->gig()->live()->first();
+        $this->liveGig = $this->gig()->live()->first();
     }
+
+    // public function liveGig()
+    // {
+    //     return $this->gig()->live()->first();
+    // }
 
     public function liveGigExists()
     {
-        return $this->gig()->live()->exists();
+        return $this->liveGig;
     }
 
     public function join(Gig $gig)
@@ -102,17 +107,21 @@ class User extends Authenticatable
         Participant::by($this)->unconfirmed()->delete();
         $this->songRequests()->waiting()->delete();
         
-        return $this->gig()->save($gig);
+        $this->gig()->save($gig);
+
+        $this->checkLiveGig();
+
+        return $this->liveGig;
     }
 
     public function joined(Gig $gig)
     {
-        return $this->liveGig() && $this->liveGig()->is($gig);
+        return $this->liveGig && $this->liveGig->is($gig);
     }
 
     public function tryToJoin($gigs)
     {
-        if ($this->liveGig())
+        if ($this->gig()->live()->exists())
             return null;
 
         if ($gigs->count() == 1 && $gigs->first()->isLive()){
@@ -159,13 +168,15 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->admin()->exists();
+        return (bool) $this->admin;
     }
 
     public function requestedTonight(Song $song)
     {
+        $gig = testing() ? $this->gig()->live()->first() : $this->liveGig;
+        
         return $this->songRequests()
-                    ->forGig($this->liveGig())
+                    ->forGig($gig)
                     ->where('created_at', '>=', now()->subHours(12))
                     ->where('song_id', $song->id)->exists();
     }

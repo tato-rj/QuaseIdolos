@@ -10,7 +10,7 @@ class RatingsController extends Controller
 {
     public function index()
     {
-        $songRequests = SongRequest::forGigTonight(auth()->user()->liveGig())->completed()->rateable()->latest()->get();
+        $songRequests = SongRequest::forGigTonight(auth()->user()->liveGig)->completed()->rateable()->latest()->get();
 
         return view('pages.ratings.index', compact('songRequests'));
     }
@@ -41,7 +41,7 @@ class RatingsController extends Controller
     public function live()
     {
         $timer = 10;
-        $ratings = auth()->user()->liveGig()->ratings->reverse()->groupBy('song_request_id');
+        $ratings = auth()->user()->liveGig->ratings->reverse()->groupBy('song_request_id');
 
         return view('pages.ratings.live.index', compact('timer'));
     }
@@ -49,7 +49,7 @@ class RatingsController extends Controller
     public function votes(Request $request)
     {
         $timer = $request->timer;
-        $ratings = auth()->user()->liveGig()->ratings->reverse()->groupBy('song_request_id');
+        $ratings = auth()->user()->liveGig->ratings->reverse()->groupBy('song_request_id');
 
         return view('pages.ratings.live.votes', compact(['ratings', 'timer']))->render();
     }

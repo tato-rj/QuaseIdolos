@@ -21,7 +21,7 @@ class SetlistTest extends AppTest
 
         auth()->user()->join($this->gig);
 
-        (new SongRequest)->add(auth()->user(), $this->song, auth()->user()->liveGig());
+        (new SongRequest)->add(auth()->user(), $this->song, auth()->user()->gig()->live()->first());
 
         $this->get(route('setlists.admin'))->assertSee($this->song->name);
     }
@@ -35,7 +35,7 @@ class SetlistTest extends AppTest
 
         auth()->user()->join($this->gig);
 
-        (new SongRequest)->add(auth()->user(), $this->song, auth()->user()->liveGig());
+        (new SongRequest)->add(auth()->user(), $this->song, auth()->user()->gig()->live()->first());
 
         $this->get(route('setlists.admin'));
     }
@@ -47,7 +47,7 @@ class SetlistTest extends AppTest
         
         auth()->user()->join($this->gig);
         
-        $gig = auth()->user()->liveGig();
+        $gig = auth()->user()->gig()->live()->first();
 
         (new SongRequest)->add(auth()->user(), Song::factory()->create(), $gig);
         (new SongRequest)->add(auth()->user(), Song::factory()->create(), $gig);

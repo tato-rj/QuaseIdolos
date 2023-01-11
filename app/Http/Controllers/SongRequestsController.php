@@ -11,7 +11,7 @@ class SongRequestsController extends Controller
 {
     public function store(Request $request, Song $song, SongRequestForm $form)
     {
-        $songRequest = (new SongRequest)->add(auth()->user(), $song, auth()->user()->liveGig());
+        $songRequest = (new SongRequest)->add(auth()->user(), $song, auth()->user()->liveGig);
 
         try {
             SongRequested::dispatch($songRequest);
@@ -42,7 +42,7 @@ class SongRequestsController extends Controller
         if (auth()->user()->isAdmin())
             return;
 
-        $songRequests = auth()->user()->songRequests()->forGig(auth()->user()->liveGig())->waiting()->get();
+        $songRequests = auth()->user()->songRequests()->forGig(auth()->user()->liveGig)->waiting()->get();
 
         if (! $songRequests->isEmpty())
             return view('pages.setlists.user.banner.index', compact('songRequests'))->render();

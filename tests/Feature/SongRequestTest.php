@@ -102,6 +102,8 @@ class SongRequestTest extends AppTest
     {
         $this->signIn();
 
+        auth()->user()->join($this->gig);
+
         $this->post(route('song-requests.store', $this->song));
 
         $originalSong = auth()->user()->songRequests->first()->song;
@@ -117,6 +119,8 @@ class SongRequestTest extends AppTest
     public function when_a_user_requests_a_song_an_event_is_fired()
     {
         $this->signIn();
+
+        auth()->user()->join($this->gig);
 
         $this->post(route('song-requests.store', $this->song));
 
@@ -145,6 +149,8 @@ class SongRequestTest extends AppTest
     public function when_a_user_cancels_a_request_a_song_an_event_is_fired()
     {
         $this->signIn();
+
+        auth()->user()->join($this->gig);
 
         $this->post(route('song-requests.store', $this->song));
 
@@ -224,6 +230,8 @@ class SongRequestTest extends AppTest
         $this->expectNotToPerformAssertions();
 
         $this->signIn($this->admin);
+
+        auth()->user()->join($this->gig);
 
         $song = Song::factory()->create();
 

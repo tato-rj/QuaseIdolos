@@ -1,4 +1,4 @@
-@php($gig = auth()->user()->liveGig())
+@php($gig = auth()->user()->liveGig)
 
 @if($gig)
 @php($status = $gig->status()->noText()->get())

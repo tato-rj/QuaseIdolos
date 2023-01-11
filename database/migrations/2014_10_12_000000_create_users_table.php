@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->boolean('has_ratings')->default(true);
+            $table->string('liveGig')->nullable();
             // SOCIALMEDIA
             $table->text('avatar_url')->nullable();
             $table->string('social_id')->nullable();

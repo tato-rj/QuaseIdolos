@@ -11,7 +11,7 @@ class WinnersController extends Controller
     public function broadcast()
     {
         try {
-            WinnerAnnounced::dispatch(auth()->user()->liveGig());
+            WinnerAnnounced::dispatch(auth()->user()->liveGig);
         } catch (\Exception $e) {
             return back()->with('error', 'O vencedor não pode ser anunciado');
         }
@@ -21,7 +21,7 @@ class WinnersController extends Controller
 
     public function show()
     {
-        $gig = auth()->user()->liveGig();
+        $gig = auth()->user()->liveGig;
         $ratings = $gig->ratings->reverse()->groupBy('song_request_id');
         $votersCount = $gig->ratings->groupBy('user_id')->count();
         $ranking = $gig->ranking();

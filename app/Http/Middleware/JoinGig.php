@@ -23,7 +23,7 @@ class JoinGig
     {
         session()->forget('origin');
 
-        if (auth()->check() && ! auth()->user()->liveGig()) {
+        if (auth()->check() && ! auth()->user()->gig()->live()->exists()) {
             if (! Gig::ready()->live()->exists())
                 return $next($request);
 

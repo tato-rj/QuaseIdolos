@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminOnly::class,
         'super-admin' => \App\Http\Middleware\SuperAdminOnly::class,
         'join-gig' => \App\Http\Middleware\JoinGig::class,
+        'live-gig' => \App\Http\Middleware\LiveGig::class,
     ];
 }

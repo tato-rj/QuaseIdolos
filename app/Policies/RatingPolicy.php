@@ -17,7 +17,7 @@ class RatingPolicy
      */
     public function create(User $user, SongRequest $songRequest)
     {
-        $gig = $user->liveGig();
+        $gig = $user->liveGig;
 
         return ! $songRequest->user->isAdmin() 
                 && $gig 

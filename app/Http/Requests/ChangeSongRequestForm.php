@@ -19,7 +19,7 @@ class ChangeSongRequestForm extends FormRequest
         if (auth()->user()->isAdmin())
             return true;
         
-        $this->liveGig = auth()->user()->liveGig();
+        $this->liveGig = auth()->user()->liveGig;
 
         return $this->gigIsLive() && 
                $this->gigIsNotPaused() && 

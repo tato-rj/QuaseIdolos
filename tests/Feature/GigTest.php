@@ -89,17 +89,17 @@ class GigTest extends AppTest
 
         $this->patch(route('gig.join', $gigTwo));
 
-        $this->assertTrue(auth()->user()->liveGig()->is($gigTwo));
+        $this->assertTrue(auth()->user()->gig()->live()->first()->is($gigTwo));
 
         $this->get(route('home'));
 
-        $this->assertFalse(auth()->user()->liveGig()->is($gigOne));
+        $this->assertFalse(auth()->user()->gig()->live()->first()->is($gigOne));
 
         $this->patch(route('gig.join', $gigOne));
 
-        $this->assertTrue(auth()->user()->liveGig()->is($gigOne));
+        $this->assertTrue(auth()->user()->gig()->live()->first()->is($gigOne));
 
-        $this->assertFalse(auth()->user()->liveGig()->is($gigTwo));
+        $this->assertFalse(auth()->user()->gig()->live()->first()->is($gigTwo));
     }
 
     /** @test */
@@ -343,7 +343,7 @@ class GigTest extends AppTest
         $this->assertCount(1, Participant::in($gig)->confirmed()->get());
         $this->assertCount(0, Participant::in($gig)->unconfirmed()->get());
 
-        $this->assertEmpty(auth()->user()->liveGig());
+        $this->assertEmpty(auth()->user()->gig()->live()->first());
     }
 
     /** @test */
@@ -386,9 +386,13 @@ class GigTest extends AppTest
 
         $this->signIn();
 
+        auth()->user()->join($gig);
+
         $this->post(route('song-requests.store', $this->song));
 
         $this->signIn();
+
+        auth()->user()->join($gig);
 
         $this->post(route('song-requests.store', $this->song));
     }
@@ -422,6 +426,8 @@ class GigTest extends AppTest
         $gig = Gig::factory()->live()->create();
 
         $this->signIn();
+
+        auth()->user()->join($gig);
 
         $this->post(route('song-requests.store', Song::factory()->create()));
 

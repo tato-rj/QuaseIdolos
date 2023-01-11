@@ -8,7 +8,7 @@
 
   <div class="px-4">
     <div>      
-      @if(auth()->user()->liveGig() && auth()->user()->liveGig()->participatesInRatings())
+      @if(auth()->user()->liveGig && auth()->user()->liveGig->participatesInRatings())
         @link(['route' => 'ratings.index', 'label' => 'Votação', 'icon' => 'trophy'])
         @include('layouts.menu.components.divider')
       @endif

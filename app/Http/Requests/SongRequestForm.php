@@ -15,7 +15,7 @@ class SongRequestForm extends FormRequest
      */
     public function authorize()
     {
-        $this->liveGig = auth()->user()->liveGig();
+        $this->liveGig = auth()->user()->liveGig;
 
         if (auth()->user()->isAdmin() && $this->gigIsLive())
             return true;        

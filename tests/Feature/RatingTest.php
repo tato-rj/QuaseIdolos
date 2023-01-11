@@ -204,6 +204,8 @@ class RatingTest extends AppTest
         $this->expectNotToPerformAssertions();
 
         $this->signIn($this->admin);
+
+        auth()->user()->join($this->gig);
         
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig]);
 

@@ -10,7 +10,7 @@
 <section class="container mb-6">
 	@pagetitle(['title' => 'Envie o seu', 'highlight' => 'voto'])
 
-	@if(! auth()->user()->liveGig()->participatesInRatings())
+	@if(! auth()->user()->liveGig->participatesInRatings())
 	<div class="row">
 		<div class="col-lg-6 col-md-8 col-12 mx-auto">
 			<div class="bg-white p-4 rounded mt-4">
@@ -26,7 +26,7 @@
 			</div>
 		</div>
 	</div>
-	@elseif(auth()->user()->liveGig()->winner()->exists())
+	@elseif(auth()->user()->liveGig->winner()->exists())
 	<div class="row">
 		<div class="col-lg-6 col-md-8 col-12 mx-auto">
 			<div class="bg-white p-4 rounded mt-4">

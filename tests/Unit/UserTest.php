@@ -143,7 +143,7 @@ class UserTest extends AppTest
 
         (new Admin)->grant(auth()->user());
 
-        $this->assertTrue(auth()->user()->isAdmin());
+        $this->assertTrue(auth()->user()->fresh()->isAdmin());
     }
 
     /** @test */
@@ -179,7 +179,7 @@ class UserTest extends AppTest
 
         auth()->user()->join($this->gig);
 
-        $songRequest = (new SongRequest)->add(auth()->user(), $this->song, auth()->user()->liveGig());
+        $songRequest = (new SongRequest)->add(auth()->user(), $this->song, auth()->user()->gig()->live()->first());
 
         $this->assertTrue(auth()->user()->requestedTonight($this->song));
     }

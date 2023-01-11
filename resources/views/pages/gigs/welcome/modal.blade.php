@@ -1,4 +1,4 @@
-@php($gig = auth()->user()->liveGig())
+@php($gig = auth()->user()->liveGig)
 @modal(['title' => 'Bem vindo(a)!', 'id' => 'gig-welcome-modal', 'autoshow' => true])
 <div class="text-center mb-4">
 	<h4>Você está participando do</h4>
