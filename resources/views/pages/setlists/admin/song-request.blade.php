@@ -6,7 +6,7 @@
 				<div class="d-flex align-items-center flex-wrap">
 					<img src="{{$entry->song->artist->coverImage()}}" class="d-none d-sm-block rounded-circle mr-3" style="width: 56px">
 					<div class="">
-						<h4 class="text-dark no-stroke m-0">{{$entry->song->name}}</h4>
+						<h4 class="text-dark no-stroke m-0" style="white-space: initial;">{{$entry->song->name}} asd asd ad sadasasddsd</h4>
 						<h6 class="text-dark no-stroke m-0 text-truncate opacity-6">{{$entry->song->artist->name}}</h6>
 					</div>
 				</div>
