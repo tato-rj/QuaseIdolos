@@ -3,10 +3,10 @@
 		<div class="col-lg-8 col-12 d-flex justify-content-between">
 			<div class="text-truncate">
 				<h2 class="no-stroke text-primary font-cursive text-truncate">{{$entry->user->firstName}}</h2>
-				<div class="d-flex align-items-center">
-					<img src="{{$entry->song->artist->coverImage()}}" class="rounded-circle mr-3" style="width: 56px">
-					<div class="text-truncate">
-						<h4 class="text-dark no-stroke m-0 text-truncate">{{$entry->song->name}}</h4>
+				<div class="d-flex align-items-center flex-wrap">
+					<img src="{{$entry->song->artist->coverImage()}}" class="d-none d-sm-block rounded-circle mr-3" style="width: 56px">
+					<div class="">
+						<h4 class="text-dark no-stroke m-0">{{$entry->song->name}}</h4>
 						<h6 class="text-dark no-stroke m-0 text-truncate opacity-6">{{$entry->song->artist->name}}</h6>
 					</div>
 				</div>
