@@ -346,10 +346,10 @@ function getEventTable(newOrder = null)
             
             enableDraggable();
 
-            if (newOrder)
+            if (newOrder) {
                 listenToEvents();
-
-            popup('success', 'A ordem foi alterada com sucesso');
+                popup('success', 'A ordem foi alterada com sucesso');
+            }
         })
         .catch(function(error) {
             popup('error', 'Não foi! ('+error.message+')');

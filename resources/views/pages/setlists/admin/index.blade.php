@@ -15,8 +15,10 @@
 	<div class="text-center">
 		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje'])
 		@if($gig)
-		@include('pages.setlists.admin.screens')
-
+		<div>
+			@include('pages.setlists.admin.screens')
+		</div>
+		<button id="refresh-table" class="btn btn-outline-secondary mb-3">@fa(['icon' => 'sync-alt'])Atualizar setlist</button>
 		<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h4>@fa(['icon' => 'clipboard-list'])Editar evento</h4></a>
 
 		@include('pages.gigs.modals.edit', ['pausable' => true])
@@ -34,6 +36,10 @@
 @push('scripts')
 <script type="text/javascript">
 enableDraggable();
+
+$('#refresh-table').click(function() {
+	getEventTable();
+})
 </script>
 
 <script type="text/javascript">
