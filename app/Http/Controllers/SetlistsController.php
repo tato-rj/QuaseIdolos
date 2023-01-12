@@ -24,7 +24,7 @@ class SetlistsController extends Controller
             }
         }
 
-        $gig = testing() ? auth()->user()->gig()->live()->first() : auth()->user()->liveGig;
+        $gig = auth()->user()->liveGig;
         $setlist = $gig->setlist()->orderBy('order')->get();
         $percentage = percentage($setlist->count(), $gig->songs_limit);
 

@@ -345,12 +345,14 @@ function getEventTable(newOrder = null)
             $('#setlist-container').html(response.data);
             
             enableDraggable();
-            
+
             if (newOrder)
                 listenToEvents();
+
+            popup('success', 'A ordem foi alterada com sucesso');
         })
         .catch(function(error) {
-            log(error);
+            popup('error', 'Não foi! ('+error.message+')');
         });
     }
 }
@@ -387,6 +389,23 @@ function enableDraggable() {
             getEventTable(newOrder);
         },
     });    
+}
+
+function popup($type, $message)
+{
+    let $popup = $('#popup-'+$type+'>div').clone();
+
+    $popup.find('span.popup-message').text($message);
+
+    $('body').append($popup);
+    $popup.show();
+
+    setTimeout(function() {
+        $popup.find('>div').addClass('animate__fadeOutDown');
+        setTimeout(function() {
+            $popup.remove();
+        }, 800);
+    }, 2000);
 }
 
 </script>

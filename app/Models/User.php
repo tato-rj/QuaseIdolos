@@ -173,10 +173,8 @@ class User extends Authenticatable
 
     public function requestedTonight(Song $song)
     {
-        $gig = testing() ? $this->gig()->live()->first() : $this->liveGig;
-        
         return $this->songRequests()
-                    ->forGig($gig)
+                    ->forGig($this->liveGig)
                     ->where('created_at', '>=', now()->subHours(12))
                     ->where('song_id', $song->id)->exists();
     }

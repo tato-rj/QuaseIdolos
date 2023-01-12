@@ -19,3 +19,25 @@
     'pos' => 'top',
     'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown']])
 @endif
+
+<div id="popup-success">
+@alert([
+    'color' => 'green',
+    'headline' => 'Show',
+    'hide' => true,
+    'message' => '',
+    'dismissible' => true,
+    'pos' => 'top',
+    'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown']])
+</div>
+
+<div id="popup-error">
+@alert([
+    'color' => 'red',
+    'headline' => 'Desculpe',
+    'hide' => true,
+    'message' => '',
+    'dismissible' => true,
+    'pos' => 'top',
+    'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown']])
+</div>
