@@ -114,9 +114,10 @@ class SongRequest extends BaseModel
         return $this->user_id == $user->id;
     }
     
-    public function add(User $user, Song $song, Gig $gig)
+    public function add(User $user, Song $song, Gig $gig, $name = null)
     {
         return $this->create([
+            'user_name' => $name,
             'user_id' => $user->id, 
             'song_id' => $song->id,
             'gig_id' => $gig->id,

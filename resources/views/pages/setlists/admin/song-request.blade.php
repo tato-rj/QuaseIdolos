@@ -2,7 +2,7 @@
 	<div class="rounded border-secondary event-box py-3 px-2 row">
 		<div class="col-lg-8 col-12 d-flex justify-content-between">
 			<div class="text-truncate">
-				<h2 class="no-stroke text-primary font-cursive text-truncate">{{$entry->user->firstName}}</h2>
+				<h2 class="no-stroke text-primary font-cursive text-truncate">{{$entry->user_name ?? $entry->user->firstName}}</h2>
 				<div class="d-flex align-items-center flex-wrap">
 					<img src="{{$entry->song->artist->coverImage()}}" class="d-none d-sm-block rounded-circle mr-3" style="width: 56px">
 					<div class="">

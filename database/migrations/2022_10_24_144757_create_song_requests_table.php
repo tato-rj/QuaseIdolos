@@ -15,6 +15,7 @@ class CreateSongRequestsTable extends Migration
     {
         Schema::create('song_requests', function (Blueprint $table) {
             $table->id();
+            $table->string('user_name')->nullable();
             $table->unsignedInteger('gig_id')->nullable();
             $table->unsignedInteger('song_id');
             $table->unsignedInteger('user_id')->nullable();

@@ -11,7 +11,7 @@ class SongRequestsController extends Controller
 {
     public function store(Request $request, Song $song, SongRequestForm $form)
     {
-        $songRequest = (new SongRequest)->add(auth()->user(), $song, auth()->user()->liveGig);
+        $songRequest = (new SongRequest)->add(auth()->user(), $song, auth()->user()->liveGig, $request->user_name);
 
         try {
             SongRequested::dispatch($songRequest);
