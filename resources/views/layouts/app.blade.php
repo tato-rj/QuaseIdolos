@@ -368,6 +368,7 @@ function enableDraggable() {
         animation: 150,
         filter: '.btn, .btn-raw, .modal',
         forceFallback: true,
+        handle: ".my-handle",
         scrollSensitivity: 120,
         ghostClass: 'dragged',
 
