@@ -6,7 +6,7 @@
   @endslot
 
   @slot('column2')
-    {{$user->created_at->format('d/m/y')}}
+    {{$user->created_at->format('d/m/y \às H:i')}}
   @endslot
   
   @slot('column3')
