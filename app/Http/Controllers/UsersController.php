@@ -29,7 +29,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        return view('pages.users.edit', compact(['user']));
+        return view('pages.users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user = null)

@@ -14,17 +14,17 @@
 			@pagetitle(['title' => 'Meu', 'highlight' => 'perfil'])
 			<div class="mb-4">
 
-				@if(auth()->user()->hasAvatar())
-				@include('components.avatar.image', ['size' => '60%', 'user' => auth()->user()])
+				@if($user->hasAvatar())
+				@include('components.avatar.image', ['size' => '60%', 'user' => $user])
 				@else
-				@include('components.avatar.initial', ['size' => '140px', 'fontsize' => '3rem', 'user' => auth()->user()])
+				@include('components.avatar.initial', ['size' => '140px', 'fontsize' => '3rem', 'user' => $user])
 				@endif
 
-				<h3 class="w-100 text-center mt-2"><strong>{{auth()->user()->name}}</strong></h3>
+				<h3 class="w-100 text-center mt-2"><strong>{{$user->name}}</strong></h3>
 			</div>
 			<div class="d-flex flex-column">
 				<button data-bs-toggle="modal" data-bs-target="#edit-profile-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])Editar Perfil</button>
-				@if(auth()->user()->hasOwnAvatar())
+				@if($user->hasOwnAvatar())
 				<form method="POST" action="{{route('profile.destroy-avatar')}}">
 					@csrf
 					@method('DELETE')
@@ -33,7 +33,7 @@
 				@endif
 				<button data-bs-toggle="modal" data-bs-target="#edit-password-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'lock'])Mudar Senha</button>
 				<button data-bs-toggle="modal" data-bs-target="#delete-user-modal" class="btn btn-outline-secondary text-truncate mb-2">@fa(['icon' => 'trash-alt'])Deletar conta</button>
-				<small class="opacity-6">Cadastro feito em {{auth()->user()->created_at->format('d/m/Y')}}</small>
+				<small class="opacity-6">Cadastro feito em {{$user->created_at->format('d/m/Y')}}</small>
 				
 				@include('pages.profile.modals.profile')
 				@include('pages.profile.modals.password')
