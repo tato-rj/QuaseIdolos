@@ -36,7 +36,7 @@ class SimpleCropper
 		  let file = event.target.files[0];
 		  let maxSize = 8000000;
 
-		  if (file.name.match(/\.(jpg|jpeg|png)$/i)) {
+		  if (file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
 		    if (file.size < maxSize) {
 
 		    	obj._selectImage(this, target);
@@ -50,7 +50,7 @@ class SimpleCropper
 		      alert('Essa imagem é muito grande ('+formatBytes(file.size)+'). O tamanho máximo é de '+formatBytes(maxSize)+'.');
 		    }
 		  } else {
-		    alert('Somente imagens .jpg, .jpeg ou .png podem ser usadas.');
+		    alert('Somente imagens .jpg, .jpeg, .webp ou .png podem ser usadas.');
 		  }
 		});
 	}

@@ -16,18 +16,14 @@ class Cropper
 
 	public function make($name)
 	{
-		$this->file = $this->request->file($name);
+		$this->image = \Image::make($this->request->file($name));
 
-        $this->image = \Image::make($this->file);
+        if ($this->crop)
+	        $this->crop();
 
-        if ($this->crop) {
-        	$this->image = $this->image->crop(
-	            intval($this->request->cropped_width),
-	            intval($this->request->cropped_height), 
-	            intval($this->request->cropped_x), 
-	            intval($this->request->cropped_y)
-	        );
-        }
+        $this->resize(400);
+
+	    $this->convertTo('jpg', 75);
 
         return $this;
 	}
@@ -40,14 +36,32 @@ class Cropper
 		return $folder.'/'.$filename.$ext;
 	}
 
+	public function convertTo($ext, $quality)
+	{
+		$this->image = $this->image->encode($ext, $quality);
+	}
+
+	public function crop()
+	{
+    	$this->image = $this->image->crop(
+            intval($this->request->cropped_width),
+            intval($this->request->cropped_height), 
+            intval($this->request->cropped_x), 
+            intval($this->request->cropped_y)
+        );
+	}
+
+	public function resize($size)
+	{
+		if ($this->image->width() > $size)
+			$this->image = $this->image->resize($size,$size);
+	}
+
 	public function store($folder)
 	{
-		if ($this->image->width() > 400)
-			$this->image->resize(400,400);
-
 		$path = $this->getPath($folder);
 
-		\Storage::disk('public')->put($path, (string) $this->image->encode());
+		\Storage::disk('public')->put($path, (string) $this->image);
 
 		return $path;
 	}
