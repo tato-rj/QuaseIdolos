@@ -109,6 +109,13 @@ class SongRequest extends BaseModel
         ]);
     }
 
+    public function scopeByGuests($query)
+    {
+        return $query->whereHas('user', function($q) {
+            $q->doesntHave('admin');
+        });
+    }
+
     public function wasRequestedBy(User $user)
     {
         return $this->user_id == $user->id;

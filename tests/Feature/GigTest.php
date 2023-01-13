@@ -223,7 +223,7 @@ class GigTest extends AppTest
 
         $this->signIn();
 
-        $gig = Gig::factory()->create(['is_live' => true, 'is_paused' => true]);
+        $gig = Gig::factory()->live()->paused()->create();
         
         $this->post(route('song-requests.store', $this->song));
     }
@@ -243,13 +243,62 @@ class GigTest extends AppTest
     }
 
     /** @test */
+    public function a_gig_will_ignore_admin_requests_when_checking_for_the_songs_limit()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $this->signIn();
+
+        $gig = Gig::factory()->live()->create(['songs_limit' => 3, 'songs_limit_per_user' => 3]);
+        
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->signIn($this->admin);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->signIn();
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+    }
+
+    /** @test */
+    public function a_gig_will_not_accept_requests_if_the_setlist_is_full_even_if_the_admin_added_more_songs()
+    {
+        $this->expectException('App\Exceptions\SetlistException');
+
+        $this->signIn();
+
+        $gig = Gig::factory()->live()->create(['songs_limit' => 3]);
+        
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->signIn($this->admin);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->signIn();
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+    }
+
+    /** @test */
     public function a_gig_will_not_accept_requests_if_the_user_reached_its_limits()
     {
         $this->expectException('App\Exceptions\SetlistException');
 
         $this->signIn();
 
-        $gig = Gig::factory()->create(['is_live' => true, 'songs_limit_per_user' => 1]);
+        Gig::factory()->create(['is_live' => true, 'songs_limit_per_user' => 1]);
         
         $this->post(route('song-requests.store', Song::factory()->create()));
 

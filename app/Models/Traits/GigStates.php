@@ -30,8 +30,8 @@ trait GigStates
 	}
 
 	public function isFull()
-	{
-		return is_null($this->songs_limit) ? false : $this->setlist->count() == $this->songs_limit;
+	{	
+		return is_null($this->songs_limit) ? false : $this->setlist()->byGuests()->count() >= $this->songs_limit;
 	}
 
 	public function isOver()
