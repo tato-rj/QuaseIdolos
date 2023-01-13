@@ -12,7 +12,9 @@ class CardapioController extends Controller
 
     public function index(Request $request)
     {        
-        if ($request->has('input')) {
+        if ($request->has('musica')) {
+            $songs = Song::where('id', $request->musica)->paginate($this->songsPerPage);
+        } elseif ($request->has('input')) {
             $songs = Song::search($request->input)->alphabetically()->paginate($this->songsPerPage);
         } else {
             if (Artist::bySlug($request->artista)->exists()) {

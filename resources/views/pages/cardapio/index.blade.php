@@ -67,4 +67,31 @@ $('#scroll-top button').click(function() {
 	});
 });
 </script>
+
+<script type="text/javascript">
+$('#suggestion-modal form').submit(function(e) {
+	e.preventDefault();
+
+	let $form = $(this);
+	let $button = $form.find('button[type="submit"]');
+	let input = {
+		artist_name: $form.find('input[name="artist_name"]').val(),
+		song_name: $form.find('input[name="song_name"]').val()
+	};
+
+	axios.get('{!! route('suggestions.search') !!}', {params: input})
+		  .then(function(response) {
+		  		if (response.data.length) {
+			  		$('#suggestion-matches').html(response.data);
+			  		$button.removeLoader();
+		  		} else {
+		  			e.currentTarget.submit();
+		  		}
+		  })
+		  .catch(function(error) {
+		  		alert('Não foi possível fazer a sua pesquisa nesse momento.');
+		  		$button.removeLoader();
+		  });
+});
+</script>
 @endpush

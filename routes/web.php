@@ -91,6 +91,8 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::prefix('sugestoes')->withoutMiddleware('join-gig')->name('suggestions.')->group(function() {
+        Route::get('buscar', 'SuggestionsController@search')->name('search');
+
         Route::post('', 'SuggestionsController@store')->name('store');
     });
 

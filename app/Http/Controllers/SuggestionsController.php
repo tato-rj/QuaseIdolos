@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Suggestion;
+use App\Models\{Suggestion, Song};
 use Illuminate\Http\Request;
 use App\Mail\Users\SuggestionEmail;
 
@@ -18,6 +18,16 @@ class SuggestionsController extends Controller
         $suggestions = Suggestion::unconfirmed()->latest()->get();
 
         return view('pages.suggestions.index', compact('suggestions'));
+    }
+
+    public function search(Request $request)
+    {
+        $artistQuery = Song::search($request->artist_name)->get();
+        $songQuery = Song::search($request->song_name)->get();
+
+        $songs = $artistQuery->intersect($songQuery);
+
+        return $songs->count() ? view('pages.cardapio.components.suggestions.matches', compact('songs'))->render() : null;
     }
 
     /**
