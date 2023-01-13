@@ -41,7 +41,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'string|required',
             'email' => 'nullable|email',
-            // 'avatar' => 'sometimes|max:80000|mimes:jpg,jpeg,png,webp'
+            'avatar' => 'sometimes|max:80000|mimes:jpg,jpeg,png,webp'
         ]);
 
         $user->update([
