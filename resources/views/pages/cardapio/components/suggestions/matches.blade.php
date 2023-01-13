@@ -1,5 +1,11 @@
 <div class="mt-4 bg-transparent p-3 rounded">
-	<h6 class="text-center mb-4">Nós já temos {{$songs->count()}} @choice('música|músicas', $songs->count()) com esses dados:</h6>
+	<h6 class="text-center mb-4">
+		@if($songs->count() == 1)
+		Seria essa música que você estava procurando?
+		@else
+		Seria uma dessas músicas que você estava procurando?
+		@endif
+	</h6>
 	@foreach($songs as $song)
 	<h6 class="text-left {{!$loop->last ? 'mb-3' : null}}">
 		<div class="d-apart">
