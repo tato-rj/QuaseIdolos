@@ -13,8 +13,8 @@
 	@table([
 		'empty' => true,
 		'legend' => 'sugestão|sugestões',
-		'headers' => ['Data', 'Artista', 'Música', ''],
-		'optional' => [1],
+		'headers' => ['Data', 'Artista', 'Música', 'Usuário', ''],
+		'optional' => [1,4],
 		'rows' => $suggestions,
 		'view' => 'pages.suggestions.row'
 	])

@@ -11,6 +11,10 @@
   {{$row->song_name}}
   @endslot
 
+  @slot('column4')
+  {{$row->user->name}}
+  @endslot
+
   @slot('actions')
 	<form method="POST" action="{{route('suggestions.confirm', $row)}}" class="d-inline mr-2">
 		@csrf
