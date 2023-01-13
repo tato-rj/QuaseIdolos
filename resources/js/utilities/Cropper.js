@@ -5,6 +5,7 @@ class SimpleCropper
 
 		this.$imageInput = $(params.imageInput);
 		this.$image = $(this.$imageInput.attr('data-target'));
+		this.$placeholder = $(this.$imageInput.attr('data-placeholder'));
 		this.$uploadButton = $(params.uploadButton);
 		this.$confirmButton = $(params.confirmButton);
 		this.$cancelButton = $(params.cancelButton);
@@ -71,7 +72,14 @@ class SimpleCropper
 
 			reader.onload = function(e) {
 				$(element).attr('src', e.target.result);
-				obj.$image.css('visibility', 'hidden');
+
+				if (obj._hasPlaceholder()) {
+					obj.$image.show();
+					obj.$placeholder.hide();
+				} else {
+					obj.$image.css('visibility', 'hidden');			
+				}
+
 				obj._enableCropper();
 			}
 
@@ -92,7 +100,14 @@ class SimpleCropper
 		let obj = this;
 
 		obj.$image.attr('src', obj.defaultImage);
-		obj.$image.css('visibility', 'visible');
+		
+		if (obj._hasPlaceholder()) {
+			obj.$image.hide();
+			obj.$placeholder.show();
+		} else {
+			obj.$image.css('visibility', 'visible');
+		}
+
 		obj.$imageInput.val(null);
 		obj.cropper.destroy();
 		obj._toggleButtons();
@@ -133,6 +148,10 @@ class SimpleCropper
 			'<input type="hidden" class="cropper-dimensions" name="cropped_height">',
 			'<input type="hidden" class="cropper-dimensions" name="cropped_x">',
 			'<input type="hidden" class="cropper-dimensions" name="cropped_y">');
+	}
+
+	_hasPlaceholder() {
+		return this.$placeholder.length;
 	}
 }
 

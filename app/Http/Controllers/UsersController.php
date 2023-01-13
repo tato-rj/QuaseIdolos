@@ -80,11 +80,11 @@ class UsersController extends Controller
         return back()->with('success', 'A senha foi alterada com sucesso');
     }
 
-    public function destroyAvatar()
+    public function destroyAvatar(User $user)
     {
-        \Storage::disk('public')->delete(auth()->user()->avatar_url);
-
-        auth()->user()->update(['avatar_url' => null]);
+        \Storage::disk('public')->delete($user->avatar_url);
+        
+        $user->update(['avatar_url' => null]);
 
         return back()->with('success', 'A sua imagem foi removida com sucesso');
     }

@@ -1,3 +1,5 @@
+@php($user = $user ?? auth()->user())
+
 @extends('layouts.app', ['title' => 'Meu Perfil'])
 
 @push('header')
@@ -25,7 +27,7 @@
 			<div class="d-flex flex-column">
 				<button data-bs-toggle="modal" data-bs-target="#edit-profile-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])Editar Perfil</button>
 				@if($user->hasOwnAvatar())
-				<form method="POST" action="{{route('profile.destroy-avatar')}}">
+				<form method="POST" action="{{route('profile.destroy-avatar', auth()->user())}}">
 					@csrf
 					@method('DELETE')
 					<button class="btn btn-secondary mb-2 text-truncate w-100">@fa(['icon' => 'camera'])Remover imagem</button>
