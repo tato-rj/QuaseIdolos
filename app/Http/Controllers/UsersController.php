@@ -10,7 +10,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::guests()->orderBy('name')->paginate(12);
+        $users = User::guests()->latest()->orderBy('name')->paginate(12);
 
         return view('pages.users.index', compact('users'));
     }
