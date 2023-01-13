@@ -43,7 +43,7 @@ class Cropper
 
 	public function crop()
 	{
-    	$this->image = $this->image->crop(
+    	$this->image = $this->image->orientate()->crop(
             intval($this->request->cropped_width),
             intval($this->request->cropped_height), 
             intval($this->request->cropped_x), 
