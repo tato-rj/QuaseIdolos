@@ -31,7 +31,7 @@
 		@endform
 	</div>
 
-	{{-- @include('auth.social') --}}
+	@include('auth.social')
 
 	<div class="text-center">
 		<h6 class="opacity-08">Ainda não tem um cadastro?</h6>
