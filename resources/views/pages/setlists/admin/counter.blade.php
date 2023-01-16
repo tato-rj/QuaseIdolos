@@ -10,6 +10,7 @@
 			{{$setlist->count()}}
 			@endif
 		</div>
+		<div class="position-absolute right-0 top-0 h-100 d-center pr-3 fw-bold opacity-4" style="z-index: -1">{{$gig->songs_limit}}</div>
 	</div>
 
 @endif
