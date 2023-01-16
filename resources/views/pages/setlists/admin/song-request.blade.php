@@ -1,6 +1,6 @@
 <div class="draggable mb-3" data-id="{{$entry->id}}">
 	<div class="rounded border-secondary event-box py-3 px-2 row">
-		<div class="col-lg-8 col-12 d-flex justify-content-between flex-wrap mb-3">
+		<div class="col-lg-8 col-12 mb-3">
 			<h3 class="no-stroke text-primary font-cursive">@fa(['icon' => 'bars', 'classes' => 'my-handle']){{$entry->user_name ?? $entry->user->firstName}}</h3>
 			<div class="d-flex align-items-center flex-wrap">
 				<img src="{{$entry->song->artist->coverImage()}}" class="d-none d-sm-block rounded-circle mr-3" style="width: 56px">
