@@ -8,7 +8,7 @@
 		<a class="btn btn-secondary mb-3 w-100" target="_blank" href="{{route('lyrics.index')}}">Letras</a>
 		<a href="{{route('ratings.live')}}" target="_blank" class="btn btn-secondary w-100 mb-3">Votação</a>
 		<div>
-			<button id="show-winner" class="btn btn-secondary w-100">@fa(['icon' => 'trophy'])Ver ganhador</button>
+			<button id="show-winner" @if(! $gig->ratings()->exists())disabled @endif class="btn btn-secondary w-100">@fa(['icon' => 'trophy'])Ver ganhador</button>
 			<div style="display: none;">
 				<h6>Tem certeza?</h6>
 				<div class="d-flex">
