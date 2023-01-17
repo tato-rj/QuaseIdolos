@@ -11,6 +11,15 @@
 
 @section('content')
 <section class="container mb-6">
+		@if(! $user->email)
+		<div class="mx-auto mb-4" style="width: 100%; max-width: 600px"> 
+		@alert([
+	    'color' => 'red',
+	    'headline' => 'Atenção',
+	    'message' => 'Não temos o seu email cadastrado.',
+	    'dismissible' => true])
+	  </div>
+	  @endif
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 text-center mb-4">
 			@pagetitle(['title' => 'Meu', 'highlight' => 'perfil'])
