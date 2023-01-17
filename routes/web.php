@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function() {
 
         Route::delete('avatar/{user?}', 'UsersController@destroyAvatar')->name('destroy-avatar');
 
+        Route::delete('{socialAccount}/{user?}', 'Auth\SocialiteController@unlink')->name('unlink-social');
+
         Route::delete('{user?}', 'UsersController@destroy')->name('destroy');
     });
 

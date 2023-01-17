@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{User, SongRequest, Song, Gig, Favorite, Rating};
+use App\Models\{User, SongRequest, Song, Gig, Favorite, Rating, SocialAccount};
 
 class UserTest extends AppTest
 {
@@ -37,6 +37,22 @@ class UserTest extends AppTest
         $this->delete(route('profile.destroy'));
 
         $this->assertEquals(0, Rating::count());
+
+        $this->assertDatabaseMissing('users', ['id' => $user->id]);
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_the_social_accounts_are_also_removed()
+    {
+        $user = $this->signIn();
+
+        auth()->user()->socialAccounts()->save(SocialAccount::factory()->make());
+
+        $this->assertCount(1, auth()->user()->socialAccounts);
+
+        $this->delete(route('profile.destroy'));
+
+        $this->assertEquals(0, SocialAccount::count());
 
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }

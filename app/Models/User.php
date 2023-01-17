@@ -229,6 +229,11 @@ class User extends Authenticatable
         return $this->hasAvatar() && ! \Str::contains($this->avatar_url, 'http');
     }
 
+    public function hasOwnLogin()
+    {
+        return (bool) $this->email && $this->password;
+    }
+
     public function avatar()
     {
         if ($this->hasOwnAvatar())

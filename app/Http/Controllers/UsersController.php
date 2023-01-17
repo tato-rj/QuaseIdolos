@@ -97,6 +97,8 @@ class UsersController extends Controller
 
         $user->favorites()->detach();
 
+        $user->socialAccounts->each->delete();
+
         $user->ratings->each->delete();
 
         $user->ratingsGiven->each->delete();

@@ -37,6 +37,15 @@ class SocialiteController extends Controller
         }
     }
 
+    public function unlink(SocialAccount $socialAccount, User $user = null)
+    {
+        $this->authorize('update', $user ?? User::class);
+
+        $socialAccount->delete();
+
+        return back()->with('success', 'Esse provedor foi removido com sucesso');
+    }
+
     public function existingSocialAccount($socialAccount, $socialUser)
     {
         if (! $socialAccount->user->hasOwnAvatar())
