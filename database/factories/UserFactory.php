@@ -37,4 +37,13 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function withoutEmail()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'email' => null,
+            ];
+        });
+    }
 }

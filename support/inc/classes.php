@@ -5,6 +5,13 @@ function aws()
 	return (new App\Storage\Providers\AWS);
 }
 
+function throwValidationException($message, $input = 'erro')
+{
+	throw \Illuminate\Validation\ValidationException::withMessages(
+		[$input => $message]
+	);
+}
+
 function theme()
 {
 	return new \App\Brand\Theme;

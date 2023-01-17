@@ -16,7 +16,7 @@ Route::withoutMiddleware('join-gig')->group(function() {
     Route::prefix('auth/{driver}')->group(function() {
         Route::get('redirect', 'Auth\SocialiteController@redirect')->name('socialite');
 
-        Route::get('callback', 'Auth\SocialiteController@callback');
+        Route::get('callback', 'Auth\SocialiteController@callback')->name('socialite-callback');
     });
 
     Route::prefix('cardapio')->name('cardapio.')->group(function() {

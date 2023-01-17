@@ -25,6 +25,11 @@ class User extends Authenticatable
         'boolean' => 'participate_in_ratings'
     ];
 
+    public function socialAccounts()
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
+
     public function favorites()
     {
         return $this->belongsToMany(Song::class, 'favorites', 'user_id', 'song_id')
@@ -132,6 +137,11 @@ class User extends Authenticatable
                 return 'pages.gigs.modals.password';
             }
         }
+    }
+
+    public function scopeByEmail($query, $email = null)
+    {
+        return $query->whereNotNull('email')->where('email', $email);
     }
 
     public function scopeTeam($query)

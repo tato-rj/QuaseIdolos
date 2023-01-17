@@ -24,9 +24,9 @@ class CreateUsersTable extends Migration
             $table->string('liveGig')->nullable();
             // SOCIALMEDIA
             $table->text('avatar_url')->nullable();
-            $table->string('social_id')->nullable();
-            $table->string('social_token')->nullable();
-            $table->string('social_refresh_token')->nullable();
+            // $table->string('social_id')->nullable();
+            // $table->string('social_token')->nullable();
+            // $table->string('social_refresh_token')->nullable();
             // SOCIALMEDIA
             $table->rememberToken();
             $table->timestamps();

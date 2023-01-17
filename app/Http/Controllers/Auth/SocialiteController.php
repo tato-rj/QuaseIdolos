@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-use App\Models\User;
+use App\Models\{User, SocialAccount};
 
 class SocialiteController extends Controller
 {
@@ -23,26 +23,68 @@ class SocialiteController extends Controller
         $this->validateDriver($driver);
 
         $socialUser = Socialite::driver($driver)->user();
-dd($socialUser);
-        $user = User::updateOrCreate([
-            'email' => $socialUser->email
-        ], [
-            'name' => $socialUser->name,
-            //SOCIAL CREDENTIALS
-            'social_id' => $socialUser->id,
+
+        try {
+            if ($socialAccount = SocialAccount::bySocialId($socialUser->getId())->first())          
+                return $this->existingSocialAccount($socialAccount, $socialUser);
+
+            if ($user = User::byEmail($socialUser->getEmail())->first())
+                return $this->newSocialAccount($driver, $user, $socialUser);
+
+            return $this->newUser($driver, $socialUser);            
+        } catch (\Exception $e) {
+            throwValidationException('Infelizmente não conseguimos fazer o login com o ' . $driver);
+        }
+    }
+
+    public function existingSocialAccount($socialAccount, $socialUser)
+    {
+        if (! $socialAccount->user->hasOwnAvatar())
+            $socialAccount->user->update(['avatar_url' => $this->saveLargeAvatar($socialUser->getAvatar())]);
+
+        \Auth::login($socialAccount->user, $remember = true);
+
+        return redirect(route('home'));
+    }
+
+    public function newSocialAccount($driver, $user, $socialUser)
+    {
+        $user->socialAccounts()->create([
+            'social_provider' => $driver,
+            'social_id' => $socialUser->getId(),
             'social_token' => $socialUser->token,
             'social_refresh_token' => $socialUser->refreshToken
         ]);
 
         if (! $user->hasOwnAvatar())
-            $user->update(['avatar_url' => $this->saveAvatar($socialUser->avatar)]);
+            $user->update(['avatar_url' => $this->saveLargeAvatar($socialUser->getAvatar())]);
 
-        \Auth::login($user);
+        \Auth::login($user, $remember = true);
+
+        return redirect(route('home'));   
+    }
+
+    public function newUser($driver, $socialUser)
+    {
+        $user = User::create([
+            'name' => $socialUser->getName(),
+            'email' => $socialUser->getEmail(),
+            'avatar_url' => $this->saveLargeAvatar($socialUser->getAvatar()),
+        ]);
+
+        $user->socialAccounts()->create([
+            'social_provider' => $driver,
+            'social_id' => $socialUser->getId(),
+            'social_token' => $socialUser->token,
+            'social_refresh_token' => $socialUser->refreshToken
+        ]);
+
+        \Auth::login($user, $remember = true);
 
         return redirect(route('home'));
     }
 
-    public function saveAvatar($image)
+    public function saveLargeAvatar($image)
     {
         return str_replace('=s96-c', '=s400-c', str_replace('type=normal', 'type=large', $image));
     }
@@ -50,6 +92,6 @@ dd($socialUser);
     public function validateDriver($driver)
     {
         if (! in_array($driver, $this->drivers))
-            abort(401);
+            throwValidationException('Infelizmente podemos fazer o login com esse provedor');
     }
 }

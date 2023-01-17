@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue};
+use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount};
 
 class UserTest extends AppTest
 {
@@ -14,6 +14,14 @@ class UserTest extends AppTest
         $this->signIn();
 
         $this->gig = Gig::factory()->create(['is_live' => true]);
+    }
+
+    /** @test */
+    public function it_has_many_social_accounts()
+    {
+        auth()->user()->socialAccounts()->save(SocialAccount::factory()->make());
+
+        return $this->assertInstanceOf(SocialAccount::class, auth()->user()->socialAccounts->first());
     }
 
     /** @test */
