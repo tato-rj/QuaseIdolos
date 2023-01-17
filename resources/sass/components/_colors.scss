@@ -216,6 +216,7 @@
 	background-color: white;
 	border-color: white;
 	border-radius: $corner-radius !important;
+	-webkit-text-stroke: 0 !important;
 
 	&:hover {
 		color: #ea4335 !important;
