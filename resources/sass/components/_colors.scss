@@ -212,29 +212,29 @@
 }
 
 .btn-google {
-	color: #4285f4 !important;
-	background-color: #f1f1f1;
-	border-color: #f1f1f1;
+	color: #ea4335 !important;
+	background-color: white;
+	border-color: white;
 	border-radius: $corner-radius !important;
 
 	&:hover {
-		color: #4285f4 !important;
-		background-color: #f1f1f1;
-		border-color: #f1f1f1;
+		color: #ea4335 !important;
+		background-color: white;
+		border-color: white;
 	}
 
 	&:active {
-		background-color: lighten(#f1f1f1, 8%) !important;
-		border-color: lighten(#f1f1f1, 8%) !important;
+		background-color: lighten(white, 8%) !important;
+		border-color: lighten(white, 8%) !important;
 	}
 
 	&:focus {
-		background-color: lighten(#f1f1f1, 8%) !important;
-		border-color: lighten(#f1f1f1, 8%) !important;
+		background-color: lighten(white, 8%) !important;
+		border-color: lighten(white, 8%) !important;
 	}
 
 	&:disabled {
-		background-color: lighten(#f1f1f1, 16%) !important;
-		border-color: lighten(#f1f1f1, 16%) !important;
+		background-color: lighten(white, 16%) !important;
+		border-color: lighten(white, 16%) !important;
 	}
 }
