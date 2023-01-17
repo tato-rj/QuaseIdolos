@@ -4,8 +4,8 @@
   @slot('column1')
 		<a href="{{route('users.edit', $user)}}" class="link-secondary">
       <span class="mr-1 align-middle">{{$user->name}}</span>
-      @fa(['fa_type' => 'b', 'icon' => 'facebook', 'mr' => 1, 'classes' => 'align-middle'])
       @foreach($user->socialAccounts as $socialAccount)
+      <h1>asd</h1>
       @fa(['fa_type' => 'b', 'icon' => $socialAccount, 'mr' => 1, 'classes' => 'align-middle'])
       @endforeach
     </a>
