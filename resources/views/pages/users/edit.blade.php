@@ -24,10 +24,9 @@
 				@endadmin
 
 				<div class="d-center mt-4">
-					@fa(['icon' => 'facebook', 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => 'mx-2 opacity-2'])
-					@fa(['icon' => 'instagram', 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => 'mx-2 opacity-2'])
-					@fa(['icon' => 'google', 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => 'mx-2 opacity-2'])
-					@fa(['icon' => 'github', 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => 'mx-2 opacity-2'])
+					@foreach(['facebook', 'instagram', 'google'] as $provider)
+					@fa(['icon' => $provider, 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => 'mx-2 '.$user->socialAccouns()->provider($provider)->exists() ? null : 'opacity-2'])
+					@endforeach
 				</div>
 
 				@include('pages.profile.modals.profile', ['user' => $user])

@@ -13,4 +13,9 @@ class SocialAccount extends BaseModel
     {
         return $query->where('social_id', $id);
     }
+
+    public function scopeProvider($query, $provider)
+    {
+        return $query->where('social_provider', $provider);
+    }
 }
