@@ -2,7 +2,12 @@
 
 @row(['optional' => $optional ?? []])
   @slot('column1')
-		<a href="{{route('users.edit', $user)}}" class="link-secondary">{{$user->name}}</a>
+		<a href="{{route('users.edit', $user)}}" class="link-secondary">
+      <span class="mr-1 align-middle">{{$user->name}}</span>
+      @foreach($user->socialAccounts as $socialAccount)
+      @fa(['fa_type' => 'b', 'icon' => $socialAccount, 'mr' => 1, 'classes' => 'align-middle'])
+      @endforeach
+    </a>
   @endslot
 
   @slot('column2')
