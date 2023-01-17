@@ -24,7 +24,7 @@ class SocialiteController extends Controller
 
         $socialUser = Socialite::driver($driver)->user();
 
-        try {
+
             if ($socialAccount = SocialAccount::bySocialId($socialUser->getId())->first())          
                 return $this->existingSocialAccount($socialAccount, $socialUser);
 
@@ -32,9 +32,7 @@ class SocialiteController extends Controller
                 return $this->newSocialAccount($driver, $user, $socialUser);
 
             return $this->newUser($driver, $socialUser);            
-        } catch (\Exception $e) {
-            throwValidationException('Infelizmente não conseguimos fazer o login com o ' . $driver);
-        }
+
     }
 
     public function existingSocialAccount($socialAccount, $socialUser)
