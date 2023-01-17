@@ -25,7 +25,7 @@
 
 				<div class="d-center mt-4">
 					@foreach(['facebook', 'instagram', 'google'] as $provider)
-					@fa(['icon' => $provider, 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => $user->socialAccouns()->where('social_provider', $provider)->exists() ? 'mx-2' : 'mx-2 opacity-2'])
+					@fa(['icon' => $provider, 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => $user->socialAccounts()->provider($provider)->exists() ? 'mx-2' : 'mx-2 opacity-2'])
 					@endforeach
 				</div>
 
