@@ -2,7 +2,7 @@
 
 @row(['optional' => $optional ?? []])
   @slot('column1')
-  {{$user->created_at->format('d/m \à\s H:i')}}
+  {{$user->created_at->format('d/m')}} <span class="opacity-6">{{$user->created_at->format('H:i')}}</span>
   @endslot
 
   @slot('column2')
