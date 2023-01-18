@@ -1,5 +1,5 @@
 <div class="results-container">
-  <div class="table-container mb-0">
+  <div class="table-container mb-{{$mb ?? 0}}">
     @isset($headers)
     @include('components.table.headers')
     @endisset
