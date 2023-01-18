@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Artist, Genre, Gig};
+use App\Models\{Artist, Genre, Gig, SongRequest, Song};
 use App\Tools\ChartJS\Chart;
 
 class StatsController extends Controller
@@ -26,17 +26,24 @@ class StatsController extends Controller
         ]);
     }
 
+    public function songs(Request $request)
+    {
+        $ranking = Song::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
+
+        return view('pages.stats.songs.index', compact(['ranking']));
+    }
+
     public function artists(Request $request)
     {
-        $rankingBySongs = Artist::withCount('songs')->orderBy('songs_count', 'DESC')->take(9)->get();
+        $ranking = Artist::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
 
-        return view('pages.stats.artists.index', compact(['rankingBySongs']));
+        return view('pages.stats.artists.index', compact(['ranking']));
     }
 
     public function genres(Request $request)
     {
-        $rankingBySongs = Genre::withCount('songs')->orderBy('songs_count', 'DESC')->take(9)->get();
+        $ranking = Genre::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
 
-        return view('pages.stats.genres.index', compact(['rankingBySongs']));
+        return view('pages.stats.genres.index', compact(['ranking']));
     }
 }

@@ -27,6 +27,12 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
+    public function it_belongs_to_an_artist_through_its_song()
+    {
+        return $this->assertInstanceOf(Artist::class, $this->songRequest->artist);
+    }
+
+    /** @test */
     public function it_belongs_to_a_user()
     {
         return $this->assertInstanceOf(User::class, $this->songRequest->user);

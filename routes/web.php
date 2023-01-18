@@ -255,6 +255,8 @@ Route::middleware('super-admin')->group(function() {
     Route::prefix('estatisticas')->name('stats.')->withoutMiddleware('join-gig')->group(function() {
         Route::get('eventos', 'StatsController@gigs')->name('gigs');
 
+        Route::get('musicas', 'StatsController@songs')->name('songs');
+
         Route::get('artistas', 'StatsController@artists')->name('artists');
 
         Route::get('estilos', 'StatsController@genres')->name('genres');

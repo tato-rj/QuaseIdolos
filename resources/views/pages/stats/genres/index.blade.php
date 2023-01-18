@@ -11,15 +11,21 @@
 		@pagetitle(['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
     @nav(['pages' => [
       'Eventos' => route('stats.gigs'), 
+      'Músicas' => route('stats.songs'),
       'Artistas' => route('stats.artists'),
       'Estilos' => route('stats.genres')
     ]])
 	</div>
-  <div class="row">
+  @table([
+    'title' => 'Top 10 estilos mais cantados',
+    'rows' => $ranking,
+    'view' => 'pages.stats.genres.row'
+  ])
+{{--   <div class="row">
   	<div class="col-lg-6 col-12">
       <div class="p-6 d-center">
         <div class="text-center">
-          <h4 class="mb-3">Estilo com mais músicas</h4>
+          <h4 class="mb-3">Estilo mais cantados</h4>
           <div class="d-center flex-column">
             @php($genre = $rankingBySongs->shift())
             <div class="bg-center rounded mb-3" style="height: 120px; width: 210px; background-image: url({{$genre->coverImage()}});"></div>
@@ -63,7 +69,7 @@
         @endforeach
       </div>
     </div>
-  </div>
+  </div> --}}
 </section>
 
 @endsection

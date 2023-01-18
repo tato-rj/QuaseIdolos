@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToThrough;
 
 class BaseModel extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToThrough;
 
     public function scopeLast($query)
     {

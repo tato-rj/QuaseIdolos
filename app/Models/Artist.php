@@ -16,6 +16,11 @@ class Artist extends BaseModel
         return $this->hasMany(Song::class)->orderBy('name');
     }
 
+    public function songRequests()
+    {
+        return $this->hasManyThrough(SongRequest::class, Song::class);
+    }
+
     public function getImageAttribute()
     {
         return $this->coverImage();
