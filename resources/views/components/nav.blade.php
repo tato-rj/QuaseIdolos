@@ -1,4 +1,4 @@
-<div class="d-center">
+<div class="d-center flex-wrap">
   @foreach($pages as $title => $route)
   @if(request()->url() == $route)
   <button class="btn btn-outline-secondary {{! $loop->last ? 'mr-2' : null}}" disabled>{{$title}}</button>

@@ -260,6 +260,8 @@ Route::middleware('super-admin')->group(function() {
         Route::get('artistas', 'StatsController@artists')->name('artists');
 
         Route::get('estilos', 'StatsController@genres')->name('genres');
+        
+        Route::get('estilos', 'StatsController@genres')->name('genres');
     });
 });
 
