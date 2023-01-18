@@ -38,6 +38,7 @@
 		<div class="col-lg-9 col-12">
 			@table([
 				'title' => 'Músicas cantadas',
+				'empty' => true,
 				'legend' => 'música|músicas',
 				'rows' => $user->requestsSung,
 				'view' => 'pages.users.rows.songrequest'
@@ -45,6 +46,7 @@
 
 			@table([
 				'title' => 'Votos recebidos',
+				'empty' => true,
 				'legend' => 'voto|votos',
 				'rows' => $user->ratings,
 				'view' => 'pages.users.rows.rating'
@@ -52,6 +54,7 @@
 
 			@table([
 				'title' => 'Lista de favoritos',
+				'empty' => true,
 				'legend' => 'música|músicas',
 				'rows' => $user->favorites,
 				'view' => 'pages.users.rows.favorite'
