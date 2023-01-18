@@ -1,0 +1,2 @@
+<button data-bs-toggle="modal" data-bs-target="#delete-user-modal" class="btn btn-outline-secondary text-truncate mb-2">@fa(['icon' => 'trash-alt'])Deletar conta</button>
+@include('pages.profile.modals.delete')

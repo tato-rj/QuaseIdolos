@@ -34,7 +34,26 @@
 				<h3 class="w-100 text-center mt-2"><strong>{{$user->name}}</strong></h3>
 			</div>
 
-			@include('pages.profile.actions')
+			<div class="d-flex flex-column">
+				@if($user->hasOwnLogin())
+					@include('pages.profile.actions.social')
+				@endif
+
+				@if($user->hasOwnAvatar())
+					@include('pages.profile.actions.avatar')
+				@endif
+
+				@if($user->socialAccounts()->exists() || $user->hasOwnAvatar())
+				@include('layouts.menu.components.divider')
+				@endif
+
+				@include('pages.profile.actions.edit')
+				
+				@include('pages.profile.actions.password')
+				
+				@include('pages.profile.actions.delete')
+				<small class="opacity-6">Cadastro feito em {{$user->created_at->format('d/m/Y')}}</small>
+			</div>
 		</div>
 	</div>
 </section>
