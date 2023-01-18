@@ -39,6 +39,7 @@
 			@table([
 				'title' => 'Músicas cantadas',
 				'empty' => true,
+				'mb' => 4,
 				'legend' => 'música|músicas',
 				'rows' => $user->requestsSung,
 				'view' => 'pages.users.rows.songrequest'
@@ -47,6 +48,7 @@
 			@table([
 				'title' => 'Votos recebidos',
 				'empty' => true,
+				'mb' => 4,
 				'legend' => 'voto|votos',
 				'rows' => $user->ratings,
 				'view' => 'pages.users.rows.rating'
@@ -55,6 +57,7 @@
 			@table([
 				'title' => 'Lista de favoritos',
 				'empty' => true,
+				'mb' => 4,
 				'legend' => 'música|músicas',
 				'rows' => $user->favorites,
 				'view' => 'pages.users.rows.favorite'
