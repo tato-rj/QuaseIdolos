@@ -8,7 +8,7 @@
   @slot('column2')
     <a href="{{route('users.edit', $user)}}" class="link-secondary">
       <div class="d-flex align-items-center">
-        <div class="mr-2">
+        <div class="mr-2 no-truncate">
           @if($user->hasAvatar())
           @include('components.avatar.image', ['size' => '30px', 'star' => true])
           @else
