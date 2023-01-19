@@ -10,7 +10,7 @@ class="nav-link d-center position-relative"
 >
   <img src="{{$user->avatar()}}" class="rounded-circle w-100" style="max-width: {{$size ?? '39.2px'}}">
 
-  @if(isset($star) && $user->isAdmin())
+  @if(isset($star) && $user->isAdmin() && intval($size) > 80)
   <span class="position-absolute bottom-0 right-0">@fa(['icon' => 'star', 'fa_color' => 'yellow', 'fa_size' => 'lg'])</span>
   @endif
 </div>
