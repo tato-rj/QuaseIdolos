@@ -261,7 +261,7 @@ Route::middleware('super-admin')->group(function() {
 
         Route::get('estilos', 'StatsController@genres')->name('genres');
         
-        Route::get('estilos', 'StatsController@genres')->name('genres');
+        Route::get('cantores', 'StatsController@users')->name('users');
     });
 });
 

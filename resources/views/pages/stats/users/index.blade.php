@@ -19,9 +19,9 @@
 	</div>
 
   @table([
-    'title' => 'Top 10 artistas mais cantados',
+    'title' => 'Top 10 cantores que mais cantaram',
     'rows' => $ranking,
-    'view' => 'pages.stats.artists.row'
+    'view' => 'pages.stats.users.row'
   ])
 </section>
 

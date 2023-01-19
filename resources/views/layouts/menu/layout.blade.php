@@ -4,6 +4,7 @@
 @else
 @include('components.avatar.initial', ['offcanvas' => true, 'user' => auth()->user()])
 @endif
+
 @include('layouts.menu.components.hamburger', ['target' => '#offcanvasUserMenu'])
 </div>
 

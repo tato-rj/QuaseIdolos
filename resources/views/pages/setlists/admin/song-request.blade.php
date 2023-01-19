@@ -3,7 +3,14 @@
 		<div class="col-lg-8 col-12 mb-3">
 			<h3 class="no-stroke text-primary font-cursive">@fa(['icon' => 'bars', 'classes' => 'my-handle']){{$entry->user_name ?? $entry->user->firstName}}</h3>
 			<div class="d-flex align-items-center flex-wrap">
-				<img src="{{$entry->song->artist->coverImage()}}" class="d-none d-sm-block rounded-circle mr-3" style="width: 56px">
+				<div class="mr-3">
+			      @if($entry->user->hasAvatar())
+			      @include('components.avatar.image', ['size' => '56px', 'user' => $entry->user])
+			      @else
+			      @include('components.avatar.initial', ['size' => '56px', 'user' => $entry->user])
+			      @endif
+			  </div>
+				{{-- <img src="{{$entry->song->artist->coverImage()}}" class="d-none d-sm-block rounded-circle mr-3" style="width: 56px"> --}}
 				<div class="">
 					<h4 class="text-dark no-stroke m-0" style="white-space: initial;">{{$entry->song->name}}</h4>
 					<h6 class="text-dark no-stroke m-0 text-truncate opacity-6">{{$entry->song->artist->name}}</h6>

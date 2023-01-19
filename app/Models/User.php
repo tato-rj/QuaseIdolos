@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Traits\{Searchable, Rateable, Locateable, Archiveable, HasAvatar};
+use App\Models\Traits\{Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable};
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable, Archiveable, HasAvatar;
+    use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable;
 
     protected $appends = ['is_admin'];
 

@@ -13,7 +13,8 @@
       'Eventos' => route('stats.gigs'), 
       'Músicas' => route('stats.songs'),
       'Artistas' => route('stats.artists'),
-      'Estilos' => route('stats.genres')
+      'Estilos' => route('stats.genres'),
+      'Cantores' => route('stats.users')
     ]])
 	</div>
   @table([
