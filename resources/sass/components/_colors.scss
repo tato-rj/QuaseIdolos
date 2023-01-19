@@ -156,30 +156,31 @@
 }
 
 .btn-github {
-	color: white !important;
-	background-color: #333;
-	border-color: #333;
+	color: #333 !important;
+	background-color: white;
+	border-color: white;
 	border-radius: $corner-radius !important;
+	-webkit-text-stroke: 0 !important;
 
 	&:hover {
-		color: white !important;
-		background-color: #333;
-		border-color: #333;
+		color: #333 !important;
+		background-color: white;
+		border-color: white;
 	}
 
 	&:active {
-		background-color: lighten(#333, 8%) !important;
-		border-color: lighten(#333, 8%) !important;
+		background-color: lighten(white, 8%) !important;
+		border-color: lighten(white, 8%) !important;
 	}
 
 	&:focus {
-		background-color: lighten(#333, 8%) !important;
-		border-color: lighten(#333, 8%) !important;
+		background-color: lighten(white, 8%) !important;
+		border-color: lighten(white, 8%) !important;
 	}
 
 	&:disabled {
-		background-color: lighten(#333, 16%) !important;
-		border-color: lighten(#333, 16%) !important;
+		background-color: lighten(white, 16%) !important;
+		border-color: lighten(white, 16%) !important;
 	}
 }
 
