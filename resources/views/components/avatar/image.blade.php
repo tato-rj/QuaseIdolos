@@ -1,6 +1,6 @@
 <div 
 @isset($offcanvas)
-class="nav-link d-center cursor-pointer position-relative"
+class="nav-link d-center cursor-pointer position-relative no-truncate"
 href="#" 
 data-bs-toggle="offcanvas" 
 data-bs-target="#offcanvasUserMenu"
