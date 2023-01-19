@@ -28,7 +28,7 @@
 				@if($user->hasAvatar())
 				@include('components.avatar.image', ['size' => '60%', 'user' => $user])
 				@else
-				@include('components.avatar.initial', ['size' => '140px', 'fontsize' => '3rem', 'user' => $user])
+				@include('components.avatar.initial', ['size' => '140px', 'user' => $user])
 				@endif
 
 				<h3 class="w-100 text-center mt-2"><strong>{{$user->name}}</strong></h3>

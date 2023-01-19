@@ -12,6 +12,11 @@ function throwValidationException($message, $input = 'erro')
 	);
 }
 
+function percent($percent = null)
+{
+	return new \App\Tools\Percentage\Percentage($percent);
+}
+
 function theme()
 {
 	return new \App\Brand\Theme;

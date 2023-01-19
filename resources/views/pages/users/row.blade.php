@@ -7,10 +7,20 @@
 
   @slot('column2')
     <a href="{{route('users.edit', $user)}}" class="link-secondary">
-      <span class="mr-1 align-middle">{{$user->name}}</span>
-      @foreach($user->socialAccounts as $socialAccount)
-      @fa(['fa_type' => 'b', 'icon' => $socialAccount->social_provider, 'mr' => 1, 'classes' => 'align-middle', 'fa_color' => 'white'])
-      @endforeach
+      <div class="d-flex align-items-center">
+        <div class="mr-2">
+          @if($user->hasAvatar())
+          @include('components.avatar.image', ['size' => '30px', 'star' => true])
+          @else
+          @include('components.avatar.initial', ['size' => '30px', 'star' => true])
+          @endif
+        </div>
+
+        <div class="mr-2 align-middle">{{$user->name}}</div>
+        @foreach($user->socialAccounts as $socialAccount)
+        <div>@fa(['fa_type' => 'b', 'icon' => $socialAccount->social_provider, 'mr' => 1, 'classes' => 'align-middle', 'fa_color' => 'white'])</div>
+        @endforeach
+      </div>
     </a>
   @endslot
   

@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 text-center mb-4">
 			<div class="mb-3">
-				@include('pages.users.avatar', ['size' => '180px', 'fontsize' => '3rem'])
+				@include('pages.users.avatar', ['size' => '180px'])
 			</div>
 			<div class="d-flex flex-column">
 				<button data-bs-toggle="modal" data-bs-target="#edit-profile-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])Editar Perfil</button>
