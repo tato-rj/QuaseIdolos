@@ -38,10 +38,10 @@
 	            name="musicians[]" 
 	            type="checkbox" 
 	            value="{{$musician->id}}" 
-	            id="checkbox-{{$musician->id}}" 
+	            id="checkbox-musician-{{$musician->id}}" 
 	            {{ is_array(old($name)) && in_array($value, old($name)) ? ' checked' : '' }}
 	            >
-	                <label class="form-check-label" for="checkbox-{{$musician->id}}">{{$musician->user->name}}</label>
+	                <label class="form-check-label" for="checkbox-musician-{{$musician->id}}">{{$musician->user->name}}</label>
 	        </div>
 	        @endforeach
 		@endcheckbox
