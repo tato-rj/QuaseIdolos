@@ -3,7 +3,7 @@
 		<div class="col-lg-8 col-12 mb-3">
 			<h3 class="no-stroke text-primary font-cursive">@fa(['icon' => 'bars', 'classes' => 'my-handle']){{$entry->user_name ?? $entry->user->firstName}}</h3>
 			<div class="d-flex align-items-center flex-wrap">
-				<div class="mr-2">
+				<div class="mr-2 no-truncate">
 			      @if($entry->user->hasAvatar())
 			      @include('components.avatar.image', ['size' => '56px', 'user' => $entry->user])
 			      @else
