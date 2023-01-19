@@ -28,6 +28,11 @@ class Gig extends BaseModel
 		return $this->belongsTo(Venue::class);
 	}
 
+    public function musicians()
+    {
+        return $this->belongsToMany(User::class, 'gig_users', 'gig_id', 'user_id')->orderBy('users.name');
+    }
+
 	public function winner()
 	{
 		return $this->belongsTo(SongRequest::class);
@@ -155,6 +160,8 @@ class Gig extends BaseModel
         $new->password = $this->password()->required() ? $this->password()->generate() : null;
 
         $new->push();
+
+        $new->musicians()->sync($this->musicians->pluck('id')->toArray());
 	}
 
 	public function userLimitReached()

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{Gig, Song, SongRequest, Participant};
+use App\Models\{Gig, Song, SongRequest, Participant, User};
 
 class GigTest extends AppTest
 {
@@ -369,6 +369,22 @@ class GigTest extends AppTest
         $this->delete(route('gig.destroy', $gig));
 
         $this->assertDatabaseMissing('participants', ['user_id' => auth()->user()->id]);
+    }
+
+    /** @test */
+    public function all_musicans_are_removed_when_a_gig_is_deleted()
+    {
+        $this->signIn($this->superAdmin);
+        
+        $gig = Gig::factory()->create(['is_live' => true]);
+
+        $gig->musicians()->sync(User::latest()->take(3)->get()->pluck('id')->toArray());
+
+        $this->assertDatabaseHas('gig_users', ['user_id' => User::latest()->first()->id]);
+
+        $this->delete(route('gig.destroy', $gig));
+
+        $this->assertDatabaseMissing('gig_users', ['user_id' => User::latest()->first()->id]);
     }
 
     /** @test */

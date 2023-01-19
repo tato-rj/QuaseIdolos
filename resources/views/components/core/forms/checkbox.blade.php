@@ -1,9 +1,10 @@
 <div class="form-group">
     @isset($label)
-    @label
+    <h6 class="mb-3">{{$label}}</h6>
     @endisset
 
     <div>
+        @isset($options)
         @foreach($options as $value => $label)
         <div class="form-check {{iftrue($inline ?? null, 'form-check-inline')}} {{$classes ?? null}}">
           <input 
@@ -17,6 +18,9 @@
                 <label class="form-check-label" for="checkbox-{{$value}}">{{$label}}</label>
         </div>
         @endforeach
+        @else
+        {{$slot}}
+        @endisset
     </div>
 
     @isset($info)

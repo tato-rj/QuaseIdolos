@@ -2,7 +2,12 @@
 @modal(['title' => 'Bem vindo(a)!', 'id' => 'gig-welcome-modal', 'autoshow' => true])
 <div class="text-center mb-4">
 	<h4>Você está participando do</h4>
-	<h2 class="mb-4">{{$gig->name()}}</h2>
+	<h2>{{$gig->name()}}</h2>
+	
+	@if($gig->musicians()->exists())
+	<h6 class="m-0">BANDA</h6>
+	<h6 class="text-secondary">{{arrayToSentence($gig->musicians->pluck('admin.user.first_name')->toArray())}}</h6>
+	@endif
 </div>
 
 <div class="border border-secondary border-4 rounded py-3 px-2">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Gig, Venue, Participant};
+use App\Models\{Gig, Venue, Participant, Admin};
 use Illuminate\Http\Request;
 use App\Events\GigFinished;
 
@@ -10,11 +10,12 @@ class GigsController extends Controller
 {
     public function index()
     {
+        $musicians = Admin::musicians()->get();
         $venues = Venue::all();
         $today = Gig::ready()->orLive()->get();
         $unscheduled = Gig::unscheduled()->get();
 
-        return view('pages.gigs.index', compact(['today', 'venues', 'unscheduled']));
+        return view('pages.gigs.index', compact(['today', 'venues', 'unscheduled', 'musicians']));
     }
 
     public function password(Gig $gig)
@@ -89,6 +90,8 @@ class GigsController extends Controller
             'scheduled_for' => datePtToUs($request->scheduled_for),
         ]);
 
+        $gig->musicians()->attach($request->musicians);
+
         if ($request->has_password) {
             $gig->password()->update();
         }
@@ -107,9 +110,10 @@ class GigsController extends Controller
         if ($gig->isUnscheduled())
             return redirect(route('gig.index'));
 
+        $musicians = Admin::musicians()->get();
         $venues = Venue::all();
 
-        return view('pages.gigs.show.index', compact(['gig', 'venues']));
+        return view('pages.gigs.show.index', compact(['gig', 'venues', 'musicians']));
     }
 
     /**
@@ -139,6 +143,8 @@ class GigsController extends Controller
             'songs_limit_per_user' => $request->songs_limit_per_user,
             'scheduled_for' => datePtToUs($request->scheduled_for) ?? $gig->scheduled_for,
         ]);
+
+        $gig->musicians()->sync($request->musicians);
 
         if ($request->has_password) {
             if (! $gig->password()->required())
@@ -224,6 +230,7 @@ class GigsController extends Controller
             return back()->with('error', 'O setlist ainda tem pedidos na espera');
 
         $gig->participants()->detach();
+        $gig->musicians()->detach();
         $gig->delete();
 
         if (url()->previous() == route('gig.show', $gig))

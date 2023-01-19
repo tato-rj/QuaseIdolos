@@ -24,7 +24,7 @@ class GigSeeder extends Seeder
             'scheduled_for' => now()->addDays(4),
         ]);
 
-        Gig::create([
+        $liveGig = Gig::create([
             'venue_id' => Venue::byName('Big Ben')->id,
             'creator_id' => Admin::superAdmin()->first()->user->id,
             'songs_limit' => 10,
@@ -35,6 +35,10 @@ class GigSeeder extends Seeder
             'scheduled_for' => now(),
             'starts_at' => now()
         ]);
+
+        foreach (Admin::musicians()->get() as $musician) {
+            $liveGig->musicians()->save($musician);
+        }
 
         Gig::create([
             'venue_id' => Venue::byName('Big Ben')->id,

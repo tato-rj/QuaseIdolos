@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('components.core.forms.toggle');
         \Blade::include('components.core.forms.textarea');
         \Blade::aliasComponent('components.core.forms.select');
-        \Blade::include('components.core.forms.checkbox');
+        \Blade::aliasComponent('components.core.forms.checkbox');
         \Blade::include('components.core.forms.radio');
         \Blade::include('components.core.forms.option');
         \Blade::include('components.core.forms.submit');

@@ -30,6 +30,14 @@ class GigTest extends AppTest
     }
 
     /** @test */
+    public function it_has_many_musicians()
+    {
+        $this->gig->musicians()->save(User::factory()->create());
+        
+        return $this->assertInstanceOf(User::class, $this->gig->musicians->first());
+    }
+
+    /** @test */
     public function it_has_a_winner()
     {
         $winner = SongRequest::factory()->create(['gig_id' => $this->gig]);

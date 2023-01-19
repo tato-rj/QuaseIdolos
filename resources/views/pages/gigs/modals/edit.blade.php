@@ -51,6 +51,24 @@
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => $gig->participatesInRatings()])
 	</div>
 	
+	<div class="text-left"> 
+		@checkbox(['label' => 'Quem vai tocar nesse evento?', 'name' => 'musicians'])
+			@foreach($musicians as $musician)
+	        <div class="form-check">
+	          <input 
+	            class="form-check-input" 
+	            name="musicians[]" 
+	            type="checkbox" 
+	            value="{{$musician->id}}" 
+	            id="checkbox-{{$musician->id}}" 
+	            {{ $gig->musicians->contains($musician->user) ? ' checked' : '' }}
+	            >
+	                <label class="form-check-label" for="checkbox-{{$musician->id}}">{{$musician->user->name}}</label>
+	        </div>
+	        @endforeach
+		@endcheckbox
+	</div>
+
 	@datepicker([
 		'label' => 'Data do evento',
 		'id' => uuid(),

@@ -20,11 +20,6 @@ class UserSeeder extends Seeder
             'password' => \Hash::make('maiden'),
         ]);
 
-        Admin::create([
-            'user_id' => User::first()->id,
-            'super_admin' => true
-        ]);
-
         User::create([
             'name' => 'Mario Silva',
             'email' => 'mario@email.com',

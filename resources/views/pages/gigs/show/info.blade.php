@@ -14,6 +14,13 @@
 				<h6>{{$gig->dateForHumans()}}</h6>
 			</div>
 
+			@if($gig->musicians()->exists())
+			<div class="mb-4">
+				<h6 class="text-secondary">@fa(['icon' => 'guitar'])Banda</h6>
+				<h6>{{arrayToSentence($gig->musicians->pluck('admin.user.first_name')->toArray())}}</h6>
+			</div>
+			@endif
+			
 			<div class="mb-4">
 				@php($count = $gig->songs_limit)
 				<h6 class="text-secondary">@fa(['icon' => 'lock'])Limite de músicas</h6>

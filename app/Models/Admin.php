@@ -16,6 +16,11 @@ class Admin extends BaseModel
         return $query->where('super_admin', true);
     }
 
+    public function scopeMusicians($query)
+    {
+        return $query->whereNotNull('instrument');
+    }
+
     public function grant(User $user, $super_admin = false)
     {
         return Admin::updateOrCreate([

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Gig, SongRequest};
+use App\Models\{Gig, SongRequest, Admin};
 
 class SetlistsController extends Controller
 {
@@ -11,8 +11,9 @@ class SetlistsController extends Controller
     {
         $gig = auth()->user()->liveGig;
         $setlist = $gig ? $gig->setlist()->orderBy('order')->get() : collect();
+        $musicians = Admin::musicians()->get();
 
-        return view('pages.setlists.admin.index', compact(['setlist', 'gig']));
+        return view('pages.setlists.admin.index', compact(['setlist', 'gig', 'musicians']));
     }
 
     public function table(Request $request)

@@ -29,6 +29,24 @@
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => old('has_ratings') ?? true])
 	</div>
 	
+	<div class="text-left"> 
+		@checkbox(['label' => 'Quem vai tocar nesse evento?', 'name' => 'musicians'])
+			@foreach($musicians as $musician)
+	        <div class="form-check">
+	          <input 
+	            class="form-check-input" 
+	            name="musicians[]" 
+	            type="checkbox" 
+	            value="{{$musician->id}}" 
+	            id="checkbox-{{$musician->id}}" 
+	            {{ is_array(old($name)) && in_array($value, old($name)) ? ' checked' : '' }}
+	            >
+	                <label class="form-check-label" for="checkbox-{{$musician->id}}">{{$musician->user->name}}</label>
+	        </div>
+	        @endforeach
+		@endcheckbox
+	</div>
+
 	@datepicker([
 		'label' => 'Data do evento',
 		'value' => now()->format('d/m/Y'),
