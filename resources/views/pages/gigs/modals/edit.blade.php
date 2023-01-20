@@ -61,7 +61,7 @@
 	            type="checkbox" 
 	            value="{{$musician->id}}" 
 	            id="checkbox-musician-{{$musician->id}}-{{$gig->id}}" 
-	            {{ $gig->musicians->contains($musician->admin->user) ? ' checked' : '' }}
+	            {{ $gig->musicians->contains($musician->user) ? ' checked' : '' }}
 	            >
 	                <label class="form-check-label" for="checkbox-musician-{{$musician->id}}-{{$gig->id}}">{{$musician->user->name}}</label>
 	        </div>
