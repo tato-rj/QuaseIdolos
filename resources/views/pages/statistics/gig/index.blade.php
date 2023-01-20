@@ -19,14 +19,14 @@
 	</div>
   <div class="row">
   	<div class="col-lg-6 col-md-8 col-12">
-      @include('pages.stats.gig.chart', [
+      @include('pages.statistics.gig.chart', [
         'title' => 'Número de eventos', 
         'id' => 'gigs-chart', 
         'model' => \App\Models\Gig::class,
         'column' => 'scheduled_for'])
   	</div>
     <div class="col-lg-6 col-md-8 col-12">
-      @include('pages.stats.gig.chart', [
+      @include('pages.statistics.gig.chart', [
         'title' => 'Número de participantes', 
         'id' => 'participants-chart', 
         'model' => \App\Models\Participant::class,

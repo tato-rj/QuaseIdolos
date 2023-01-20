@@ -20,7 +20,7 @@
   @table([
     'title' => 'Top 10 estilos mais cantados',
     'rows' => $ranking,
-    'view' => 'pages.stats.genres.row'
+    'view' => 'pages.statistics.genres.row'
   ])
 {{--   <div class="row">
   	<div class="col-lg-6 col-12">

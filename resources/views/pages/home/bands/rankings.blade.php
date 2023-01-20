@@ -7,7 +7,7 @@
 					<h5>Participe do nossos shows e acompanhe a votação do público para ver se consegue chegar ao TOP 10.</h5>
 				</div>
 				<div class="col-lg-6 col-md-6 col-12 mx-auto my-5">
-					@include('pages.stats.ratings')
+					@include('pages.statistics.ratings')
 				</div>
 			</div>
 		</div>

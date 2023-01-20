@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('', 'DebugController@index');
+Route::get('', 'StatusController@index');

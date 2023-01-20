@@ -11,7 +11,7 @@ class StatsController extends Controller
     public function gigs(Request $request)
     {
         if (! $request->wantsJson())
-            return view('pages.stats.gig.index');
+            return view('pages.statistics.gig.index');
 
         $from = $request->from ? carbon(datePtToUs($request->from)) : now()->subYear();
         $to = $request->to ? carbon(datePtToUs($request->to)) : now();
@@ -30,27 +30,27 @@ class StatsController extends Controller
     {
         $ranking = Song::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
 
-        return view('pages.stats.songs.index', compact(['ranking']));
+        return view('pages.statistics.songs.index', compact(['ranking']));
     }
 
     public function artists(Request $request)
     {
         $ranking = Artist::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
 
-        return view('pages.stats.artists.index', compact(['ranking']));
+        return view('pages.statistics.artists.index', compact(['ranking']));
     }
 
     public function genres(Request $request)
     {
         $ranking = Genre::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
 
-        return view('pages.stats.genres.index', compact(['ranking']));
+        return view('pages.statistics.genres.index', compact(['ranking']));
     }
 
     public function users(Request $request)
     {
         $ranking = User::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
 
-        return view('pages.stats.users.index', compact(['ranking']));
+        return view('pages.statistics.users.index', compact(['ranking']));
     }
 }
