@@ -52,7 +52,6 @@
 	</div>
 	
 	<div class="text-left"> 
-		{{$gig->musicians()->get()->count()}}
 		@checkbox(['label' => 'Quem vai tocar nesse evento?', 'name' => 'musicians'])
 			@foreach($musicians as $musician)
 	        <div class="form-check">
@@ -62,7 +61,7 @@
 	            type="checkbox" 
 	            value="{{$musician->id}}" 
 	            id="checkbox-musician-{{$musician->id}}-{{$gig->id}}" 
-	            {{ $gig->musicians->contains($musician->user) ? ' checked' : '' }}
+	            {{ $gig->musicians->contains($musician->admin->user) ? ' checked' : '' }}
 	            >
 	                <label class="form-check-label" for="checkbox-musician-{{$musician->id}}-{{$gig->id}}">{{$musician->user->name}}</label>
 	        </div>
