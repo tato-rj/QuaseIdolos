@@ -60,10 +60,10 @@
 	            name="musicians[]" 
 	            type="checkbox" 
 	            value="{{$musician->id}}" 
-	            id="checkbox-musician-{{$musician->id}}-{{$gig->id}}" 
-	            {{ \App\Models\Musician::gig($gig)->user($musician->user)->exists() ? ' checked' : '' }}
+	            id="checkbox-musician-{{$musician->id}}" 
+	            {{ $gig->musicians->contains($musician->user) ? ' checked' : '' }}
 	            >
-	                <label class="form-check-label" for="checkbox-musician-{{$musician->id}}-{{$gig->id}}">{{$musician->user->name}}</label>
+	                <label class="form-check-label" for="checkbox-musician-{{$musician->id}}">{{$musician->user->name}}</label>
 	        </div>
 	        @endforeach
 		@endcheckbox
