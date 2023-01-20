@@ -9,7 +9,7 @@ class DebugController extends Controller
 {
     public function index()
     {
-        foreach (SongRequest::all() as $item) {
+        foreach (Suggestion::all() as $item) {
             if (! $item->user)
                 dd($item->id . ' is missing the user!');
         }
