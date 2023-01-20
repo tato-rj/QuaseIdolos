@@ -107,6 +107,8 @@ class UsersController extends Controller
 
         $user->suggestions->each->delete();
 
+        $user->participations->each->delete();
+
         $user->ratings->each->delete();
 
         $user->ratingsGiven->each->delete();

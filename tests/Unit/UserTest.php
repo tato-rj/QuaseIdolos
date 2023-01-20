@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount};
+use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant};
 
 class UserTest extends AppTest
 {
@@ -22,6 +22,14 @@ class UserTest extends AppTest
         auth()->user()->socialAccounts()->save(SocialAccount::factory()->make());
 
         return $this->assertInstanceOf(SocialAccount::class, auth()->user()->socialAccounts->first());
+    }
+
+    /** @test */
+    public function it_has_many_participation_records()
+    {
+        Participant::factory()->create(['user_id' => auth()->user()]);
+
+        return $this->assertInstanceOf(Participant::class, auth()->user()->participations->first());
     }
 
     /** @test */

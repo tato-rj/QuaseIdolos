@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{User, SongRequest, Song, Gig, Favorite, Rating, SocialAccount, Suggestion};
+use App\Models\{User, SongRequest, Song, Gig, Favorite, Rating, SocialAccount, Suggestion, Participant};
 
 class UserTest extends AppTest
 {
@@ -130,5 +130,21 @@ class UserTest extends AppTest
         $this->delete(route('profile.destroy'));
 
         $this->assertDatabaseMissing('suggestions', ['user_id' => $user->id]);
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_its_participant_records_are_removed()
+    {
+        $this->signIn();
+
+        $user = auth()->user();
+
+        Participant::factory()->create(['user_id' => $user]);
+
+        $this->assertDatabaseHas('participants', ['user_id' => $user->id]);
+
+        $this->delete(route('profile.destroy'));
+
+        $this->assertDatabaseMissing('participants', ['user_id' => $user->id]);
     }
 }
