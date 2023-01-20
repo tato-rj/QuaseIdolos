@@ -30,7 +30,7 @@ class Gig extends BaseModel
 
     public function musicians()
     {
-        return $this->belongsToMany(User::class, 'gig_users', 'gig_id', 'user_id')->orderBy('users.name');
+        return $this->belongsToMany(User::class, 'gig_users', 'user_id', 'gig_id')->orderBy('users.name');
     }
 
 	public function winner()
