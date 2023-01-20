@@ -143,7 +143,7 @@ class GigsController extends Controller
             'songs_limit_per_user' => $request->songs_limit_per_user,
             'scheduled_for' => datePtToUs($request->scheduled_for) ?? $gig->scheduled_for,
         ]);
-return $request->musicians;
+
         $gig->musicians()->sync($request->musicians);
 
         if ($request->has_password) {
