@@ -59,11 +59,11 @@
 	            class="form-check-input" 
 	            name="musicians[]" 
 	            type="checkbox" 
-	            value="{{$musician->id}}" 
-	            id="checkbox-musician-{{$musician->id}}-{{$gig->id}}" 
+	            value="{{$musician->user->id}}" 
+	            id="checkbox-musician-{{$musician->user->id}}-{{$gig->id}}" 
 	            {{ $gig->musicians->contains($musician->user) ? ' checked' : '' }}
 	            >
-	                <label class="form-check-label" for="checkbox-musician-{{$musician->id}}-{{$gig->id}}">{{$musician->user->name}}</label>
+	                <label class="form-check-label" for="checkbox-musician-{{$musician->user->id}}-{{$gig->id}}">{{$musician->user->name}}</label>
 	        </div>
 	        @endforeach
 		@endcheckbox
