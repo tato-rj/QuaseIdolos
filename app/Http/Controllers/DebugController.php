@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{User, Suggestion, Favorite, SongRequest, Rating};
+use App\Models\{User, Suggestion, Favorite, SongRequest, Rating, Participant};
 
 class DebugController extends Controller
 {
     public function index()
     {
-        foreach (Favorite::all() as $item) {
+        foreach (Participant::all() as $item) {
             if (! $item->user)
                 dd($item->id . ' is missing the user!');
         }
