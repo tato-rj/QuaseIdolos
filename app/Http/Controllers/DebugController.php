@@ -9,9 +9,9 @@ class DebugController extends Controller
 {
     public function index()
     {
-        foreach (Favorite::all() as $favorite) {
-            if (! $favorite->user)
-                dd($favorite->id . ' is missing the user!');
+        foreach (SongRequest::all() as $item) {
+            if (! $item->user)
+                dd($item->id . ' is missing the user!');
         }
     }
 }
