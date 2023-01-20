@@ -52,7 +52,7 @@
 	</div>
 	
 	<div class="text-left"> 
-		{{$gig->musicians->count()}}
+		{{$gig->musicians()->get()->count()}}
 		@checkbox(['label' => 'Quem vai tocar nesse evento?', 'name' => 'musicians'])
 			@foreach($musicians as $musician)
 	        <div class="form-check">
