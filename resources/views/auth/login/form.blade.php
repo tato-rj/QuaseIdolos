@@ -19,6 +19,7 @@
 				@checkbox([
 					'name' => 'remember_me',
 					'options' => ['1' => 'Lembre-se de mim']])
+				@endcheckbox
 				</small>
 				<small class="text-nowrap">
 					<div class="form-group">
