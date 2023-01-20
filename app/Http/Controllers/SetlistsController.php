@@ -21,7 +21,8 @@ class SetlistsController extends Controller
         if ($request->has('newOrder')) {
             foreach($request->newOrder as $data) {
                 $set = json_decode($data);
-                SongRequest::find($set->id)->update(['order' => $set->order]);
+                if ($songRequest = SongRequest::find($set->id))
+                    $songRequest->update(['order' => $set->order]);
             }
         }
 
