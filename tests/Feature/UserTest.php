@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{User, SongRequest, Song, Gig, Favorite, Rating, SocialAccount};
+use App\Models\{User, SongRequest, Song, Gig, Favorite, Rating, SocialAccount, Suggestion};
 
 class UserTest extends AppTest
 {
@@ -58,28 +58,77 @@ class UserTest extends AppTest
     }
 
     /** @test */
-    public function when_a_user_is_deleted_the_song_request_records_remain_but_not_the_favorites()
+    public function when_a_user_is_deleted_the_song_requests_are_also_removed()
     {
         $this->signIn();
 
-        $gig = Gig::factory()->create(['is_live' => true]);
+        $gig = Gig::factory()->live()->create();
 
         (new SongRequest)->add(auth()->user(), $this->song, $gig);
-
-        auth()->user()->favorites()->save($this->song);
 
         $user = auth()->user();
 
         $this->assertCount(1, SongRequest::all());
 
+        $this->delete(route('profile.destroy'));
+
+        $this->assertCount(0, SongRequest::all());
+
+        $this->assertDatabaseMissing('users', ['id' => $user->id]);
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_any_ratings_other_users_have_for_songs_that_user_sung_are_removed()
+    {
+        $this->signIn();
+
+        $songRequest = SongRequest::factory()->create(['user_id' => auth()->user()->id]);
+
+        $otherUser = User::factory()->create();
+
+        Rating::factory()->create([
+            'song_request_id' => $songRequest,
+            'user_id' => $otherUser
+        ]);
+
+        $this->assertCount(1, $otherUser->ratingsGiven()->get());
+
+        $this->delete(route('profile.destroy'));
+
+        $this->assertCount(0, $otherUser->ratingsGiven()->get());
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_the_favorites_are_also_removed()
+    {
+        $this->signIn();
+
+        auth()->user()->favorites()->save($this->song);
+
+        $user = auth()->user();
+
         $this->assertCount(1, Favorite::all());
 
         $this->delete(route('profile.destroy'));
 
-        $this->assertCount(1, SongRequest::all());
-
         $this->assertCount(0, Favorite::all());
 
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_its_suggestions_are_removed()
+    {
+        $this->signIn();
+
+        $user = auth()->user();
+
+        Suggestion::factory()->create(['user_id' => $user]);
+
+        $this->assertDatabaseHas('suggestions', ['user_id' => $user->id]);
+
+        $this->delete(route('profile.destroy'));
+
+        $this->assertDatabaseMissing('suggestions', ['user_id' => $user->id]);
     }
 }

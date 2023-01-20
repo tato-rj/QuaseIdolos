@@ -1,4 +1,3 @@
-@if($entry->user)
 <div class="confirmed-request mx-auto mb-3">
 	<div class="rounded border-secondary event-box py-3 px-2 row">
 		<div class="col-12 d-flex justify-content-between">
@@ -47,5 +46,3 @@
 	@endforeach
 
 @endmodal
-
-@endif

@@ -99,6 +99,14 @@ class UsersController extends Controller
 
         $user->socialAccounts->each->delete();
 
+        foreach ($user->songRequests as $songRequest) {
+            $songRequest->ratings->each->delete();
+
+            $songRequest->delete();
+        }
+
+        $user->suggestions->each->delete();
+
         $user->ratings->each->delete();
 
         $user->ratingsGiven->each->delete();

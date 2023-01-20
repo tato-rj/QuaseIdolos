@@ -1,4 +1,3 @@
-@if($entry->user)
 <div class="draggable mb-3" data-id="{{$entry->id}}">
 	<div class="rounded border-secondary event-box py-3 px-2 row">
 		<div class="col-lg-8 col-12 mb-3">
@@ -43,4 +42,3 @@
 		</div>
 	</div>
 </div>
-@endif

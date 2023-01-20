@@ -263,5 +263,7 @@ Route::middleware('super-admin')->group(function() {
         
         Route::get('cantores', 'StatsController@users')->name('users');
     });
+
+    Route::get('debug', 'DebugController@index');
 });
 

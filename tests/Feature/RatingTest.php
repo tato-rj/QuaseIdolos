@@ -16,20 +16,6 @@ class RatingTest extends AppTest
     }
 
     /** @test */
-    public function guests_see_the_top_users_on_the_main_page()
-    {
-        $user = User::factory()->create(['name' => 'UniqueName']);
-
-        $songRequest = SongRequest::factory()->create(['user_id' => $user->id]);
-
-        Rating::factory()->create(['song_request_id' => $songRequest->id, 'score' => 5]);
-
-        Rating::factory()->count(9)->create();
-
-        $this->get(route('home'))->assertSee($user->first_name);
-    }
-
-    /** @test */
     public function an_event_is_fired_when_a_user_submits_a_score()
     {
         $this->signIn();

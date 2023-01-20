@@ -13,7 +13,7 @@
 @section('content')
 <section class="container mb-4">
 	<div class="text-center">
-		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje'])
+		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje', 'subtitle' => $gig && $gig->musicians()->exists() ? arrayToSentence($gig->musicians->pluck('admin.user.first_name')->toArray()) : null])
 		@if($gig)
 
 		<div>
