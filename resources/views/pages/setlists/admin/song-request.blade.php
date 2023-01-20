@@ -1,15 +1,8 @@
+@if($entry->user)
 <div class="draggable mb-3" data-id="{{$entry->id}}">
 	<div class="rounded border-secondary event-box py-3 px-2 row">
 		<div class="col-lg-8 col-12 mb-3">
-			<h3 class="no-stroke text-primary font-cursive">@fa(['icon' => 'bars', 'classes' => 'my-handle'])
-				@if($entry->user_name)
-				{{$entry->user_name}}
-				@else
-				@if($entry->user)
-				{{$entry->user->firstName}}
-				@endif
-				@endif
-				</h3>
+			<h3 class="no-stroke text-primary font-cursive">@fa(['icon' => 'bars', 'classes' => 'my-handle']){{$entry->user_name ?? $entry->user->firstName}}</h3>
 			<div class="d-flex align-items-center flex-wrap">
 				<div class="mr-2 no-truncate">
 			      @if($entry->user->hasAvatar())
@@ -50,3 +43,4 @@
 		</div>
 	</div>
 </div>
+@endif
