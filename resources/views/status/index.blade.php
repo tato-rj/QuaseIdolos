@@ -7,21 +7,29 @@
 <section class="container">
 	<div class="row">
 		<div class="col-lg-6 col-md-10 col-12 mx-auto">
-			<h3 class="mb-4 text-primary">{{config('app.name')}} <span class="opacity-6 text-muted">STATUS</span></h3>
+			<h6 class="mb-4 fw-bold">DATABASE</h6>
 
 			<div class="accordion" id="status-container">
-			  <div class="accordion-item">
-			    <h2 class="accordion-header" id="headingOne">
-			      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-			        @fa(['icon' => 'check-circle', 'fa_color' => 'green'])Users
-			      </button>
-			    </h2>
-			    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#status-container">
-			      <div class="accordion-body">
-			        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-			      </div>
-			    </div>
-			  </div>
+				@foreach($report as $model => $errors)
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="headingOne">
+				      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{$loop->iteration}}" aria-expanded="true" aria-controls="collapse-{{$loop->iteration}}">
+				        @fa(['icon' => $errors->isEmpty() ? 'check-circle' : 'times-circle', 'fa_color' => $errors->isEmpty() ? 'green' : 'red']){{class_basename($model)}}
+				      </button>
+				    </h2>
+				    <div id="collapse-{{$loop->iteration}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#status-container">
+				      <div class="accordion-body">
+				      	<ul class="mb-0 pl-3">
+					        @forelse($errors as $error)
+					        <li class="text-red">{{$error}}</li>
+					        @empty
+					        <li class="text-green" style="list-style-type: none;">All relationships are ok</li>
+					        @endforelse
+					    </ul>
+				      </div>
+				    </div>
+				  </div>
+				@endforeach
 			</div>
 		</div>
 	</div>

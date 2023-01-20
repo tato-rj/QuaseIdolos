@@ -43,11 +43,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware(['web'])
-                ->domain('status.' . env('APP_URL'))
-                ->namespace($this->namespace)
-                ->group(base_path('routes/status.php'));
-
             Route::middleware(['web', 'live-gig', 'join-gig'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
