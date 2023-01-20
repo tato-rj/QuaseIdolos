@@ -48,8 +48,11 @@ class SongRequestsController extends Controller
             return view('pages.setlists.user.banner.index', compact('songRequests'))->render();
     }
 
-    public function finish(SongRequest $songRequest)
+    public function finish(SongRequest $songRequest = null)
     {
+        if (! $songRequest)
+            return back()->with('success', 'Esse pedido foi removido pelo usuário');
+
         $songRequest->finish();
         $songRequest->gig->sortSetlist();
 
