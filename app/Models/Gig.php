@@ -169,7 +169,7 @@ class Gig extends BaseModel
 		if (is_null($this->songs_limit_per_user))
 			return false;
 
-		return $this->setlist()->where('user_id', auth()->user()->id)->count() == $this->songs_limit_per_user;
+		return $this->setlist()->where('user_id', auth()->user()->id)->count() >= $this->songs_limit_per_user;
 	}
 
 	public function repeatLimitReachedFor(Song $song)
