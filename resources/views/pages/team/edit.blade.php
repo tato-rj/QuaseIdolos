@@ -3,6 +3,8 @@
 	@csrf
 	@method('PATCH')
 
+	@input(['placeholder' => 'Instrumento', 'name' => 'instrument', 'value' => $user->admin->instrument])
+
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse usuário é administrador?', 'name' => 'admin', 'on' => $user->isAdmin()])
 	</div>

@@ -36,6 +36,8 @@ class TeamController extends Controller
             (new Admin)->revoke($user);
         }
 
+        $user->admin()->update(['instrument' => $request->instrument]);
+
         return back()->with('success', 'O usuário foi alterado com sucesso');
     }
 

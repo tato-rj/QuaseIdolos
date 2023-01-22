@@ -25,6 +25,14 @@ class UserTest extends AppTest
     }
 
     /** @test */
+    public function it_has_one_admin_account()
+    {
+        Admin::factory()->create(['user_id' => auth()->user()]);
+        
+        return $this->assertInstanceOf(Admin::class, auth()->user()->admin);
+    }
+
+    /** @test */
     public function it_has_many_participation_records()
     {
         Participant::factory()->create(['user_id' => auth()->user()]);
