@@ -28,7 +28,7 @@
       <button data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="btn btn-sm btn-secondary text-truncate mr-2">@fa(['icon' => 'pencil-alt', 'mr' => 0])</button>
       <button data-bs-toggle="modal" data-bs-target="#delete-gig-{{$gig->id}}-modal" class="btn btn-sm btn-outline-secondary text-truncate">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
 
-      {{-- @include('pages.gigs.modals.edit') --}}
+      @include('pages.gigs.modals.edit')
       @include('pages.gigs.modals.delete')
     @endif
   @endslot

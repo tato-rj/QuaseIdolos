@@ -33,7 +33,7 @@ class VenuesController extends Controller
     public function upcoming(Venue $venue)
     {
         $musicians = Admin::musicians()->get();
-        $table = view('pages.venues.show.tables.upcoming', compact('venue'));
+        $table = view('pages.venues.show.tables.upcoming', compact(['venue', 'musicians']));
 
         return view('pages.venues.show.index', compact(['table', 'venue', 'musicians']));
     }
