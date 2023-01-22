@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Venue;
+use App\Models\{Venue, Admin};
 
 class VenuesController extends Controller
 {
@@ -16,23 +16,26 @@ class VenuesController extends Controller
 
     public function today(Venue $venue)
     {
+        $musicians = Admin::musicians()->get();
         $table = view('pages.venues.show.tables.today', compact('venue'));
 
-        return view('pages.venues.show.index', compact(['table', 'venue']));
+        return view('pages.venues.show.index', compact(['table', 'venue', 'musicians']));
     }
 
     public function past(Venue $venue)
     {
+        $musicians = Admin::musicians()->get();
         $table = view('pages.venues.show.tables.past', compact('venue'));
 
-        return view('pages.venues.show.index', compact(['table', 'venue']));
+        return view('pages.venues.show.index', compact(['table', 'venue', 'musicians']));
     }
 
     public function upcoming(Venue $venue)
     {
+        $musicians = Admin::musicians()->get();
         $table = view('pages.venues.show.tables.upcoming', compact('venue'));
 
-        return view('pages.venues.show.index', compact(['table', 'venue']));
+        return view('pages.venues.show.index', compact(['table', 'venue', 'musicians']));
     }
 
     public function store(Request $request)
