@@ -45,7 +45,8 @@ $('#refresh-table').click(function() {
 
 <script type="text/javascript">
 $(document).on('click', '[data-bs-toggle="modal"]', function() {
-	$($(this).data('bs-target')).modal('show');
+	alert('test');
+	log($(this).data('bs-target'));
 });
 
 $(document).on('click', 'button.show-lyrics', function() {
