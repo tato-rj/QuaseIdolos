@@ -94,5 +94,10 @@ $('#show-winner-cancel').click(function() {
 	$(this).grandparent().toggle();
 	$(this).grandparent().siblings('button').toggle();
 });
+
+
+$(document).on('click', '.draggable', function() {
+	alert('test');
+})
 </script>
 @endpush
