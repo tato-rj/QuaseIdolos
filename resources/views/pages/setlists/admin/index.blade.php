@@ -45,7 +45,6 @@ $('#refresh-table').click(function() {
 
 <script type="text/javascript">
 $(document).on('click', '[data-bs-toggle="modal"]', function() {
-	alert('test');
 	log($(this).data('bs-target'));
 });
 
