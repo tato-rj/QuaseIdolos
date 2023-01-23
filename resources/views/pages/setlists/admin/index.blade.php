@@ -44,11 +44,6 @@ $('#refresh-table').click(function() {
 </script>
 
 <script type="text/javascript">
-$(document).on('click', '[data-bs-toggle="modal"]', function() {
-	alert('test');
-	log($(this).data('bs-target'));
-});
-
 $(document).on('click', 'button.show-lyrics', function() {
 	let $btn = $(this);
 
