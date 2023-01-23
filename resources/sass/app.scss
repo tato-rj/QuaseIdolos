@@ -172,6 +172,21 @@ input:checked + .slider:before {
 	}
 }
 
+.draggable-sm {
+	.my-handle {
+	  cursor: pointer; /* fallback if grab cursor is unsupported */
+	  cursor: grab;
+	  cursor: -moz-grab;
+	  cursor: -webkit-grab;
+	}
+}
+
+.draggable-sm:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
  /* (Optional) Apply a "closed-hand" cursor during drag operation. */
 .draggable:active {
     cursor: grabbing;

@@ -16,7 +16,11 @@
 * {
   touch-action: manipulation;
 }
-  
+
+.btn-padding {
+    padding: 0.391rem 1rem !important;
+}
+
 .plyr__controls { display: none!important }
 
 .bg-transparent {
@@ -348,7 +352,7 @@ function getUserAlert()
 function getEventTable(newOrder = null)
 {
     if ($('#setlist-container').length) {
-    axios.get('{!! route('setlists.table') !!}', {params: {newOrder: newOrder}})
+    axios.get($('#setlist-container').data('url'), {params: {newOrder: newOrder}})
         .then(function(response) {
             $('#setlist-container').html(response.data);
             

@@ -13,23 +13,23 @@
 @section('content')
 <section class="container mb-4">
 	<div class="text-center">
-		@pagetitle(['title' => 'Setlist de', 'highlight' => 'hoje', 'subtitle' => $gig && $gig->musicians()->exists() ? arrayToSentence($gig->musicians->pluck('admin.user.first_name')->toArray()) : null])
+
+		@pagetitle([
+			'title' => 'Setlist de', 
+			'highlight' => 'hoje', 
+			'subtitle' => $gig && $gig->musicians()->exists() ? arrayToSentence($gig->musicians->pluck('admin.user.first_name')->toArray()) : null])
+
 		@if($gig)
+			@include('pages.setlists.admin.options')
 
-		<div>
-			@include('pages.setlists.admin.screens')
-		</div>
-		<button id="refresh-table" class="btn btn-outline-secondary mb-3">@fa(['icon' => 'sync-alt'])Atualizar setlist</button>
-		<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h4>@fa(['icon' => 'clipboard-list'])Editar evento</h4></a>
-
-		@include('pages.gigs.modals.edit', ['pausable' => true])
+			@include('pages.gigs.modals.edit', ['pausable' => true])
 		@else
 		<h5>Não tem nenhum evento acontecendo agora</h5>
 		@endif
 	</div>
 </section>
 
-<section class="container mb-6" id="setlist-container">
+<section class="container mb-6" id="setlist-container" data-url="{{route('setlists.table', request()->has('compact') ? 'compact' : null)}}">
 	@include('pages.setlists.admin.table')
 </section>
 @endsection
