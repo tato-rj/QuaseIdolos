@@ -32,10 +32,6 @@
 <section class="container mb-6" id="setlist-container" data-url="{{route('setlists.table', request()->has('compact') ? 'compact' : null)}}">
 	@include('pages.setlists.admin.table')
 </section>
-
-@modal(['title' => 'Test', 'size' => 'sm', 'id' => 'test'])
-
-@endmodal
 @endsection
 
 @push('scripts')
@@ -48,7 +44,9 @@ $('#refresh-table').click(function() {
 </script>
 
 <script type="text/javascript">
-
+$(document).on('click', '[data-bs-toggle="modal"]', function() {
+	$($(this).data('bs-target')).modal('show');
+});
 
 $(document).on('click', 'button.show-lyrics', function() {
 	let $btn = $(this);
