@@ -36,7 +36,7 @@
 
 @push('scripts')
 <script type="text/javascript">
-// enableDraggable();
+enableDraggable();
 
 $('#refresh-table').click(function() {
 	getEventTable();
