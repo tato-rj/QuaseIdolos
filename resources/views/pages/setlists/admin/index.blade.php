@@ -32,6 +32,10 @@
 <section class="container mb-6" id="setlist-container" data-url="{{route('setlists.table', request()->has('compact') ? 'compact' : null)}}">
 	@include('pages.setlists.admin.table')
 </section>
+
+@modal(['title' => 'Test', 'size' => 'sm', 'id' => 'test'])
+
+@endmodal
 @endsection
 
 @push('scripts')
@@ -94,10 +98,5 @@ $('#show-winner-cancel').click(function() {
 	$(this).grandparent().toggle();
 	$(this).grandparent().siblings('button').toggle();
 });
-
-
-$(document).on('click', '.clickme', function() {
-	alert('test');
-})
 </script>
 @endpush
