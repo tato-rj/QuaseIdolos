@@ -16,8 +16,9 @@ class CreateAdminsTable extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id')->unique();
-            $table->string('instrument')->nullable();
-            $table->boolean('super_admin')->default(false);
+            $table->json('instruments')->nullable();
+            $table->boolean('manage_events')->default(false);
+            $table->boolean('manage_setlist')->default(false);
             $table->timestamps();
         });
     }

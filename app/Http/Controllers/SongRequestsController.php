@@ -39,7 +39,7 @@ class SongRequestsController extends Controller
 
     public function alert()
     {
-        if (auth()->user()->isAdmin())
+        if (auth()->user()->admin()->exists())
             return;
 
         $songRequests = auth()->user()->songRequests()->forGig(auth()->user()->liveGig)->waiting()->get();
@@ -50,6 +50,8 @@ class SongRequestsController extends Controller
 
     public function finish(SongRequest $songRequest)
     {
+        $this->authorize('update', $songRequest);
+
         $songRequest->finish();
         $songRequest->gig->sortSetlist();
 
@@ -63,7 +65,7 @@ class SongRequestsController extends Controller
     }
 
     public function cancel($id)
-    {
+    {        
         $songRequest = SongRequest::find($id);
 
         if (! $songRequest || $songRequest->isOver())

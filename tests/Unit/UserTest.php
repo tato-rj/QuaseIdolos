@@ -163,11 +163,11 @@ class UserTest extends AppTest
     /** @test */
     public function it_knows_if_it_is_an_admin()
     {
-        $this->assertFalse(auth()->user()->isAdmin());
+        $this->assertFalse(auth()->user()->admin()->exists());
 
-        (new Admin)->grant(auth()->user());
+        auth()->user()->admin()->create();
 
-        $this->assertTrue(auth()->user()->fresh()->isAdmin());
+        $this->assertTrue(auth()->user()->fresh()->admin()->exists());
     }
 
     /** @test */

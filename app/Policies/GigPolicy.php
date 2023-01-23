@@ -25,4 +25,9 @@ class GigPolicy
 
         return true;
     }
+
+    public function reorder(User $user, Gig $gig)
+    {
+        return ! $user->admin->isSub();
+    }
 }

@@ -16,18 +16,19 @@ class AdminSeeder extends Seeder
     {
         Admin::create([
             'user_id' => User::first()->id,
-            'instrument' => 'guitar',
-            'super_admin' => true
+            'instruments' => ['guitarra'],
+            'manage_events' => true,
+            'manage_setlist' => true
         ]);
 
         Admin::create([
             'user_id' => User::find(2)->id,
-            'instrument' => 'bass',
+            'instruments' => ['voz'],
         ]);
 
         Admin::create([
             'user_id' => User::find(3)->id,
-            'instrument' => 'voice',
+            'instruments' => ['voz'],
         ]);
 
         Admin::create([

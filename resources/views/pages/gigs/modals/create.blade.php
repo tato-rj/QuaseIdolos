@@ -39,7 +39,7 @@
 	            type="checkbox" 
 	            value="{{$musician->user->id}}" 
 	            id="checkbox-musician-{{$musician->user->id}}" 
-	            {{ is_array(old($name)) && in_array($value, old($name)) ? ' checked' : '' }}
+	            {{ is_array(old('musicians')) && in_array($musician->user->id, old('musicians')) ? ' checked' : '' }}
 	            >
 	                <label class="form-check-label" for="checkbox-musician-{{$musician->user->id}}">{{$musician->user->name}}</label>
 	        </div>

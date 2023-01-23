@@ -14,41 +14,40 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $users = User::team()->get();
+        $team = User::team()->sortable('name', 'asc')->get();
 
-        return view('pages.team.index', compact('users'));
+        return view('pages.team.index', compact('team'));
     }
 
     public function search(Request $request)
     {
-        $users = $request->input ? 
-            User::search($request->input)->orderBy('name')->get() :
-            User::team()->get();
+        $users = User::guests()->search($request->input)->orderBy('name')->get();
 
-        return view('pages.team.results', compact('users'))->render();
+        return view('pages.team.search.table', compact('users'))->render();
     }
 
     public function update(Request $request, User $user)
     {
-        if ($request->admin) {
-            (new Admin)->grant($user, (bool) $request->super_admin);
-        } else {
-            (new Admin)->revoke($user);
-        }
-
-        $user->admin()->update(['instrument' => $request->instrument]);
+        $user->admin()->update([
+            'manage_events' => $request->has('manage_events'),
+            'manage_setlist' => $request->has('manage_setlist'),
+            'instruments' => $request->instruments
+        ]);
 
         return back()->with('success', 'O usuário foi alterado com sucesso');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Admin $admin)
+    public function grant(User $user)
     {
-        //
+        $user->admin()->create();
+
+        return back()->with('success', 'O usuário foi alterado com sucesso');
+    }
+
+    public function revoke(User $user)
+    {
+        $user->admin->delete();
+
+        return back()->with('success', 'O usuário foi alterado com sucesso');
     }
 }

@@ -19,6 +19,8 @@ class SetlistsController extends Controller
     public function table(Request $request)
     {
         if ($request->has('newOrder')) {
+            $this->authorize('reorder', auth()->user()->liveGig);
+
             foreach($request->newOrder as $data) {
                 $set = json_decode($data);
                 if ($songRequest = SongRequest::find($set->id))

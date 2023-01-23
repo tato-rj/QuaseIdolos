@@ -297,7 +297,8 @@ $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
 var sortable, sorting;
 
 if (app.user && app.gig) {
-    if (app.user.is_admin) {
+    log(app.user.admin);
+    if (app.user.admin) {
         listenToEvents();
     } else {
         getUserAlert();

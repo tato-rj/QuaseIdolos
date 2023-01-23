@@ -68,7 +68,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::aliasComponent('components.table.row');
 
         \Blade::if('admin', function () {
-            return auth()->check() && auth()->user()->isAdmin();
+            return auth()->check() && auth()->user()->admin()->exists();
         });
 
         \Blade::if('local', function () {

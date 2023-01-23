@@ -200,6 +200,10 @@ Route::middleware('super-admin')->group(function() {
         Route::get('busca', 'TeamController@search')->name('search');
 
         Route::patch('{user}', 'TeamController@update')->name('update');
+
+        Route::post('{user}', 'TeamController@grant')->name('grant');
+
+        Route::delete('{user}', 'TeamController@revoke')->name('revoke');
     });
 
     Route::prefix('usuarios')->withoutMiddleware('join-gig')->name('users.')->group(function() {

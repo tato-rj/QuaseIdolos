@@ -4,7 +4,10 @@ namespace App\Models;
 
 class Admin extends BaseModel
 {
-    protected $casts = ['super_admin' => 'boolean'];
+    protected $casts = [
+        'manage_events' => 'boolean',
+        'manage_setlist' => 'boolean',
+    ];
 
     public function user()
     {
@@ -13,25 +16,34 @@ class Admin extends BaseModel
 
     public function scopeSuperAdmin($query)
     {
-        return $query->where('super_admin', true);
+        return $query->where('manage_events', true)->where('manage_setlist', true);
     }
 
     public function scopeMusicians($query)
     {
-        return $query->whereNotNull('instrument');
+        return $query->whereNotNull('instruments');
     }
 
-    public function grant(User $user, $super_admin = false)
+    public function getInstrumentsAttribute($instruments)
     {
-        return Admin::updateOrCreate([
-            'user_id' => $user->id
-        ], [
-            'super_admin' => $super_admin
-        ]);
+        if (is_null($instruments))
+            return [];
+
+        return json_decode($instruments);
     }
 
-    public function revoke(User $user)
+    public function isSuperAdmin()
     {
-        Admin::where('user_id', $user->id)->delete();
+        return $this->manage_events && $this->manage_setlist;
+    }
+
+    public function isMusician()
+    {
+        return (bool) $this->instruments;
+    }
+
+    public function isSub()
+    {
+        return ! $this->manage_events && ! $this->manage_setlist;
     }
 }

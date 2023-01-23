@@ -25,7 +25,7 @@
      @link(['route' => 'users.index', 'label' => 'Cantores'])
      @link(['route' => 'suggestions.index', 'label' => 'Sugestões', 'count' => \App\Models\Suggestion::unconfirmed()->count()])
 
-     @if(auth()->user()->isSuperAdmin())
+     @if(auth()->user()->admin->isSuperAdmin())
      @include('layouts.menu.components.divider')
 
      @link(['route' => 'venues.index', 'label' => 'Contratantes'])

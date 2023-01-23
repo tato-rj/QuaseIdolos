@@ -18,7 +18,7 @@ class AdminFactory extends Factory
             'user_id' => function() {
                 return User::factory()->create()->id;
             },
-            'super_admin' => false
+            'manage_setlist' => true,
         ];
     }
 
@@ -26,7 +26,27 @@ class AdminFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'super_admin' => true,
+                'manage_events' => true,
+                'manage_setlist' => true
+            ];
+        });
+    }
+
+    public function musician()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'instruments' => json_encode(['piano']),
+            ];
+        });
+    }
+
+    public function sub()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'manage_events' => false,
+                'manage_setlist' => false,
             ];
         });
     }

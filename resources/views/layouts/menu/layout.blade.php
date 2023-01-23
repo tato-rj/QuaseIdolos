@@ -8,7 +8,7 @@
 @include('layouts.menu.components.hamburger', ['target' => '#offcanvasUserMenu'])
 </div>
 
-@if(auth()->user()->isAdmin())
+@if(auth()->user()->admin()->exists())
 @include('layouts.menu.admin')
 @else
 @include('layouts.menu.user')

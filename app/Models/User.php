@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable;
 
-    protected $appends = ['is_admin'];
+    protected $with = ['admin'];
 
     protected $hidden = [
         'password',
@@ -151,9 +151,9 @@ class User extends Authenticatable
 
     public function scopeTeam($query)
     {
-        $userId = auth()->check() ? auth()->user()->id : null;
+        // $userId = auth()->check() ? auth()->user()->id : null;
 
-        return $query->has('admin')->where('id', '!=', $userId);
+        return $query->has('admin');//->where('id', '!=', $userId);
     }
 
     public function scopeGuests($query)
@@ -181,27 +181,12 @@ class User extends Authenticatable
         return explode(' ', $this->name)[0];
     }
 
-    public function isAdmin()
-    {
-        return (bool) $this->admin;
-    }
-
     public function requestedTonight(Song $song)
     {
         return $this->songRequests()
                     ->forGig($this->liveGig)
                     ->where('created_at', '>=', now()->subHours(12))
                     ->where('song_id', $song->id)->exists();
-    }
-
-    public function getIsAdminAttribute()
-    {
-        return $this->isAdmin();
-    }
-
-    public function isSuperAdmin()
-    {
-        return $this->isAdmin() && (bool) $this->admin->super_admin;
     }
 
     public function favorited(Song $song)

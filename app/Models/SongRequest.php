@@ -138,7 +138,7 @@ class SongRequest extends BaseModel
 
     public function finish()
     {
-        if ($this->user->isAdmin())
+        if ($this->user->admin()->exists())
             return $this->delete();
 
         return $this->update(['finished_at' => now()]);

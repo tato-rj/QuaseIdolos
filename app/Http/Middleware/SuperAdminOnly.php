@@ -16,7 +16,7 @@ class SuperAdminOnly
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->isSuperAdmin())
+        if (auth()->check() && auth()->user()->admin()->exists() && auth()->user()->admin->isSuperAdmin())
             return $next($request);
 
         throw new \Illuminate\Auth\Access\AuthorizationException('Área restrita para super admins.');

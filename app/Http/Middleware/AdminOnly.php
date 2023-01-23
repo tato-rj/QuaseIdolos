@@ -16,7 +16,7 @@ class AdminOnly
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->isAdmin())
+        if (auth()->check() && auth()->user()->admin()->exists())
             return $next($request);
 
         throw new \Illuminate\Auth\Access\AuthorizationException('Área restrita para admins.');

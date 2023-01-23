@@ -16,7 +16,7 @@ class ChangeSongRequestForm extends FormRequest
      */
     public function authorize()
     {
-        if (auth()->user()->isAdmin())
+        if (auth()->user()->admin()->exists())
             return true;
         
         $this->liveGig = auth()->user()->liveGig;
