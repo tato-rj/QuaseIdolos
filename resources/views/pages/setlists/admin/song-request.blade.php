@@ -17,7 +17,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-4 col-12">
+		<div class="col-lg-4 col-12 clickme">
 			<div class="h-100 d-flex justify-content-center flex-column">
 				<div class="d-flex justify-content-end mb-2">
 					@if($entry->song->chords_url)
@@ -33,7 +33,7 @@
 				<button class="btn btn-stone mb-2 no-stroke">@fa(['icon' => 'hourglass-half'])@choice('FALTA|FALTAM', $entry->order) {{$entry->order}}</button>
 				@endif
 
-				<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$entry->id}}-modal" class="btn btn-outline-red no-stroke cancel-btn">CANCELAR</button>
+				<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$entry->id}}-modal" class="btn btn-outline-red no-stroke">CANCELAR</button>
 
 				@include('pages.song-requests.modals.finish')
 				@include('pages.song-requests.modals.change', ['songRequest' => $entry])

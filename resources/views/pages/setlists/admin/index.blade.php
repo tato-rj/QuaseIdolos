@@ -96,7 +96,7 @@ $('#show-winner-cancel').click(function() {
 });
 
 
-$(document).on('click', '.draggable', function() {
+$(document).on('click', '.clickme', function() {
 	alert('test');
 })
 </script>
