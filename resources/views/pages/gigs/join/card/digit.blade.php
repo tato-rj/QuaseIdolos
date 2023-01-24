@@ -3,6 +3,9 @@
 	name="digit" 
 	{{! $loop->first ? 'disabled' : null}}
 	id="gig-{{$gig->id}}-digit-{{$loop->iteration}}"
+	@if(! $loop->first)
+	data-prev="#gig-{{$gig->id}}-digit-{{$loop->iteration - 1}}"
+	@endif
 	@if(! $loop->last)
 	data-next="#gig-{{$gig->id}}-digit-{{$loop->iteration + 1}}"
 	@endif

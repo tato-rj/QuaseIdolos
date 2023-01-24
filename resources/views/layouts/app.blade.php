@@ -558,8 +558,12 @@ $(document).on('keyup', '.password-digits input[name="digit"]', function(event) 
     let $input = $(this);
     let $container = $input.closest('.password-digits');
     let $inputs = $container.find('input[name="digit"]');
+    let $prev = $($input.data('prev'));
     let $next = $($input.data('next'));
     let $password = $($(this).data('target'));
+
+    if (event.keyCode == 8)
+        $prev.prop('disabled', false).focus().val('');
 
     if (! isNumber(event.keyCode) || ! $input.val().length) {
         $input.val('');
