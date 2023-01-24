@@ -16,12 +16,11 @@
   @endslot
 
   @slot('actions')
-	<form method="POST" action="{{route('suggestions.confirm', $row)}}" class="d-inline mr-2">
-		@csrf
+  @form(['method' => 'POST', 'url' => route('suggestions.confirm', $row), 'classes' => 'd-inline mr-2', 'data' => ['trigger' => 'loader']])
 		<button type="submit" class="btn btn-sm btn-secondary">
 		  @fa(['icon' => 'check', 'mr' => 0])
 		</button>
-	</form>
+	@endform
 
 	<form method="POST" action="{{route('suggestions.destroy', $row)}}" class="d-inline">
 		@csrf
