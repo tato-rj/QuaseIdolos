@@ -35,6 +35,7 @@ class ArtistsController extends Controller
         Artist::create([
             'name' => $request->name,
             'slug' => str_slug($request->name),
+            'is_hidden' => $request->has('is_hidden'),
             'image_path' => $request->file('image')->store('artists', 'public')
         ]);
 
@@ -76,6 +77,7 @@ class ArtistsController extends Controller
         $artist->update([
             'name' => $request->name,
             'slug' => str_slug($request->name),
+            'is_hidden' => $request->has('is_hidden')
         ]);
 
         if ($request->image) {

@@ -10,6 +10,7 @@ class Artist extends BaseModel
 
     protected $appends = ['image'];
     protected $withCount = ['songs'];
+    protected $casts = ['is_hidden' => 'boolean'];
 
     public function songs()
     {
@@ -29,6 +30,11 @@ class Artist extends BaseModel
     public function scopeByName($query, $name)
     {
         return $query->where('name', $name)->first();
+    }
+
+    public function scopeVisible($query)
+    {
+        return $query->where('is_hidden', false);
     }
 
     public function scopeAlphabetically($query)

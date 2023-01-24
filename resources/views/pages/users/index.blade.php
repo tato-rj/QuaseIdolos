@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Cantores'])
+@extends('layouts.app', ['title' => 'Usuários'])
 
 @push('header')
 <style type="text/css">
@@ -9,11 +9,14 @@
 @section('content')
 <section class="container ">
 	<div class="text-center mb-4">
-		@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'cantores'])
+		@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'usuários'])
+
 		@searchbar([
 			'name' => 'search_user',
 			'placeholder' => 'Procure por usuário',
 			'url' => route('users.search')])
+
+		@create(['name' => 'user', 'label' => 'Novo usuário', 'folder' => 'users'])
 	</div>
 
 	<div id="users-container">

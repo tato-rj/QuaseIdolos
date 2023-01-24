@@ -32,6 +32,23 @@ class UsersController extends Controller
         return view('pages.users.edit', compact('user'));
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'string|required|max:255',
+            'email' => 'email|required',
+            'password' => 'string|required|confirmed|min:6'
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Hash::make($request->password)
+        ]);
+
+        return back()->with('success', 'O usuário foi criado com sucesso');
+    }
+
     public function update(Request $request, User $user = null)
     {
         $this->authorize('update', $user ?? User::class);

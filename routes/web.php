@@ -105,7 +105,7 @@ Route::middleware('auth')->group(function() {
 //////////////////
 
 Route::middleware('admin')->group(function() {
-    Route::prefix('cantores')->withoutMiddleware('join-gig')->name('users.')->group(function() {
+    Route::prefix('usuarios')->withoutMiddleware('join-gig')->name('users.')->group(function() {
         Route::get('', 'UsersController@index')->name('index');
 
         Route::get('{user}/editar', 'UsersController@edit')->name('edit');
@@ -208,6 +208,8 @@ Route::middleware('super-admin')->group(function() {
 
     Route::prefix('usuarios')->withoutMiddleware('join-gig')->name('users.')->group(function() {
         Route::get('busca', 'UsersController@search')->name('search');
+
+        Route::post('', 'UsersController@store')->name('store');
     });
 
     Route::prefix('contratantes')->name('venues.')->withoutMiddleware('join-gig')->group(function() {
@@ -265,7 +267,7 @@ Route::middleware('super-admin')->group(function() {
 
         Route::get('estilos', 'StatsController@genres')->name('genres');
         
-        Route::get('cantores', 'StatsController@users')->name('users');
+        Route::get('usuarios', 'StatsController@users')->name('users');
     });
 
     Route::withoutMiddleware('join-gig')->get('status', 'StatusController@index')->name('status');

@@ -22,7 +22,7 @@
      @link(['route' => 'artists.index', 'label' => 'Artistas'])
      @link(['route' => 'songs.index', 'label' => 'Músicas'])
      @link(['route' => 'genres.index', 'label' => 'Estilos'])
-     @link(['route' => 'users.index', 'label' => 'Cantores'])
+     @link(['route' => 'users.index', 'label' => 'Usuários'])
      @link(['route' => 'suggestions.index', 'label' => 'Sugestões', 'count' => \App\Models\Suggestion::unconfirmed()->count()])
 
      @if(auth()->user()->admin->isSuperAdmin())

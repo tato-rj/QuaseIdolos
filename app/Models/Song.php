@@ -60,12 +60,21 @@ class Song extends BaseModel
 	public function scopeSearch($query, $input)
 	{
 		return $query
-			->where('name', 'LIKE', '%'.$input.'%')
-			->orWhereHas('genre', function($q) use ($input) {
+			->where(function($q) use ($input) {
 				$q->where('name', 'LIKE', '%'.$input.'%');
-			})
-			->orWhereHas('artist', function($q) use ($input) {
-				$q->where('name', 'LIKE', '%'.$input.'%');
+				$q->orWhereHas('genre', function($q) use ($input) {
+					$q->where('name', 'LIKE', '%'.$input.'%');
+				});
+				$q->orWhereHas('artist', function($q) use ($input) {
+					$q->where('name', 'LIKE', '%'.$input.'%');
+				});
+			})->visibleArtist();
+	}
+
+	public function scopeVisibleArtist($query)
+	{
+		return $query->whereHas('artist', function($q) {
+				$q->visible();
 			});
 	}
 

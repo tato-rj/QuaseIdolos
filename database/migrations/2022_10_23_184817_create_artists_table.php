@@ -18,6 +18,7 @@ class CreateArtistsTable extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->string('image_path');
+            $table->boolean('is_hidden')->default(false);
             $table->timestamps();
         });
     }

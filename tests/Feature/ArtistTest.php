@@ -31,4 +31,66 @@ class ArtistTest extends AppTest
 
         $this->assertDatabaseMissing('songs', ['id' => $song]);
     }
+
+    /** @test */
+    public function if_an_artist_is_hidden_it_will_not_show_on_the_cardapio_page()
+    {
+        Artist::truncate();
+        $visibleArtist = Artist::factory()->create();
+        $hiddenArtist = Artist::factory()->hidden()->create();
+
+        Song::factory()->create(['artist_id' => $visibleArtist]);
+        Song::factory()->create(['artist_id' => $hiddenArtist]);
+
+        $this->get(route('cardapio.index'))
+             ->assertSee($visibleArtist->name)
+             ->assertDontSee($hiddenArtist->name);
+    }
+
+    /** @test */
+    public function if_an_artist_is_hidden_it_will_not_show_up_in_the_search()
+    {
+        Artist::truncate();
+        $visibleArtist = Artist::factory()->create();
+        $hiddenArtist = Artist::factory()->hidden()->create();
+
+        Song::factory()->create(['artist_id' => $visibleArtist]);
+        Song::factory()->create(['artist_id' => $hiddenArtist]);
+
+        $this->get(route('cardapio.search', ['input' => $hiddenArtist->name]))->assertDontSee($hiddenArtist->name);
+        $this->get(route('cardapio.index', ['artista' => $hiddenArtist->slug]))->assertDontSee($hiddenArtist->name);
+
+        $this->get(route('cardapio.search', ['input' => $visibleArtist->name]))->assertSee($visibleArtist->name);
+        $this->get(route('cardapio.index', ['artista' => $visibleArtist->slug]))->assertSee($visibleArtist->name);
+    }
+
+    /** @test */
+    public function if_an_artist_is_hidden_it_songs_will_not_show_up_in_the_search()
+    {
+        Artist::truncate();
+        Song::truncate();
+        $visibleSong = Song::factory()->create(['artist_id' => Artist::factory()->create()]);
+        $hiddenSong = Song::factory()->create(['artist_id' => Artist::factory()->hidden()->create()]);
+
+        $this->get(route('cardapio.search', ['input' => $hiddenSong->name]))->assertDontSee($hiddenSong->name);
+        $this->get(route('cardapio.index', ['musica' => $hiddenSong->id]))->assertDontSee($hiddenSong->name);
+
+        $this->get(route('cardapio.search', ['input' => $visibleSong->name]))->assertSee($visibleSong->name);
+        $this->get(route('cardapio.index', ['musica' => $visibleSong->id]))->assertSee($visibleSong->name);
+    }
+
+    /** @test */
+    public function if_an_artist_is_hidden_it_songs_will_not_show_up_in_the_genre_search()
+    {
+        Artist::truncate();
+        Song::truncate();
+        $visibleSong = Song::factory()->create(['artist_id' => Artist::factory()->create()]);
+        $hiddenSong = Song::factory()->create(['artist_id' => Artist::factory()->hidden()->create()]);
+
+        $this->get(route('cardapio.search', ['input' => $hiddenSong->genre->name]))->assertDontSee($hiddenSong->name);
+        $this->get(route('cardapio.index', ['estilo' => $hiddenSong->genre->slug]))->assertDontSee($hiddenSong->name);
+
+        $this->get(route('cardapio.search', ['input' => $visibleSong->genre->name]))->assertSee($visibleSong->name);
+        $this->get(route('cardapio.index', ['estilo' => $visibleSong->genre->slug]))->assertSee($visibleSong->name);
+    }
 }

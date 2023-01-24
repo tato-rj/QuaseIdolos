@@ -21,4 +21,13 @@ class ArtistFactory extends Factory
             'image_path' => $this->faker->url
         ];
     }
+
+    public function hidden()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_hidden' => true
+            ];
+        });
+    }
 }
