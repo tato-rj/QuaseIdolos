@@ -37,6 +37,11 @@ class Artist extends BaseModel
         return $query->where('is_hidden', false);
     }
 
+    public function isHidden()
+    {
+        return $this->is_hidden;
+    }
+
     public function scopeAlphabetically($query)
     {
         $collection = $query->get()->groupBy(function($artist) {

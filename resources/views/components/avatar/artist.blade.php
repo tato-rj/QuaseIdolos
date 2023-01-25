@@ -1,0 +1,1 @@
+<img src="{{$artist->coverImage()}}" class="rounded-circle mb-2 {{$artist->isHidden() ? 'grayscale opacity-4' : null}}" style="width: {{$size ?? '60%'}}">

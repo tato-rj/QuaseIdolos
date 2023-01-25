@@ -32,10 +32,20 @@ class GigsController extends Controller
 
         $gigs = Gig::ready()->get();
 
-        $gigs = $gigs->sortBy(function($gig, $index) {
-            return auth()->user()->distanceTo($gig);
+        $gigs->each(function($gig) {
+            $gig->joined = auth()->user()->joined($gig) ? 1 : 0;
         });
 
+        if ($gigs->where('joined', true)->isEmpty()) {
+            $gigs = $gigs->sortBy(function($gig, $index) {
+                return auth()->user()->distanceTo($gig);
+            });
+        } else {
+            $gigs = $gigs->sortByDesc('joined');
+        }
+        
+        $gigs = $gigs->values();
+        
         return view('pages.gigs.join.index', compact('gigs'));
     }
 

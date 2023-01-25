@@ -4,6 +4,11 @@
 //// CUSTOM CSS BELOW
 //////////////////////////////////////
 
+.grayscale {
+  -webkit-filter: grayscale(100%) !important; /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%) !important;
+}
+
 .rating {
 	button.star-rating:not(.selected):not(.temp-selected):not(.confirm-selected) {
 		@extend .opacity-2;

@@ -11,7 +11,7 @@
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 text-center mb-4">
 			<div class="mb-4">
-				<img src="{{$artist->coverImage()}}" class="rounded-circle mb-2" style="width: 60%">
+				@include('components.avatar.artist')
 				<h3 class="w-100 text-center m-0">{{$artist->name}}</h3>
 			</div>
 			<div class="d-flex flex-column">

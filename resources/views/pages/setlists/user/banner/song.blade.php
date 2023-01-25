@@ -2,9 +2,6 @@
 	<div class="col-lg-6 col-md-10 col-12 mx-auto py-2">
 		<div class="d-apart px-2">
 			<div class="d-flex align-items-center text-truncate">
-				@if($songRequests->count() > 1)
-				<h4 class="mb-0 mr-2 text-secondary">{!!$songRequest->position()!!}</h4>
-				@endif
 				<img src="{{$songRequest->song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 40px; height: 40px">
 
 				<div class="text-truncate">
