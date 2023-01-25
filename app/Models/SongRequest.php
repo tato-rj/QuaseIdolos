@@ -21,6 +21,11 @@ class SongRequest extends BaseModel
         return $this->belongsToThrough(Artist::class, Song::class);
     }
 
+    public function guests()
+    {
+        return $this->hasMany(SongRequestGuest::class);
+    }
+
     public function winners()
     {
         return $this->hasMany(Gig::class, 'winner_id');
@@ -34,6 +39,20 @@ class SongRequest extends BaseModel
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function invite(User $user)
+    {
+        return SongRequestGuest::firstOrcreate([
+            'song_request_id' => $this->id,
+            'user_id' => $user->id]);
+    }
+
+    public function decline(User $user)
+    {
+        return SongRequestGuest::where([
+            'song_request_id' => $this->id,
+            'user_id' => $user->id])->delete();
     }
 
     // public function position($complete = false)

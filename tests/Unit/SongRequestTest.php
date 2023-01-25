@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, Artist, SongRequest, Gig, User, Rating};
+use App\Models\{Song, Artist, SongRequest, Gig, User, Rating, SongRequestGuest};
 
 class SongRequestTest extends AppTest
 {
@@ -17,25 +17,33 @@ class SongRequestTest extends AppTest
     /** @test */
     public function it_belongs_to_a_gig()
     {
-        return $this->assertInstanceOf(Gig::class, $this->songRequest->gig);
+        $this->assertInstanceOf(Gig::class, $this->songRequest->gig);
     }
 
     /** @test */
     public function it_belongs_to_a_song()
     {
-        return $this->assertInstanceOf(Song::class, $this->songRequest->song);
+        $this->assertInstanceOf(Song::class, $this->songRequest->song);
+    }
+
+    /** @test */
+    public function it_has_many_guests()
+    {
+        SongRequestGuest::factory()->create(['song_request_id' => $this->songRequest->id]);
+
+        $this->assertInstanceOf(SongRequestGuest::class, $this->songRequest->guests->first());
     }
 
     /** @test */
     public function it_belongs_to_an_artist_through_its_song()
     {
-        return $this->assertInstanceOf(Artist::class, $this->songRequest->artist);
+        $this->assertInstanceOf(Artist::class, $this->songRequest->artist);
     }
 
     /** @test */
     public function it_belongs_to_a_user()
     {
-        return $this->assertInstanceOf(User::class, $this->songRequest->user);
+        $this->assertInstanceOf(User::class, $this->songRequest->user);
     }
 
     /** @test */
@@ -43,7 +51,7 @@ class SongRequestTest extends AppTest
     {
         Rating::factory()->create(['song_request_id' => $this->songRequest->id]);
 
-        return $this->assertInstanceOf(Rating::class, $this->songRequest->ratings->first());
+        $this->assertInstanceOf(Rating::class, $this->songRequest->ratings->first());
     }
 
     /** @test */
@@ -51,7 +59,33 @@ class SongRequestTest extends AppTest
     {
         $gig = Gig::factory()->create(['winner_id' => $this->songRequest]);
 
-        return $this->assertInstanceOf(Gig::class, $this->songRequest->winners()->first());
+        $this->assertInstanceOf(Gig::class, $this->songRequest->winners()->first());
+    }
+
+    /** @test */
+    public function it_knows_its_confirmed_guests()
+    {
+        SongRequestGuest::factory()->create(['song_request_id' => $this->songRequest->id]);
+
+        $this->assertCount(1, $this->songRequest->guests);
+        $this->assertCount(0, $this->songRequest->guests()->confirmed()->get());
+
+        $this->songRequest->guests->first()->confirm();
+
+        $this->assertCount(1, $this->songRequest->guests()->confirmed()->get());
+    }
+
+    /** @test */
+    public function it_knows_its_unconfirmed_guests()
+    {
+        SongRequestGuest::factory()->create(['song_request_id' => $this->songRequest->id]);
+
+        $this->assertCount(1, $this->songRequest->guests);
+        $this->assertCount(1, $this->songRequest->guests()->unconfirmed()->get());
+
+        $this->songRequest->guests->first()->confirm();
+
+        $this->assertCount(0, $this->songRequest->guests()->unconfirmed()->get());
     }
 
     /** @test */

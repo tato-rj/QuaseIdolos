@@ -12,7 +12,7 @@ class SongRequestTest extends AppTest
     {
         parent::setUp();
 
-        $this->gig = Gig::factory()->create(['is_live' => true]);
+        $this->gig = Gig::factory()->live()->create();
     }
 
     /** @test */

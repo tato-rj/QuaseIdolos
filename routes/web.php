@@ -61,8 +61,14 @@ Route::middleware('auth')->group(function() {
     Route::prefix('pedido-de-musica')->name('song-requests.')->group(function() {
         Route::post('{song}/enviar', 'SongRequestsController@store')->name('store');
 
+        Route::post('{songRequest}/convidar/{guest}', 'SongRequestGuestsController@invite')->name('invite');
+
+        Route::patch('{songRequest}/confirmar', 'SongRequestGuestsController@confirm')->name('confirm-invitation');
+
         Route::patch('{songRequest}/mudar', 'SongRequestsController@update')->name('update');
         
+        Route::delete('{songRequest}/cancelar-convite/{guest?}', 'SongRequestGuestsController@decline')->name('decline');
+
         Route::delete('{id}/cancelar', 'SongRequestsController@cancel')->name('cancel');
     });
 

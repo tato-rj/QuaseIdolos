@@ -2,8 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\SongRequest;
-use App\Models\User;
+use App\Models\{SongRequest, User};
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SongRequestPolicy
@@ -23,5 +22,10 @@ class SongRequestPolicy
             return ! $user->admin->isSub();
 
         return $songRequest->user->is($user);
+    }
+
+    public function invite(User $user, SongRequest $songRequest, User $guest)
+    {
+        return $user->liveGig && $user->liveGig->participants->contains($guest);
     }
 }
