@@ -151,7 +151,7 @@ class User extends Authenticatable
 
     public function scopeTeam($query)
     {
-        return $query->has('admin')->where('email', '!=', 'arthurvillar@gmail.com');
+        return $query->has('admin')->where('id', '!=', 1);
     }
 
     public function scopeGuests($query)
