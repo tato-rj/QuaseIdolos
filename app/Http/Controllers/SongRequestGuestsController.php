@@ -24,7 +24,13 @@ class SongRequestGuestsController extends Controller
 
     public function confirm(Request $request, SongRequest $songRequest)
     {
-        dd('here');
+        $songRequestGuest = SongRequestGuest::where([
+            'song_request_id' => $songRequest->id,
+            'user_id' => auth()->user()->id])->first();
+
+        $songRequestGuest->confirm();
+
+        return back()->with('success', 'O convite foi confirmado com sucesso');
     }
 
     /**
