@@ -19,6 +19,12 @@
 	@csrf
 	@method('PATCH')
 
+	<div class="text-left mb-3"> 
+		@toggle(['label' => 'Evento para testes?', 'name' => 'is_test', 'on' => $gig->sandbox()])
+	</div>
+	
+	@divider
+
 	@isset($venues)
 	@select([
 		'label' => 'Contratante',

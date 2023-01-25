@@ -30,6 +30,7 @@ class CreateGigsTable extends Migration
             $table->string('starting_time')->nullable();
             $table->boolean('is_paused')->default(false);
             $table->boolean('is_private')->default(false);
+            $table->boolean('is_test')->default(false);
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->timestamps();

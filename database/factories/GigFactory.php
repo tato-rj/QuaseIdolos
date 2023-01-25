@@ -54,4 +54,13 @@ class GigFactory extends Factory
             ];
         });
     }
+
+    public function sandbox()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_test' => true
+            ];
+        });
+    }
 }

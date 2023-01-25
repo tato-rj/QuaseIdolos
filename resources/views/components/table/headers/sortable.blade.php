@@ -6,7 +6,7 @@
     <input type="hidden" name="order" value="{{$selected && request()->order == 'asc' ? 'desc' : 'asc'}}">
     <button class="d-apart btn-raw text-white no-stroke fw-bold w-100" style="font-family: 'Nunito';">
       <div>{{$header}}</div>
-      <div class="{{$selected ? null : 'opacity-4'}}">@fa(['icon' => $selected && request()->order == 'asc' ? 'chevron-down' : 'chevron-up', 'mr' => 0])</div>
+      <div class="{{$selected ? null : 'opacity-4'}} ml-3">@fa(['icon' => $selected && request()->order == 'asc' ? 'chevron-down' : 'chevron-up', 'mr' => 0])</div>
     </button>
   </form>
 </div>

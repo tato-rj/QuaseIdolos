@@ -8,6 +8,7 @@
 
 @section('content')
 <section class="container py-4">
+	<div class="p-2 rounded bg-transparent text-center mb-3"><h6 class="m-0 opacity-6">@fa(['icon' => 'user-secret'])MODO TESTE</h6></div>
 	<div class="row">		
 		@include('pages.gigs.show.actions')
 		@include('pages.gigs.show.info')

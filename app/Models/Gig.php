@@ -15,7 +15,8 @@ class Gig extends BaseModel
 	protected $casts = [
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
-		'is_private' => 'boolean'
+		'is_private' => 'boolean',
+		'is_test'
 	];
 
 	public function creator()
@@ -56,6 +57,11 @@ class Gig extends BaseModel
     public function name()
     {
     	return $this->name ?? $this->venue->name;
+    }
+
+    public function sandbox()
+    {
+    	return $this->is_test;
     }
     
     public function description()
@@ -229,11 +235,17 @@ class Gig extends BaseModel
 
 	public function scopeReady($query)
 	{
+		$admin = auth()->check() ? auth()->user()->admin()->exists() : false;
 		$today = now()->copy()->startOfDay();
 
-		return $query->whereDate('scheduled_for', '>=', $today)
-					 ->whereDate('scheduled_for', '<', $today->addDay()->addHours(4))
-					 ->orWhere('is_live', true);
+		if (! $admin)
+			$query->where('is_test', false);
+
+		return $query->where(function($q) use ($today) {
+						$q->whereDate('scheduled_for', '>=', $today);
+						$q->whereDate('scheduled_for', '<', $today->addDay()->addHours(4));
+						$q->orWhere('is_live', true);
+					 });
 	}
 
     public function scopeNotReady($query)

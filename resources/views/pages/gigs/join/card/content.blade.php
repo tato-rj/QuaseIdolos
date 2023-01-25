@@ -3,7 +3,12 @@
 	<div class="position-absolute-center opacity-6 text-green">@fa(['icon' => 'check-circle', 'mr' => 0, 'fa_size' => '4x'])</div>
 	@endif
 
-	<h3 class="no-stroke">{{$gig->name()}}</h3>
+	<h3 class="no-stroke">
+		@if($gig->sandbox())
+		@fa(['icon' => 'user-secret'])
+		@endif
+		{{$gig->name()}}
+	</h3>
 
 	@if($description = $gig->description())
 	<p class="opacity-8">{{$description}}</p>

@@ -69,8 +69,8 @@ class ArtistTest extends AppTest
     {
         Artist::truncate();
         Song::truncate();
-        $visibleSong = Song::factory()->create(['artist_id' => Artist::factory()->create()]);
-        $hiddenSong = Song::factory()->create(['artist_id' => Artist::factory()->hidden()->create()]);
+        $visibleSong = Song::factory()->create(['artist_id' => Artist::factory()->create(), 'name' => 'UniqueVisibleSong']);
+        $hiddenSong = Song::factory()->create(['artist_id' => Artist::factory()->hidden()->create(), 'name' => 'UniqueHiddenSong']);
 
         $this->get(route('cardapio.search', ['input' => $hiddenSong->name]))->assertDontSee($hiddenSong->name);
         $this->get(route('cardapio.index', ['musica' => $hiddenSong->id]))->assertDontSee($hiddenSong->name);
@@ -84,8 +84,8 @@ class ArtistTest extends AppTest
     {
         Artist::truncate();
         Song::truncate();
-        $visibleSong = Song::factory()->create(['artist_id' => Artist::factory()->create()]);
-        $hiddenSong = Song::factory()->create(['artist_id' => Artist::factory()->hidden()->create()]);
+        $visibleSong = Song::factory()->create(['artist_id' => Artist::factory()->create(), 'name' => 'UniqueVisibleSong']);
+        $hiddenSong = Song::factory()->create(['artist_id' => Artist::factory()->hidden()->create(), 'name' => 'UniqueHiddenSong']);
 
         $this->get(route('cardapio.search', ['input' => $hiddenSong->genre->name]))->assertDontSee($hiddenSong->name);
         $this->get(route('cardapio.index', ['estilo' => $hiddenSong->genre->slug]))->assertDontSee($hiddenSong->name);

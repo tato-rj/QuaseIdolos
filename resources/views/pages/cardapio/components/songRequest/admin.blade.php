@@ -1,6 +1,6 @@
 <h6 class="text-left mb-3">
 	<div class="mb-2">
-		<span class="text-secondary">{!! $songRequest->position() !!}</span> {{$songRequest->user->name}}
+		<span class="text-secondary">{{ $songRequest->order }}</span> {{$songRequest->user->name}}
 	</div>
 	<div class="d-apart">
 		<div>

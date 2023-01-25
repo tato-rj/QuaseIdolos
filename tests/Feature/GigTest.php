@@ -32,7 +32,7 @@ class GigTest extends AppTest
     }
 
     /** @test */
-    public function users_do_not_automatically_join_a_gig_if_it_is_in_test_mode()
+    public function guests_do_not_automatically_join_a_gig_if_it_is_in_test_mode()
     {
         Gig::truncate();
 
@@ -42,7 +42,7 @@ class GigTest extends AppTest
 
         $this->assertFalse(auth()->user()->gig()->exists());
 
-        $gig = Gig::factory()->create();
+        $gig = Gig::factory()->sandbox()->create();
 
         $this->get(route('home'));
 
@@ -52,7 +52,7 @@ class GigTest extends AppTest
 
         $this->get(route('setlists.user'));
 
-        $this->assertTrue(auth()->user()->gig()->exists());
+        $this->assertFalse(auth()->user()->gig()->exists());
     }
 
     /** @test */
@@ -95,6 +95,21 @@ class GigTest extends AppTest
         $this->get(route('cardapio.search'));
 
         $this->assertTrue(auth()->user()->songRequests()->exists());
+    }
+
+    /** @test */
+    public function guests_do_not_see_test_events_in_the_select_gigs_page()
+    {
+        Gig::truncate();
+
+        $this->signIn();
+
+        $publicGig = Gig::factory()->create(['name' => 'PublicEvent']);
+        $testGig = Gig::factory()->sandbox()->create(['name' => 'TestEvent']);
+
+        $this->get(route('gig.select'))
+             ->assertSee($publicGig->name)
+             ->assertDontSee($testGig->name);
     }
 
     /** @test */

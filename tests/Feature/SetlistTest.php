@@ -155,4 +155,24 @@ class SetlistTest extends AppTest
 
         $this->assertEquals(0, $secondRequest->fresh()->order);
     }
+
+    /** @test */
+    public function the_site_does_not_crash_if_a_user_delete_their_account_before_the_song_request_is_confirmed()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $this->signIn();
+
+        auth()->user()->join($this->gig);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $firstRequest = SongRequest::find(1);
+
+        $this->delete(route('profile.destroy'));
+
+        $this->signIn($this->admin);
+
+        $this->post(route('song-requests.finish', $firstRequest));
+    }
 }

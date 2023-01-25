@@ -1,6 +1,12 @@
 @modal(['title' => 'Novo evento', 'id' => 'create-gig-modal'])
 <form method="POST" action="{{route('gig.store')}}">
 	@csrf
+	
+	<div class="text-left mb-3"> 
+		@toggle(['label' => 'Evento para testes?', 'name' => 'is_test', 'on' => old('is_test') ?? false])
+	</div>
+	
+	@divider
 
 	@isset($venue)
 	<input type="hidden" name="venue_id" value="{{$venue->id}}">
@@ -28,7 +34,7 @@
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => old('has_ratings') ?? true])
 	</div>
-	
+
 	<div class="text-left"> 
 		@checkbox(['label' => 'Quem vai tocar nesse evento?', 'name' => 'musicians'])
 			@foreach($musicians as $musician)

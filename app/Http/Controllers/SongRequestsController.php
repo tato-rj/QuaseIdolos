@@ -48,8 +48,13 @@ class SongRequestsController extends Controller
             return view('pages.setlists.user.banner.index', compact('songRequests'))->render();
     }
 
-    public function finish(SongRequest $songRequest)
+    public function finish($id)
     {
+        $songRequest = SongRequest::find($id);
+        
+        if (! $songRequest)
+            return back();
+
         $this->authorize('update', $songRequest);
 
         $songRequest->finish();
