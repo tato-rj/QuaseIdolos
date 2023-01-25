@@ -15,7 +15,10 @@
 
      @link(['route' => 'profile.show', 'label' => 'Meu Perfil'])
      @link(['route' => 'cardapio.index', 'label' => 'Cardápio'])
+
+     @if(auth()->user()->admin->manage_setlist)
      @link(['route' => 'setlists.admin', 'label' => 'Setlist'])
+     @endif
 
      @include('layouts.menu.components.divider')
 
@@ -23,7 +26,10 @@
      @link(['route' => 'songs.index', 'label' => 'Músicas'])
      @link(['route' => 'genres.index', 'label' => 'Estilos'])
      @link(['route' => 'users.index', 'label' => 'Usuários'])
+
+     @if(auth()->user()->admin->isSuperAdmin())
      @link(['route' => 'suggestions.index', 'label' => 'Sugestões', 'count' => \App\Models\Suggestion::unconfirmed()->count()])
+     @endif
 
      @if(auth()->user()->admin->isSuperAdmin())
      @include('layouts.menu.components.divider')
