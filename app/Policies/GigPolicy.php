@@ -10,6 +10,11 @@ class GigPolicy
 {
     use HandlesAuthorization;
 
+    public function viewSetlist(User $user, $gig)
+    {
+        return $user->admin->manage_setlist;
+    }
+
     public function open(User $user, Gig $gig)
     {
         return $gig->isReady();

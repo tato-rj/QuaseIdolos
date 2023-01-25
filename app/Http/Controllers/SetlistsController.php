@@ -10,6 +10,9 @@ class SetlistsController extends Controller
     public function admin()
     {
         $gig = auth()->user()->liveGig;
+
+        $this->authorize('viewSetlist', $gig);
+
         $setlist = $gig ? $gig->setlist()->orderBy('order')->get() : collect();
         $musicians = Admin::musicians()->get();
 
