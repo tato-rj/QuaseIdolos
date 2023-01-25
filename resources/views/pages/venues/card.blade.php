@@ -1,4 +1,4 @@
-<div class="col-lg-3 col-4 col-6 p-2">
+<div class="col-lg-3 col-md-6 col-12 p-2">
 	<div class="rounded border border-secondary p-4">
 		<div class="mb-4">
 			<h4 class="m-0">{{$venue->name}}</h4>
