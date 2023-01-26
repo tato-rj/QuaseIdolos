@@ -230,6 +230,7 @@ class GigsController extends Controller
         ]);
 
         $gig->setlist()->waiting()->delete();
+
         Participant::in($gig)->unconfirmed()->confirm();
 
         $gig->archives()->save();
@@ -248,7 +249,7 @@ class GigsController extends Controller
         if ($gig->setlist()->waiting()->exists())
             return back()->with('error', 'O setlist ainda tem pedidos na espera');
 
-        $gig->participants()->detach();
+        $gig->participants()->delete();
         $gig->musicians()->detach();
         $gig->delete();
 

@@ -41,7 +41,7 @@ class Gig extends BaseModel
 
 	public function participants()
 	{
-		return $this->belongsToMany(User::class, 'participants')->withTimestamps()->orderBy('participants.created_at', 'desc');
+		return $this->hasMany(Participant::class)->latest();
 	}
 
     public function setlist()

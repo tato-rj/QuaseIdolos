@@ -62,7 +62,7 @@ class GigTest extends AppTest
 
         Participant::factory()->create(['gig_id' => $this->gig, 'user_id' => auth()->user()]);
 
-        $this->assertInstanceOf(User::class, $this->gig->participants->first());
+        $this->assertInstanceOf(Participant::class, $this->gig->participants->first());
     }
 
     /** @test */

@@ -26,6 +26,6 @@ class SongRequestPolicy
 
     public function invite(User $user, SongRequest $songRequest, User $guest)
     {
-        return $user->liveGig && $user->liveGig->participants->contains($guest);
+        return $user->liveGig && $user->liveGig->participants->pluck('user')->contains($guest);
     }
 }

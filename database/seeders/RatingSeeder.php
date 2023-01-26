@@ -20,6 +20,7 @@ class RatingSeeder extends Seeder
                     ->inRandomOrder()
                     ->take(rand(2,40))
                     ->get()
+                    ->pluck('user')
                     ->each->rate($songRequest, randomFromArray([1,2,3,4,5]));
             }
 

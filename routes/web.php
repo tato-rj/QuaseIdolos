@@ -264,6 +264,10 @@ Route::middleware('super-admin')->group(function() {
         Route::post('{gig}/pausar', 'GigsController@pause')->name('pause');
 
         Route::delete('{gig}', 'GigsController@destroy')->name('destroy');
+
+        Route::prefix('participantes/{participant}')->name('participant.')->group(function() {
+            Route::delete('', 'ParticipantsController@remove')->name('remove');
+        });
     });
 
     Route::prefix('emails')->name('mail.')->withoutMiddleware('join-gig')->group(function() {

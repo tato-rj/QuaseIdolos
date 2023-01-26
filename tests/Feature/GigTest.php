@@ -172,17 +172,17 @@ class GigTest extends AppTest
         $gigTwo = Gig::factory()->live()->create();
         $gigThree = Gig::factory()->live()->create();
 
-        $user = $this->signIn();
+        $user = $this->signIn(User::factory()->create(['name' => 'Joe']));
         
         auth()->user()->join($gigOne);
 
-        $this->assertTrue($gigOne->participants->contains(auth()->user()));
-        $this->assertFalse($gigTwo->participants->contains(auth()->user()));
+        $this->assertTrue($gigOne->participants()->by(auth()->user())->exists());
+        $this->assertFalse($gigTwo->participants()->by(auth()->user())->exists());
 
         auth()->user()->join($gigTwo);
 
-        $this->assertFalse($gigOne->participants()->get()->contains(auth()->user()));
-        $this->assertTrue($gigTwo->participants()->get()->contains(auth()->user()));
+        $this->assertFalse($gigOne->participants()->by(auth()->user())->exists());
+        $this->assertTrue($gigTwo->participants()->by(auth()->user())->exists());
 
         $this->signIn($this->superAdmin);
 
@@ -192,8 +192,8 @@ class GigTest extends AppTest
 
         auth()->user()->join($gigThree);
 
-        $this->assertTrue($gigTwo->participants()->get()->contains(auth()->user()));
-        $this->assertTrue($gigThree->participants()->get()->contains(auth()->user()));
+        $this->assertTrue($gigTwo->participants()->by(auth()->user())->exists());
+        $this->assertTrue($gigThree->participants()->by(auth()->user())->exists());
     }
 
     /** @test */

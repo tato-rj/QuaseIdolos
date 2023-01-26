@@ -16,7 +16,7 @@ class GigArchives extends ArchivesFactory
         $this->saveRatings();
         $this->saveWinner();
 
-        $this->model->participants->each(function($user) use ($gig) {
+        $this->model->participants->pluck('user')->each(function($user) use ($gig) {
             $user->archives()->saveGig($gig);
             $user->archives()->saveSongRequests($gig);
             $user->archives()->saveRatings($gig);
@@ -37,7 +37,7 @@ class GigArchives extends ArchivesFactory
 
 	public function saveParticipants()
 	{
-		foreach($this->model->participants as $participant) {
+		foreach($this->model->participants->pluck('user') as $participant) {
 			$this->set('participants', $participant);
 		}
 	}
