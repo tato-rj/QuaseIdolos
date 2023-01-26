@@ -26,7 +26,7 @@ class CardapioController extends Controller
             }
         }
 
-        $participants = collect();//auth()->user()->liveGig->participants()->guests()->get();
+        $participants = local() ? auth()->user()->liveGig->participants()->guests()->get() : collect();
         $artists = Artist::orderby('name')->visible()->has('songs')->paginate($this->artistsPerPage);
         $genres = Genre::orderby('name')->has('songs')->get();
 
