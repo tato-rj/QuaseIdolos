@@ -48,6 +48,14 @@ class SongRequest extends BaseModel
         return $this->hasMany(Rating::class);
     }
 
+    public function inviteMany($ids = [])
+    {
+        foreach ($ids as $id) {
+            if ($user = User::find($id))
+                $this->invite($user);
+        }
+    }
+
     public function invite(User $user)
     {
         return SongRequestGuest::firstOrcreate([

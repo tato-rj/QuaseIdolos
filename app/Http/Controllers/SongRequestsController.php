@@ -13,6 +13,9 @@ class SongRequestsController extends Controller
     {
         $songRequest = (new SongRequest)->add(auth()->user(), $song, auth()->user()->liveGig, $request->user_name);
 
+        // if ($guests = json_decode($request->guests))
+        //     $songRequest->inviteMany($guests);
+
         try {
             SongRequested::dispatch($songRequest);
         } catch (\Exception $e) {

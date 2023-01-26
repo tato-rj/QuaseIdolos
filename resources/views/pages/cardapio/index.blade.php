@@ -47,9 +47,39 @@ enableScroll();
 </script>
 
 <script type="text/javascript">
-$(document).on('click', '[name="participant-avatar"]', function() {
-	log($(this).data('id'));
-})
+// $(document).on('click', '[name="participant-avatar"]', function() {
+// 	selectParticipant(this);
+
+// 	let $selectedParticipants = $(this).parent().find('[name="participant-avatar"].participant-selected');
+// 	let $otherParticipants = $(this).parent().find('[name="participant-avatar"]').not(this).not('.participant-selected');
+	
+// 	if (! $(this).hasClass('participant-selected')) {
+// 		$(this).addClass('opacity-4');
+// 	}
+
+// 	if ($selectedParticipants.length) {
+// 		let ids = [];
+
+// 		$otherParticipants.addClass('opacity-4');
+		
+// 		$selectedParticipants.each(function() {
+// 			ids.push($(this).data('id'));
+// 		});
+
+// 		$(this).closest('.modal').find('input[name="guests"]').val(JSON.stringify(ids));
+// 	} else {
+// 		$('[name="participant-avatar"]').removeClass('opacity-4');
+// 	}
+// })
+
+// function selectParticipant(element)
+// {
+// 	$(element).removeClass('opacity-4');
+// 	$(element).toggleClass('participant-selected');
+// 	$(element).find('p').toggleClass('text-secondary opacity-8');
+// 	$(element).find('.avatar-img').toggleClass('border border-lg');
+// 	$(element).find('.checkmark').toggle();	
+// }
 </script>
 
 <script type="text/javascript">
