@@ -19,11 +19,13 @@
 	@csrf
 	@method('PATCH')
 
+	@unless(isset($pausable))
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Evento para testes?', 'name' => 'is_test', 'on' => $gig->sandbox()])
 	</div>
-	
+
 	@divider
+	@endunless
 
 	@isset($venues)
 	@select([
