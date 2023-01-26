@@ -159,7 +159,7 @@ class SongRequest extends BaseModel
             'user_id' => $user->id, 
             'song_id' => $song->id,
             'gig_id' => $gig->id,
-            'order' => $this->waiting()->count()]);
+            'order' => $gig->setlist()->waiting()->count()]);
     }
 
     public function finish()
