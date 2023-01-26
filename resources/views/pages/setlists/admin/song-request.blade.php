@@ -16,6 +16,10 @@
 					<h6 class="text-dark no-stroke m-0 text-truncate opacity-6">{{$entry->song->artist->name}}</h6>
 				</div>
 			</div>
+
+{{-- 			@if($entry->guests()->exists())
+				@include('pages.setlists.admin.guests')
+			@endif --}}
 		</div>
 		<div class="col-lg-4 col-12">
 			<div class="h-100 d-flex justify-content-center flex-column">
