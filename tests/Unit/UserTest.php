@@ -179,7 +179,7 @@ class UserTest extends AppTest
 
         auth()->user()->favorites()->save($song);
 
-        $this->assertTrue(auth()->user()->favorited($song));
+        $this->assertTrue(auth()->user()->fresh()->favorited($song));
     }
 
     /** @test */

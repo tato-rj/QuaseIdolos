@@ -9,6 +9,7 @@ class Song extends BaseModel
 	use Archiveable;
 	
 	protected $withCount = ['favorites', 'songRequests'];
+	protected $with = ['genre', 'artist'];
 
     protected static function booted()
     {

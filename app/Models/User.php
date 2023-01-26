@@ -189,7 +189,7 @@ class User extends Authenticatable
 
     public function favorited(Song $song)
     {
-        return $this->favorites()->where(['song_id' => $song->id])->exists();
+        return $this->favorites->contains($song);
     }
 
     public function sung(Song $song)
