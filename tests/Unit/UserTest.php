@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant};
+use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant, SongRequestGuest};
 
 class UserTest extends AppTest
 {
@@ -54,6 +54,14 @@ class UserTest extends AppTest
         (new SongRequest)->add(auth()->user(), $this->song, $this->gig);
 
         return $this->assertInstanceOf(SongRequest::class, auth()->user()->songRequests->first());
+    }
+
+    /** @test */
+    public function it_has_participates_as_a_guest_in_many_song_requests()
+    {
+        SongRequestGuest::factory()->create(['user_id' => auth()->user()]);
+
+        return $this->assertInstanceOf(SongRequestGuest::class, auth()->user()->songRequestsGuest->first());
     }
 
     /** @test */

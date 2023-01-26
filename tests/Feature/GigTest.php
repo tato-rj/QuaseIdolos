@@ -123,8 +123,8 @@ class GigTest extends AppTest
 
         $this->assertFalse(auth()->user()->gig()->exists());
         
-        $gigOne = Gig::factory()->create(['is_live' => true]);
-        $gigTwo = Gig::factory()->create(['is_live' => true]);
+        $gigOne = Gig::factory()->live()->create();
+        $gigTwo = Gig::factory()->live()->create();
 
         $this->patch(route('gig.join', $gigTwo));
 
@@ -142,13 +142,35 @@ class GigTest extends AppTest
     }
 
     /** @test */
+    public function users_can_leave_a_gig()
+    {
+        Gig::truncate();
+
+        $this->signIn();
+
+        $this->get(route('home'));
+
+        $this->assertFalse(auth()->user()->gig()->exists());
+        
+        $gig = Gig::factory()->live()->create();
+
+        $this->patch(route('gig.join', $gig));
+
+        $this->assertTrue(auth()->user()->gig()->exists());
+
+        $this->patch(route('gig.leave', $gig));
+
+        $this->assertFalse(auth()->user()->gig()->exists());
+    }
+
+    /** @test */
     public function when_a_user_switches_gigs_the_participation_record_is_removed_if_unconfirmed()
     {
         Gig::truncate();
 
-        $gigOne = Gig::factory()->create(['is_live' => true]);
-        $gigTwo = Gig::factory()->create(['is_live' => true]);
-        $gigThree = Gig::factory()->create(['is_live' => true]);
+        $gigOne = Gig::factory()->live()->create();
+        $gigTwo = Gig::factory()->live()->create();
+        $gigThree = Gig::factory()->live()->create();
 
         $user = $this->signIn();
         
@@ -209,7 +231,7 @@ class GigTest extends AppTest
 
         Gig::truncate();
 
-        $gig = Gig::factory()->create(['is_live' => true]);
+        $gig = Gig::factory()->live()->create();
 
         $this->get(route('gig.index'))->assertSee(route('gig.pause', $gig));
 
@@ -351,7 +373,7 @@ class GigTest extends AppTest
 
         $this->signIn();
 
-        $gig = Gig::factory()->create(['is_live' => true]);
+        $gig = Gig::factory()->live()->create();
 
         $this->post(route('song-requests.store', Song::factory()->create()));
 
@@ -365,7 +387,7 @@ class GigTest extends AppTest
     {
         $this->signIn($this->superAdmin);
 
-        $gig = Gig::factory()->create(['is_live' => true]);
+        $gig = Gig::factory()->live()->create();
 
         $requestWaiting = SongRequest::factory()->create(['gig_id' => $gig->id]);
 
@@ -399,7 +421,7 @@ class GigTest extends AppTest
     {
         $this->signIn($this->superAdmin);
         
-        $gig = Gig::factory()->create(['is_live' => true]);
+        $gig = Gig::factory()->live()->create();
 
         auth()->user()->join($gig);
 
@@ -415,7 +437,7 @@ class GigTest extends AppTest
     {
         $this->signIn($this->superAdmin);
         
-        $gig = Gig::factory()->create(['is_live' => true]);
+        $gig = Gig::factory()->live()->create();
 
         $gig->musicians()->sync(User::latest()->take(3)->get()->pluck('id')->toArray());
 
@@ -433,7 +455,7 @@ class GigTest extends AppTest
 
         $this->signIn();
 
-        $gig = Gig::factory()->create(['is_live' => true]);
+        $gig = Gig::factory()->live()->create();
 
         auth()->user()->join($gig);
 

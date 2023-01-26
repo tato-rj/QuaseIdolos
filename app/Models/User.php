@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->hasMany(SongRequest::class)->with(['song', 'user']);
     }
 
+    public function songRequestsGuest()
+    {
+        return $this->hasMany(SongRequestGuest::class);
+    }
+
     public function participations()
     {
         return $this->hasMany(Participant::class);
@@ -115,6 +120,7 @@ class User extends Authenticatable
     public function join(Gig $gig)
     {
         Participant::by($this)->unconfirmed()->delete();
+
         $this->songRequests()->waiting()->delete();
         
         $this->gig()->save($gig);
@@ -122,6 +128,13 @@ class User extends Authenticatable
         $this->checkLiveGig();
 
         return $this->liveGig;
+    }
+
+    public function leave(Gig $gig)
+    {
+        Participant::in($gig)->by($this)->delete();
+
+        $this->songRequests()->waiting()->delete();
     }
 
     public function joined(Gig $gig)

@@ -85,7 +85,13 @@ Route::middleware('auth')->group(function() {
 
         Route::patch('entrar/{gig}', 'GigsController@join')->name('join');
 
+        Route::patch('sair/{gig}', 'GigsController@leave')->name('leave');
+
         Route::post('senha/{gig}', 'GigsController@verifyPassword')->name('verify-password');
+
+        Route::prefix('{gig}/participantes')->middleware('join-gig')->name('participants.')->group(function() {
+            Route::get('', 'ParticipantsController@index')->name('index');
+        });
     });
 
     Route::prefix('votacao')->name('ratings.')->group(function() {

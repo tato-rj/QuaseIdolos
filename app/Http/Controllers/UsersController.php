@@ -122,6 +122,8 @@ class UsersController extends Controller
             $songRequest->delete();
         }
 
+        $user->songRequestsGuest->each->delete();
+
         $user->suggestions->each->delete();
 
         $user->participations->each->delete();

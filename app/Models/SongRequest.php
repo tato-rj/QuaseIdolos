@@ -6,6 +6,13 @@ class SongRequest extends BaseModel
 {
     protected $dates = ['finished_at'];
 
+    protected static function booted()
+    {
+        self::deleting(function(SongRequest $songRequest) {
+            $songRequest->guests->each->delete();
+        });
+    }
+
     public function gig()
     {
         return $this->belongsTo(Gig::class);

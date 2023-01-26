@@ -4,8 +4,14 @@
 		<h3 class="no-stroke mb-4">{{$gig->name()}}</h3>
 		
 		@if($description = $gig->description())
-		<h6 class="opacity-8">{{$description}}</h6>
+		<p class="opacity-8">{{$description}}</p>
 		@endif
+
+		<form method="POST" action="{{route('gig.leave', $gig)}}" class="w-100">
+			@csrf
+			@method('PATCH')
+			<button type="submit" class="btn btn-outline-secondary w-100">@fa(['icon' => 'sign-out-alt'])Sair</button>
+		</form>
 	</div>
 	@divider
 </div>

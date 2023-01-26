@@ -66,6 +66,13 @@ class GigsController extends Controller
         return $redirect->with('modal', 'pages.gigs.welcome.modal');
     }
 
+    public function leave(Request $request, Gig $gig)
+    {
+        auth()->user()->leave($gig);
+        
+        return back()->with('success', 'Você não está mais participando desse evento');
+    }
+
     public function verifyPassword(Request $request, Gig $gig)
     {
         return $gig->password()->verify($request->password) ? response(200) : response('A senha está incorreta', 401);

@@ -9,35 +9,36 @@
   <div class="px-4">
     <div>      
       @if(auth()->user()->liveGig && auth()->user()->liveGig->participatesInRatings())
-        @link(['route' => 'ratings.index', 'label' => 'Votação', 'icon' => 'trophy'])
+        @link(['route' => route('ratings.index'), 'label' => 'Votação', 'icon' => 'trophy'])
+        @link(['route' => route('gig.participants.index', auth()->user()->liveGig), 'label' => 'Participantes'])
         @include('layouts.menu.components.divider')
       @endif
 
-     @link(['route' => 'profile.show', 'label' => 'Meu Perfil'])
-     @link(['route' => 'cardapio.index', 'label' => 'Cardápio'])
+     @link(['route' => route('profile.show'), 'label' => 'Meu Perfil'])
+     @link(['route' => route('cardapio.index'), 'label' => 'Cardápio'])
 
      @if(auth()->user()->admin->manage_setlist)
-     @link(['route' => 'setlists.admin', 'label' => 'Setlist'])
+     @link(['route' => route('setlists.admin'), 'label' => 'Setlist'])
      @endif
 
      @include('layouts.menu.components.divider')
 
-     @link(['route' => 'artists.index', 'label' => 'Artistas'])
-     @link(['route' => 'songs.index', 'label' => 'Músicas'])
-     @link(['route' => 'genres.index', 'label' => 'Estilos'])
-     @link(['route' => 'users.index', 'label' => 'Usuários'])
+     @link(['route' => route('artists.index'), 'label' => 'Artistas'])
+     @link(['route' => route('songs.index'), 'label' => 'Músicas'])
+     @link(['route' => route('genres.index'), 'label' => 'Estilos'])
+     @link(['route' => route('users.index'), 'label' => 'Usuários'])
 
      @if(auth()->user()->admin->isSuperAdmin())
-     @link(['route' => 'suggestions.index', 'label' => 'Sugestões', 'count' => \App\Models\Suggestion::unconfirmed()->count()])
+     @link(['route' => route('suggestions.index'), 'label' => 'Sugestões', 'count' => \App\Models\Suggestion::unconfirmed()->count()])
      @endif
 
      @if(auth()->user()->admin->isSuperAdmin())
      @include('layouts.menu.components.divider')
 
-     @link(['route' => 'venues.index', 'label' => 'Contratantes'])
-     @link(['route' => 'gig.index', 'label' => 'Eventos'])
-     @link(['route' => 'team.index', 'label' => 'Equipe'])
-     @link(['route' => 'stats.gigs', 'label' => 'Estatísticas'])
+     @link(['route' => route('venues.index'), 'label' => 'Contratantes'])
+     @link(['route' => route('gig.index'), 'label' => 'Eventos'])
+     @link(['route' => route('team.index'), 'label' => 'Equipe'])
+     @link(['route' => route('stats.gigs'), 'label' => 'Estatísticas'])
      @endif
 
       <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1 mb-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">

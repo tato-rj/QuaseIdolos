@@ -6,7 +6,7 @@
 				<img src="{{asset('images/brand/logo_lg.svg')}}" style="max-width: 500px; width: 90%" class="mb-2">
 				<h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2>
 			</div>
-			@if(auth()->check() && auth()->user()->admin()->exists())
+			@if(auth()->check() && auth()->user()->admin && auth()->user()->admin->manage_setlist)
 			<div class="d-center flex-column">
 				<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])SETLIST DE HOJE</a>
 			</div>

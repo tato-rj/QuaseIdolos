@@ -125,4 +125,72 @@ class SongRequestGuestTest extends AppTest
 
         $this->assertCount(1, $songRequest->guests()->confirmed()->get());
     }
+
+    /** @test */
+    public function when_a_song_request_is_deleted_its_guests_are_also_removed()
+    {
+        $user = User::factory()->create();
+        $guest = User::factory()->create();
+
+        $this->signIn($user);
+
+        $user->join($this->gig);
+        $guest->join($this->gig);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $user]);
+
+        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $guest]));
+
+        $this->assertDatabaseHas('song_request_guests', ['user_id' => $guest->id]);
+
+        $this->delete(route('song-requests.cancel', $songRequest));
+
+        $this->assertDatabaseMissing('song_request_guests', ['user_id' => $guest->id]);
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_the_guests_for_its_song_requests_are_also_removed()
+    {
+        $user = User::factory()->create();
+        $guest = User::factory()->create();
+
+        $this->signIn($user);
+
+        $user->join($this->gig);
+        $guest->join($this->gig);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $user]);
+
+        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $guest]));
+
+        $this->assertDatabaseHas('song_request_guests', ['user_id' => $guest->id]);
+
+        $this->delete(route('profile.destroy'));
+
+        $this->assertDatabaseMissing('song_request_guests', ['user_id' => $guest->id]);
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_its_guest_status_for_song_requests_is_also_removed()
+    {
+        $user = User::factory()->create();
+        $guest = User::factory()->create();
+
+        $this->signIn($user);
+
+        $user->join($this->gig);
+        $guest->join($this->gig);
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $user]);
+
+        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $guest]));
+
+        $this->assertDatabaseHas('song_request_guests', ['user_id' => $guest->id]);
+
+        $this->signIn($guest);
+
+        $this->delete(route('profile.destroy'));
+
+        $this->assertDatabaseMissing('song_request_guests', ['user_id' => $guest->id]);
+    }
 }

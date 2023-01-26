@@ -15,6 +15,11 @@ class GigPolicy
         return $user->admin->manage_setlist;
     }
 
+    public function viewParticipants(User $user, Gig $gig)
+    {
+        return $user->admin || $user->liveGig->is($gig);
+    }
+
     public function open(User $user, Gig $gig)
     {
         return $gig->isReady();
