@@ -45,6 +45,13 @@ $('ul.pagination').hide();
 
 enableScroll();
 </script>
+
+<script type="text/javascript">
+$(document).on('click', '[name="participant-avatar"]', function() {
+	log($(this).data('id'));
+})
+</script>
+
 <script type="text/javascript">
 $(document).on('click', 'button[name="change-song"]', function() {
 	$($(this).data('target-hide')).toggle();

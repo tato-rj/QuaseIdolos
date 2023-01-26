@@ -3,7 +3,7 @@
 
 	<div class="mb-4 d-flex flex-wrap">
 		@foreach($participants as $participant)
-		@include('pages.participants.participant.avatar')
+		@include('pages.participants.participant.avatar', ['selectable' => true])
 		@endforeach
 	</div>
 	
