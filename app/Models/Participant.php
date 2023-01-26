@@ -21,11 +21,6 @@ class Participant extends BaseModel
         return $this->belongsTo(Gig::class);
     }
 
-    public function scopeExceptMe($query)
-    {
-        return $query->where('user_id', '!=', auth()->user()->id);
-    }
-
     public function scopeIn($query, Gig $gig)
     {
         return $query->where('gig_id', $gig->id);

@@ -6,6 +6,11 @@
 			@if(auth()->user()->songRequests()->waiting()->exists() && isset($songRequests))
 			@include('pages.cardapio.components.song.buttons.change')
 			@endif
+			
+			@if(local())
+			@include('pages.cardapio.components.song.buttons.invite')
+			@endif
+
 			@include('pages.cardapio.components.song.buttons.sing')
 		@endif
 	@else

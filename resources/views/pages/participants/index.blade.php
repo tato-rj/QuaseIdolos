@@ -16,8 +16,9 @@
 <section class="container mb-6" id="participants-container">
 	<div class="row"> 
 		<div class="col-lg-10 col-12 mx-auto d-flex flex-wrap">
-			@foreach($gig->participants as $participant)
+			@foreach($gig->participants()->guests()->get() as $participant)
 			@include('pages.participants.participant.avatar')
+			@include('pages.participants.participant.modal')
 			@endforeach
 		</div>
 	</div>

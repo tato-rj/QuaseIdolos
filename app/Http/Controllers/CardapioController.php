@@ -26,10 +26,11 @@ class CardapioController extends Controller
             }
         }
 
+        $participants = auth()->user()->liveGig->participants()->guests()->get();
         $artists = Artist::orderby('name')->visible()->has('songs')->paginate($this->artistsPerPage);
         $genres = Genre::orderby('name')->has('songs')->get();
 
-        return view('pages.cardapio.index', compact(['artists', 'songs', 'genres']));
+        return view('pages.cardapio.index', compact(['artists', 'songs', 'genres', 'participants']));
     }
 
     // public function artist(Artist $artist)

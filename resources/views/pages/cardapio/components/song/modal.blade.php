@@ -14,6 +14,11 @@
 </div>
 
 @auth
+
+@if(local())
+@include('pages.cardapio.components.song.inviteUser')
+@endif
+
 @isset($songRequests)
 @include('pages.cardapio.components.song.changeRequest')
 @endisset

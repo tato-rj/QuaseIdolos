@@ -8,5 +8,3 @@
 	</div>
 	<p class="m-0 px-2 text-truncate">{{$participant->user->firstName}}</p>
 </div>
-
-@include('pages.participants.participant.modal')
