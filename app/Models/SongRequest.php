@@ -43,6 +43,28 @@ class SongRequest extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    public function singers()
+    {
+        return $this->guests->pluck('user')->prepend($this->user);
+    }
+
+    public function singersNames()
+    {
+        $names = $this->singers()->pluck('first_name');
+
+        if ($this->hasCustomUsername()) {
+            $names->shift();
+            $names->prepend('foo');
+        }
+
+        return $names;
+    }
+
+    public function hasCustomUsername()
+    {
+        return (bool) $this->user_name;
+    }
+
     public function ratings()
     {
         return $this->hasMany(Rating::class);
