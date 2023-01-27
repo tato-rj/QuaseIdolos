@@ -10,9 +10,9 @@
       <div class="d-flex align-items-center">
         <div class="mr-2 no-truncate">
           @if($user->hasAvatar())
-          @include('components.avatar.image', ['size' => '30px', 'star' => true])
+          @include('components.avatar.image', ['size' => '30px'])
           @else
-          @include('components.avatar.initial', ['size' => '30px', 'star' => true])
+          @include('components.avatar.initial', ['size' => '30px'])
           @endif
         </div>
 

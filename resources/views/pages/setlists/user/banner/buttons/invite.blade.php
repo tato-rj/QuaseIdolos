@@ -1,0 +1,1 @@
+<button data-bs-toggle="modal" data-bs-target="#guest-invite-modal" class="btn btn-secondary mr-2">@fa(['icon' => 'users', 'mr' => 0])</button>

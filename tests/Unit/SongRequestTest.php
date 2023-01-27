@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, Artist, SongRequest, Gig, User, Rating, SongRequestGuest};
+use App\Models\{Song, Artist, SongRequest, Gig, User, Rating, Invitation};
 
 class SongRequestTest extends AppTest
 {
@@ -29,9 +29,9 @@ class SongRequestTest extends AppTest
     /** @test */
     public function it_has_many_guests()
     {
-        SongRequestGuest::factory()->create(['song_request_id' => $this->songRequest->id]);
+        Invitation::factory()->create(['song_request_id' => $this->songRequest->id]);
 
-        $this->assertInstanceOf(SongRequestGuest::class, $this->songRequest->guests->first());
+        $this->assertInstanceOf(Invitation::class, $this->songRequest->invitations->first());
     }
 
     /** @test */
@@ -65,27 +65,27 @@ class SongRequestTest extends AppTest
     /** @test */
     public function it_knows_its_confirmed_guests()
     {
-        SongRequestGuest::factory()->create(['song_request_id' => $this->songRequest->id]);
+        Invitation::factory()->create(['song_request_id' => $this->songRequest->id]);
 
-        $this->assertCount(1, $this->songRequest->guests);
-        $this->assertCount(0, $this->songRequest->guests()->confirmed()->get());
+        $this->assertCount(1, $this->songRequest->invitations);
+        $this->assertCount(0, $this->songRequest->invitations()->confirmed()->get());
 
-        $this->songRequest->guests->first()->confirm();
+        $this->songRequest->invitations->first()->confirm();
 
-        $this->assertCount(1, $this->songRequest->guests()->confirmed()->get());
+        $this->assertCount(1, $this->songRequest->invitations()->confirmed()->get());
     }
 
     /** @test */
     public function it_knows_its_unconfirmed_guests()
     {
-        SongRequestGuest::factory()->create(['song_request_id' => $this->songRequest->id]);
+        Invitation::factory()->create(['song_request_id' => $this->songRequest->id]);
 
-        $this->assertCount(1, $this->songRequest->guests);
-        $this->assertCount(1, $this->songRequest->guests()->unconfirmed()->get());
+        $this->assertCount(1, $this->songRequest->invitations);
+        $this->assertCount(1, $this->songRequest->invitations()->unconfirmed()->get());
 
-        $this->songRequest->guests->first()->confirm();
+        $this->songRequest->invitations->first()->confirm();
 
-        $this->assertCount(0, $this->songRequest->guests()->unconfirmed()->get());
+        $this->assertCount(0, $this->songRequest->invitations()->unconfirmed()->get());
     }
 
     /** @test */

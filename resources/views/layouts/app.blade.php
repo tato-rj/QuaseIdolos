@@ -165,10 +165,15 @@ a {
 
         @unless(isset($raw))
             @auth
-            @include('pages.gigs.banner')
-            @admin
-            @include('pages.gigs.status')
-            @endadmin
+                @include('pages.gigs.banner')
+
+                @if(auth()->user()->invitations()->unconfirmed()->exists())
+                @include('pages.participants.modals.confirm')
+                @endif
+        
+                @admin
+                @include('pages.gigs.status')
+                @endadmin
             @endauth
         @endunless
         
@@ -543,8 +548,57 @@ $(document).ready(function() {
 //          });
 // });
 </script>
-<script type="text/javascript">
 
+<script type="text/javascript">
+$(document).on('click', 'button[name="change-song"], button[name="invite-user"], button[name="cancel-invite-user"]', function() {
+    $($(this).data('target-hide')).toggle();
+    $($(this).data('target-show')).toggle();
+});
+</script>
+
+<script type="text/javascript">
+$(document).on('click', '[name="participant-avatar"]', function() {
+    selectParticipant(this);
+
+    let $modal = $(this).closest('.modal');
+    let $selectedParticipants = $(this).parent().find('[name="participant-avatar"].participant-selected');
+    let $otherParticipants = $(this).parent().find('[name="participant-avatar"]').not(this).not('.participant-selected');
+    
+    if (! $(this).hasClass('participant-selected')) {
+        $(this).addClass('opacity-4');
+    }
+
+    if ($selectedParticipants.length) {
+        $otherParticipants.addClass('opacity-4');
+    } else {
+        resetParticipants();
+    }
+})
+
+function selectParticipant(element)
+{
+    $(element).find('input[name="participants[]"]').prop('checked', true);
+    $(element).removeClass('opacity-4');
+    $(element).toggleClass('participant-selected');
+    $(element).find('p').toggleClass('text-secondary opacity-8');
+    $(element).find('.avatar-img').toggleClass('border border-lg');
+    $(element).find('.checkmark').toggle(); 
+}
+
+function resetParticipants()
+{
+    $('[name="participant-avatar"]').find('input[name="participants[]"]').prop('checked', false);
+    $('[name="participant-avatar"]').removeClass('opacity-4');
+    $('[name="participant-avatar"]').removeClass('participant-selected');
+    $('[name="participant-avatar"]').find('p').removeClass('text-secondary');
+    $('[name="participant-avatar"]').find('p').addClass('opacity-8');
+    $('[name="participant-avatar"]').find('.avatar-img').removeClass('border border-lg');
+    $('[name="participant-avatar"]').find('.checkmark').hide(); 
+}
+
+$(document).on('click', 'button[name="cancel-invite-user"]', function() {
+    resetParticipants();
+});
 </script>
         @stack('scripts')
     </body>

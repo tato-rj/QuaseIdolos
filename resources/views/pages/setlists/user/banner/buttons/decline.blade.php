@@ -1,0 +1,1 @@
+<button data-bs-toggle="modal" data-bs-target="#song-requests-decline-{{$songRequest->id}}-modal" class="btn btn-red">@fa(['icon' => 'times', 'mr' => 0])</button>

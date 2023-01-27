@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\{User, SongRequest};
 
-class SongRequestGuestFactory extends Factory
+class InvitationFactory extends Factory
 {
     /**
      * Define the model's default state.

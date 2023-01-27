@@ -43,9 +43,9 @@ class User extends Authenticatable
         return $this->hasMany(SongRequest::class)->with(['song', 'user']);
     }
 
-    public function songRequestsGuest()
+    public function invitations()
     {
-        return $this->hasMany(SongRequestGuest::class);
+        return $this->hasMany(Invitation::class);
     }
 
     public function participations()

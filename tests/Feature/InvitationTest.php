@@ -6,7 +6,7 @@ use Tests\AppTest;
 use App\Models\{Gig, Song, SongRequest, User};
 use App\Events\{SongRequested, SongCancelled, SongFinished};
 
-class SongRequestGuestTest extends AppTest
+class InvitationTest extends AppTest
 {
     public function setUp() : void
     {
@@ -28,15 +28,15 @@ class SongRequestGuestTest extends AppTest
 
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $userA]);
 
-        $this->assertCount(0, $songRequest->guests);
+        $this->assertCount(0, $songRequest->invitations);
 
-        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $userB]));
+        $this->post(route('song-requests.invite', $songRequest), ['participants' => [$userB->id]]);
 
-        $this->assertCount(1, $songRequest->guests()->get());
+        $this->assertCount(1, $songRequest->invitations()->get());
     }
 
     /** @test */
-    public function a_user_can_invite_another_user_who_isnt_in_the_same_event()
+    public function a_user_cannot_invite_another_user_who_isnt_in_the_same_event()
     {
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
 
@@ -49,7 +49,7 @@ class SongRequestGuestTest extends AppTest
 
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $userA]);
 
-        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $userB]));
+        $this->post(route('song-requests.invite', $songRequest), ['participants' => [$userB->id]]);
     }
 
     /** @test */
@@ -65,17 +65,17 @@ class SongRequestGuestTest extends AppTest
 
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $userA]);
 
-        $this->assertCount(0, $songRequest->guests);
+        $this->assertCount(0, $songRequest->invitations);
 
-        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $userB]));
+        $this->post(route('song-requests.invite', $songRequest), ['participants' => [$userB->id]]);
 
-        $this->assertCount(1, $songRequest->guests()->get());
+        $this->assertCount(1, $songRequest->invitations()->get());
 
         $this->signin($userB);
 
         $this->delete(route('song-requests.decline', $songRequest));
 
-        $this->assertCount(0, $songRequest->guests()->get());
+        $this->assertCount(0, $songRequest->invitations()->get());
     }
 
     /** @test */
@@ -91,15 +91,15 @@ class SongRequestGuestTest extends AppTest
 
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $userA]);
 
-        $this->assertCount(0, $songRequest->guests);
+        $this->assertCount(0, $songRequest->invitations);
 
-        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $userB]));
+        $this->post(route('song-requests.invite', $songRequest), ['participants' => [$userB->id]]);
 
-        $this->assertCount(1, $songRequest->guests()->get());
+        $this->assertCount(1, $songRequest->invitations()->get());
 
-        $this->delete(route('song-requests.decline', ['songRequest' => $songRequest, 'guest' => $userB]));
+        $this->delete(route('song-requests.decline', ['songRequestId' => $songRequest, 'guest' => $userB]));
 
-        $this->assertCount(0, $songRequest->guests()->get());
+        $this->assertCount(0, $songRequest->invitations()->get());
     }
 
     /** @test */
@@ -115,15 +115,15 @@ class SongRequestGuestTest extends AppTest
 
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $userA]);
 
-        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $userB]));
+        $this->post(route('song-requests.invite', $songRequest), ['participants' => [$userB->id]]);
 
-        $this->assertCount(0, $songRequest->guests()->confirmed()->get());
+        $this->assertCount(0, $songRequest->invitations()->confirmed()->get());
 
         $this->signin($userB);
 
         $this->patch(route('song-requests.confirm-invitation', $songRequest));
 
-        $this->assertCount(1, $songRequest->guests()->confirmed()->get());
+        $this->assertCount(1, $songRequest->invitations()->confirmed()->get());
     }
 
     /** @test */
@@ -139,13 +139,13 @@ class SongRequestGuestTest extends AppTest
 
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $user]);
 
-        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $guest]));
+        $this->post(route('song-requests.invite', $songRequest), ['participants' => [$guest->id]]);
 
-        $this->assertDatabaseHas('song_request_guests', ['user_id' => $guest->id]);
+        $this->assertDatabaseHas('invitations', ['user_id' => $guest->id]);
 
         $this->delete(route('song-requests.cancel', $songRequest));
 
-        $this->assertDatabaseMissing('song_request_guests', ['user_id' => $guest->id]);
+        $this->assertDatabaseMissing('invitations', ['user_id' => $guest->id]);
     }
 
     /** @test */
@@ -161,13 +161,13 @@ class SongRequestGuestTest extends AppTest
 
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $user]);
 
-        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $guest]));
+        $this->post(route('song-requests.invite', $songRequest), ['participants' => [$guest->id]]);
 
-        $this->assertDatabaseHas('song_request_guests', ['user_id' => $guest->id]);
+        $this->assertDatabaseHas('invitations', ['user_id' => $guest->id]);
 
         $this->delete(route('profile.destroy'));
 
-        $this->assertDatabaseMissing('song_request_guests', ['user_id' => $guest->id]);
+        $this->assertDatabaseMissing('invitations', ['user_id' => $guest->id]);
     }
 
     /** @test */
@@ -183,14 +183,14 @@ class SongRequestGuestTest extends AppTest
 
         $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => $user]);
 
-        $this->post(route('song-requests.invite', ['songRequest' => $songRequest, 'guest' => $guest]));
+        $this->post(route('song-requests.invite', $songRequest), ['participants' => [$guest->id]]);
 
-        $this->assertDatabaseHas('song_request_guests', ['user_id' => $guest->id]);
+        $this->assertDatabaseHas('invitations', ['user_id' => $guest->id]);
 
         $this->signIn($guest);
 
         $this->delete(route('profile.destroy'));
 
-        $this->assertDatabaseMissing('song_request_guests', ['user_id' => $guest->id]);
+        $this->assertDatabaseMissing('invitations', ['user_id' => $guest->id]);
     }
 }

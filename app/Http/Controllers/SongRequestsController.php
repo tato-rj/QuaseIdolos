@@ -13,8 +13,8 @@ class SongRequestsController extends Controller
     {
         $songRequest = (new SongRequest)->add(auth()->user(), $song, auth()->user()->liveGig, $request->user_name);
 
-        // if ($guests = json_decode($request->guests))
-        //     $songRequest->inviteMany($guests);
+        if ($request->has('participants'))
+            $songRequest->inviteMany($request->participants);
 
         try {
             SongRequested::dispatch($songRequest);
@@ -46,6 +46,9 @@ class SongRequestsController extends Controller
             return;
 
         $songRequests = auth()->user()->songRequests()->forGig(auth()->user()->liveGig)->waiting()->get();
+        $invitations = auth()->user()->invitations()->confirmed()->forGig(auth()->user()->liveGig)->waiting()->get();
+
+        $songRequests = $songRequests->merge($invitations->pluck('songRequest'));
 
         if (! $songRequests->isEmpty())
             return view('pages.setlists.user.banner.index', compact('songRequests'))->render();

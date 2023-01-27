@@ -20,7 +20,15 @@
 </div>
 
 @foreach($songRequests as $songRequest)
-@include('pages.song-requests.modals.cancel', ['entry' => $songRequest])
-@include('pages.song-requests.modals.change', ['entry' => $songRequest])
+@if($songRequest->user->is(auth()->user()))
+	@include('pages.song-requests.modals.cancel', ['entry' => $songRequest])
+	@include('pages.song-requests.modals.change', ['entry' => $songRequest])
+	@modal(['title' => 'Enviar um convite', 'id' => 'guest-invite-modal'])
+	@include('pages.participants.invite', ['songRequest' => $songRequest])
+	@endmodal
+	@else
+	@include('pages.song-requests.modals.decline', ['entry' => $songRequest])
+@endif
 @endforeach
+
 

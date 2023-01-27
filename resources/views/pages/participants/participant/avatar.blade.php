@@ -16,4 +16,9 @@ data-bs-toggle="modal" data-bs-target="#participant-{{$participant->id}}-modal"
       @endif
 	</div>
 	<p class="m-0 px-2 text-truncate opacity-8">{{$participant->user->firstName}}</p>
+
+    @isset($selectable)
+          <input name="participants[]" style="opacity:0; position:absolute; left:9999px;" type="checkbox" 
+            value="{{$participant->user->id}}">
+    @endisset
 </div>

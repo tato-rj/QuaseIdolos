@@ -9,7 +9,7 @@ class SongRequest extends BaseModel
     protected static function booted()
     {
         self::deleting(function(SongRequest $songRequest) {
-            $songRequest->guests->each->delete();
+            $songRequest->invitations->each->delete();
         });
     }
 
@@ -28,9 +28,9 @@ class SongRequest extends BaseModel
         return $this->belongsToThrough(Artist::class, Song::class);
     }
 
-    public function guests()
+    public function invitations()
     {
-        return $this->hasMany(SongRequestGuest::class);
+        return $this->hasMany(Invitation::class);
     }
 
     public function winners()
@@ -45,7 +45,7 @@ class SongRequest extends BaseModel
 
     public function singers()
     {
-        return $this->guests->pluck('user')->prepend($this->user);
+        return $this->invitations->pluck('user')->prepend($this->user);
     }
 
     public function singersNames()
@@ -54,7 +54,7 @@ class SongRequest extends BaseModel
 
         if ($this->hasCustomUsername()) {
             $names->shift();
-            $names->prepend('foo');
+            $names->prepend('NOME AQUI');
         }
 
         return $names;
@@ -80,16 +80,21 @@ class SongRequest extends BaseModel
 
     public function invite(User $user)
     {
-        return SongRequestGuest::firstOrcreate([
+        return Invitation::firstOrcreate([
             'song_request_id' => $this->id,
             'user_id' => $user->id]);
     }
 
     public function decline(User $user)
     {
-        return SongRequestGuest::where([
+        Invitation::where([
             'song_request_id' => $this->id,
             'user_id' => $user->id])->delete();
+    }
+
+    public function invited(User $user)
+    {
+        return $this->invitations()->to($user)->exists();
     }
 
     // public function position($complete = false)

@@ -1,0 +1,1 @@
+<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$songRequest->id}}-modal" class="btn btn-red">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>

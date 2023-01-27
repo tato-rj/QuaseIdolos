@@ -13,7 +13,7 @@ class CreateSongRequestGuestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('song_request_guests', function (Blueprint $table) {
+        Schema::create('invitations', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('song_request_id');
             $table->unsignedInteger('user_id');
@@ -31,6 +31,6 @@ class CreateSongRequestGuestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('song_request_guests');
+        Schema::dropIfExists('invitations');
     }
 }

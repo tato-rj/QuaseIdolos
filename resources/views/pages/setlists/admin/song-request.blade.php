@@ -4,6 +4,7 @@
 			<h4 class="no-stroke text-primary font-cursive">@fa(['icon' => 'bars', 'classes' => 'my-handle'])
 				{{arrayToSentence($entry->singersNames()->toArray())}}
 			</h4>
+
 			<div class="mb-2">
 				<h4 class="text-dark no-stroke m-0" style="white-space: initial;">{{$entry->song->name}}</h4>
 				<h6 class="text-dark no-stroke m-0 text-truncate opacity-6">{{$entry->song->artist->name}}</h6>
@@ -11,14 +12,6 @@
 
 			<div class="d-flex mr-2 no-truncate">
 				@include('pages.setlists.admin.singers')
-
-{{-- 				<div>
-					@if($entry->user->hasAvatar())
-					@include('components.avatar.image', ['size' => '56px', 'user' => $entry->user])
-					@else
-					@include('components.avatar.initial', ['size' => '56px', 'user' => $entry->user])
-					@endif
-				</div> --}}
 			</div>
 		</div>
 		<div class="col-lg-4 col-12">
