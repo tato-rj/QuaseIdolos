@@ -566,6 +566,7 @@ $(document).on('click', '[name="participant-avatar"]', function() {
     
     if (! $(this).hasClass('participant-selected')) {
         $(this).addClass('opacity-4');
+        $(this).find('input[name="participants[]"]').prop('checked', false);
     }
 
     if ($selectedParticipants.length) {
