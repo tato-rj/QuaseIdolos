@@ -10,10 +10,10 @@
     <div>      
       @if(auth()->user()->liveGig && auth()->user()->liveGig->participatesInRatings())
         @link(['route' => route('ratings.index'), 'label' => 'Votação', 'icon' => 'trophy'])
-        @link(['route' => route('gig.participants.index', auth()->user()->liveGig), 'label' => 'Participantes'])
-        @include('layouts.menu.components.divider')
       @endif
-
+      @link(['route' => route('gig.participants.index', auth()->user()->liveGig), 'label' => 'Participantes'])
+      @include('layouts.menu.components.divider')
+      
      @link(['route' => route('profile.show'), 'label' => 'Meu Perfil'])
      @link(['route' => route('cardapio.index'), 'label' => 'Cardápio'])
 
