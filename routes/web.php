@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Route;
 // GUEST ROUTES //
 //////////////////
 
+    Route::prefix('cardapio')->name('cardapio.')->group(function() {
+        Route::get('', 'CardapioController@index')->name('index');
+        
+        // Route::get('busca', 'CardapioController@search')->name('search');
+    });
+    
 Route::withoutMiddleware('join-gig')->group(function() {
     Route::get('', 'ViewsController@home')->name('home');
 
@@ -20,7 +26,7 @@ Route::withoutMiddleware('join-gig')->group(function() {
     });
 
     Route::prefix('cardapio')->name('cardapio.')->group(function() {
-        Route::get('', 'CardapioController@index')->name('index');
+        // Route::get('', 'CardapioController@index')->name('index');
         
         Route::get('busca', 'CardapioController@search')->name('search');
     });
