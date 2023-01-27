@@ -15,6 +15,7 @@
 
 	<div class="mb-4 d-flex flex-wrap">
 		@foreach(auth()->user()->liveGig->participants as $participant)
+		@if(! $participant->user->is(auth()->user()))
 		@isset($songRequest)
 		@if(! $songRequest->invited($participant->user))
 		@include('pages.participants.participant.avatar', ['selectable' => true])
@@ -22,6 +23,7 @@
 		@else
 		@include('pages.participants.participant.avatar', ['selectable' => true])
 		@endisset
+		@endif
 		@endforeach
 	</div>
 
