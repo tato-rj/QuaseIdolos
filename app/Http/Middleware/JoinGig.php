@@ -44,6 +44,9 @@ class JoinGig
 
                 return redirect(route('gig.select', ['origin' => $this->getOrigin($request)]));
             }
+
+            // if ($modal)
+                // return redirect($this->getOrigin($request))->with('modal', $modal);
         }
 
         return $next($request);
