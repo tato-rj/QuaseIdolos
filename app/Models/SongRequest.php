@@ -45,7 +45,19 @@ class SongRequest extends BaseModel
 
     public function singers()
     {
-        return $this->invitations->pluck('user')->prepend($this->user);
+        $singers = collect();
+
+        $this->user->confirmed_at = now();
+
+        $singers->push($this->user);
+
+        foreach ($this->invitations as $invitation) {
+            $invitation->user->confirmed_at = $invitation->confirmed_at;
+
+            $singers->push($invitation->user);
+        }
+
+        return $singers;
     }
 
     public function singersNames()
