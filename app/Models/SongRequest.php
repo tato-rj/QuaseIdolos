@@ -66,7 +66,7 @@ class SongRequest extends BaseModel
 
         if ($this->hasCustomUsername()) {
             $names->shift();
-            $names->prepend('NOME AQUI');
+            $names->prepend($this->user_name);
         }
 
         return $names;
