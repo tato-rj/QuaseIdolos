@@ -171,6 +171,10 @@ a {
                 @include('pages.participants.modals.confirm')
                 @endif
         
+                @if(session('invite-confirmed'))
+                @include('pages.participants.splashscreen')
+                @endif
+
                 @admin
                 @include('pages.gigs.status')
                 @endadmin
@@ -210,6 +214,22 @@ a {
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
         <script src="{{mix('js/vendor/datepicker-pt-BR.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/vendor/jquery.jscroll.min.js')}}"></script>
+<script type="text/javascript">
+let invitationVideo = document.getElementById('participant-video-confirmed')
+
+if (invitationVideo) {
+    invitationVideo.play();
+
+    invitationVideo.addEventListener('ended',hideOnEnd,false);
+
+    function hideOnEnd(e) {
+        $(this).css('width', '400%');
+        $($(this).data('target')).fadeOut('fast', 'linear', function() {
+            $(this).remove();
+        });
+    }
+}
+</script>
 
 <script type="text/javascript">
 $('.table-container select[name="order_by"]').on('change', function() {
