@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{Gig, Song, SongRequest, User};
+use App\Models\{Gig, Song, SongRequest, User, Invitation};
 use App\Events\{SongRequested, SongCancelled, SongFinished};
 
 class InvitationTest extends AppTest
@@ -192,5 +192,23 @@ class InvitationTest extends AppTest
         $this->delete(route('profile.destroy'));
 
         $this->assertDatabaseMissing('invitations', ['user_id' => $guest->id]);
+    }
+
+    /** @test */
+    public function when_a_group_request_is_confirmed_any_unconfirmed_requests_are_confirmed()
+    {
+        $this->signIn();
+
+        $songRequest = SongRequest::factory()->create(['gig_id' => $this->gig->id, 'user_id' => auth()->user()]);
+
+        Invitation::factory()->create(['song_request_id' => $songRequest]);
+
+        $this->signIn($this->admin);
+        
+        $this->assertCount(1, Invitation::unconfirmed()->get());
+
+        $this->post(route('song-requests.finish', $songRequest));
+
+        $this->assertCount(0, Invitation::unconfirmed()->get());
     }
 }

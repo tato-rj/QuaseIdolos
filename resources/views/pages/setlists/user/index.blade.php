@@ -15,18 +15,27 @@
 		@table([
 			'title' => 'Lista de espera',
 			'legend' => 'música|músicas',
+			'headers' => ['Música', 'Convidados', ''],
 			'rows' => $waitingList,
 			'view' => 'pages.setlists.user.row'
 		])
 
 		@table([
 			'empty' => true,
-			'title' => ! $waitingList->isEmpty() ? 'Músicas que já cantei' : null,
+			'title' => 'Músicas que já cantei',
+			'headers' => ['Música', 'Convidados', ''],
 			'legend' => 'música|músicas',
 			'rows' => $pastList,
 			'view' => 'pages.setlists.user.row'
 		])
 
+		@table([
+			'title' => 'Convites recebidos',
+			'headers' => ['Convite de', 'Música', ''],
+			'legend' => 'música|músicas',
+			'rows' => $groupList,
+			'view' => 'pages.setlists.user.invitedRow'
+		])
 </section>
 
 @endsection

@@ -45,7 +45,7 @@ Route::withoutMiddleware('join-gig')->group(function() {
 
 Route::middleware('auth')->group(function() {
     Route::prefix('meu-perfil')->withoutMiddleware('join-gig')->name('profile.')->group(function() {
-        Route::get('', 'UsersController@show')->name('show');
+        Route::get('', 'UsersController@profile')->name('show');
 
         Route::patch('{user?}', 'UsersController@update')->name('update');
 

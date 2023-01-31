@@ -64,6 +64,7 @@ class SongRequestsController extends Controller
         $this->authorize('update', $songRequest);
 
         $songRequest->finish();
+        $songRequest->invitations->each->confirm();
         $songRequest->gig->sortSetlist();
 
         try {

@@ -76,6 +76,22 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
+    public function it_knows_how_to_exclude_invitations_from_the_same_user()
+    {
+        $user = User::factory()->create();
+
+        $songRequest = SongRequest::factory()->create(['user_id' => $user]);
+
+        $this->assertCount(1, $user->songRequests()->get());
+
+        $this->assertCount(1, $user->songRequests()->excludeInvitations()->get());
+
+        Invitation::factory()->create(['song_request_id' => $songRequest->id]);
+
+        $this->assertCount(0, $user->songRequests()->excludeInvitations()->get());
+    }
+
+    /** @test */
     public function it_knows_its_unconfirmed_guests()
     {
         Invitation::factory()->create(['song_request_id' => $this->songRequest->id]);

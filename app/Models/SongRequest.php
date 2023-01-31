@@ -60,9 +60,16 @@ class SongRequest extends BaseModel
         return $singers;
     }
 
-    public function singersNames()
+    public function singersNames($excludeMe = false)
     {
-        $names = $this->singers()->pluck('first_name');
+        $singers = $this->singers();
+
+        if ($excludeMe)
+            $singers = $singers->filter(function($singer) {
+                return ! $singer->is(auth()->user());
+            });
+
+        $names = $singers->pluck('first_name');
 
         if ($this->hasCustomUsername()) {
             $names->shift();
@@ -118,6 +125,11 @@ class SongRequest extends BaseModel
 
     //     return '#' . $this->order . $suffix;
     // }
+
+    public function scopeExcludeInvitations($query)
+    {
+        return $query->whereDoesntHave('invitations');
+    }
 
     public function scopeFrom($query, User $user)
     {

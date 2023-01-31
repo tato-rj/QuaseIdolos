@@ -5,7 +5,7 @@
 
 	@if($user->is(auth()->user()))
 	<div class="mx-auto mb-4" style="width: 300px">
-		@include('pages.profile.avatar')
+		@include('pages.users.avatar.edit')
 	</div>
 	@endif
 

@@ -22,14 +22,14 @@ class UsersController extends Controller
         return view('pages.users.results', compact('users'))->render();
     }
 
-    public function show()
+    public function profile()
     {
-        return view('pages.profile.index');
+        return view('pages.users.show.index', ['user' => auth()->user()]);
     }
 
     public function edit(User $user)
     {
-        return view('pages.users.edit', compact('user'));
+        return view('pages.users.show.index', compact('user'));
     }
 
     public function store(Request $request)

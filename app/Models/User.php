@@ -48,6 +48,13 @@ class User extends Authenticatable
         return $this->hasMany(Invitation::class);
     }
 
+    public function invitationsSung()
+    {
+        return $this->invitations()->whereHas('songRequest', function($q) {
+            $q->whereNotNull('finished_at')->orderBy('finished_at', 'DESC');
+        });
+    }
+
     public function participations()
     {
         return $this->hasMany(Participant::class);

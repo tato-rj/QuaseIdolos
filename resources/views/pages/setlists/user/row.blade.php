@@ -8,6 +8,12 @@
 	</div>
   @endslot
 
+  @slot('column2')
+  <div class="">
+		{{arrayToSentence($list->singersNames($excludeMe = true)->toArray())}}
+	</div>
+  @endslot
+
   @slot('actions')
 	@if($list->finished_at)
 		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">@fa(['icon' => 'guitar', 'mr' => 0])</button>

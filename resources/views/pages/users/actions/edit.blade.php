@@ -1,2 +1,2 @@
 <button data-bs-toggle="modal" data-bs-target="#edit-profile-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])Editar Perfil</button>
-@include('pages.profile.modals.profile')
+@include('pages.users.modals.profile')
