@@ -51,8 +51,15 @@
 		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => $gig->isPrivate()])
 	</div>
 
-	<div class="text-left mb-3"> 
+	<div class="text-left mb-3 has-password-container"> 
 		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => $gig->password()->required()])
+		<div
+		@if(! $gig->password()->required())
+		 style="display: none;"
+		@endif 
+		class="mt-3 custom-password">
+			@input(['placeholder' => 'Senha (opcional)', 'name' => 'password', 'value' => $gig->password])
+		</div>
 	</div>
 
 	<div class="text-left mb-3"> 

@@ -28,8 +28,15 @@
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => old('is_private') ?? false])
 	</div>
-	<div class="text-left mb-3"> 
+	<div class="text-left mb-3 has-password-container"> 
 		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => old('has_password') ?? false])
+		<div 
+		@if(! old('has_password'))
+		style="display: none;"
+		@endif
+		class="mt-3 custom-password">
+			@input(['placeholder' => 'Senha (opcional)', 'name' => 'password', 'value' => old('password')])
+		</div>
 	</div>
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => old('has_ratings') ?? true])

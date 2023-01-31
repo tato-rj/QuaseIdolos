@@ -231,6 +231,18 @@ if (invitationVideo) {
 }
 </script>
 
+<script>
+$('input[name="has_password"]').change(function() {
+    let $customPass = $(this).closest('.has-password-container').find('.custom-password');
+    
+    if ($(this).prop('checked')) {
+        $customPass.show();
+    } else {
+        $customPass.val('').hide();
+    }
+});
+</script>
+
 <script type="text/javascript">
 $('.table-container select[name="order_by"]').on('change', function() {
     $(this).closest('form').submit();

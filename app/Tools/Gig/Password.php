@@ -31,9 +31,9 @@ class Password
     	return str_split($this->gig->password);
     }
 
-    public function update()
+    public function update($password = null)
     {
-    	$this->gig->update(['password' => $this->generate()]);
+    	$this->gig->update(['password' => $password ?? $this->generate()]);
     }
 
     public function destroy()

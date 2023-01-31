@@ -91,6 +91,7 @@ class GigsController extends Controller
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
             'scheduled_for' => 'required',
+            'password' => 'sometimes|nullable|digits:4|numeric'
         ]);
 
         $gig = Gig::create([
@@ -110,9 +111,8 @@ class GigsController extends Controller
 
         $gig->musicians()->attach($request->musicians);
 
-        if ($request->has_password) {
-            $gig->password()->update();
-        }
+        if ($request->has_password)
+            $gig->password()->update($request->password);
 
         return back()->with('success', 'O evento foi criado com sucesso');
     }
@@ -147,6 +147,7 @@ class GigsController extends Controller
             'venue_id' => 'required|exists:venues,id',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
+            'password' => 'sometimes|nullable|digits:4|numeric'
         ]);
 
         $gig->update([
@@ -166,8 +167,8 @@ class GigsController extends Controller
         $gig->musicians()->sync($request->musicians);
 
         if ($request->has_password) {
-            if (! $gig->password()->required())
-                $gig->password()->update();
+            // if (! $gig->password()->required())
+                $gig->password()->update($request->password);
         } else {
             $gig->password()->destroy();
         }
