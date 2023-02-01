@@ -11,7 +11,7 @@
                      @endif
                   </div>
                   <div class="mr-2 text-truncate">
-                     <h3 class="mb-0 text-dark no-stroke text-truncate" style="font-size: 2.2rem">{{$user->name}}</h3>
+                     <h3 class="mb-0 text-dark no-stroke text-truncate" style="font-size: 2.2rem">{{arrayToSentence($songRequest->singersNames()->toArray())}}</h3>
                   </div>
                </div>
                <div class="d-flex">

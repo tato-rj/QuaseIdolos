@@ -77,6 +77,8 @@ $(document).on('click', 'button.star-rating', function() {
 		 .catch(function(error) {
 		 	if (error.response.status == 429) {
 		 		alert(error.response.data.message);
+		 	} else if (error.response.status == 404) {
+		 		alert('Parece que essa música foi removida pelo cantor');
 		 	} else {
 		 		alert('Não estamos recebendo votos agora');
 		 	}

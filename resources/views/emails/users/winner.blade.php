@@ -1,6 +1,6 @@
 @component('mail::message')
 <div class="text-center mb-3">
-<h1 class="heading text-primary m-0 lh-1" style="font-size: 2rem">Parabéns {{$winner->user->first_name}}!!</h1>
+<h1 class="heading text-primary m-0 lh-1" style="font-size: 2rem">Parabéns {{$user->first_name}}!!</h1>
 <h4 class="m-0 mb-4">Você ganhou o <strong><u>1° Lugar</u></strong> na votação de hoje</h4>
 <img src="{{asset('images/music-award.png')}}" width="200" class="mb-3">
 </div>
@@ -13,7 +13,7 @@
 </div>
 </div>
 
-@include('mail::list', [
+{{-- @include('mail::list', [
 	'theme' => 'secondary', 
 	'items' => [
 		'EVENTO' => $winner->gig->name(),
@@ -22,7 +22,7 @@
 		'PARTICIPANTES' => $ranking->votersCount . ' cantores',
 		'VOTOS RECEBIDOS' => $ranking->ratings->first()->count . ' votos'
 	]
-])
+]) --}}
 
 <p>Obrigado por participar do evento <strong>{{$winner->gig->name()}}</strong> com a banda Quase Ídolos, esperamos ver você cantando com a gente de novo em breve.</p>
 

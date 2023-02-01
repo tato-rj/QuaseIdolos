@@ -16,7 +16,7 @@ class WinnersController extends Controller
             return back()->with('error', 'O vencedor não pode ser anunciado');
         }
 
-        return back()->with('success', 'Um email foi enviado para o vencedor');
+        return back()->with('success', 'O vencedor foi escolhido e a votação encerrada');
     }
 
     public function show()
@@ -31,8 +31,11 @@ class WinnersController extends Controller
 
         $winner = $ranking->ratings->first();
 
-        if (! $gig->winner()->exists())
-            \Mail::to($winner->songRequest->user->email)->queue(new WinnerEmail($ranking));
+        if (! $gig->winner()->exists()) {
+            foreach ($winner->songRequest->singers() as $user) {
+                \Mail::to($user->email)->queue(new WinnerEmail($ranking, $user));
+            }
+        }
 
         $gig->winner()->associate($winner->songRequest)->save();
 

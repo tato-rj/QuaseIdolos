@@ -14,7 +14,7 @@
 				</div>
 				<div class="mr-2 text-truncate">
 					<div class="d-flex flex-column">
-						<h5 class="mb-0 text-dark no-stroke text-truncate">{{$user->first_name}} <small class="opacity-6">cantando</small></h5>
+						<h5 class="mb-0 text-dark no-stroke text-truncate">{{arrayToSentence($songRequest->singersNames()->toArray())}} <small class="opacity-6">cantando</small></h5>
 						<h6 class="mb-0 text-primary no-stroke text-truncate">{{$song->name}}</h6>
 					</div>
 				</div>

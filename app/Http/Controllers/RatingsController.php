@@ -43,6 +43,9 @@ class RatingsController extends Controller
         $timer = 10;
         $ratings = auth()->user()->liveGig->ratings->reverse()->groupBy('song_request_id');
 
+        if (auth()->user()->liveGig->winner()->exists())
+            return redirect(route('ratings.winner.show'));
+
         return view('pages.ratings.live.index', compact('timer'));
     }
 

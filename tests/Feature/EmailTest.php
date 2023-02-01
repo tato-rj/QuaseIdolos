@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\AppTest;
-use App\Models\{User, Gig, SongRequest, Rating, Suggestion};
+use App\Models\{User, Gig, SongRequest, Rating, Suggestion, Invitation};
 use App\Mail\Users\{WelcomeEmail, WinnerEmail, SuggestionEmail};
 
 class EmailTest extends AppTest
@@ -42,6 +42,30 @@ class EmailTest extends AppTest
 
         \Mail::assertQueued(function(WinnerEmail $mail) use ($winnerRequest, $loserRequest) {
             return $mail->winner->is($winnerRequest) && ! $mail->winner->is($loserRequest);
+        });
+    }
+
+    /** @test */
+    public function each_winner_in_a_group_request_can_receive_an_email_upon_announcement()
+    {
+        $this->signIn($this->admin);
+
+        $gig = Gig::factory()->create(['is_live' => true, 'starts_at' => now()]);
+
+        auth()->user()->join($gig);
+        
+        $winnerRequest = SongRequest::factory()->create(['gig_id' => $gig]);
+        $loserRequest = SongRequest::factory()->create(['gig_id' => $gig]);
+
+        Invitation::factory()->create(['song_request_id' => $winnerRequest]);
+
+        Rating::factory()->create(['song_request_id' => $winnerRequest, 'score' => 5]);
+        Rating::factory()->create(['song_request_id' => $loserRequest, 'score' => 1]);
+
+        $this->get(route('ratings.winner.show'));
+
+        \Mail::assertQueued(function(WinnerEmail $mail) use ($winnerRequest) {
+            return $mail->hasTo($winnerRequest->singers()->pluck('email'));
         });
     }
 

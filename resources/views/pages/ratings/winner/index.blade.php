@@ -1,5 +1,6 @@
-@php($user = $winner->songRequest->user)
-@php($song = $winner->songRequest->song)
+@php($songRequest = $winner->songRequest)
+@php($user = $songRequest->user)
+@php($song = $songRequest->song)
 
 @extends('layouts.app', ['title' => 'Votação', 'raw' => true])
 
