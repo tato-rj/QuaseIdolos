@@ -76,7 +76,7 @@ class SocialiteController extends Controller
     public function newUser($driver, $socialUser)
     {
         $user = User::create([
-            'name' => $socialUser->getName(),
+            'name' => ucfirst($socialUser->getName()),
             'email' => $socialUser->getEmail(),
             'avatar_url' => $this->saveLargeAvatar($socialUser->getAvatar()),
         ]);

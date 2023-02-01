@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Tools\Cropper\ImageUpload;
+use App\Rules\NotEmail;
 
 class UsersController extends Controller
 {
@@ -35,7 +36,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'string|required|max:255',
+            'name' => ['string', 'required', 'max:255', new NotEmail],
             'email' => 'email|required',
             'password' => 'string|required|confirmed|min:6'
         ]);
