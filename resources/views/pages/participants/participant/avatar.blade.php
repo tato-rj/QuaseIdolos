@@ -1,4 +1,5 @@
-<div class="text-center mb-3 cursor-pointer"
+<div class="text-center mb-3 cursor-pointer participant"
+data-search="{{str_slug($participant->user->name)}}"
 @isset($selectable)
 name="participant-avatar"
 data-id="{{$participant->user->id}}"

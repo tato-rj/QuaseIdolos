@@ -5,6 +5,11 @@ function showtags($str)
 	return htmlspecialchars($str);
 }
 
+function plural($word, $count)
+{
+	return \Str::plural($word, $count);
+}
+
 function uuid()
 {
 	return (string) \Str::uuid();
