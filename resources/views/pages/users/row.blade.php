@@ -2,7 +2,7 @@
 
 @row(['optional' => $optional ?? []])
   @slot('column1')
-  {{weekday($user->created_at->format('w'))}} dia {{$user->created_at->format('d/m')}}
+  {{weekday($user->created_at->format('w'))}} {{$user->created_at->format('d/m')}}
   @endslot
 
   @slot('column2')
