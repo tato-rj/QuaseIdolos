@@ -14,7 +14,7 @@
 	@csrf
 
 	<div class="mb-4 d-flex flex-wrap {{$agent->isMobile() ? 'justify-content-around' : null}}">
-		@foreach(auth()->user()->liveGig->participants()->guests()->get() as $participant)
+		@foreach(auth()->user()->liveGig->participants()->guests()->get()->sortBy('user.name') as $participant)
 		@if(! $participant->user->is(auth()->user()))
 		@isset($songRequest)
 		@if(! $songRequest->invited($participant->user))

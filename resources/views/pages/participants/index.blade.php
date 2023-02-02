@@ -1,4 +1,4 @@
-@php($participants = $gig->participants()->guests()->get())
+@php($participants = $gig->participants()->guests()->get()->sortBy('user.name'))
 
 @extends('layouts.app', ['title' => $gig->name() . ' - ' . 'Participantes'])
 
