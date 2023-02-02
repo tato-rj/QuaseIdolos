@@ -13,7 +13,7 @@
  data-action="sing" data-trigger="loader">
 	@csrf
 
-	<div class="mb-4 d-flex flex-wrap">
+	<div class="mb-4 d-flex flex-wrap {{$agent->isMobile() ? 'justify-content-around' : null}}">
 		@foreach(auth()->user()->liveGig->participants as $participant)
 		@if(! $participant->user->is(auth()->user()))
 		@isset($songRequest)
