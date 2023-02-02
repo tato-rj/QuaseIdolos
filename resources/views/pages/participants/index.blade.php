@@ -21,7 +21,7 @@
 
 <section class="container mb-6" id="participants-container">
 	<div class="row g-0">
-		<div class="col-lg-8 col-md-10 col-12 mx-auto d-flex flex-wrap {{$agent->isMobile() ? 'justify-content-between' : null}}">
+		<div class="col-lg-8 col-md-10 col-12 mx-auto d-flex flex-wrap {{$agent->isMobile() ? 'justify-content-around' : null}}">
 			@forelse($participants as $participant)
 			@include('pages.participants.participant.avatar')
 			@include('pages.participants.participant.modal')
