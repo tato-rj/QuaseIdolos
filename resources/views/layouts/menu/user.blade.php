@@ -9,23 +9,23 @@
   <div class="px-4">
     <div>
       @if(auth()->user()->participatesInRatings() && auth()->user()->liveGig)
-         <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])Votação</a>
+         <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])@lang('views/header.ratings')</a>
          @include('layouts.menu.components.divider')
       @endif
 
       @include('layouts.menu.guest.links')
       @include('layouts.menu.components.divider')
-       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('profile.show')}}">Meu Perfil</a>
-       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlists.user')}}">Minha Setlist</a>
-       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('favorites.index')}}">Músicas Favoritas</a>
+       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('profile.show')}}">@lang('views/header.profile')</a>
+       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('setlists.user')}}">@lang('views/header.my-songs')</a>
+       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('favorites.index')}}">@lang('views/header.my-favorites')</a>
        @if(auth()->user()->participatesInRatings())
-       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.user')}}">Minhas Notas</a>
+       <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.user')}}">@lang('views/header.my-ratings')</a>
        @endif
 
        <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1 mb-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
-      </form>@fa(['icon' => 'sign-out-alt'])Sair
+      </form>@fa(['icon' => 'sign-out-alt'])@lang('views/header.logout')
       </a>
     </div>
   </div>

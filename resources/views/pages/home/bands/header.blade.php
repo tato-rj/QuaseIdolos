@@ -4,15 +4,16 @@
 		<div class="text-center">
 			<div class="mb-5">
 				<img src="{{asset('images/brand/logo_lg.svg')}}" style="max-width: 500px; width: 90%" class="mb-2">
-				<h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2>
+				<h2>@lang('views/home.headline')</h2>
+				{{-- <h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2> --}}
 			</div>
 			@if(auth()->check() && auth()->user()->admin && auth()->user()->admin->manage_setlist)
 			<div class="d-center flex-column">
-				<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])SETLIST DE HOJE</a>
+				<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])@lang('views/home.btn-setlist')</a>
 			</div>
 			@else
 			<div class="d-center flex-column">
-				<a href="{{route('cardapio.index')}}" class="btn btn-secondary btn-lg mb-3">ESCOLHA A SUA MÚSICA AQUI</a>
+				<a href="{{route('cardapio.index')}}" class="btn btn-secondary btn-lg mb-3">@lang('views/home.btn-cardapio')</a>
 			</div>
 			@endif
 		</div>

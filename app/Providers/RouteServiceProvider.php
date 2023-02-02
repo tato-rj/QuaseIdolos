@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware(['web', 'live-gig', 'join-gig'])
+            Route::middleware(['web', 'live-gig', 'join-gig', 'localization'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });

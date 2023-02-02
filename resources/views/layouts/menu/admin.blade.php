@@ -9,15 +9,15 @@
   <div class="px-4">
     <div>      
       @if(auth()->user()->liveGig && auth()->user()->liveGig->participatesInRatings())
-        @link(['route' => route('ratings.index'), 'label' => 'Votação', 'icon' => 'trophy'])
+        @link(['route' => route('ratings.index'), 'lang' => 'views/header.ratings', 'icon' => 'trophy'])
       @endif
       @if(auth()->user()->liveGig)
-      @link(['route' => route('gig.participants.index', auth()->user()->liveGig), 'label' => 'Participantes'])
+      @link(['route' => route('gig.participants.index', auth()->user()->liveGig), 'lang' => 'views/header.participants'])
       @include('layouts.menu.components.divider')
       @endif
 
-     @link(['route' => route('profile.show'), 'label' => 'Meu Perfil'])
-     @link(['route' => route('cardapio.index'), 'label' => 'Cardápio'])
+     @link(['route' => route('profile.show'), 'lang' => 'views/header.profile'])
+     @link(['route' => route('cardapio.index'), 'lang' => 'views/header.songs-menu'])
 
      @if(auth()->user()->admin->manage_setlist)
      @link(['route' => route('setlists.admin'), 'label' => 'Setlist'])
@@ -25,28 +25,28 @@
 
      @include('layouts.menu.components.divider')
 
-     @link(['route' => route('artists.index'), 'label' => 'Artistas'])
-     @link(['route' => route('songs.index'), 'label' => 'Músicas'])
-     @link(['route' => route('genres.index'), 'label' => 'Estilos'])
-     @link(['route' => route('users.index'), 'label' => 'Usuários'])
+     @link(['route' => route('artists.index'), 'lang' => 'views/header.singers'])
+     @link(['route' => route('songs.index'), 'lang' => 'views/header.songs'])
+     @link(['route' => route('genres.index'), 'lang' => 'views/header.genres'])
+     @link(['route' => route('users.index'), 'lang' => 'views/header.users'])
 
      @if(auth()->user()->admin->isSuperAdmin())
-     @link(['route' => route('suggestions.index'), 'label' => 'Sugestões', 'count' => \App\Models\Suggestion::unconfirmed()->count()])
+     @link(['route' => route('suggestions.index'), 'lang' => 'views/header.suggestions', 'count' => \App\Models\Suggestion::unconfirmed()->count()])
      @endif
 
      @if(auth()->user()->admin->isSuperAdmin())
      @include('layouts.menu.components.divider')
 
-     @link(['route' => route('venues.index'), 'label' => 'Contratantes'])
-     @link(['route' => route('gig.index'), 'label' => 'Eventos'])
-     @link(['route' => route('team.index'), 'label' => 'Equipe'])
-     @link(['route' => route('stats.gigs'), 'label' => 'Estatísticas'])
+     @link(['route' => route('venues.index'), 'lang' => 'views/header.venues'])
+     @link(['route' => route('gig.index'), 'lang' => 'views/header.events'])
+     @link(['route' => route('team.index'), 'lang' => 'views/header.team'])
+     @link(['route' => route('stats.gigs'), 'lang' => 'views/header.statistics'])
      @endif
 
       <a class="nav-link bg-outline-secondary rounded-pill px-4 py-1 mb-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="">
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
-      </form>@fa(['icon' => 'sign-out-alt'])Sair
+      </form>@fa(['icon' => 'sign-out-alt'])@lang('views/header.logout')
       </a>
     </div>
   </div>

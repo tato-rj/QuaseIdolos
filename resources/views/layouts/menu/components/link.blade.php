@@ -2,7 +2,13 @@
 @isset($icon)
 @fa(['icon' => 'trophy'])
 @endisset
-{{$label}}
+
+{{$label ?? null}}
+
+@isset($lang)
+@lang($lang)
+@endisset
+
 @isset($count)
 @if($count)
 <small class="text-red no-stroke">({{$count}})</small>

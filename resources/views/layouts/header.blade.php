@@ -12,7 +12,7 @@
     @include('layouts.menu.layout')
     @else
     <div class="d-flex align-items-center">
-      <a class="nav-link font-cursive rounded-pill px-2 py-1" href="#" data-bs-toggle="modal" data-bs-target="#login-modal">@fa(['icon' => 'user-circle'])Entrar</a>
+      <a class="nav-link font-cursive rounded-pill px-2 py-1" href="#" data-bs-toggle="modal" data-bs-target="#login-modal">@fa(['icon' => 'user-circle'])@lang('views/header.login')</a>
       @include('layouts.menu.components.hamburger')
     </div>
     @endauth

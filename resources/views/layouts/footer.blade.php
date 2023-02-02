@@ -39,3 +39,9 @@
     </div>
   </div>
 </footer>
+
+<div class="container-fluid" style="background: rgba(0,0,0,0.16);">
+  <div class="col-lg-8 col-md-10 col-12 mx-auto">
+    @include('layouts.components.localization')
+  </div>
+</div>
