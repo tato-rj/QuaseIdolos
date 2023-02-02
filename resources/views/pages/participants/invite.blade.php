@@ -1,6 +1,12 @@
 @if(auth()->user()->liveGig)
 <h5 class="text-center mb-4">Convide um amigo(a) pra cantar junto!</h5>
 
+<div class="participants-container">
+@searchbar([
+		'sizes' => 'col-lg-8 col-12',
+		'name' => 'search_participant',
+		'placeholder' => 'Procure por alguém'])
+
 <form method="POST"
 @isset($song)
  action="{{route('song-requests.store', $song)}}"
@@ -33,4 +39,5 @@
 
 	<button type="submit" class="btn btn-secondary text-truncate w-100">@fa(['icon' => 'paper-plane'])ENVIAR CONVITE</button>
 </form>
+</div>
 @endif

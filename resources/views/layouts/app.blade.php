@@ -633,6 +633,23 @@ $(document).on('click', 'button[name="cancel-invite-user"]', function() {
     resetParticipants();
 });
 </script>
+<script type="text/javascript">
+$(document).on('keyup', 'input[name="search_participant"]', function() {
+    let $container = $(this).closest('.participants-container');
+    let input = $(this).val().toLowerCase();
+
+    if (input.length > 0 && input.length < 3) {
+        $container.find('.participant').show();
+        return;
+    }
+
+    $container.find('.participant').each(function() {
+        if (! $(this).data('search').includes(input)) {
+            $(this).hide();
+        }
+    });
+});
+</script>
         @stack('scripts')
     </body>
 </html>
