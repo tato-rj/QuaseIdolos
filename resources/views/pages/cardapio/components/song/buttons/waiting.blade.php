@@ -1,1 +1,1 @@
-<button disabled class="btn btn-secondary text-truncate w-100 mb-3">@fa(['icon' => 'check'])JÁ ESTÁ NA FILA</button>
+<button disabled class="btn btn-secondary text-truncate w-100 mb-3">@fa(['icon' => 'check'])@lang('views/cardapio.song.buttons.waiting')</button>

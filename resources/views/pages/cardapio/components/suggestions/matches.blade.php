@@ -1,9 +1,9 @@
 <div class="mt-4 bg-transparent p-3 rounded">
 	<h6 class="text-center mb-4">
 		@if($songs->count() == 1)
-		Seria essa música que você estava procurando?
+		@lang('views/cardapio.suggestion.found.one')
 		@else
-		Seria uma dessas músicas que você estava procurando?
+		@lang('views/cardapio.suggestion.found.many')
 		@endif
 	</h6>
 	@foreach($songs as $song)

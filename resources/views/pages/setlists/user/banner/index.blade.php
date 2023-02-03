@@ -5,9 +5,9 @@
 		<h6 class="m-0 text-red no-stroke">
 			<small>
 				@if($order >= 1)
-				@choice('Falta|Faltam', $order) {{$order}} @choice('música|músicas', $order)
+				@choice(__('views/songRequest.banner.faltam'), $order) {{$order}} @choice(__('plurais.música'), $order)
 				@else
-				É a sua vez!
+				@lang('views/songRequest.banner.your-turn')
 				@endif
 			</small>
 		</h6>

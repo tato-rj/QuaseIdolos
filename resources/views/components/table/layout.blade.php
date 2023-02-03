@@ -21,7 +21,7 @@
 
   @isset($legend)
   <div>
-    <label class="mb-3">Total de {{$total}} @choice($legend, $total)</label>
+    <label class="mb-3">@lang('views/table.total') {{$total}} @choice($legend, $total)</label>
   </div>
   @endisset
   
