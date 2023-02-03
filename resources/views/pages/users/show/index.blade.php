@@ -56,7 +56,16 @@
 			</div>
 		</div>
 
-{{-- 		<div class="col-lg-9 col-12">
+		<div class="col-lg-9 col-12">
+			@table([
+				'title' => 'Eventos que participei',
+				'empty' => true,
+				'mb' => 4,
+				'headers' => ['Evento', 'Data'],
+				'legend' => 'evento|eventos',
+				'rows' => $user->participations()->confirmed()->get(),
+				'view' => 'pages.users.rows.gigs'
+			])
 			@table([
 				'title' => 'Músicas cantadas',
 				'empty' => true,
@@ -66,7 +75,7 @@
 				'view' => 'pages.users.rows.songrequest'
 			])
 
-			@table([
+{{-- 			@table([
 				'title' => 'Votos recebidos',
 				'empty' => true,
 				'mb' => 4,
@@ -82,8 +91,8 @@
 				'legend' => 'música|músicas',
 				'rows' => $user->favorites,
 				'view' => 'pages.users.rows.favorite'
-			])
-		</div> --}}
+			]) --}}
+		</div>
 	</div>
 </section>
 
