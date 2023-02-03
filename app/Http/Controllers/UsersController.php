@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::guests()->withCount('participations')->sortable('participations_count')->paginate(12);
+        $users = User::guests()->withCount('participations')->sortable()->paginate(12);
 
         return view('pages.users.index', compact('users'));
     }

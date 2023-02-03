@@ -4,7 +4,7 @@
 	'headers' => [
 		'created_at' => 'Data', 
 		'name' => 'Nome', 
-		'Eventos', 
+		'participations_count' => 'Eventos', 
 		'Músicas', 
 		'Favoritos'],
 	'rows' => $users,
