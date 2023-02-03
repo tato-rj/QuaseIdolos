@@ -11,6 +11,9 @@ class LocalizationController extends Controller
         if (! in_array($locale, config('app.locales')))
             return back();
 
+        if (auth()->check())
+            auth()->user()->update(['locale' => $locale]);
+
         \Session::put('lang', $locale);
 
         return back();

@@ -16,7 +16,9 @@ class Localization
      */
     public function handle(Request $request, Closure $next)
     {
-        app()->setLocale(\Session::get('lang') ?? 'pt_BR');
+        $locale = auth()->check() ? auth()->user()->locale : config('app.locale');
+
+        app()->setLocale(\Session::get('lang') ?? $locale);
 
         return $next($request);
     }

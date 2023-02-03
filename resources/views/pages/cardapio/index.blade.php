@@ -8,18 +8,18 @@
 @section('content')
 <div>
 	<section class="container">
-		@pagetitle(['title' => 'Nosso cardápio', 'highlight' => 'musical'])
+		@pagetitle(['title' => __('views/cardapio.title.text'), 'highlight' => __('views/cardapio.title.highlight')])
 
 		@searchbar([
 			'url' => route('cardapio.search'),
 			'paginate' => true,
-			'placeholder' => 'Procure por artista, música ou estilo',
+			'placeholder' => __('views/cardapio.search.placeholder'),
 			'target' => 'results'])
 
 		@auth
 		<div class="text-center mb-4">
-			<h6>Não encontrou alguma música?</h6>
-			<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#suggestion-modal">Envie a sua sugestão</button>
+			<h6>@lang('views/cardapio.suggestion.question')</h6>
+			<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#suggestion-modal">@lang('views/cardapio.suggestion.btn')</button>
 			@include('pages.suggestions.create')
 		</div>
 		@endauth

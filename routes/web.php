@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 // GUEST ROUTES //
 //////////////////
 
-Route::prefix('idioma')->name('locale.')->group(function() {
+Route::prefix('idioma')->name('locale.')->withoutMiddleware('join-gig')->group(function() {
     Route::patch('{locale}', 'LocalizationController@set')->name('set');
 });
 

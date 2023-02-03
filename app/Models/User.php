@@ -25,6 +25,13 @@ class User extends Authenticatable
         'boolean' => 'participate_in_ratings'
     ];
 
+    protected static function booted()
+    {
+        self::creating(function(User $user) {
+            $user->locale = app()->getLocale();
+        });
+    }
+
     public function socialAccounts()
     {
         return $this->hasMany(SocialAccount::class);

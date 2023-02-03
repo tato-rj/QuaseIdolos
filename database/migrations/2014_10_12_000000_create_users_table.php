@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->string('locale')->nullable();
             $table->boolean('has_ratings')->default(true);
             // FOR TESTING ONLY
             $table->string('liveGig')->nullable();
