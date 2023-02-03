@@ -18,7 +18,7 @@
 		@alert([
 	    'color' => 'red',
 	    'headline' => 'Atenção',
-	    'message' => 'Não temos o email cadastrado.',
+	    'message' => 'Não temos o seu email cadastrado.',
 	    'dismissible' => true])
 	  </div>
 	  @endif
