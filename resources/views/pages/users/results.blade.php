@@ -5,8 +5,8 @@
 		'created_at' => 'Data', 
 		'name' => 'Nome', 
 		'participations_count' => 'Eventos', 
-		'Músicas', 
-		'Favoritos'],
+		'song_requests_count' => 'Músicas', 
+		'favorites_count' => 'Favoritos'],
 	'rows' => $users,
 	'view' => 'pages.users.row'
 ])
