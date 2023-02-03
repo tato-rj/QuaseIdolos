@@ -23,7 +23,7 @@
 						'required' => true,
 						'name' => 'email', 
 						'type' => 'email', 
-						'placeholder' => __('views/auth.email.placeholder')])
+						'placeholder' => __('views/auth.email.example')])
 
 					@password([
 						'label' => __('views/auth.password.label'),

@@ -2,7 +2,7 @@
 
 return [
 	'login' => 'Login',
-	'email' => ['placeholder' => 'Your email here'],
+	'email' => ['placeholder' => 'Your email here', 'example' => 'my@email.com'],
 	'password' => ['label' => 'Password'],
 	'remember' => 'Remember me',
 	'forgot-password' => 'Forgot your password?',

@@ -2,7 +2,7 @@
 
 return [
 	'login' => 'Entrar',
-	'email' => ['placeholder' => 'Seu email aqui'],
+	'email' => ['placeholder' => 'Seu email aqui', 'example' => 'meu@email.com'],
 	'password' => ['label' => 'Senha', 'confirm' => 'Confirma a sua senha'],
 	'remember' => 'Lembre-se de mim',
 	'forgot-password' => 'Esqueceu a senha?',
