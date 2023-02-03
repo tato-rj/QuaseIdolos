@@ -12,7 +12,7 @@ class LocalizationController extends Controller
             return back();
 
         if (auth()->check())
-            auth()->user()->update(['locale' => $locale]);
+            // auth()->user()->update(['locale' => $locale]);
 
         \Session::put('lang', $locale);
 

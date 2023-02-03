@@ -6,5 +6,6 @@ return [
 		'highlight' => 'musical'
 	],
 	'search' => ['placeholder' => 'Procure por artista, música ou estilo'],
-	'suggestion' => ['question' => 'Não encontrou alguma música?', 'btn' => 'Envie a sua sugestão']
+	'suggestion' => ['question' => 'Não encontrou alguma música?', 'btn' => 'Envie a sua sugestão'],
+	'scrollTop' => 'Voltar ao topo'
 ];
