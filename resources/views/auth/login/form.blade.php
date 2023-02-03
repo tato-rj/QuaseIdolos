@@ -7,9 +7,9 @@
 				'name' => 'email', 
 				'type' => 'email', 
 				'required' => true,
-				'placeholder' => 'Seu email aqui'])
+				'placeholder' => __('views/auth.email.placeholder')])
 			@password([
-				'label' => 'Senha',
+				'label' => __('views/auth.password.label'),
 				'name' => 'password', 
 				'required' => true,
 				'placeholder' => '******'])
@@ -18,26 +18,26 @@
 				<small class="text-nowrap">
 				@checkbox([
 					'name' => 'remember_me',
-					'options' => ['1' => 'Lembre-se de mim']])
+					'options' => ['1' => __('views/auth.remember')]])
 				@endcheckbox
 				</small>
 				<small class="text-nowrap">
 					<div class="form-group">
-						<a href="{{route('password.request')}}" class="link-none label">Esqueceu a senha?</a>
+						<a href="{{route('password.request')}}" class="link-none label">@lang('views/auth.forgot-password')</a>
 					</div>
 				</small>
 			</div>
 
-			@submit(['label' => 'ENTRAR', 'theme' => 'secondary', 'classes' => 'w-100'])
+			@submit(['label' => __('views/auth.enter'), 'theme' => 'secondary', 'classes' => 'w-100'])
 		@endform
 	</div>
 
 	@include('auth.social')
 
 	<div class="text-center">
-		<h6 class="opacity-08">Ainda não tem um cadastro?</h6>
+		<h6 class="opacity-08">@lang('views/auth.no-account.title')</h6>
 		<h6>
-			<a href="{{route('register')}}" class="link-secondary label">Vamos começar!</a>
+			<a href="{{route('register')}}" class="link-secondary label">@lang('views/auth.no-account.btn')</a>
 		</h6>
 	</div>
 </div>

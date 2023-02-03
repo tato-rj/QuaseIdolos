@@ -4,7 +4,7 @@ return [
 	'login' => 'Login',
 	'logout' => 'Logout',
 	'home' => 'Home',
-	'songs-menu' => 'Songs Menu',
+	'songs-menu' => 'Musical Menu',
 	'contact' => 'Contact',
 	'profile' => 'My Profile',
 	'my-songs' => 'My Setlist',

@@ -13,9 +13,9 @@
 					</div>
 					<div class="col-lg-8 col-10 mx-auto d-center py-3">
 						<div>
-							<h3>CANTAR COM UMA BANDA É UMA <span class="text-secondary">EXPERIÊNCIA SEM IGUAL</span>.</h3>
-							<h6 class="mb-4">Entre em contato com a gente e contrate a Quase ídolos pra tornar o seu evento inesquecível!</h6>
-							<a href="{{route('reservas')}}" class="btn btn-secondary btn-lg">FAÇA A SUA RESERVA</a>
+							<h3>@lang('views/home.contact.title.text') <span class="text-secondary">@lang('views/home.contact.title.highlight')</span>.</h3>
+							<h6 class="mb-4">@lang('views/home.contact.description')</h6>
+							<a href="{{route('reservas')}}" class="btn btn-secondary btn-lg">@lang('views/home.contact.btn')</a>
 						</div>
 					</div>
 				</div>
