@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="d-flex flex-column">
-				@if($user->hasOwnLogin())
+				@if($user->socialAccounts()->exists())
 					@include('pages.users.actions.social')
 				@endif
 
