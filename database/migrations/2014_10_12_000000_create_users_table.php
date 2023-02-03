@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('locale')->nullable();
             $table->boolean('has_ratings')->default(true);
             // FOR TESTING ONLY
-            $table->string('liveGig')->nullable();
+            $table->text('liveGig')->nullable();
             // SOCIALMEDIA
             $table->text('avatar_url')->nullable();
             // $table->string('social_id')->nullable();
