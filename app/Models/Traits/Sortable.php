@@ -8,4 +8,11 @@ trait Sortable
     {
         return $query->orderBy(request()->sort_by ?? $sort, request()->order ?? $order);
     }
+
+    // public function scopeDeepSortable($query, $relation, $sort = 'created_at', $order = 'desc')
+    // {
+    //     return $query->whereHas($relation, function($q) {
+
+    //     });
+    // }
 }
