@@ -4,8 +4,8 @@
 	'headers' => [
 		'created_at' => 'Data', 
 		'name' => 'Nome', 
-		'Pedidos', 
-		'Troféus', 
+		'Eventos', 
+		'Músicas', 
 		'Favoritos'],
 	'rows' => $users,
 	'view' => 'pages.users.row'

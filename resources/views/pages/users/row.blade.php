@@ -25,13 +25,15 @@
   @endslot
   
   @slot('column3')
-    @php($count = $user->songRequests()->count())
+    @php($count = $user->participations()->confirmed()->count())
     <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
   @endslot
 
   @slot('column4')
-    @php($count = $user->songRequests()->has('winners')->count())
+    @php($count = $user->songRequests()->count())
     <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
+{{--     @php($count = $user->songRequests()->has('winners')->count())
+    <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span> --}}
   @endslot
 
   @slot('column5')
