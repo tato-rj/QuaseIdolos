@@ -15,7 +15,7 @@ return [
 	'singers' => 'Artistas',
 	'songs' => 'Músicas',
 	'genres' => 'Estilos',
-	'users' => 'Users',
+	'users' => 'Usuários',
 	'suggestions' => 'Sugestões',
 	'venues' => 'Contratantes',
 	'events' => 'Eventos',
