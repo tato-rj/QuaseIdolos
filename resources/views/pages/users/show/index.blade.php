@@ -13,7 +13,7 @@
 
 @section('content')
 <section class="container py-4">
-		@if(! $user->email)
+		@if(! $user->email && auth()->user()->is($user))
 		<div class="mx-auto mb-4" style="width: 100%; max-width: 600px"> 
 		@alert([
 	    'color' => 'red',
