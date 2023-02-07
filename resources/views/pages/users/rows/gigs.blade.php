@@ -2,10 +2,10 @@
 
 @row
   @slot('column1')
-  {{$gig->name()}}
+  {{$gig->dateForHumans()}}
   @endslot
 
   @slot('column2')
-  {{$gig->dateForHumans()}}
+  <a href="{{route('gig.show', $gig)}}" class="link-secondary">{{$gig->name()}}</a>
   @endslot
 @endrow

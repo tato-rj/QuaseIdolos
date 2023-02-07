@@ -61,7 +61,7 @@
 				'title' => 'Eventos que participei',
 				'empty' => true,
 				'mb' => 4,
-				'headers' => ['Evento', 'Data'],
+				'headers' => ['Data', 'Evento'],
 				'legend' => 'evento|eventos',
 				'rows' => $user->participations()->confirmed()->get(),
 				'view' => 'pages.users.rows.gigs'
