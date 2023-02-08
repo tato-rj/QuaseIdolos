@@ -61,4 +61,16 @@ trait GigStates
 	{
 		return $this->scheduled_for->gt(now());
 	}
+
+	public function hasStarted()
+	{
+		return (bool) $this->starts_at;
+	}
+
+	public function shouldFinish()
+	{
+		$endtime = $this->endingTime();
+
+		return $endtime ? $endtime->lte(now()) : false;
+	}
 }

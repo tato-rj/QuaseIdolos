@@ -11,7 +11,7 @@ class Gig extends BaseModel
 {
 	use Rateable, Archiveable, GigStates;
 
-	protected $dates = ['starts_at', 'ends_at', 'scheduled_for'];
+	protected $dates = ['starts_at', 'ends_at', 'scheduled_for', 'scheduled_end_at'];
 	protected $casts = [
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
@@ -251,5 +251,36 @@ class Gig extends BaseModel
     public function scopeNotReady($query)
     {
 		return $query->except($this->ready()->get('id'));
+    }
+
+    public function close()
+    {
+        $this->update([
+            'is_live' => false,
+            'is_paused' => false,
+            'ends_at' => now()
+        ]);
+
+        $this->setlist()->waiting()->delete();
+
+        Participant::in($this)->unconfirmed()->confirm();
+
+        $this->archives()->save();
+
+        return $this;
+    }
+
+    public function open()
+    {
+        return $this->update([
+            'is_live' => true,
+            'starts_at' => now(),
+        ]);
+    }
+
+    public function endingTime()
+    {
+    	if ($this->duration && $this->hasStarted())
+    		return local() ? $this->starts_at->copy()->addMinutes($this->duration) : $this->starts_at->copy()->addHours($this->duration);
     }
 }

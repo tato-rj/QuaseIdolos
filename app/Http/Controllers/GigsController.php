@@ -102,6 +102,7 @@ class GigsController extends Controller
             'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
+            'duration' => $request->duration,
             'is_private' => $request->is_private ? 1 : 0,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'is_test' => $request->is_test ? 1 : 0,
@@ -157,6 +158,7 @@ class GigsController extends Controller
             'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
+            'duration' => $request->duration,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'is_private' => $request->is_private ? 1 : 0,
             'is_test' => $request->is_test ? 1 : 0,
@@ -212,10 +214,7 @@ class GigsController extends Controller
     {
         $this->authorize('open', $gig);
         
-        $gig->update([
-            'is_live' => true,
-            'starts_at' => now(),
-        ]);
+        $gig->open();
 
         return back()->with('success', 'O evento começou');
     }
@@ -224,17 +223,7 @@ class GigsController extends Controller
     {
         GigFinished::dispatch($gig);
 
-        $gig->update([
-            'is_live' => false,
-            'is_paused' => false,
-            'ends_at' => now()
-        ]);
-
-        $gig->setlist()->waiting()->delete();
-
-        Participant::in($gig)->unconfirmed()->confirm();
-
-        $gig->archives()->save();
+        $gig->close();
 
         return back()->with('success', 'O evento terminou');
     }

@@ -19,7 +19,7 @@
   </select>
   
   @isset($info)
-  <div class="form-text">{{$info}}</div>
+  <div class="form-text text-white text-left mt-2 fw-bold">@fa(['icon' => 'exclamation-circle']){{$info}}</div>
   @endisset
 
   @feedback(['input' => $name])

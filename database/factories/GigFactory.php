@@ -31,7 +31,7 @@ class GigFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'starts_at' => now()->startOfDay(),
+                'starts_at' => now(),
                 'is_live' => true,
             ];
         });

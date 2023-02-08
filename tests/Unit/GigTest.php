@@ -152,4 +152,28 @@ class GigTest extends AppTest
     {
         $this->assertEquals(4, strlen($this->gig->password()->generate()));
     }
+
+    /** @test */
+    public function it_knows_if_it_has_passed_its_closing_time()
+    {
+        $gig = Gig::factory()->live()->create(['duration' => null]);
+        $waitingGig = Gig::factory()->create();
+        $currentGig = Gig::factory()->live()->create(['duration' => 2]);
+        $pastGig = Gig::factory()->create(['starts_at' => now()->subHours(5), 'is_live' => true, 'duration' => 1]);
+
+        $this->assertTrue($pastGig->shouldFinish());
+        $this->assertFalse($gig->shouldFinish());
+        $this->assertFalse($currentGig->shouldFinish());
+        $this->assertFalse($waitingGig->shouldFinish());
+    }
+
+    /** @test */
+    public function it_may_know_its_ending_time()
+    {
+        $gig = Gig::factory()->create(['duration' => 2]);
+
+        $gig->open();
+        
+        $this->assertEquals($gig->endingTime()->hour, now()->addHours(2)->hour);
+    }
 }

@@ -15,9 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->call(function() {
-        //     \App\Models\TestSchedule::create();
-        // })->everyMinute();
+        $schedule->command('gigs:close')->everyMinute();
     }
 
     /**

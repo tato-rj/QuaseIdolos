@@ -33,6 +33,7 @@ class CreateGigsTable extends Migration
             $table->boolean('is_test')->default(false);
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
+            $table->unsignedTinyInteger('duration')->nullable();
             $table->timestamps();
         });
     }

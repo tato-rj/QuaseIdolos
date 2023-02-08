@@ -14,6 +14,13 @@
 				<h6>{{$gig->dateForHumans()}}</h6>
 			</div>
 
+			@if($gig->duration)
+			<div class="mb-4">
+				<h6 class="text-secondary">@fa(['icon' => 'calendar-day'])Duração</h6>
+				<h6><u>Termina automaticamente</u> após {{$gig->duration}} @choice('hora|horas', $gig->duration)</h6>
+			</div>
+			@endif
+
 			@if($gig->musicians()->exists())
 			<div class="mb-4">
 				<h6 class="text-secondary">@fa(['icon' => 'guitar'])Banda</h6>

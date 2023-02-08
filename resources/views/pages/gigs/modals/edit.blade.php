@@ -92,11 +92,13 @@
 		'name' => 'scheduled_for'])
 
 	@select([
-		'placeholder' => 'Hora do evento (opcional)',
-		'name' => 'starting_time'])
+		'label' => 'Duração do evento (opcional)',
+		'placeholder' => '',
+		'info' => 'Se escolhida o evento irá terminar automaticamente após o tempo escolhido.',
+		'name' => 'duration'])
 
-		@foreach(timeslots(16, 24) as $date => $time)
-		@option(['label' => $time, 'value' => $time, 'name' => 'starting_time', 'selected' => $time == $gig->starting_time])
+		@foreach(['Sem duração','1h','2h','3h','4h','5h','6h','7h','8h'] as $index => $label)
+		@option(['label' => $label, 'value' => $index, 'name' => 'duration', 'selected' => $index == $gig->duration])
 		@endforeach
 	@endselect
 	

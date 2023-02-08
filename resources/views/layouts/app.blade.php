@@ -13,6 +13,9 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
+u {
+    text-decoration-color: white;
+}
 * {
   touch-action: manipulation;
 }
