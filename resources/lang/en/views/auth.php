@@ -9,6 +9,7 @@ return [
 	'enter' => 'LET\'S GO',
 	'no-account' => ['title' => 'Didn\'t sign up yet?', 'btn' => 'Let\'s get started!'],
 	'social' => 'ENTER WITH',
+	'social-remove' => 'Remove',
 	'or' => 'OR',
 
 	'signup' => 'Create account',

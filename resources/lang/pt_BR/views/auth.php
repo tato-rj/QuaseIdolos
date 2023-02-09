@@ -9,6 +9,7 @@ return [
 	'enter' => 'ENTRAR',
 	'no-account' => ['title' => 'Ainda não tem um cadastro?', 'btn' => 'Vamos começar!'],
 	'social' => 'ENTRAR COM',
+	'social-remove' => 'Remover',
 	'or' => 'OU',
 
 	'signup' => 'Cadastro',

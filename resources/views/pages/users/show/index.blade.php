@@ -17,8 +17,8 @@
 		<div class="mx-auto mb-4" style="width: 100%; max-width: 600px"> 
 		@alert([
 	    'color' => 'red',
-	    'headline' => 'Atenção',
-	    'message' => 'Não temos o seu email cadastrado.',
+	    'headline' => __('views/alert.error'),
+	    'message' => __('views/user.missing-email'),
 	    'dismissible' => true])
 	  </div>
 	  @endif
@@ -52,13 +52,13 @@
 					@fa(['icon' => $provider, 'fa_size' => '2x', 'fa_type' => 'b', 'mr' => 0, 'classes' => $user->socialAccounts()->provider($provider)->exists() ? 'mx-2 opacity-8' : 'mx-2 opacity-2'])
 					@endforeach
 				</div>
-				<small class="opacity-6">Cadastro feito em {{$user->created_at->format('d/m/Y')}}</small>
+				<small class="opacity-6">@lang('views/user.created_at') {{$user->created_at->format('d/m/Y')}}</small>
 			</div>
 		</div>
 
 		<div class="col-lg-9 col-12">
 			@table([
-				'title' => 'Eventos que participei',
+				'title' => __('views/user.tables.gig'),
 				'empty' => true,
 				'mb' => 4,
 				'headers' => ['Data', 'Evento'],
