@@ -25,7 +25,7 @@
 	<div class="row">
 		<div class="col-lg-3 col-md-7 mx-auto col-12 text-center mb-4">
 			<div class="mb-3">
-				@include('pages.users.avatar', ['size' => '180px'])
+				@include('pages.users.avatar', ['size' => '180px', 'namesize' => '2rem'])
 			</div>
 
 			<div class="d-flex flex-column">
