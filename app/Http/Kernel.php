@@ -70,4 +70,12 @@ class Kernel extends HttpKernel
         'live-gig' => \App\Http\Middleware\LiveGig::class,
         'localization' => \App\Http\Middleware\Localization::class,
     ];
+
+    protected function bootstrappers()
+    {
+        return array_merge(
+            [\Bugsnag\BugsnagLaravel\OomBootstrapper::class],
+            parent::bootstrappers(),
+        );
+    }
 }

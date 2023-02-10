@@ -24,6 +24,9 @@ return [
 		'sung' => 'Cantada',
 		'closed' => 'Não estamos recebendo pedidos agora.',
 		'custom-name' => 'Nome do cantor',
+		'change' => [
+			'subtitle' => 'Trocar essa música por'
+		],
 		'buttons' => [
 			'change' => 'TROCAR',
 			'favorite' => 'SALVAR PRA DEPOIS',

@@ -24,6 +24,9 @@ return [
 		'sung' => 'Sung',
 		'closed' => 'We\'re not taking requests now.',
 		'custom-name' => 'Singer\'s name',
+		'change' => [
+			'subtitle' => 'Change this song with'
+		],
 		'buttons' => [
 			'change' => 'CHANGE',
 			'favorite' => 'SAVE FOR LATER',

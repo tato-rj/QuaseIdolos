@@ -6,7 +6,7 @@
 </div>
 
 <div class="mb-3">
-	<h4 class="text-center mb-3">Você tem <span class="text-secondary border-bottom border-secondary">{{$invitations->count()}} @choice('convite|convites', $invitations->count())</span> pra cantar!</h4>
+	<h4 class="text-center mb-3">Você tem <span class="text-secondary border-bottom border-secondary">{{$invitations->count()}} @choice('convite|convites', $invitations->count())</span>!</h4>
 	@divider
 </div>
 

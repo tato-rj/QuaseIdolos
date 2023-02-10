@@ -14,9 +14,13 @@
 
 <div class="mb-4">
 	<div class="opacity-6 fw-bold mb-1">Pra cantar qual música?</div>
-	<div>
-		<h4 class="m-0" style="white-space: initial;">{{$song->name}}</h4>
-		<h6 class="m-0 text-truncate text-secondary">{{$song->artist->name}}</h6>
+	<div class="mb-4 d-flex align-items-center text-truncate">
+		<img src="{{$song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 40px; height: 40px">
+
+		<div class="text-truncate">
+			<h4 class="m-0 text-truncate">{{$song->name}}</h4>
+			<h6 class="text-secondary m-0 text-truncate"><small>{{$song->artist->name}}</small></h6>
+		</div>
 	</div>
 </div>
 

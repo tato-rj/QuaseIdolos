@@ -1,5 +1,5 @@
 <div style="display: none" id="song-requests-modal-{{$song->id}}">
-	<h5 class="text-center mb-4">Trocar essa música por...</h5>
+	<h5 class="text-center mb-4">@lang('views/cardapio.song.change.subtitle')...</h5>
 
 	<div class="mb-4">
 		@foreach($songRequests as $songRequest)

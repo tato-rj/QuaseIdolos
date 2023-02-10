@@ -101,6 +101,6 @@ class SocialiteController extends Controller
     public function validateDriver($driver)
     {
         if (! in_array($driver, $this->drivers))
-            throwValidationException('Infelizmente podemos fazer o login com esse provedor');
+            throwValidationException('Infelizmente não podemos fazer o login com esse provedor');
     }
 }

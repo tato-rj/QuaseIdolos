@@ -5,6 +5,11 @@ function aws()
 	return (new App\Storage\Providers\AWS);
 }
 
+function bugreport($e)
+{
+	return \Bugsnag::notifyException($e);
+}
+
 function throwValidationException($message, $input = 'erro')
 {
 	throw \Illuminate\Validation\ValidationException::withMessages(
