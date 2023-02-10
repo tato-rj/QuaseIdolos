@@ -65,6 +65,7 @@ class UsersController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'gender' => $request->gender,
             'has_ratings' => $request->has_ratings ? 1 : 0
         ]);
 

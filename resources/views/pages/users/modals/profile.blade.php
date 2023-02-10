@@ -12,6 +12,17 @@
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'value' => $user->name, 'required' => true])
 	@input(['placeholder' => 'Email', 'name' => 'email', 'value' => $user->email])
 
+	@admin
+	@select([
+		'placeholder' => 'Gênero',
+		'name' => 'gender'])
+
+		@foreach(['unknown' => 'Não sei', 'female' => 'Feminino', 'male' => 'Masculino'] as $value => $label)
+		@option(['label' => $label, 'value' => $value, 'name' => 'duration', 'selected' => $value == $user->gender])
+		@endforeach
+	@endselect
+	@endadmin
+
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Participar das votações?', 'name' => 'has_ratings', 'on' => $user->participatesInRatings()])
 	</div>
