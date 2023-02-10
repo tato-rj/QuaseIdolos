@@ -23,6 +23,7 @@
 
 @section('content')
 @include('pages.home.bands.header')
+@include('pages.home.bands.schedule')
 @include('pages.home.bands.contact')
 @include('pages.home.bands.about')
 @if(! $topUsers->isEmpty())
@@ -47,6 +48,18 @@ $(document).ready(function(){
 		$(`.steps [data-step="${step}"][data-option="${option}"]`).fadeIn();
 		$(`.steps [data-step="${step}"][data-option="button"]`).fadeIn();
 	});
+});
+</script>
+
+<script type="text/javascript">
+$(window).scroll(function() {
+    let scrollTop = $(this).scrollTop();
+    
+    if (scrollTop > 100) {
+        $('#schedule-box').show();
+    } else {
+        $('#schedule-box').hide();
+    }
 });
 </script>
 @endpush

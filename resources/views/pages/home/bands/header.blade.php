@@ -1,4 +1,4 @@
-<section class="mb-6 bg-center position-relative h-100vh d-center" style="background-image: url({{asset('images/bg.jpg')}});">
+<section class="bg-center position-relative h-100vh d-center" style="background-image: url({{asset('images/bg.jpg')}});">
 	<div class="position-absolute-center w-100 h-100 bg-primary opacity-8"></div>
 	<div class="container position-relative">
 		<div class="text-center">
