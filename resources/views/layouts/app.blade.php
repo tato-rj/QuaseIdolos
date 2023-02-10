@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{$title ?? 'Welcome'}} | {{config('app.name')}}</title>
+        <title>{{$title ?? 'Bem vindo'}} | {{config('app.name')}} - Rio de Janeiro</title>
 
         @include('layouts.components.favicon')
         @include('layouts.components.seo')
