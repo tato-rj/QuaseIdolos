@@ -178,9 +178,7 @@ a {
                 @include('pages.participants.splashscreen')
                 @endif
 
-                @admin
-                @include('pages.gigs.status')
-                @endadmin
+                @include('components.floatingMenu')
             @endauth
         @endunless
         
