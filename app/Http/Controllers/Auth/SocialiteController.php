@@ -24,7 +24,7 @@ class SocialiteController extends Controller
 
         try {
             $socialUser = Socialite::driver($driver)->user();
-            
+
             if ($socialAccount = SocialAccount::bySocialId($socialUser->getId())->first())          
                 return $this->existingSocialAccount($socialAccount, $socialUser);
 
@@ -34,7 +34,7 @@ class SocialiteController extends Controller
             return $this->newUser($driver, $socialUser);            
         } catch (\Exception $e) {
             bugreport($e);
-            throwValidationException('Infelizmente não conseguimos fazer o login com o ' . $driver);
+            throwValidationException('Não conseguimos entrar com o ' . $driver . ', por favor tente novamente.');
         }
     }
 
@@ -88,6 +88,8 @@ class SocialiteController extends Controller
             'social_token' => $socialUser->token,
             'social_refresh_token' => $socialUser->refreshToken
         ]);
+
+        $user->guessGender();
 
         \Auth::login($user, $remember = true);
 

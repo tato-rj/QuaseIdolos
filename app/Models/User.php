@@ -131,6 +131,11 @@ class User extends Authenticatable
         return $this->liveGig;
     }
 
+    public function guessGender()
+    {
+        $this->update(['gender' => gender($this->first_name)->guess()]);
+    }
+
     public function getGenderPtAttribute()
     {
         $genders = ['male' => 'Masculino', 'female' => 'Feminino', 'unknown' => ''];
