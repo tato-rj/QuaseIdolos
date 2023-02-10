@@ -25,19 +25,18 @@
   @endslot
   
   @slot('column3')
+    @fa(['icon' => $user->gender, 'fa_color' => $user->genderColor]){{$user->genderPt}}
+  @endslot
+
+  @slot('column4')
     @php($count = $user->participations()->confirmed()->count())
     <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
   @endslot
 
-  @slot('column4')
+  @slot('column5')
     @php($count = $user->songRequests()->count())
     <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
 {{--     @php($count = $user->songRequests()->has('winners')->count())
     <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span> --}}
-  @endslot
-
-  @slot('column5')
-    @php($count = $user->favorites()->count())
-    <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
   @endslot
 @endrow

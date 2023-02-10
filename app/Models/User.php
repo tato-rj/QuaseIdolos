@@ -131,6 +131,20 @@ class User extends Authenticatable
         return $this->liveGig;
     }
 
+    public function getGenderPtAttribute()
+    {
+        $genders = ['male' => 'Masculino', 'female' => 'Feminino', 'unknown' => ''];
+
+        return $genders[$this->gender] ?? null;
+    }
+
+    public function getGenderColorAttribute()
+    {
+        $colors = ['male' => 'blue', 'female' => 'pink'];
+
+        return $colors[$this->gender] ?? null;
+    }
+
     public function join(Gig $gig)
     {
         Participant::by($this)->unconfirmed()->delete();

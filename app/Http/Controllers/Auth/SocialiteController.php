@@ -22,9 +22,9 @@ class SocialiteController extends Controller
     {
         $this->validateDriver($driver);
 
-        $socialUser = Socialite::driver($driver)->user();
-
         try {
+            $socialUser = Socialite::driver($driver)->user();
+            
             if ($socialAccount = SocialAccount::bySocialId($socialUser->getId())->first())          
                 return $this->existingSocialAccount($socialAccount, $socialUser);
 
