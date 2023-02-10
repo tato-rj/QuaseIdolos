@@ -16,11 +16,11 @@ class Gender
 	public function guess()
 	{
 		try {
-			// if ($this->data->probability > 0.75) {
+			if ($this->data->probability >= 0.5) {
 				return $this->data->gender;
-			// } else {
-				// return 'unknown';
-			// }
+			} else {
+				return 'unknown';
+			}
 		} catch (\Exception $e) {
 			bugreport($e);
 		}
