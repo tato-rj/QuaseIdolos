@@ -19,7 +19,7 @@ class SongRequestsController extends Controller
         try {
             SongRequested::dispatch($songRequest);
         } catch (\Exception $e) {
-            //
+            bugreport($e);
         }
 
         return back()->with('success', 'O seu nome está na lista, vai se preparando!');
@@ -34,7 +34,7 @@ class SongRequestsController extends Controller
         try {
             SongRequested::dispatch($songRequest);
         } catch (\Exception $e) {
-            //
+            bugreport($e);
         }
         
         return back()->with('success', 'O seu pedido foi modificado com sucesso');
@@ -70,7 +70,7 @@ class SongRequestsController extends Controller
         try {
             SongFinished::dispatch($songRequest);
         } catch (\Exception $e) {
-            //
+            bugreport($e);
         }
 
         return back()->with('success', 'O pedido foi completado com sucesso');
@@ -88,7 +88,7 @@ class SongRequestsController extends Controller
         try {
             SongCancelled::dispatch($songRequest);
         } catch (\Exception $e) {
-            //
+            bugreport($e);
         }
         
         $songRequest->delete();

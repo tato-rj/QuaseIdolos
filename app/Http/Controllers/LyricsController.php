@@ -13,6 +13,7 @@ class LyricsController extends Controller
         try {
             LyricsRequested::dispatch($songRequest);
         } catch (\Exception $e) {
+            bugreport($e);
             abort(503);
         }
         

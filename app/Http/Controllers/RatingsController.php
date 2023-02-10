@@ -68,7 +68,7 @@ class RatingsController extends Controller
         try {
             ScoreSubmitted::dispatch($rating);   
         } catch (\Exception $e) {
-            //
+            bugreport($e);
         }
 
         return $rating->score;

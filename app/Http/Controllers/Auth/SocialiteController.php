@@ -33,6 +33,7 @@ class SocialiteController extends Controller
 
             return $this->newUser($driver, $socialUser);            
         } catch (\Exception $e) {
+            bugreport($e);
             throwValidationException('Infelizmente não conseguimos fazer o login com o ' . $driver);
         }
     }

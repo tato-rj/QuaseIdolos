@@ -13,6 +13,7 @@ class WinnersController extends Controller
         try {
             WinnerAnnounced::dispatch(auth()->user()->liveGig);
         } catch (\Exception $e) {
+            bugreport($e);
             return back()->with('error', 'O vencedor não pode ser anunciado');
         }
 
