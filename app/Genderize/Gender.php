@@ -16,7 +16,8 @@ class Gender
 	public function guess()
 	{
 		try {
-			return $this->data->gender;
+			if ($this->data->probability > 0.75)
+				return $this->data->gender;
 		} catch (\Exception $e) {
 			bugreport($e);
 		}
