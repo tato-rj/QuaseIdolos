@@ -56,9 +56,9 @@ $(window).scroll(function() {
     let scrollTop = $(this).scrollTop();
     
     if (scrollTop > 100) {
-        // $('#schedule-box').show();
+        $('#schedule-box').show();
     } else {
-        // $('#schedule-box').hide();
+        $('#schedule-box').hide();
     }
 });
 </script>
