@@ -150,6 +150,16 @@ class User extends Authenticatable
         return $colors[$this->gender] ?? null;
     }
 
+    public function scopeFemale($query)
+    {
+        return $query->where('gender', 'female');
+    }
+
+    public function scopeMale($query)
+    {
+        return $query->where('gender', 'male');
+    }
+
     public function join(Gig $gig)
     {
         Participant::by($this)->unconfirmed()->delete();
