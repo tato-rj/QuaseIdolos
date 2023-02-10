@@ -38,7 +38,7 @@ class GuessGender extends Command
      */
     public function handle()
     {
-        foreach (User::whereNull('gender')->latest()->take(5)->get() as $user) {
+        foreach (User::whereNull('gender')->latest()->take(20)->get() as $user) {
             $user->update(['gender' => gender($user->first_name)->guess()]);
         }
 
