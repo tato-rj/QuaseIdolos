@@ -5,6 +5,11 @@ function aws()
 	return (new App\Storage\Providers\AWS);
 }
 
+function gender($name)
+{
+	return new \App\Genderize\Gender($name);
+}
+
 function bugreport($e)
 {
 	return \Bugsnag::notifyException($e);
