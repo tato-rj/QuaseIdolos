@@ -55,7 +55,7 @@ $(document).ready(function(){
 $(window).scroll(function() {
     let scrollTop = $(this).scrollTop();
     
-    if (scrollTop > 100) {
+    if (scrollTop > 77) {
         $('#schedule-box').show();
     } else {
         $('#schedule-box').hide();
