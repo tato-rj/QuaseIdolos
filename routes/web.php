@@ -66,6 +66,12 @@ Route::middleware('auth')->group(function() {
         Route::get('alerta', 'SongRequestsController@alert')->name('alert');
     });
 
+    Route::prefix('chat')->name('chat.')->group(function() {
+        Route::post('{to}', 'ChatController@store')->name('store');
+
+        Route::patch('{chat}', 'ChatController@read')->name('read');
+    });
+
     Route::prefix('pedido-de-musica')->name('song-requests.')->group(function() {
         Route::post('{song}/enviar', 'SongRequestsController@store')->name('store');
 

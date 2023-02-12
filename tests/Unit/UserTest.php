@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant, Invitation};
+use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant, Invitation, Chat};
 
 class UserTest extends AppTest
 {
@@ -21,7 +21,7 @@ class UserTest extends AppTest
     {
         auth()->user()->socialAccounts()->save(SocialAccount::factory()->make());
 
-        return $this->assertInstanceOf(SocialAccount::class, auth()->user()->socialAccounts->first());
+        $this->assertInstanceOf(SocialAccount::class, auth()->user()->socialAccounts->first());
     }
 
     /** @test */
@@ -29,7 +29,7 @@ class UserTest extends AppTest
     {
         Admin::factory()->create(['user_id' => auth()->user()]);
         
-        return $this->assertInstanceOf(Admin::class, auth()->user()->admin);
+        $this->assertInstanceOf(Admin::class, auth()->user()->admin);
     }
 
     /** @test */
@@ -37,7 +37,7 @@ class UserTest extends AppTest
     {
         Participant::factory()->create(['user_id' => auth()->user()]);
 
-        return $this->assertInstanceOf(Participant::class, auth()->user()->participations->first());
+        $this->assertInstanceOf(Participant::class, auth()->user()->participations->first());
     }
 
     /** @test */
@@ -45,7 +45,7 @@ class UserTest extends AppTest
     {
         auth()->user()->favorites()->save($this->song);
 
-        return $this->assertInstanceOf(Song::class, auth()->user()->favorites->first());
+        $this->assertInstanceOf(Song::class, auth()->user()->favorites->first());
     }
 
     /** @test */
@@ -53,7 +53,7 @@ class UserTest extends AppTest
     {
         (new SongRequest)->add(auth()->user(), $this->song, $this->gig);
 
-        return $this->assertInstanceOf(SongRequest::class, auth()->user()->songRequests->first());
+        $this->assertInstanceOf(SongRequest::class, auth()->user()->songRequests->first());
     }
 
     /** @test */
@@ -61,7 +61,7 @@ class UserTest extends AppTest
     {
         Invitation::factory()->create(['user_id' => auth()->user()]);
 
-        return $this->assertInstanceOf(Invitation::class, auth()->user()->invitations->first());
+        $this->assertInstanceOf(Invitation::class, auth()->user()->invitations->first());
     }
 
     /** @test */
@@ -73,7 +73,7 @@ class UserTest extends AppTest
         
         $gig->update(['winner_id' => $songRequest->id]);
 
-        return $this->assertInstanceOf(SongRequest::class, auth()->user()->songRequests()->has('winners')->first());
+        $this->assertInstanceOf(SongRequest::class, auth()->user()->songRequests()->has('winners')->first());
     }
 
     /** @test */

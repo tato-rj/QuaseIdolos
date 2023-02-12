@@ -4,6 +4,14 @@
     @endadmin
 
     @local
+    @if(auth()->user()->liveGig)
     @include('components.chat.badge')
+    @endif
     @endlocal
 </div>
+
+@local
+@if(auth()->user()->liveGig)
+@include('components.chat.modal')
+@endif
+@endlocal

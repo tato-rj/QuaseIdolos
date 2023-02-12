@@ -4,7 +4,7 @@
 
       @isset($header)
       <div class="modal-header border-0 p-4 align-items-start">
-        <div class="text-truncate">{{$header}}</div>
+        <div class="text-truncate">{!! $header !!}</div>
         <button type="button" class="btn-close btn-raw" style="width: inherit; height: inherit;" data-bs-dismiss="modal" aria-label="Close">@fa(['icon' => 'times', 'fa_size' => '2x', 'mr' => 0])</button>
       </div>
       @else

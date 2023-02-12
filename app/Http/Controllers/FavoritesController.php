@@ -35,7 +35,8 @@ class FavoritesController extends Controller
      */
     public function store(Request $request, Song $song)
     {
-        auth()->user()->favorites()->save($song);
+        if (! auth()->user()->favorited($song))
+            auth()->user()->favorites()->save($song);
 
         return back()->with('success', 'A música foi salva com sucesso');
     }

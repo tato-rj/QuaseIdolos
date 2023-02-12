@@ -245,7 +245,7 @@ class User extends Authenticatable
 
     public function favorited(Song $song)
     {
-        return $this->favorites->contains($song);
+        return Favorite::bySong($song)->byUser($this)->exists();
     }
 
     public function sung(Song $song)

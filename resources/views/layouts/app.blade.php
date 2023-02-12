@@ -651,6 +651,35 @@ $(document).on('keyup', 'input[name="search_participant"]', function() {
     });
 });
 </script>
+
+<script type="text/javascript">
+$('.chat-user form').on('submit', function(e) {
+    e.preventDefault();
+
+    let input = $(this).find('[name="chat_message"]').val();
+    log(input);
+});
+
+$(document).on('click', '#chat-list button', function() {
+    let $participant = $($(this).data('target'));
+
+    $participant.show();
+    $('#chat-list').hide();
+    $('#chat-user').show();
+
+    $('#chat-header').hide();
+    $('#chat-back').show();
+});
+
+$(document).on('click', '#chat-back button', function() {
+    $('.chat-user').hide();
+    $('#chat-list').show();
+    $('#chat-user').hide();
+
+    $('#chat-header').show();
+    $('#chat-back').hide();
+});
+</script>
         @stack('scripts')
     </body>
 </html>
