@@ -1,4 +1,4 @@
-@modal(['id' => 'chat-modal', 'autoshow' => true])
+@modal(['id' => 'chat-modal'])
 @slot('header')
 <div id="chat-header">
 	<h4 class="modal-title text-secondary no-stroke">Chat</h4>

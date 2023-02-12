@@ -15,6 +15,9 @@ class InvitationsController extends Controller
      */
     public function invite(Request $request, SongRequest $songRequest)
     {
+        if (! $request->participants)
+            return back()->with('error', 'Você precisa escolher alguém pra enviar o convite');
+
         foreach ($request->participants as $participantId) {
             $this->authorize('invite', [$songRequest, User::find($participantId)]);
         }
