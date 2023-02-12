@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\{Chat, User};
 use Illuminate\Http\Request;
+use App\Events\ChatSent;
 
 class ChatController extends Controller
 {
+    public function between(User $userOne, User $userTwo)
+    {
+        $user = $userTwo->is(auth()->user()) ? $userOne : $userTwo;
+        $chat = Chat::between($userOne, $userTwo)->get();
+
+        auth()->user()->read($chat);
+
+        return view('components.chat.conversation', compact(['chat', 'user']))->render();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -17,15 +28,32 @@ class ChatController extends Controller
     {
         $request->validate(['message' => 'required|string']);
 
-        return Chat::create([
+        Chat::create([
             'from_id' => auth()->user()->id,
             'to_id' => $to->id,
             'message' => $request->message
         ]);
+
+        $chat = Chat::between(auth()->user(), $to)->get();
+
+        try {
+            ChatSent::dispatch($to);
+        } catch (\Exception $e) {
+            bugreport($e);
+        }
+
+        return view('components.chat.conversation', ['chat' => $chat, 'user' => $to])->render();
     }
 
     public function read(Chat $chat)
     {
         return $chat->markAsRead();
+    }
+
+    public function unreadCount(Request $request)
+    {
+        $user = User::findOrFail($request->userId);
+
+        return view('components.chat.unread', ['count' => $user->receivedMessages()->unread()->count()])->render();
     }
 }

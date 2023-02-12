@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Collection;
 use App\Models\Traits\{Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable};
 
 class User extends Authenticatable
@@ -65,6 +66,11 @@ class User extends Authenticatable
     public function participations()
     {
         return $this->hasMany(Participant::class);
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Chat::class, 'to_id');
     }
 
     public function suggestions()
@@ -129,6 +135,14 @@ class User extends Authenticatable
     public function liveGigExists()
     {
         return $this->liveGig;
+    }
+
+    public function read(Collection $chat)
+    {
+        $chat->each(function($message, $index) {
+            if ($this->is($message->to))
+                $message->markAsRead();
+        });
     }
 
     public function guessGender()

@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
         <title>{{$title ?? 'Bem vindo'}} | {{config('app.name')}} - Rio de Janeiro</title>
 
@@ -339,15 +339,16 @@ $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
 var sortable, sorting;
 
 if (app.user && app.gig) {
-    log(app.user.admin);
     if (app.user.admin) {
-        listenToEvents();
+        listenToAdminEvents();
     } else {
         getUserAlert();
     }
+
+    listenToUserEvents();
 }
 
-function listenToEvents()
+function listenToAdminEvents()
 {
     try {
     window.Echo
@@ -361,9 +362,27 @@ function listenToEvents()
           .listen('SongCancelled', function(event) {
                 getEventTable();
           });
-    } catch(error) {
+    } catch (error) {
         log(error);
-        alert('Erro com o Pusher!!! ' + error);
+    }
+}
+
+function listenToUserEvents()
+{
+    try {
+        window.Echo
+              .channel('chat')
+              .listen('ChatSent', function(event) {
+                if ($('.chat-user:visible').length) {
+                    loadChat(event.url).then(function() {
+                        pinChatToBottom($('.chat-user:visible'));
+                    });
+                } else {
+                    showUnreadCount(event.user);
+                }
+              });
+    } catch (error) {
+        log(error);
     }
 }
 
@@ -381,6 +400,9 @@ function getUserAlert()
     axios.get('{!! route('setlists.alert') !!}')
          .then(function(response) {
             $('body').append(response.data);
+
+            if (response.data)
+                $('#chat-badge').animate({bottom: $('#setlist-banner').height()}, 200, 'linear');
          })
          .catch(function(error) {
             alert(error);
@@ -397,7 +419,7 @@ function getEventTable(newOrder = null)
             enableDraggable();
 
             if (newOrder) {
-                listenToEvents();
+                listenToAdminEvents();
                 popup('success', 'A ordem foi alterada com sucesso');
             }
         })
@@ -656,19 +678,29 @@ $(document).on('keyup', 'input[name="search_participant"]', function() {
 $('.chat-user form').on('submit', function(e) {
     e.preventDefault();
 
-    let input = $(this).find('[name="chat_message"]').val();
-    log(input);
+    let $form = $(this);
+    let $input = $form.find('[name="message"]');
+
+    if ($input.val()) {
+        axios.post($form.attr('action'), {message: $input.val()})
+             .then(function(response) {
+                $input.val('');
+                $form.closest('.chat-user').find('.conversation-container').html(response.data);
+             })
+             .catch(function(error) {})
+             .then(function() {
+                pinChatToBottom($form.closest('.chat-user'));
+             });
+     }
 });
 
 $(document).on('click', '#chat-list button', function() {
     let $participant = $($(this).data('target'));
+    let url = $(this).data('url');
 
-    $participant.show();
-    $('#chat-list').hide();
-    $('#chat-user').show();
-
-    $('#chat-header').hide();
-    $('#chat-back').show();
+    loadChat(url, $participant).then(function() {
+        pinChatToBottom($participant);
+    });
 });
 
 $(document).on('click', '#chat-back button', function() {
@@ -678,7 +710,49 @@ $(document).on('click', '#chat-back button', function() {
 
     $('#chat-header').show();
     $('#chat-back').hide();
+
+    $(this).find('.conversation-container').html('');
 });
+
+$('#chat-modal').on('hidden.bs.modal', function() {
+    $('#chat-back button').click();
+});
+
+function loadChat(url, $participant = null)
+{
+    return  axios.get(url)
+         .then(function(response) {
+
+            $('.conversation-container').html(response.data);
+
+            if ($participant)
+                $participant.show();
+
+            $('#chat-list').hide();
+            $('#chat-user').show();
+
+            $('#chat-header').hide();
+            $('#chat-back').show();
+         })
+         .catch(function(error) {
+            alert('ops');
+         });
+}
+
+function pinChatToBottom($container = null)
+{
+    let $chat = $container.find('.chat-container');
+
+    $chat.scrollTop($chat[0].scrollHeight);
+}
+
+function showUnreadCount($user)
+{
+    axios.get('{!! route('chat.unread-count') !!}', {params: {userId: $user.id}})
+         .then(function(response) {
+            $('.unread-count').html(response.data);
+         });
+}
 </script>
         @stack('scripts')
     </body>

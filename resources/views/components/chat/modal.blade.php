@@ -10,14 +10,14 @@
 
 @php($participants = auth()->user()->liveGig->participants()->get()->sortBy('user.name'))
 <div id="chat-list">
-	<h5 class="mb-3 text-center">Com quem quer conversar?</h5>
+	<h5 class="mb-4 text-center">Com quem quer conversar?</h5>
 
-	<div class="">
+	<div class="d-flex flex-wrap {{$agent->isMobile() ? 'justify-content-around' : null}}">
 		@foreach($participants as $participant)
 		@php($user = $participant->user)
 		@if(! $user->is(auth()->user()))
-		<div class="mb-2">
-			<button class="btn-raw text-white" data-target="#chat-user-{{$participant->id}}">
+		<div class="mb-3">
+			<button class="btn-raw no-stroke text-white" data-url="{{route('chat.between', ['userOne' => auth()->user(), 'userTwo' => $user])}}" data-target="#chat-user-{{$participant->id}}">
 				@include('components.chat.avatar')
 			</button>
 		</div>

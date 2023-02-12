@@ -3,7 +3,7 @@
 namespace Tests;
 
 use App\Models\{Admin, User, Song};
-use App\Events\{LyricsRequested, ScoreSubmitted, SongCancelled, SongFinished, SongRequested};
+use App\Events\{LyricsRequested, ScoreSubmitted, SongCancelled, SongFinished, SongRequested, ChatSent};
 use Tests\Traits\InteractsWithRedis;
 
 class AppTest extends TestCase
@@ -16,6 +16,7 @@ class AppTest extends TestCase
 
         \Mail::fake();
         \Event::fake([
+            ChatSent::class,
             LyricsRequested::class,
             ScoreSubmitted::class,
             SongCancelled::class,

@@ -67,9 +67,13 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::prefix('chat')->name('chat.')->group(function() {
-        Route::post('{to}', 'ChatController@store')->name('store');
+        Route::get('entre/{userOne}/{userTwo}', 'ChatController@between')->name('between');
+        
+        Route::get('nao-lidas', 'ChatController@unreadCount')->name('unread-count');
 
-        Route::patch('{chat}', 'ChatController@read')->name('read');
+        Route::post('recipiente/{to}', 'ChatController@store')->name('store');
+
+        Route::patch('ler/{chat}', 'ChatController@read')->name('read');
     });
 
     Route::prefix('pedido-de-musica')->name('song-requests.')->group(function() {

@@ -4,6 +4,8 @@ namespace App\Models;
 
 class Chat extends BaseModel
 {
+    protected $dates = ['read_at'];
+
     public function from()
     {
         return $this->belongsTo(User::class, 'from_id');
@@ -32,5 +34,17 @@ class Chat extends BaseModel
     public function markAsRead()
     {
         return $this->update(['read_at' => now()]);
+    }
+
+    public function isRead()
+    {
+        return (bool) $this->read_at;
+    }
+
+    public function scopeBetween($query, User $userOne, User $userTwo)
+    {
+        $firstQuery = $this->sender($userOne)->recipient($userTwo);
+
+        return $query->recipient($userOne)->sender($userTwo)->union($firstQuery)->orderBy('created_at');
     }
 }

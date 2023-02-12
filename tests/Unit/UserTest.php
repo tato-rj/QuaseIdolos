@@ -33,6 +33,14 @@ class UserTest extends AppTest
     }
 
     /** @test */
+    public function it_has_many_received_messages()
+    {
+        Chat::factory()->create(['to_id' => auth()->user()]);
+
+        $this->assertInstanceOf(Chat::class, auth()->user()->receivedMessages->first());
+    }
+
+    /** @test */
     public function it_has_many_participation_records()
     {
         Participant::factory()->create(['user_id' => auth()->user()]);
