@@ -15,7 +15,7 @@ class SocialiteController extends Controller
     {
         $this->validateDriver($driver);
 
-        return Socialite::driver($driver)->stateless()->redirect();
+        return Socialite::driver($driver)->redirect();
     }
 
     public function callback($driver)
@@ -23,7 +23,7 @@ class SocialiteController extends Controller
         $this->validateDriver($driver);
 
         try {
-            $socialUser = Socialite::driver($driver)->stateless()->user();
+            $socialUser = Socialite::driver($driver)->user();
 
             if ($socialAccount = SocialAccount::bySocialId($socialUser->getId())->first())          
                 return $this->existingSocialAccount($socialAccount, $socialUser);
