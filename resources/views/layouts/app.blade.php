@@ -765,7 +765,7 @@ function loadChat(url, $participant = null)
             $('#chat-back').show();
          })
          .catch(function(error) {
-            alert('ops');
+            alert('Esse chat não está disponível');
          });
 }
 
