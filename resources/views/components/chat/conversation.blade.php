@@ -16,5 +16,7 @@
 			@include('components.chat.conversation.to')
 		@endif
 		@endforeach
+
+		<div class="whisper-message opacity-4 text-left" style="font-size: 78%; height: 18px"></div>
 	</div>
 </div>

@@ -26,6 +26,8 @@ class User extends Authenticatable
         'boolean' => 'participate_in_ratings'
     ];
 
+    protected $appends = ['firstName'];
+
     protected static function booted()
     {
         self::creating(function(User $user) {

@@ -30,22 +30,22 @@ class ChatController extends Controller
             'message' => 'required|string'
         ]);
 
-        Chat::create([
+        $chat = Chat::create([
             'gig_id' => auth()->user()->liveGig->id,
             'from_id' => auth()->user()->id,
             'to_id' => $to->id,
             'message' => $request->message
         ]);
 
-        $chat = Chat::between(auth()->user(), $to)->get();
-
         try {
-            ChatSent::dispatch($to);
+            ChatSent::dispatch($to, $chat);
         } catch (\Exception $e) {
             bugreport($e);
         }
 
-        return view('components.chat.conversation', ['chat' => $chat, 'user' => $to])->render();
+        $conversation = Chat::between(auth()->user(), $to)->get();
+        
+        return view('components.chat.conversation', ['chat' => $conversation, 'user' => $to])->render();
     }
 
     public function read(Chat $chat)

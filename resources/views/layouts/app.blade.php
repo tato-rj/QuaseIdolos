@@ -13,6 +13,7 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
+
 u {
     text-decoration-color: white;
 }
@@ -336,7 +337,7 @@ $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
 </script>
 
 <script type="text/javascript">
-var sortable, sorting;
+var sortable, sorting, typing;
 
 if (app.user && app.gig) {
     if (app.user.admin) {
@@ -371,7 +372,7 @@ function listenToUserEvents()
 {
     try {
         window.Echo
-              .channel('chat')
+              .private('chat.'+app.gig.id)
               .listen('ChatSent', function(event) {
                 if ($('.chat-user:visible').length) {
                     loadChat(event.url).then(function() {
@@ -380,10 +381,22 @@ function listenToUserEvents()
                 } else {
                     showUnreadCount(event.user);
                 }
+              })
+              .listenForWhisper('typing', function(event) {
+                if ($('.chat-user:visible').length) {
+                    $('.whisper-message').text(event.message);
+
+                    if (typing)
+                        clearTimeout(typing);
+
+                    typing = setTimeout(function() {
+                        $('.whisper-message').text('');
+                    }, 3000);
+                }
               });
 
         window.Echo
-              .channel('chat')
+              .private('chat.'+app.gig.id)
               .listen('ChatRead', function(event) {
                 if ($('.chat-user:visible').length)
                     $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
@@ -722,7 +735,13 @@ $(document).on('click', '#chat-back button', function() {
 });
 
 $(document).on('keyup', '.chat-user input[name="message"]', function() {
-    // show dots on other side
+    if ($(this).val()) {
+        window.Echo
+              .private('chat.'+app.gig.id)
+              .whisper('typing', {
+                message: app.user.firstName + ' está escrevendo...'
+              });
+    }
 });
 
 $('#chat-modal').on('hidden.bs.modal', function() {
