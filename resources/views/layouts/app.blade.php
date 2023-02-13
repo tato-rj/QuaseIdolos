@@ -700,8 +700,11 @@ $('.chat-user form').on('submit', function(e) {
 
     let $form = $(this);
     let $input = $form.find('[name="message"]');
+    let $button = $form.find('button');
 
     if ($input.val()) {
+        $input.prop('disabled', true).addClass('opacity-4');
+        $button.prop('disabled', true).addClass('opacity-4');
         axios.post($form.attr('action'), {message: $input.val()})
              .then(function(response) {
                 $input.val('');
@@ -710,16 +713,22 @@ $('.chat-user form').on('submit', function(e) {
              .catch(function(error) {})
              .then(function() {
                 pinChatToBottom($form.closest('.chat-user'));
+                $input.prop('disabled', false).removeClass('opacity-4');
+                $button.prop('disabled', false).removeClass('opacity-4');
              });
      }
 });
 
 $(document).on('click', '#chat-list button', function() {
-    let $participant = $($(this).data('target'));
-    let url = $(this).data('url');
+    let $button = $(this);
+    let $participant = $($button.data('target'));
+    let url = $button.data('url');
+
+    $button.prop('disabled', true).addClass('opacity-4');
 
     loadChat(url, $participant).then(function() {
         pinChatToBottom($participant);
+        $button.prop('disabled', false).removeClass('opacity-4');
     });
 });
 
