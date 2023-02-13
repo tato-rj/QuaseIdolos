@@ -1,6 +1,16 @@
 <div id="chat-user-{{$participant->id}}" class="chat-user" style="display: none">
-	
+
+<div class="mb-4 text-center" style="margin-top: -24px;">
+    @if($participant->user->hasAvatar())
+    @include('components.avatar.image', ['size' => '86px', 'user' => $participant->user])
+    @else
+    @include('components.avatar.initial', ['size' => '86px', 'user' => $participant->user])
+    @endif
+	<div class="opacity-6 mb-4 mt-1 fw-bold">chat com {{$participant->user->first_name}}</div>
+
 	<div class="conversation-container"></div>
+</div>
+
 
 	<div class="d-flex">
 	  <div class="mr-2 no-truncate">
