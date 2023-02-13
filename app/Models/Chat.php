@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\ChatRead;
+
 class Chat extends BaseModel
 {
     protected $dates = ['read_at'];
@@ -38,7 +40,15 @@ class Chat extends BaseModel
 
     public function markAsRead()
     {
-        return $this->update(['read_at' => now()]);
+        $this->update(['read_at' => now()]);
+
+        try {
+            ChatRead::dispatch($this);
+        } catch (\Exception $e) {
+            bugreport($e);
+        }
+
+        return $this;
     }
 
     public function isRead()

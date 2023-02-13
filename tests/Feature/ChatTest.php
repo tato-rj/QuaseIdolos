@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Tests\AppTest;
 use App\Models\{Gig, User, Chat};
 use Illuminate\Support\Collection;
-use App\Events\ChatSent;
+use App\Events\{ChatSent, ChatRead};
 
 class ChatTest extends AppTest
 {
@@ -117,6 +117,23 @@ class ChatTest extends AppTest
         \Event::assertDispatched(ChatSent::class, function ($event) use ($chat) {
             return $event->user->is($chat->to);
         });
+    }
+
+
+    /** @test */
+    public function when_a_user_reads_a_message_an_event_is_fired()
+    {
+        $chat = Chat::factory()->create(['gig_id' => $this->gig, 'from_id' => auth()->user(), 'to_id' => $this->otherUser]);
+
+        $this->assertFalse($chat->isRead());
+        
+        $this->signIn($this->otherUser);
+
+        $chat->markAsRead();
+
+        $this->assertTrue($chat->isRead());
+
+        \Event::assertDispatched(ChatRead::class);
     }
 
     /** @test */

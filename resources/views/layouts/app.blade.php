@@ -381,6 +381,13 @@ function listenToUserEvents()
                     showUnreadCount(event.user);
                 }
               });
+
+        window.Echo
+              .channel('chat')
+              .listen('ChatRead', function(event) {
+                if ($('.chat-user:visible').length)
+                    $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
+              });
     } catch (error) {
         log(error);
     }
@@ -712,6 +719,10 @@ $(document).on('click', '#chat-back button', function() {
     $('#chat-back').hide();
 
     $(this).find('.conversation-container').html('');
+});
+
+$(document).on('keyup', '.chat-user input[name="message"]', function() {
+    // show dots on other side
 });
 
 $('#chat-modal').on('hidden.bs.modal', function() {
