@@ -49,6 +49,11 @@ class Gig extends BaseModel
     	return $this->hasMany(SongRequest::class, 'gig_id');
     }
 
+    public function chats()
+    {
+    	return $this->hasMany(Chat::class);
+    }
+
     public function ratings()
     {
     	return $this->hasManyThrough(Rating::class, SongRequest::class);

@@ -748,9 +748,13 @@ function pinChatToBottom($container = null)
 
 function showUnreadCount($user)
 {
-    axios.get('{!! route('chat.unread-count') !!}', {params: {userId: $user.id}})
+    axios.get('{!! route('chat.unread-count') !!}')
          .then(function(response) {
-            $('.unread-count').html(response.data);
+            $('.unread-count').html(response.data.global);
+
+            response.data.users.forEach(function(count) {
+                $('.unread-count-'+count.user_id).html(count.view);
+            });
          });
 }
 </script>

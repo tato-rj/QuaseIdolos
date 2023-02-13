@@ -240,6 +240,7 @@ class GigsController extends Controller
             return back()->with('error', 'O setlist ainda tem pedidos na espera');
 
         $gig->participants()->delete();
+        $gig->chats()->delete();
         $gig->musicians()->detach();
         $gig->delete();
 

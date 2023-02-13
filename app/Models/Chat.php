@@ -16,6 +16,11 @@ class Chat extends BaseModel
         return $this->belongsTo(User::class, 'to_id');
     }
 
+    public function gig()
+    {
+        return $this->belongsTo(Gig::class);
+    }
+
     public function scopeSender($query, User $user)
     {
         return $query->where('from_id', $user->id);

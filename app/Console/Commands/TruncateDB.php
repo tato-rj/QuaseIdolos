@@ -12,7 +12,7 @@ class TruncateDB extends Command
      * @var string
      */
     protected $signature = 'truncate:table {table}';
-    protected $devTables = ['venues', 'gigs', 'song_requests', 'ratings', 'participants', 'favorites', 'suggestions', 'invitations'];
+    protected $devTables = ['venues', 'chat', 'gigs', 'song_requests', 'ratings', 'participants', 'favorites', 'suggestions', 'invitations'];
 
     /**
      * The console command description.

@@ -26,9 +26,12 @@ class ChatController extends Controller
      */
     public function store(Request $request, User $to)
     {
-        $request->validate(['message' => 'required|string']);
+        $request->validate([
+            'message' => 'required|string'
+        ]);
 
         Chat::create([
+            'gig_id' => auth()->user()->liveGig->id,
             'from_id' => auth()->user()->id,
             'to_id' => $to->id,
             'message' => $request->message
@@ -52,8 +55,16 @@ class ChatController extends Controller
 
     public function unreadCount(Request $request)
     {
-        $user = User::findOrFail($request->userId);
+        $unread = auth()->user()->receivedMessages()->unread()->get();
 
-        return view('components.chat.unread', ['count' => $user->receivedMessages()->unread()->count()])->render();
+        $global = view('components.chat.unread', ['count' => $unread->count()])->render();
+
+        $users = collect();
+
+        foreach ($unread->groupBy('from_id') as $userId => $chat) {
+            $users->push(['user_id' => $userId, 'view' => view('components.chat.unread', ['count' => $chat->count()])->render()]);
+        }
+
+        return response()->json(compact(['global', 'users']));
     }
 }

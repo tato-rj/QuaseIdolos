@@ -1,6 +1,6 @@
 <div class="text-center mb-3" style="width: 92px;">
   <div class="mb-2 position-relative">
-      <div class="unread-count">
+      <div class="unread-count-{{$user->id}}">
         @include('components.chat.unread', ['count' => auth()->user()->receivedMessages()->unread()->sender($user)->count()])
       </div>
       

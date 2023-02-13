@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\{Chat, User};
+use App\Models\{Chat, User, Gig};
 
 class ChatFactory extends Factory
 {
@@ -15,6 +15,9 @@ class ChatFactory extends Factory
     public function definition()
     {
         return [
+            'gig_id' => function() {
+                return Gig::factory()->create()->id;
+            },
             'to_id' => function() {
                 return User::factory()->create()->id;
             },

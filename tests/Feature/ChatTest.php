@@ -118,4 +118,54 @@ class ChatTest extends AppTest
             return $event->user->is($chat->to);
         });
     }
+
+    /** @test */
+    public function when_a_gig_is_deleted_its_chats_are_also_removed()
+    {
+        $chat = Chat::factory()->create();
+
+        $this->signIn($this->superAdmin);
+
+        $this->assertDatabaseHas('chats', ['id' => $chat->id]);
+
+        $this->delete(route('gig.destroy', $chat->gig));
+
+        $this->assertDatabaseMissing('chats', ['id' => $chat->id]);
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_its_chats_are_also_removed()
+    {
+        $chat = Chat::factory()->create();
+
+        $this->signIn($this->superAdmin);
+
+        $this->assertDatabaseHas('chats', ['id' => $chat->id]);
+
+        $this->delete(route('profile.destroy', $chat->to));
+
+        $this->assertDatabaseMissing('chats', ['id' => $chat->id]);
+    }
+
+    /** @test */
+    public function it_sends_back_the_global_count_of_unread_messages_along_with_individual_ones()
+    {
+        $thirdUser = User::factory()->create();
+        
+        $thirdUser->join($this->gig);
+
+        $readMessage = Chat::factory()->create(['gig_id' => $this->gig, 'to_id' => auth()->user(), 'from_id' => $this->otherUser]);
+        
+        $unreadMessage = Chat::factory()->create(['gig_id' => $this->gig, 'to_id' => auth()->user(), 'from_id' => $this->otherUser]);
+
+        $otherMessage = Chat::factory()->create(['gig_id' => $this->gig, 'to_id' => auth()->user(), 'from_id' => $thirdUser]);
+
+        $readMessage->markAsRead();
+
+        $response = $this->get(route('chat.unread-count'));
+
+        $this->assertStringContainsString('2</div>', $response->json()['global']);
+
+        $this->assertCount(2, $response->json()['users']);
+    }
 }
