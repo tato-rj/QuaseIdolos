@@ -42,6 +42,20 @@ class UserTest extends AppTest
     }
 
     /** @test */
+    public function when_a_user_is_deleted_the_admin_association_is_also_removed()
+    {
+        $user = $this->signIn();
+
+        $user->admin()->create();
+
+        $this->assertDatabaseHas('admins', ['user_id' => $user->id]);
+
+        $this->delete(route('profile.destroy'));
+
+        $this->assertDatabaseMissing('admins', ['user_id' => $user->id]);
+    }
+
+    /** @test */
     public function when_a_user_is_deleted_the_social_accounts_are_also_removed()
     {
         $user = $this->signIn();

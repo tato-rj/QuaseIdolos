@@ -116,6 +116,8 @@ class UsersController extends Controller
 
         $user->favorites()->detach();
 
+        $user->admin()->delete();
+
         $user->socialAccounts->each->delete();
 
         foreach ($user->songRequests as $songRequest) {
