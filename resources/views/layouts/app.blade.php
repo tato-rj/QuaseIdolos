@@ -216,6 +216,7 @@ a {
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
         <script src="{{mix('js/vendor/datepicker-pt-BR.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/vendor/jquery.jscroll.min.js')}}"></script>
+
 <script type="text/javascript">
 let invitationVideo = document.getElementById('participant-video-confirmed')
 
