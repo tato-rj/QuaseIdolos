@@ -366,6 +366,11 @@ function listenToAdminEvents()
     }
 }
 
+function isMyChat(chat)
+{
+    return app.user.id == chat.from_id || app.user.id == chat.to_id;
+}
+
 function listenToUserEvents()
 {
     try {
@@ -373,22 +378,27 @@ function listenToUserEvents()
               .channel('chat.'+app.gig.id)
               .listen('ChatSent', function(event) {
                 log(event);
-                if ($('.chat-user:visible').length) {
-                    loadChat(event.url).then(function() {
-                        pinChatToBottom($('.chat-user:visible'));
-                    });
-                } else {
-                    showUnreadCount(event.user);
+                if (isMyChat(event.chat)) {
+                    if ($('.chat-user:visible').length) {
+                        loadChat(event.url).then(function() {
+                            pinChatToBottom($('.chat-user:visible'));
+                        });
+                    } else {
+                        showUnreadCount(event.user);
+                    }
                 }
               })
               .listen('ChatRead', function(event) {
-                if ($('.chat-user:visible').length)
-                    $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
+                if (isMyChat(event.chat)) {
+                    if ($('.chat-user:visible').length)
+                        $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
+                }
               });
 
         window.Echo
               .private('chat.'+app.gig.id)
               .listenForWhisper('typing', function(event) {
+                log(event);
                 if ($('.chat-user:visible').length) {
                     $('.whisper-message').text(event.message);
 
