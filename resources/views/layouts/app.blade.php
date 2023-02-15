@@ -379,7 +379,7 @@ function listenToUserEvents()
               .listen('ChatSent', function(event) {
                 if (isMyChat(event.chat)) {
                     if ($('.chat-user:visible').length) {
-                        loadChat(event.url).then(function() {
+                        loadChat(event.url, null, event.chat.to_id).then(function() {
                             pinChatToBottom($('.chat-user:visible'));
                         });
                     } else {
@@ -737,7 +737,7 @@ $(document).on('click', '#chat-list button', function() {
 
     $button.prop('disabled', true).addClass('opacity-4');
 
-    loadChat(url, $participant).then(function() {
+    loadChat(url, $participant, $button.data('to-id')).then(function() {
         pinChatToBottom($participant);
         $button.prop('disabled', false).removeClass('opacity-4');
     });
@@ -769,12 +769,11 @@ $('#chat-modal').on('hidden.bs.modal', function() {
     $('#chat-back button').click();
 });
 
-function loadChat(url, $participant = null)
+function loadChat(url, $participant = null, toId)
 {
     return  axios.get(url)
          .then(function(response) {
-
-            $('.conversation-container').html(response.data);
+            $('#chat-user-'+toId).find('.conversation-container').html(response.data);
 
             if ($participant)
                 $participant.show();

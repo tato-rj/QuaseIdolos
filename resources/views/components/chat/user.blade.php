@@ -1,4 +1,4 @@
-<div id="chat-user-{{$participant->id}}" class="chat-user" style="display: none">
+<div id="chat-user-{{$participant->user->id}}" class="chat-user" style="display: none">
 
 <div class="mb-4 text-center" style="margin-top: -24px;">
     @if($participant->user->hasAvatar())
