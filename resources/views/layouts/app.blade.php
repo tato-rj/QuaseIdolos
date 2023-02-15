@@ -372,7 +372,7 @@ function listenToUserEvents()
         window.Echo
               .channel('chat.'+app.gig.id)
               .listen('ChatSent', function(event) {
-                log('LISTENING!');
+                log(event);
                 if ($('.chat-user:visible').length) {
                     loadChat(event.url).then(function() {
                         pinChatToBottom($('.chat-user:visible'));
