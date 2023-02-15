@@ -27,9 +27,9 @@
 </div>
 
 <div id="chat-user" style="display: none;">
-	@foreach($participants as $participant)
+{{-- 	@foreach($participants as $participant)
 	@include('components.chat.user')
-	@endforeach
+	@endforeach --}}
 </div>
 
 @endmodal

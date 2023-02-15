@@ -772,7 +772,6 @@ function loadChat(url, $participant = null, fromId)
 {
     return  axios.get(url)
          .then(function(response) {
-            log('Chat To: #chat-user-'+fromId);
             $('#chat-user-'+fromId).find('.conversation-container').html(response.data);
 
             if ($participant)
