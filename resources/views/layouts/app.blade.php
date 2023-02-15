@@ -390,7 +390,6 @@ function listenToUserEvents()
               .listen('ChatRead', function(event) {
                 if (isMyChat(event.chat)) {
                     if ($('.chat-user:visible').length) {
-                        log('#chat-'+event.chat.id+'-check');
                         $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
                     }
                 }
