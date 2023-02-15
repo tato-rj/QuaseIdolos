@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -28,7 +29,7 @@ class ChatSent implements ShouldBroadcast
         $this->url = route('chat.between', ['userOne' => auth()->user(), 'userTwo' => $user]);
         $this->viewId = '#chat-user-'.$user->id;
 
-        $this->dontBroadcastToCurrentUser();
+        // $this->dontBroadcastToCurrentUser();
     }
 
     /**
@@ -38,6 +39,6 @@ class ChatSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('chat.'.$this->chat->gig->id);
+        return new Channel('chat.'.$this->chat->gig->id);
     }
 }

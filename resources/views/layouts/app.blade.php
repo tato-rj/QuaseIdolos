@@ -357,10 +357,7 @@ function listenToAdminEvents()
           .channel('setlist')
           .listen('SongRequested', function(event) {
                 getEventTable();
-          });
-
-    window.Echo
-          .channel('setlist')
+          })
           .listen('SongCancelled', function(event) {
                 getEventTable();
           });
@@ -373,8 +370,9 @@ function listenToUserEvents()
 {
     try {
         window.Echo
-              .private('chat.'+app.gig.id)
+              .channel('chat.'+app.gig.id)
               .listen('ChatSent', function(event) {
+                log('LISTENING!');
                 if ($('.chat-user:visible').length) {
                     loadChat(event.url).then(function() {
                         pinChatToBottom($('.chat-user:visible'));
@@ -383,6 +381,13 @@ function listenToUserEvents()
                     showUnreadCount(event.user);
                 }
               })
+              .listen('ChatRead', function(event) {
+                if ($('.chat-user:visible').length)
+                    $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
+              });
+
+        window.Echo
+              .private('chat.'+app.gig.id)
               .listenForWhisper('typing', function(event) {
                 if ($('.chat-user:visible').length) {
                     $('.whisper-message').text(event.message);
@@ -394,13 +399,6 @@ function listenToUserEvents()
                         $('.whisper-message').text('');
                     }, 3000);
                 }
-              });
-
-        window.Echo
-              .private('chat.'+app.gig.id)
-              .listen('ChatRead', function(event) {
-                if ($('.chat-user:visible').length)
-                    $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
               });
     } catch (error) {
         log(error);
