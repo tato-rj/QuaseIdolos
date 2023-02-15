@@ -41,6 +41,6 @@ class SongRequested implements ShouldBroadcast
 
     public function broadcastAs()
     {
-        return 'FOO';
+        return 'foo.bar';
     }
 }
