@@ -379,7 +379,6 @@ function listenToUserEvents()
               .listen('ChatSent', function(event) {
                 if (isMyChat(event.chat)) {
                     if ($('.chat-user:visible').length) {
-                        log(event.chat.to_id);
                         loadChat(event.url, null, event.chat.to_id).then(function() {
                             pinChatToBottom($('.chat-user:visible'));
                         });
@@ -774,6 +773,7 @@ function loadChat(url, $participant = null, toId)
 {
     return  axios.get(url)
          .then(function(response) {
+            log('ChatID: #chat-user-'+toId);
             $('#chat-user-'+toId).find('.conversation-container').html(response.data);
 
             if ($participant)
