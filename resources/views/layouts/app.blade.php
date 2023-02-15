@@ -368,9 +368,6 @@ function listenToAdminEvents()
 
 function isMyChat(chat)
 {
-    log('From: '+chat.from_id);
-    log('To: '+chat.to_id);
-    log('Logged in as: '+app.user.id);
     return app.user.id == chat.from_id || app.user.id == chat.to_id;
 }
 
@@ -392,8 +389,10 @@ function listenToUserEvents()
               })
               .listen('ChatRead', function(event) {
                 if (isMyChat(event.chat)) {
-                    if ($('.chat-user:visible').length)
+                    if ($('.chat-user:visible').length) {
+                        log("HERE");
                         $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
+                    }
                 }
               });
 
