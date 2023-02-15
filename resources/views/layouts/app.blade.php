@@ -354,13 +354,13 @@ function listenToAdminEvents()
 {
     try {
     window.Echo
-          .channel('setlist')
+          .channel('public:setlist')
           .listen('SongRequested', function(event) {
                 getEventTable();
           });
 
     window.Echo
-          .channel('setlist')
+          .channel('public:setlist')
           .listen('SongCancelled', function(event) {
                 getEventTable();
           });
@@ -409,10 +409,10 @@ function listenToUserEvents()
 
 function stopListening()
 {
-    Echo.channel('setlist')
+    Echo.channel('public:setlist')
         .stopListening('SongRequested');
 
-    Echo.channel('setlist')
+    Echo.channel('public:setlist')
         .stopListening('SongCancelled');
 }
 
