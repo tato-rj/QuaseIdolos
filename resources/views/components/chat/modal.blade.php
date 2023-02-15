@@ -17,7 +17,7 @@
 		@php($user = $participant->user)
 		@if(! $user->is(auth()->user()))
 		<div class="mb-3">
-			<button class="btn-raw no-stroke text-white" data-url="{{route('chat.between', ['userOne' => auth()->user(), 'userTwo' => $user])}}" data-to-id="{{$user->id}}" data-target="#chat-user-{{$user->id}}">
+			<button class="btn-raw no-stroke text-white" data-url="{{route('chat.between', ['userOne' => auth()->user(), 'userTwo' => $user])}}" data-from-id="{{$user->id}}" data-target="#chat-user-{{$user->id}}">
 				@include('components.chat.avatar')
 			</button>
 		</div>
