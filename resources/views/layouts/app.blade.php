@@ -377,7 +377,6 @@ function listenToUserEvents()
         window.Echo
               .channel('chat.'+app.gig.id)
               .listen('ChatSent', function(event) {
-                log(event);
                 if (isMyChat(event.chat)) {
                     if ($('.chat-user:visible').length) {
                         loadChat(event.url).then(function() {
@@ -389,6 +388,7 @@ function listenToUserEvents()
                 }
               })
               .listen('ChatRead', function(event) {
+                log(event);
                 if (isMyChat(event.chat)) {
                     if ($('.chat-user:visible').length)
                         $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
@@ -398,16 +398,17 @@ function listenToUserEvents()
         window.Echo
               .private('chat.'+app.gig.id)
               .listenForWhisper('typing', function(event) {
-                log(event);
-                if ($('.chat-user:visible').length) {
-                    $('.whisper-message').text(event.message);
+                if (event.to_id == app.user.id) {
+                    if ($('.chat-user:visible').length) {
+                        $('.whisper-message').text(event.message);
 
-                    if (typing)
-                        clearTimeout(typing);
+                        if (typing)
+                            clearTimeout(typing);
 
-                    typing = setTimeout(function() {
-                        $('.whisper-message').text('');
-                    }, 3000);
+                        typing = setTimeout(function() {
+                            $('.whisper-message').text('');
+                        }, 3000);
+                    }
                 }
               });
     } catch (error) {
@@ -757,6 +758,7 @@ $(document).on('keyup', '.chat-user input[name="message"]', function() {
         window.Echo
               .private('chat.'+app.gig.id)
               .whisper('typing', {
+                to_id: $(this).data('to-id'),
                 message: app.user.firstName + ' está escrevendo...'
               });
     }

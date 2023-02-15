@@ -22,7 +22,7 @@
 	  </div>
 	  <form  method="POST" action="{{route('chat.store', $participant->user->id)}}" class="d-flex align-items-center w-100 rounded bg-transparent py-2 px-3">
 	  	@csrf
-	  	<input autocomplete="off" type="text" name="message" class="w-100 text-white mr-2 border-0" style="background: transparent;">
+	  	<input autocomplete="off" type="text" data-to-id="{{$participant->user->id}}" name="message" class="w-100 text-white mr-2 border-0" style="background: transparent;">
 
 	  	<button class="btn-raw text-secondary no-stroke">@fa(['icon' => 'paper-plane', 'mr' => 0, 'fa_size' => 'lg'])</button>
 	  </form>
