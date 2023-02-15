@@ -379,7 +379,7 @@ function listenToUserEvents()
               .listen('ChatSent', function(event) {
                 if (isMyChat(event.chat)) {
                     if ($('.chat-user:visible').length) {
-                        loadChat(event.url, null, event.chat.to_id).then(function() {
+                        loadChat(event.url, null, event.chat.from_id).then(function() {
                             pinChatToBottom($('.chat-user:visible'));
                         });
                     } else {
