@@ -48,6 +48,13 @@ class ChatController extends Controller
         return view('components.chat.conversation', ['chat' => $conversation, 'user' => $to])->render();
     }
 
+    public function user(Request $request)
+    {
+        $user = User::findOrFail($request->userId);
+
+        return view('components.chat.user', compact('user'))->render();
+    }
+
     public function read(Chat $chat)
     {
         return $chat->markAsRead();

@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function() {
     Route::prefix('chat')->name('chat.')->group(function() {
         Route::get('entre/{userOne}/{userTwo}', 'ChatController@between')->name('between');
         
+        Route::get('usuario', 'ChatController@user')->name('user');
+
         Route::get('nao-lidas', 'ChatController@unreadCount')->name('unread-count');
 
         Route::post('recipiente/{to}', 'ChatController@store')->name('store');

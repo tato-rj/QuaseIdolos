@@ -705,7 +705,7 @@ $(document).on('keyup', 'input[name="search_participant"]', function() {
 </script>
 
 <script type="text/javascript">
-$('.chat-user form').on('submit', function(e) {
+$(document).on('submit', '.chat-user form', function(e) {
     e.preventDefault();
 
     let $form = $(this);
@@ -731,15 +731,19 @@ $('.chat-user form').on('submit', function(e) {
 
 $(document).on('click', '#chat-list button', function() {
     let $button = $(this);
-    let $participant = $($button.data('target'));
     let url = $button.data('url');
 
     $button.prop('disabled', true).addClass('opacity-4');
 
-    loadChat(url, $participant, $button.data('from-id')).then(function() {
-        pinChatToBottom($participant);
-        $button.prop('disabled', false).removeClass('opacity-4');
-    });
+    axios.get('{!! route('chat.user') !!}', {params: {userId: $button.data('from-id')}})
+         .then(function(response) {
+            $('#chat-user').html(response.data);
+
+            loadChat(url, $($button.data('target')), $button.data('from-id')).then(function() {
+                pinChatToBottom($($button.data('target')));
+                $button.prop('disabled', false).removeClass('opacity-4');
+            });
+         });
 });
 
 $(document).on('click', '#chat-back button', function() {
@@ -791,7 +795,7 @@ function loadChat(url, $participant = null, fromId)
 function pinChatToBottom($container = null)
 {
     let $chat = $container.find('.chat-container');
-
+log($chat);
     $chat.scrollTop($chat[0].scrollHeight);
 }
 
