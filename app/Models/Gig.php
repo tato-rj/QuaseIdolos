@@ -240,7 +240,7 @@ class Gig extends BaseModel
 
 	public function scopeReady($query)
 	{
-		$admin = auth()->check() ? auth()->user()->admin()->exists() : false;
+		$admin = auth()->check() ? auth()->user()->admin()->exists() || auth()->user()->isTester() : false;
 		$today = now()->copy()->startOfDay();
 
 		if (! $admin)

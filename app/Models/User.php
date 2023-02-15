@@ -306,4 +306,9 @@ class User extends Authenticatable
 
         return $this->avatar_url;
     }
+
+    public function isTester()
+    {
+        return str_contains($this->email, '@email');
+    }
 }
