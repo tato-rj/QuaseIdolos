@@ -31,7 +31,7 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: process.env.ABLY_PUBLIC_KEY,
+    key: '8lPxlQ.lUs9xQ',
     wsHost: 'realtime-pusher.ably.io',
     wsPort: 443,
     disableStats: true,
