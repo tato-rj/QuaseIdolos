@@ -36,7 +36,7 @@ class SongRequested implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('setlist');
+        return new Channel('setlistXXX');
     }
 
     public function broadcastWith()
