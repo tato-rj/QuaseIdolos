@@ -40,7 +40,8 @@ class InvitationsController extends Controller
 
         $invitation->confirm();
 
-        return back()->with('invite-confirmed', true);
+        return back()->with('success', 'O seu convite foi confirmado');
+        // return back()->with('invite-confirmed', true);
     }
 
     /**
