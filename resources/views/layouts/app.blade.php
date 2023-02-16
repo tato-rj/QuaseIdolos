@@ -159,7 +159,11 @@ a {
         'csrfToken' => csrf_token(),
         'url' => \Request::root(),
         'user' => auth()->check() ? auth()->user() : null,
-        'gig' => auth()->check() ? auth()->user()->liveGig : null
+        'gig' => auth()->check() ? auth()->user()->liveGig : null,
+        'chatUrls' => [
+            'unreadCount' => route('chat.unread-count'),
+            'showUser' => route('chat.user')
+        ]
     ]); ?>
 </script>
 
@@ -338,7 +342,9 @@ $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
 </script>
 
 <script type="text/javascript">
-var sortable, sorting, typing;
+var sortable, sorting;
+
+var chat = new Chat;
 
 if (app.user && app.gig) {
     if (app.user.admin) {
@@ -366,50 +372,22 @@ function listenToAdminEvents()
     }
 }
 
-function isMyChat(chat)
-{
-    return app.user.id == chat.from_id || app.user.id == chat.to_id;
-}
-
 function listenToUserEvents()
 {
     try {
         window.Echo
               .channel('chat.'+app.gig.id)
               .listen('ChatSent', function(event) {
-                if (isMyChat(event.chat)) {
-                    if ($('.chat-user:visible').length) {
-                        loadChat(event.url, null, event.chat.from_id).then(function() {
-                            pinChatToBottom($('.chat-user:visible'));
-                        });
-                    } else {
-                        showUnreadCount(event.user);
-                    }
-                }
+                chat.load(event);
               })
               .listen('ChatRead', function(event) {
-                if (isMyChat(event.chat)) {
-                    if ($('.chat-user:visible').length) {
-                        $('#chat-'+event.chat.id+'-check').removeClass('text-white opacity-4').addClass('text-green');
-                    }
-                }
+                chat.markAsRead(event);
               });
 
         window.Echo
               .private('chat.'+app.gig.id)
               .listenForWhisper('typing', function(event) {
-                if (event.to_id == app.user.id) {
-                    if ($('.chat-user:visible').length) {
-                        $('.whisper-message').text(event.message);
-
-                        if (typing)
-                            clearTimeout(typing);
-
-                        typing = setTimeout(function() {
-                            $('.whisper-message').text('');
-                        }, 3000);
-                    }
-                }
+                chat.typing(event);
               });
     } catch (error) {
         log(error);
@@ -511,6 +489,29 @@ function popup($type, $message)
     }, 2000);
 }
 
+</script>
+
+<script type="text/javascript">
+// CHAT LISTENERS
+
+$(document).on('submit', '.chat-user form', function(e) {
+    e.preventDefault();
+
+    if ($(this).find('[name="message"]').val())
+        chat.send(this);
+});
+
+$(document).on('click', '#chat-list button', function() {
+    chat.getUser(this);
+});
+
+$(document).on('click', '#chat-back button', function() {
+    chat.reset();
+});
+
+$('#chat-modal').on('hidden.bs.modal', function() {
+    $('#chat-back button').click();
+});
 </script>
 
 <script type="text/javascript">
@@ -618,23 +619,6 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-// $(document).on('click', '[data-action="sing"] button[type="submit"]', function(e) {
-//     e.preventDefault();
-
-//     let $form = $(this).closest('form');
-//     let url = $form.attr('action');
-    
-//     axios.post(url)
-//          .then(function(response) {
-//             log(response);
-//          })
-//          .catch(function(error) {
-//             log(error);
-//          });
-// });
-</script>
-
-<script type="text/javascript">
 $(document).on('click', 'button[name="change-song"], button[name="invite-user"], button[name="cancel-invite-user"]', function() {
     $($(this).data('target-hide')).toggle();
     $($(this).data('target-show')).toggle();
@@ -704,113 +688,6 @@ $(document).on('keyup', 'input[name="search_participant"]', function() {
 });
 </script>
 
-<script type="text/javascript">
-$(document).on('submit', '.chat-user form', function(e) {
-    e.preventDefault();
-
-    let $form = $(this);
-    let $input = $form.find('[name="message"]');
-    let $button = $form.find('button');
-
-    if ($input.val()) {
-        $input.prop('disabled', true).addClass('opacity-4');
-        $button.prop('disabled', true).addClass('opacity-4');
-        axios.post($form.attr('action'), {message: $input.val()})
-             .then(function(response) {
-                $input.val('');
-                $form.closest('.chat-user').find('.conversation-container').html(response.data);
-             })
-             .catch(function(error) {})
-             .then(function() {
-                pinChatToBottom($form.closest('.chat-user'));
-                $input.prop('disabled', false).removeClass('opacity-4');
-                $button.prop('disabled', false).removeClass('opacity-4');
-             });
-     }
-});
-
-$(document).on('click', '#chat-list button', function() {
-    let $button = $(this);
-    let url = $button.data('url');
-
-    $button.prop('disabled', true).addClass('opacity-4');
-
-    axios.get('{!! route('chat.user') !!}', {params: {userId: $button.data('from-id')}})
-         .then(function(response) {
-            $('#chat-user').html(response.data);
-
-            loadChat(url, $($button.data('target')), $button.data('from-id')).then(function() {
-                pinChatToBottom($($button.data('target')));
-                $button.prop('disabled', false).removeClass('opacity-4');
-            });
-         });
-});
-
-$(document).on('click', '#chat-back button', function() {
-    $('.chat-user').hide();
-    $('#chat-list').show();
-    $('#chat-user').hide();
-
-    $('#chat-header').show();
-    $('#chat-back').hide();
-
-    $(this).find('.conversation-container').html('');
-});
-
-$(document).on('keyup', '.chat-user input[name="message"]', function() {
-    if ($(this).val()) {
-        window.Echo
-              .private('chat.'+app.gig.id)
-              .whisper('typing', {
-                to_id: $(this).data('to-id'),
-                message: app.user.firstName + ' está escrevendo...'
-              });
-    }
-});
-
-$('#chat-modal').on('hidden.bs.modal', function() {
-    $('#chat-back button').click();
-});
-
-function loadChat(url, $participant = null, fromId)
-{
-    return  axios.get(url)
-         .then(function(response) {
-            $('#chat-user-'+fromId).find('.conversation-container').html(response.data);
-
-            if ($participant)
-                $participant.show();
-
-            $('#chat-list').hide();
-            $('#chat-user').show();
-
-            $('#chat-header').hide();
-            $('#chat-back').show();
-         })
-         .catch(function(error) {
-            alert('Esse chat não está disponível');
-         });
-}
-
-function pinChatToBottom($container = null)
-{
-    let $chat = $container.find('.chat-container');
-log($chat);
-    $chat.scrollTop($chat[0].scrollHeight);
-}
-
-function showUnreadCount($user)
-{
-    axios.get('{!! route('chat.unread-count') !!}')
-         .then(function(response) {
-            $('.unread-count').html(response.data.global);
-
-            response.data.users.forEach(function(count) {
-                $('.unread-count-'+count.user_id).html(count.view);
-            });
-         });
-}
-</script>
         @stack('scripts')
     </body>
 </html>
