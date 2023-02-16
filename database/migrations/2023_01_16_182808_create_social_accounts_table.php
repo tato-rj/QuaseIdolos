@@ -18,7 +18,7 @@ class CreateSocialAccountsTable extends Migration
             $table->string('user_id');
             $table->string('social_provider');
             $table->string('social_id');
-            $table->string('social_token');
+            $table->text('social_token');
             $table->string('social_refresh_token')->nullable();
             $table->timestamps();
         });

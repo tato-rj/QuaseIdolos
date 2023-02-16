@@ -40,7 +40,7 @@ class CloseGigs extends Command
     {
         foreach (Gig::live()->get() as $gig) {
             if ($gig->shouldFinish())
-                $gig->close();
+                $gig->close(true);
         }
 
         $this->info('All gigs have been closed.');

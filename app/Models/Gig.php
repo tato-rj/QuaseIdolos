@@ -16,7 +16,7 @@ class Gig extends BaseModel
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
 		'is_private' => 'boolean',
-		'is_test'
+		'is_test' => 'boolean'
 	];
 
 	public function creator()
@@ -258,7 +258,7 @@ class Gig extends BaseModel
 		return $query->except($this->ready()->get('id'));
     }
 
-    public function close()
+    public function close($confirmRequests = false)
     {
         $this->update([
             'is_live' => false,
@@ -266,7 +266,11 @@ class Gig extends BaseModel
             'ends_at' => now()
         ]);
 
-        $this->setlist()->waiting()->delete();
+        if ($confirmRequests) {
+			$this->setlist()->waiting()->get()->each->finish();
+        } else {
+        	$this->setlist()->waiting()->delete();
+        }
 
         Participant::in($this)->unconfirmed()->confirm();
 
