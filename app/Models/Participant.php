@@ -16,6 +16,14 @@ class Participant extends BaseModel
         });
     }
 
+    public function scopeDidntBlockMe($query)
+    {
+        return $query->whereHas('user', function($q) {
+            $blockedIds = BlockedUser::searchFor(auth()->user())->pluck('by_id');
+            $q->whereNotIn('id', $blockedIds);
+        });
+    }
+
     public function scopeGuests($query)
     {
         return $query->whereHas('user', function($q) {

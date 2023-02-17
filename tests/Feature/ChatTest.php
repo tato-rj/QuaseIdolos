@@ -195,4 +195,60 @@ class ChatTest extends AppTest
 
         $this->get(route('chat.participants'))->assertDontSee($this->otherUser->first_name);
     }
+
+    /** @test */
+    public function users_can_block_other_users_from_their_chat()
+    {
+        $firstUser = auth()->user();
+
+        $this->assertFalse(auth()->user()->blocked()->searchFor($this->otherUser)->exists());
+
+        $this->signIn($this->otherUser);
+
+        $this->get(route('chat.participants'))->assertSee($firstUser->first_name);
+
+        $this->signIn($firstUser);
+
+        $this->post(route('chat.block', $this->otherUser));
+
+        $this->assertTrue(auth()->user()->blocked()->searchFor($this->otherUser)->exists());
+
+        $this->signIn($this->otherUser);
+
+        $this->get(route('chat.participants'))->assertDontSee($firstUser->first_name);
+    }
+
+    /** @test */
+    public function users_can_unblock_other_users_from_their_chat()
+    {
+        $this->assertFalse(auth()->user()->blocked()->searchFor($this->otherUser)->exists());
+
+        $this->post(route('chat.block', $this->otherUser));
+
+        $this->assertTrue(auth()->user()->blocked()->searchFor($this->otherUser)->exists());
+
+        $this->post(route('chat.unblock', $this->otherUser));
+
+        $this->assertFalse(auth()->user()->blocked()->searchFor($this->otherUser)->exists());
+    }
+
+    /** @test */
+    public function users_cannot_send_a_message_to_those_who_blocked_them()
+    {
+        $firstUser = auth()->user();
+
+        $chat = Chat::factory()->make(['to_id' => $this->otherUser]);
+
+        $this->post(route('chat.store', $chat->to->id), ['message' => 'Hello!']);
+
+        $this->signIn($this->otherUser);
+
+        $this->post(route('chat.block', $firstUser));
+
+        $this->signIn($firstUser);
+
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
+        $this->post(route('chat.store', $chat->to->id), ['message' => 'Not now']);
+    }
 }

@@ -75,6 +75,10 @@ Route::middleware('auth')->group(function() {
 
         Route::get('nao-lidas', 'ChatController@unreadCount')->name('unread-count');
 
+        Route::post('bloquear/{user}', 'ChatController@block')->name('block');
+
+        Route::post('desbloquear/{user}', 'ChatController@unblock')->name('unblock');
+
         Route::post('recipiente/{to}', 'ChatController@store')->name('store');
 
         Route::patch('ler/{chat}', 'ChatController@read')->name('read');

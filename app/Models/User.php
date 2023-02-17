@@ -49,6 +49,11 @@ class User extends Authenticatable
                     ->orderBy('favorites.created_at', 'DESC');
     }
 
+    public function blocked()
+    {
+        return $this->hasMany(BlockedUser::class, 'by_id');
+    }
+
     public function songRequests()
     {
         return $this->hasMany(SongRequest::class)->with(['song', 'user']);
@@ -148,7 +153,7 @@ class User extends Authenticatable
     public function read(Collection $chat)
     {
         $chat->each(function($message, $index) {
-            if ($this->is($message->to))
+            if ($this->is($message->to) && ! $message->isRead())
                 $message->markAsRead();
         });
     }

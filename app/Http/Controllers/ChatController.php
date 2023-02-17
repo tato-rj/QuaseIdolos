@@ -20,7 +20,7 @@ class ChatController extends Controller
 
     public function participants()
     {
-        $participants = auth()->user()->liveGig->participants()->wantsChat()->get()->sortBy('user.name');
+        $participants = auth()->user()->liveGig->participants()->wantsChat()->didntBlockMe()->get()->sortBy('user.name');
 
         return view('components.chat.participants', compact('participants'))->render();
     }
@@ -33,6 +33,8 @@ class ChatController extends Controller
      */
     public function store(Request $request, User $to)
     {
+        $this->authorize('sendMessage', [Chat::class, $to]);
+
         $request->validate([
             'message' => 'required|string'
         ]);
@@ -60,6 +62,20 @@ class ChatController extends Controller
         $user = User::findOrFail($request->userId);
 
         return view('components.chat.user', compact('user'))->render();
+    }
+
+    public function block(User $user)
+    {
+        auth()->user()->blocked()->create(['user_id' => $user->id]);
+
+        return back()->with('success', 'O usuário foi bloqueado com sucesso');
+    }
+
+    public function unblock(User $user)
+    {
+        auth()->user()->blocked()->searchFor($user)->delete();
+
+        return back()->with('success', 'O usuário foi desbloqueado com sucesso');
     }
 
     public function read(Chat $chat)

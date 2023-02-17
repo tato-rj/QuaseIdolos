@@ -133,9 +133,9 @@ class Chat
 		return this._openChat(element).length;
 	}
 
-	_openChat(element = '.chat-user:visible')
+	_openChat(element = null)
 	{
-		return $(element);
+		return element ? $(element) : $('.chat-user:visible');
 	}
 
 	_loadChatHtml(url, fromId)

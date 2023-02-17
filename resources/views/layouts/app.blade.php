@@ -496,7 +496,7 @@ function popup($type, $message)
 <script type="text/javascript">
 // CHAT LISTENERS
 
-$(document).on('submit', '.chat-user form', function(e) {
+$(document).on('submit', '.chat-user form.chat-form', function(e) {
     e.preventDefault();
 
     if ($(this).find('[name="message"]').val())

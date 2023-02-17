@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant, Invitation, Chat};
+use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant, Invitation, Chat, BlockedUser};
 
 class UserTest extends AppTest
 {
@@ -96,6 +96,14 @@ class UserTest extends AppTest
         $gig->update(['winner_id' => $songRequest->id]);
 
         $this->assertTrue(auth()->user()->songRequests->first()->has('winners')->exists());
+    }
+
+    /** @test */
+    public function it_has_many_blocked_users()
+    {
+        BlockedUser::factory()->create(['by_id' => auth()->user()]);
+
+        $this->assertInstanceOf(BlockedUser::class, auth()->user()->blocked()->first());
     }
 
     /** @test */
