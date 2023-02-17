@@ -37,7 +37,7 @@ class Chat
 
 	typing(event)
 	{
-        if (this._toMe(event) && this._chatIsOpen()) {
+        if (this._toMe(event) && this._from(event) && this._chatIsOpen()) {
             this._openChat().find('.whisper-message').text(event.message);
 
             if (this.timer)
@@ -123,6 +123,12 @@ class Chat
 	_toMe(event)
 	{
 		return event.to_id == app.user.id;
+	}
+
+	_from(event)
+	{
+		log(event);
+		return true;
 	}
 
 	_chatIsOpen()
