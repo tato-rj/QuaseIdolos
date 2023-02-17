@@ -71,6 +71,8 @@ Route::middleware('auth')->group(function() {
         
         Route::get('usuario', 'ChatController@user')->name('user');
 
+        Route::get('participantes', 'ChatController@participants')->name('participants');
+
         Route::get('nao-lidas', 'ChatController@unreadCount')->name('unread-count');
 
         Route::post('recipiente/{to}', 'ChatController@store')->name('store');

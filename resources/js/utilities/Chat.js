@@ -24,7 +24,7 @@ class Chat
                     obj._pinChatToBottom();
                 });
             } else {
-                obj._showUnreadCount(event.user);
+                obj._showUnreadCount();
             }
         }
 	}
@@ -92,16 +92,27 @@ class Chat
 			    });
 	}
 
+	getParticipants()
+	{
+		axios.get(app.chatUrls.showParticipants)
+			 .then(function(response) {
+			 	$('#chat-list').html(response.data);
+			 })
+			 .catch(function(error) {
+			 	alert('Descuple, o chat não está disponível nesse momento');
+			 });
+	}
+
 	reset()
 	{
-	    $('.chat-user').hide();
-	    $('#chat-list').show();
+		this.getParticipants();
+		
+	    $('#chat-user').html('');
 	    $('#chat-user').hide();
+	    $('#chat-list').show();
 
-	    $('#chat-header').show();
 	    $('#chat-back').hide();
-
-	    $('.conversation-container').html('');
+	    $('#chat-header').show();
 	}
 
 	_ownChat(chat)
@@ -155,7 +166,7 @@ class Chat
 	    $chat.scrollTop($chat[0].scrollHeight);
 	}
 
-	_showUnreadCount(user)
+	_showUnreadCount()
 	{
 	    axios.get(app.chatUrls.unreadCount)
 	         .then(function(response) {

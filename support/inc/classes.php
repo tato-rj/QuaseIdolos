@@ -10,6 +10,11 @@ function gender($name)
 	return new \App\Genderize\Gender($name);
 }
 
+function safemail()
+{
+	return new \App\Tools\Mail\SafeMail;
+}
+
 function bugreport($e)
 {
 	return \Bugsnag::notifyException($e);

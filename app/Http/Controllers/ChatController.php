@@ -18,6 +18,13 @@ class ChatController extends Controller
         return view('components.chat.conversation', compact(['chat', 'user']))->render();
     }
 
+    public function participants()
+    {
+        $participants = auth()->user()->liveGig->participants()->get()->sortBy('user.name');
+
+        return view('components.chat.participants', compact('participants'))->render();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

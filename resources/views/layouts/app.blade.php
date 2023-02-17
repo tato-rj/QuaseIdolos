@@ -162,7 +162,8 @@ a {
         'gig' => auth()->check() ? auth()->user()->liveGig : null,
         'chatUrls' => [
             'unreadCount' => route('chat.unread-count'),
-            'showUser' => route('chat.user')
+            'showUser' => route('chat.user'),
+            'showParticipants' => route('chat.participants')
         ]
     ]); ?>
 </script>
@@ -511,6 +512,10 @@ $(document).on('click', '#chat-back button', function() {
 
 $('#chat-modal').on('hidden.bs.modal', function() {
     $('#chat-back button').click();
+});
+
+$('#chat-modal').on('show.bs.modal', function() {
+    chat.getParticipants();
 });
 </script>
 
