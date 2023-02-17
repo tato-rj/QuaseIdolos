@@ -38,8 +38,10 @@ class Chat
 
 	typing(event)
 	{
-        if (this._toMe(event) && this._from(event) && this._chatIsOpen()) {
-            this._openChat().find('.whisper-message').text(event.message);
+		let userChat = '#chat-user-'+event.from_id;
+
+        if (this._toMe(event) && this._chatIsOpen(userChat)) {
+            this._openChat(userchat).find('.whisper-message').text(event.message);
 
             if (this.timer)
                 clearTimeout(this.timer);
@@ -126,20 +128,14 @@ class Chat
 		return event.to_id == app.user.id;
 	}
 
-	_from(event)
+	_chatIsOpen(element = null)
 	{
-		log(event);
-		return true;
+		return this._openChat(element).length;
 	}
 
-	_chatIsOpen()
+	_openChat(element = '.chat-user:visible')
 	{
-		return this._openChat().length;
-	}
-
-	_openChat()
-	{
-		return $('.chat-user:visible');
+		return $(element);
 	}
 
 	_loadChatHtml(url, fromId)
