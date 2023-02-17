@@ -8,11 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Collection;
-use App\Models\Traits\{Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable};
+use App\Models\Traits\{Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable, Chateable};
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable, Chateable;
 
     protected $with = ['admin'];
 
@@ -23,7 +23,8 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'boolean' => 'participate_in_ratings'
+        'has_ratings' => 'boolean',
+        'participates_in_chat' => 'boolean'
     ];
 
     protected $appends = ['firstName'];
@@ -244,11 +245,6 @@ class User extends Authenticatable
     public function getInitialAttribute()
     {
         return $this->name[0];
-    }
-
-    public function isRateable()
-    {
-        return $this->participate_in_ratings;
     }
 
     public function getFirstNameAttribute()

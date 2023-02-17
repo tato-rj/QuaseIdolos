@@ -24,6 +24,10 @@
 	@endadmin
 
 	<div class="text-left mb-3"> 
+		@toggle(['label' => 'Participar do chat?', 'name' => 'participates_in_chat', 'on' => $user->participatesInChats()])
+	</div>
+
+	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Participar das votações?', 'name' => 'has_ratings', 'on' => $user->participatesInRatings()])
 	</div>
 	@submit(['label' => 'Confirmar mudanças', 'theme' => 'secondary'])

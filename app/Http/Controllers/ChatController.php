@@ -20,7 +20,7 @@ class ChatController extends Controller
 
     public function participants()
     {
-        $participants = auth()->user()->liveGig->participants()->get()->sortBy('user.name');
+        $participants = auth()->user()->liveGig->participants()->wantsChat()->get()->sortBy('user.name');
 
         return view('components.chat.participants', compact('participants'))->render();
     }

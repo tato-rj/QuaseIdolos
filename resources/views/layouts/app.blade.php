@@ -354,7 +354,8 @@ if (app.user && app.gig) {
         getUserAlert();
     }
 
-    listenToUserEvents();
+    if (app.user.participates_in_chat)
+        listenToUserEvents();
 }
 
 function listenToAdminEvents()

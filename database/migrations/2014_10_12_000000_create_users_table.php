@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('locale')->nullable();
             $table->string('gender')->nullable();
             $table->boolean('has_ratings')->default(true);
+            $table->boolean('participates_in_chat')->default(true);
             // FOR TESTING ONLY
             $table->text('liveGig')->nullable();
             // SOCIALMEDIA

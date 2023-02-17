@@ -1,10 +1,8 @@
 <div class="position-fixed d-flex align-items-center" style="bottom: 10px; right: 10px; z-index: 1;">
     {{-- CHAT --}}
-    {{-- @local --}}
-    @if(auth()->user()->liveGig)
+    @if(auth()->user()->liveGig && auth()->user()->participatesInChats())
     @include('components.chat.badge')
     @endif
-    {{-- @endlocal --}}
     
     @admin
     @include('pages.gigs.status')
@@ -12,8 +10,6 @@
 </div>
 
 {{-- CHAT --}}
-{{-- @local --}}
-@if(auth()->user()->liveGig)
+@if(auth()->user()->liveGig && auth()->user()->participatesInChats())
 @include('components.chat.modal')
 @endif
-{{-- @endlocal --}}

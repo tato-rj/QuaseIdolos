@@ -66,7 +66,8 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'gender' => $request->gender,
-            'has_ratings' => $request->has_ratings ? 1 : 0
+            'has_ratings' => $request->has_ratings ? 1 : 0,
+            'participates_in_chat' => $request->participates_in_chat ? 1 : 0
         ]);
 
         if ($file = $request->file('avatar'))

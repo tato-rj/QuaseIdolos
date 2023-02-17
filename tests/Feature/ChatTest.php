@@ -185,4 +185,14 @@ class ChatTest extends AppTest
 
         $this->assertCount(2, $response->json()['users']);
     }
+
+    /** @test */
+    public function users_can_choose_not_to_participate_in_the_chat()
+    {
+        $this->get(route('chat.participants'))->assertSee($this->otherUser->first_name);
+
+        $this->otherUser->update(['participates_in_chat' => false]);
+
+        $this->get(route('chat.participants'))->assertDontSee($this->otherUser->first_name);
+    }
 }
