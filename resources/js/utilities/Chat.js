@@ -41,7 +41,7 @@ class Chat
 		let userChat = '#chat-user-'+event.from_id;
 
         if (this._toMe(event) && this._chatIsOpen(userChat)) {
-            this._openChat(userchat).find('.whisper-message').text(event.message);
+            this._openChat(userChat).find('.whisper-message').text(event.message);
 
             if (this.timer)
                 clearTimeout(this.timer);
