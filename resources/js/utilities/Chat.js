@@ -7,6 +7,7 @@ class Chat
 				window.Echo
 				.private('chat.'+app.gig.id)
 				.whisper('typing', {
+					from_id: $(this).data('from-id'),
 					to_id: $(this).data('to-id'),
 					message: app.user.firstName + ' está escrevendo...'
 				});
