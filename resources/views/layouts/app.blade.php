@@ -412,7 +412,7 @@ function getUserAlert()
             $('body').append(response.data);
 
             if (response.data)
-                $('#chat-badge').animate({bottom: $('#setlist-banner').height()}, 200, 'linear');
+                $('#chat-badge').parent().animate({bottom: $('#setlist-banner').height()}, 200, 'linear');
          })
          .catch(function(error) {
             alert(error);

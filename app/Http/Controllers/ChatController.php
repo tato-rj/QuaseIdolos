@@ -10,7 +10,7 @@ class ChatController extends Controller
 {
     public function between(User $userOne, User $userTwo)
     {
-        $this->authorize('view', [Chat::class, auth()->user()->liveGig]);
+        $this->authorize('view', Chat::class);
         
         $user = $userTwo->is(auth()->user()) ? $userOne : $userTwo;
         $chat = Chat::between($userOne, $userTwo)->get();
@@ -22,7 +22,7 @@ class ChatController extends Controller
 
     public function participants()
     {
-        $this->authorize('view', [Chat::class, auth()->user()->liveGig]);
+        $this->authorize('view', Chat::class);
 
         $participants = auth()->user()->liveGig->participants()->wantsChat()->didntBlockMe()->get()->sortBy('user.name');
 
@@ -62,8 +62,10 @@ class ChatController extends Controller
     }
 
     public function user(Request $request)
-    {
+    {   
         $user = User::findOrFail($request->userId);
+
+        $this->authorize('sendMessage', [Chat::class, $user]);
 
         return view('components.chat.user', compact('user'))->render();
     }

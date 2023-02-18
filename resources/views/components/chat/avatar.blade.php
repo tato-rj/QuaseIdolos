@@ -1,7 +1,7 @@
 <div class="text-center mb-3" style="width: 92px;">
   <div class="mb-2 position-relative">
       <div class="unread-count-{{$user->id}}">
-        @include('components.chat.unread', ['count' => auth()->user()->receivedMessages()->unread()->sender($user)->count()])
+        @include('components.chat.unread', ['count' => auth()->user()->receivedMessages->whereNull('read_at')->where('from_id', $user->id)->count()])
       </div>
       
       @if($user->hasAvatar())

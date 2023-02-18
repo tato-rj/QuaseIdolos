@@ -1,4 +1,4 @@
-@php($blocked = auth()->user()->blocked()->searchFor($user)->exists())
+@php($blocked = ! auth()->user()->blocked->where('user_id', $user->id)->isEmpty())
 
 <div id="chat-user-{{$user->id}}" class="chat-user">
 
@@ -11,9 +11,9 @@
 		<div class="opacity-6 mb-2 mt-1 fw-bold">chat com {{$user->first_name}}</div>
 
 		@unless($blocked)
-		@include('components.chat.block')
+			@include('components.chat.block')
 
-		<div class="conversation-container"></div>
+			<div class="conversation-container"></div>
 		@endunless
 	</div>
 

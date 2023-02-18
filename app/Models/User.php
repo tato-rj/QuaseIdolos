@@ -14,8 +14,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Searchable, Rateable, Locateable, Archiveable, HasAvatar, Sortable, Chateable;
 
-    protected $with = ['admin'];
-
     protected $hidden = [
         'password',
         'remember_token',

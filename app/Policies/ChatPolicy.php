@@ -14,8 +14,8 @@ class ChatPolicy
         return ! $otherUser->blocked()->searchFor($me)->exists();
     }
 
-    public function view(User $me, Gig $gig)
+    public function view(User $user)
     {
-        return $gig->participatesInChats();
+        return $user->liveGig ? $user->liveGig->participatesInChats() : false;
     }
 }

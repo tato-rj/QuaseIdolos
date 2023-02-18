@@ -4,7 +4,7 @@
 	@foreach($participants as $participant)
 	@php($user = $participant->user)
 	@if(! $user->is(auth()->user()))
-	<div class="mb-3 {{auth()->user()->blocked()->searchFor($user)->exists() ? 'opacity-4' : null}}">
+	<div class="mb-3 {{! auth()->user()->blocked->where('user_id', $user->id)->isEmpty() ? 'opacity-4' : null}}">
 		<button class="btn-raw no-stroke text-white" data-url="{{route('chat.between', ['userOne' => auth()->user(), 'userTwo' => $user])}}" data-from-id="{{$user->id}}" data-target="#chat-user-{{$user->id}}">
 			@include('components.chat.avatar')
 		</button>
