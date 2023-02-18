@@ -3,7 +3,8 @@
 	'rows' => $artists,
 	'headers' => [
 		'created_at' => 'Data', 
-		'name' => 'Nome', 
+		'name' => 'Nome',
+		'songs_count' => 'Músicas',
 		''],
 	'view' => 'pages.artists.row'
 ])

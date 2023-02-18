@@ -12,6 +12,10 @@
   </div>
   @endslot
 
+  @slot('column3')
+  {{$artist->songs_count}}
+  @endslot
+
   @slot('actions')
   <a href="{{route('artists.edit', $artist)}}" class="btn btn-secondary text-truncate mr-2">@fa(['icon' => 'pencil-alt', 'mr' => 0])</a>
   @endslot
