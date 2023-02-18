@@ -6,8 +6,8 @@
   @endslot
 
   @slot('column2')
-  <div class="d-flex align-items-center">
-    	<img src="{{$artist->coverImage()}}" class="rounded-circle mr-2" style="width: 40px">
+  <div class="d-flex align-items-center {{$artist->isHidden() ? 'grayscale opacity-4' : null}}">
+    	<img src="{{$artist->coverImage()}}" class="rounded-circle mr-2 " style="width: 40px">
   	  <h5 class="m-0">{{$artist->name}}</h5>
   </div>
   @endslot
