@@ -23,7 +23,8 @@ class GigFactory extends Factory
             },
             'scheduled_for' => now()->startOfDay(),
             'starting_time' => '20:30',
-            'has_ratings' => true
+            'has_ratings' => true,
+            'participates_in_chat' => true
         ];
     }
 

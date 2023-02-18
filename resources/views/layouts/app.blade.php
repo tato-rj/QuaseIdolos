@@ -354,7 +354,7 @@ if (app.user && app.gig) {
         getUserAlert();
     }
 
-    if (app.user.participates_in_chat)
+    if (app.user.participates_in_chat && app.gig.participates_in_chat)
         listenToUserEvents();
 }
 

@@ -251,4 +251,20 @@ class ChatTest extends AppTest
 
         $this->post(route('chat.store', $chat->to->id), ['message' => 'Not now']);
     }
+
+    /** @test */
+    public function a_gig_can_allow_chat_or_not()
+    {
+        $this->get(route('chat.participants'))->assertSee($this->otherUser->first_name);
+
+        $chat = Chat::factory()->make(['to_id' => $this->otherUser]);
+
+        $this->post(route('chat.store', $chat->to->id), ['message' => 'Hello!']);
+
+        $this->gig->update(['participates_in_chat' => false]);
+
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
+        $this->get(route('chat.participants'))->assertSee($this->otherUser->first_name);
+    }
 }

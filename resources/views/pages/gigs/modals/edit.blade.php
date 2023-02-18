@@ -65,7 +65,11 @@
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => $gig->participatesInRatings()])
 	</div>
-	
+
+	<div class="text-left mb-3"> 
+		@toggle(['label' => 'Chat liberado?', 'name' => 'participates_in_chat', 'on' => $gig->participatesInChats()])
+	</div>
+
 	<div class="text-left"> 
 		@checkbox(['label' => 'Quem vai tocar nesse evento?', 'name' => 'musicians'])
 			@foreach($musicians as $musician)

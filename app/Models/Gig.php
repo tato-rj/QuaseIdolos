@@ -3,20 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Traits\{Rateable, Archiveable, GigStates};
+use App\Models\Traits\{Rateable, Archiveable, GigStates, Chateable};
 use App\Voting\{Ranking, Rules};
 use App\Tools\Gig\{Status, Password};
 
 class Gig extends BaseModel
 {
-	use Rateable, Archiveable, GigStates;
+	use Rateable, Archiveable, GigStates, Chateable;
 
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for', 'scheduled_end_at'];
 	protected $casts = [
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
 		'is_private' => 'boolean',
-		'is_test' => 'boolean'
+		'is_test' => 'boolean',
+		'participates_in_chat' => 'boolean',
+		'has_ratings' => 'boolean'
 	];
 
 	public function creator()
