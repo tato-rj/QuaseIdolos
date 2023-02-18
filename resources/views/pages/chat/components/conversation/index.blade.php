@@ -3,9 +3,9 @@ max-height: 380px;
 overflow-y: scroll;">
 	@foreach($chat as $message)
 	@if($message->from->is(auth()->user()))
-		@include('components.chat.conversation.from')
+		@include('pages.chat.components.conversation.from')
 	@else
-		@include('components.chat.conversation.to')
+		@include('pages.chat.components.conversation.to')
 	@endif
 	@endforeach
 

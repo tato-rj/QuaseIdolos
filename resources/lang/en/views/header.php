@@ -20,5 +20,6 @@ return [
 	'venues' => 'Venues',
 	'events' => 'Events',
 	'team' => 'Team',
-	'statistics' => 'Statistics'
+	'statistics' => 'Statistics',
+	'chat' => 'Chat'
 ];

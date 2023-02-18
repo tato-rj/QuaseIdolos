@@ -1,6 +1,6 @@
 <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{$route}}">
 @isset($icon)
-@fa(['icon' => 'trophy'])
+@fa(['icon' => $icon])
 @endisset
 
 {{$label ?? null}}

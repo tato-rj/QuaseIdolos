@@ -67,11 +67,13 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::prefix('chat')->name('chat.')->group(function() {
+        Route::get('', 'ChatController@index')->name('index');
+
         Route::get('entre/{userOne}/{userTwo}', 'ChatController@between')->name('between');
         
         Route::get('usuario', 'ChatController@user')->name('user');
 
-        Route::get('participantes', 'ChatController@participants')->name('participants');
+        Route::get('usuarios', 'ChatController@users')->name('users');
 
         Route::get('nao-lidas', 'ChatController@unreadCount')->name('unread-count');
 

@@ -11,9 +11,14 @@
       @if(auth()->user()->liveGig && auth()->user()->liveGig->participatesInRatings())
         @link(['route' => route('ratings.index'), 'lang' => 'views/header.ratings', 'icon' => 'trophy'])
       @endif
+      
       @if(auth()->user()->liveGig)
-      @link(['route' => route('gig.participants.index', auth()->user()->liveGig), 'lang' => 'views/header.participants'])
-      @include('layouts.menu.components.divider')
+        @if(auth()->user()->participatesInChats() && auth()->user()->liveGig->participatesInChats())
+        @link(['route' => route('chat.index'), 'lang' => 'views/header.chat', 'icon' => 'comments'])
+        @endif
+
+        @link(['route' => route('gig.participants.index', auth()->user()->liveGig), 'lang' => 'views/header.participants', 'icon' => 'users'])
+        @include('layouts.menu.components.divider')
       @endif
 
      @link(['route' => route('profile.show'), 'lang' => 'views/header.profile'])

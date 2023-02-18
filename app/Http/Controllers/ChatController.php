@@ -8,7 +8,14 @@ use App\Events\ChatSent;
 
 class ChatController extends Controller
 {
-    public function between(User $userOne, User $userTwo)
+    public function index()
+    {
+        $users = auth()->user()->liveGig->participants()->wantsChat()->didntBlockMe()->get()->sortBy('user.name');
+
+        return view('pages.chat.index', compact('users'));
+    }
+
+    public function between(Request $request, User $userOne, User $userTwo)
     {
         $this->authorize('view', Chat::class);
         
@@ -17,16 +24,19 @@ class ChatController extends Controller
 
         auth()->user()->read($chat);
 
-        return view('components.chat.conversation', compact(['chat', 'user']))->render();
+        if ($request->wantsJson())
+            return view('pages.chat.components.conversation.index', compact(['chat', 'user']))->render();
+
+        return view('pages.chat.show', compact(['chat', 'user']));
     }
 
-    public function participants()
+    public function users()
     {
         $this->authorize('view', Chat::class);
 
-        $participants = auth()->user()->liveGig->participants()->wantsChat()->didntBlockMe()->get()->sortBy('user.name');
+        $users = auth()->user()->liveGig->participants()->wantsChat()->didntBlockMe()->get()->sortBy('user.name');
 
-        return view('components.chat.participants', compact('participants'))->render();
+        return view('pages.chat.components.users', compact('users'))->render();
     }
 
     /**
@@ -58,7 +68,7 @@ class ChatController extends Controller
 
         $conversation = Chat::between(auth()->user(), $to)->get();
         
-        return view('components.chat.conversation', ['chat' => $conversation, 'user' => $to])->render();
+        return view('pages.chat.components.conversation.index', ['chat' => $conversation, 'user' => $to])->render();
     }
 
     public function user(Request $request)
@@ -67,7 +77,7 @@ class ChatController extends Controller
 
         $this->authorize('sendMessage', [Chat::class, $user]);
 
-        return view('components.chat.user', compact('user'))->render();
+        return view('pages.chat.components.user', compact('user'))->render();
     }
 
     public function block(User $user)
@@ -93,12 +103,12 @@ class ChatController extends Controller
     {
         $unread = auth()->user()->receivedMessages()->unread()->get();
 
-        $global = view('components.chat.unread', ['count' => $unread->count()])->render();
+        $global = view('pages.chat.components.unread', ['count' => $unread->count()])->render();
 
         $users = collect();
 
         foreach ($unread->groupBy('from_id') as $userId => $chat) {
-            $users->push(['user_id' => $userId, 'view' => view('components.chat.unread', ['count' => $chat->count()])->render()]);
+            $users->push(['user_id' => $userId, 'view' => view('pages.chat.components.unread', ['count' => $chat->count()])->render()]);
         }
 
         return response()->json(compact(['global', 'users']));

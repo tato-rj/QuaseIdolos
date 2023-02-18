@@ -92,12 +92,15 @@ class Chat
 			    		obj._pinChatToBottom();
 			    		$user.enable().removeClass('opacity-4');
 			    	});
+			    })
+			    .catch(function(error) {
+			    	alert('Descuple, o chat não está disponível nesse momento');
 			    });
 	}
 
 	getParticipants()
 	{
-		axios.get(app.chatUrls.showParticipants)
+		axios.get(app.chatUrls.showUsers)
 			 .then(function(response) {
 			 	$('#chat-list').html(response.data);
 			 })

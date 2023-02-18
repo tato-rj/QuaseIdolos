@@ -163,7 +163,7 @@ a {
         'chatUrls' => [
             'unreadCount' => route('chat.unread-count'),
             'showUser' => route('chat.user'),
-            'showParticipants' => route('chat.participants')
+            'showUsers' => route('chat.users')
         ]
     ]); ?>
 </script>

@@ -11,7 +11,7 @@
 		@pagetitle([
 			'title' => 'Quem está', 
 			'highlight' => 'participando', 
-			'subtitle' => 'Esse evento tem ' . $participants->count() . ' ' . plural('participante', $participants->count())])
+			'subtitle' => 'Esse evento está com ' . $participants->count() . ' ' . plural('participante', $participants->count())])
 	</div>
 </section>
 

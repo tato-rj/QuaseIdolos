@@ -4,7 +4,7 @@
 			{{$message->message}}
 		</div>
 		<div class="text-right">
-			@include('components.chat.conversation.status', ['verify' => false])
+			@include('pages.chat.components.conversation.status', ['verify' => false])
 		</div>
 	</div>
 </div>

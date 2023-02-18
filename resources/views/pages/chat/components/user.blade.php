@@ -11,7 +11,9 @@
 		<div class="opacity-6 mb-2 mt-1 fw-bold">chat com {{$user->first_name}}</div>
 
 		@unless($blocked)
-			@include('components.chat.block')
+			@form(['method' => 'POST', 'url' => route('chat.block', $user)])
+			<button class="btn btn-sm p-0 btn-red mb-4">@fa(['icon' => 'ban'])Bloquear</button>
+			@endform
 
 			<div class="conversation-container"></div>
 		@endunless
@@ -28,7 +30,7 @@
 	    @endif
 	  </div>
 	  
-	  @include('components.chat.form')
+	  @include('pages.chat.components.form')
 	</div>
 	@else
 		@form(['method' => 'POST', 'url' => route('chat.unblock', $user)])
