@@ -22,7 +22,6 @@
 	</div>
 	<div id="artists-container">
 		@include('pages.artists.results')
-		{{$artists->links()}}
 	</div>
 </section>
 
