@@ -2,6 +2,10 @@
 
 @row
   @slot('column1')
+  {{weekday($song->created_at->format('w'))}} {{$song->created_at->format('d/m')}}
+  @endslot
+
+  @slot('column2')
 	<a href="#" data-bs-toggle="modal" data-bs-target="#edit-song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
 	@include('components.song.admin.icons')
 	<div>

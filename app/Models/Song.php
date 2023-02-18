@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Archiveable;
+use App\Models\Traits\{Archiveable, Sortable};
 
 class Song extends BaseModel
 {
-	use Archiveable;
+	use Archiveable, Sortable;
 	
 	protected $withCount = ['favorites', 'songRequests'];
 	protected $with = ['genre', 'artist'];
