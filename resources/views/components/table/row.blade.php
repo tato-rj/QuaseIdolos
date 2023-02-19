@@ -1,5 +1,5 @@
 @php($columns = collect())
-@for($i=1;$i<=5;$i++)
+@for($i=1;$i<=6;$i++)
 @isset(${'column'.$i})
 @php($columns->push('column'.$i))
 @endisset
