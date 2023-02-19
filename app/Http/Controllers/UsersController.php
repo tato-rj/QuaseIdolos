@@ -11,8 +11,9 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::withCount(['participations', 'songRequests', 'favorites', 'allMessages'])->sortable()->get();
-        return $users;
+        return User::search('bruna')->orderBy('name')->get();
+        return User::withCount(['participations', 'songRequests', 'favorites', 'allMessages'])->sortable()->get();
+
         $users = User::guests()->withCount(['participations', 'songRequests', 'favorites', 'allMessages'])->sortable()->paginate(12);
 
         return view('pages.users.index', compact('users'));
