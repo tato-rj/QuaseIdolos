@@ -7,7 +7,7 @@
 		'gender' => 'Gênero',
 		'participations_count' => 'Eventos', 
 		'song_requests_count' => 'Músicas',
-		'all_messages_count' => 'Chats'],
+		'all_messages_count' => 'Chat'],
 	'rows' => $users,
 	'view' => 'pages.users.row'
 ])
