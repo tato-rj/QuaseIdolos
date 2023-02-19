@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        return User::search('bruna')->orderBy('name')->with('allMessages')->first();
+        return User::search('bruna')->orderBy('name')->first()->allMessages()->count();
         return User::withCount(['participations', 'songRequests', 'favorites', 'allMessages'])->sortable()->get();
 
         $users = User::guests()->withCount(['participations', 'songRequests', 'favorites', 'allMessages'])->sortable()->paginate(12);
