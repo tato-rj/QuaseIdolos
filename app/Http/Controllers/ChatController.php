@@ -10,7 +10,7 @@ class ChatController extends Controller
 {
     public function index()
     {
-        $users = auth()->user()->liveGig->participants()->wantsChat()->didntBlockMe()->get()->sortBy('user.name');
+        $users = auth()->user()->liveGig ? auth()->user()->liveGig->participants()->wantsChat()->didntBlockMe()->get()->sortBy('user.name') : collect();
 
         return view('pages.chat.index', compact('users'));
     }
