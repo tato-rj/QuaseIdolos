@@ -1,6 +1,6 @@
 <div class="d-flex mb-2">
 	<div>
-		<div class="rounded border border-white px-3 py-2 mb-1 text-left ml-auto" style="max-width: 85%;">
+		<div class="rounded border border-white px-3 py-2 mb-1 text-left" style="max-width: 85%;">
 			{{$message->message}}
 		</div>
 		<div class="text-right">
