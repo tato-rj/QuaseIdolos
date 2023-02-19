@@ -36,7 +36,10 @@
   @slot('column5')
     @php($count = $user->songRequests()->count())
     <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
-{{--     @php($count = $user->songRequests()->has('winners')->count())
-    <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span> --}}
+  @endslot
+
+  @slot('column6')
+    @php($count = $user->allMessages()->count())
+    <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
   @endslot
 @endrow

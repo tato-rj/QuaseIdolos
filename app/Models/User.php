@@ -84,6 +84,11 @@ class User extends Authenticatable
         return $this->hasMany(Chat::class, 'from_id');
     }
 
+    public function allMessages()
+    {
+        return $this->receivedMessages()->union($this->sentMessages());
+    }
+
     public function suggestions()
     {
         return $this->hasMany(Suggestion::class);
