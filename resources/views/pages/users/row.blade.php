@@ -34,12 +34,10 @@
   @endslot
 
   @slot('column5')
-    @php($count = $user->songRequests()->count())
-    <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
+    <span class="{{! $user->song_requests_count ? 'opacity-4' : null}}">{{$user->song_requests_count}}</span>
   @endslot
 
   @slot('column6')
-    @php($count = $user->allMessages()->count())
-    <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
+    <span class="{{! $user->sent_messages_count ? 'opacity-4' : null}}">{{$user->sent_messages_count}}</span>
   @endslot
 @endrow
