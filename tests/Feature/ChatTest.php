@@ -68,7 +68,7 @@ class ChatTest extends AppTest
 
         $this->post(route('chat.store', $chat->to->id), ['message' => $chat->message]);
 
-        $this->get(route('chat.between', ['userOne' => auth()->user(), 'userTwo' => $this->otherUser]))->assertSee($chat->message);
+        $this->getJson(route('chat.between', ['userOne' => auth()->user(), 'userTwo' => $this->otherUser]))->assertSee($chat->message);
     }
 
     /** @test */
@@ -189,11 +189,11 @@ class ChatTest extends AppTest
     /** @test */
     public function users_can_choose_not_to_participate_in_the_chat()
     {
-        $this->get(route('chat.participants'))->assertSee($this->otherUser->first_name);
+        $this->get(route('chat.users'))->assertSee($this->otherUser->first_name);
 
         $this->otherUser->update(['participates_in_chat' => false]);
 
-        $this->get(route('chat.participants'))->assertDontSee($this->otherUser->first_name);
+        $this->get(route('chat.users'))->assertDontSee($this->otherUser->first_name);
     }
 
     /** @test */
@@ -205,7 +205,7 @@ class ChatTest extends AppTest
 
         $this->signIn($this->otherUser);
 
-        $this->get(route('chat.participants'))->assertSee($firstUser->first_name);
+        $this->get(route('chat.users'))->assertSee($firstUser->first_name);
 
         $this->signIn($firstUser);
 
@@ -215,7 +215,7 @@ class ChatTest extends AppTest
 
         $this->signIn($this->otherUser);
 
-        $this->get(route('chat.participants'))->assertDontSee($firstUser->first_name);
+        $this->get(route('chat.users'))->assertDontSee($firstUser->first_name);
     }
 
     /** @test */
@@ -255,7 +255,7 @@ class ChatTest extends AppTest
     /** @test */
     public function a_gig_can_allow_chat_or_not()
     {
-        $this->get(route('chat.participants'))->assertSee($this->otherUser->first_name);
+        $this->get(route('chat.users'))->assertSee($this->otherUser->first_name);
 
         $chat = Chat::factory()->make(['to_id' => $this->otherUser]);
 
@@ -265,6 +265,6 @@ class ChatTest extends AppTest
 
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
 
-        $this->get(route('chat.participants'))->assertSee($this->otherUser->first_name);
+        $this->get(route('chat.users'))->assertSee($this->otherUser->first_name);
     }
 }

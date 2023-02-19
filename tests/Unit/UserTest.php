@@ -55,6 +55,8 @@ class UserTest extends AppTest
         Chat::factory()->create(['to_id' => auth()->user()]);
 
         $this->assertInstanceOf(Chat::class, auth()->user()->allMessages->first());
+        $this->assertTrue(auth()->user()->allMessages->first()->from->is(auth()->user()));
+        $this->assertTrue(auth()->user()->allMessages->last()->to->is(auth()->user()));
         $this->assertCount(2, auth()->user()->allMessages);
     }
 
