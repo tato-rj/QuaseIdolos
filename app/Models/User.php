@@ -27,8 +27,6 @@ class User extends Authenticatable
 
     protected $appends = ['firstName'];
 
-    protected $withCount = ['allMessages'];
-
     protected static function booted()
     {
         self::creating(function(User $user) {
