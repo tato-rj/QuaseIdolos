@@ -51,13 +51,17 @@ class UserTest extends AppTest
     /** @test */
     public function it_has_many_messages()
     {
-        Chat::factory()->create(['from_id' => auth()->user()]);
+        $otherUser = User::factory()->create();
+
+        Chat::factory()->create(['from_id' => auth()->user(), 'to_id' => $otherUser]);
         Chat::factory()->create(['to_id' => auth()->user()]);
 
         $this->assertInstanceOf(Chat::class, auth()->user()->allMessages->first());
         $this->assertTrue(auth()->user()->allMessages->first()->from->is(auth()->user()));
         $this->assertTrue(auth()->user()->allMessages->last()->to->is(auth()->user()));
         $this->assertCount(2, auth()->user()->allMessages);
+        // dd(auth()->user()->allMessages()->count());
+        dd(User::withCount('allMessages')->orderBy('all_messages_count', 'DESC')->pluck('all_messages_count'));
     }
 
     /** @test */
