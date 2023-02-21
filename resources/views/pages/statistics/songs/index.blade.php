@@ -9,7 +9,6 @@
 @endpush
 
 @section('content')
-<h1>{{$initialDate->toFormattedDateString()}}</h1>
 <section class="container mb-6">
 	<div class="text-center mb-4">
 		@pagetitle(['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
