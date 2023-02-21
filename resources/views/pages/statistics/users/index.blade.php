@@ -28,7 +28,9 @@
       <div class="d-flex justify-content-end mb-4">
         @include('pages.statistics.components.dates')
       </div>
-      <div id="table-container"></div>
+      <div id="table-container">
+        @include('components.placeholders.table')
+      </div>
     </div>
   </div>
 </section>

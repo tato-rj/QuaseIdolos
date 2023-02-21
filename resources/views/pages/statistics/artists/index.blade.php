@@ -6,6 +6,7 @@
 
 @push('header')
 <style type="text/css">
+
 </style>
 <script type="text/javascript">
 window.dates = <?php echo json_encode([
@@ -26,7 +27,9 @@ window.dates = <?php echo json_encode([
     @include('pages.statistics.components.dates')
   </div>
 
-  <div id="table-container"></div>
+  <div id="table-container">
+    @include('components.placeholders.table')
+  </div>
 </section>
 
 @endsection

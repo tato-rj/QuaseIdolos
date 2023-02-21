@@ -20,7 +20,9 @@
     @include('pages.statistics.components.dates')
   </div>
 
-  <div id="table-container"></div>
+  <div id="table-container">
+    @include('components.placeholders.table')
+  </div>
 </section>
 
 @endsection

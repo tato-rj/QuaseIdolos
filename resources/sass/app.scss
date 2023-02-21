@@ -3,6 +3,45 @@
 //////////////////////////////////////
 //// CUSTOM CSS BELOW
 //////////////////////////////////////
+@keyframes blink {
+    0% {
+           opacity: 0.5;
+    }
+    50% {
+           opacity: 0.9;
+    }
+    100% {
+           opacity: 0.5;
+    }
+}
+@-webkit-keyframes blink {
+    0% {
+           opacity: 0.5;
+    }
+    50% {
+           opacity: 0.9;
+    }
+    100% {
+           opacity: 0.5;
+    }
+
+}
+
+.placeholder-animate {
+    -moz-transition:all 0.5s ease-in-out;
+    -webkit-transition:all 0.5s ease-in-out;
+    -o-transition:all 0.5s ease-in-out;
+    -ms-transition:all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+    -moz-animation:blink normal 1.5s infinite ease-in-out;
+    /* Firefox */
+    -webkit-animation:blink normal 1.5s infinite ease-in-out;
+    /* Webkit */
+    -ms-animation:blink normal 1.5s infinite ease-in-out;
+    /* IE */
+    animation:blink normal 1.5s infinite ease-in-out;
+    /* Opera */
+}
 
 .grayscale {
   -webkit-filter: grayscale(100%) !important; /* Safari 6.0 - 9.0 */
