@@ -45,12 +45,11 @@ class StatsController extends Controller
 
     public function artists(Request $request)
     {
-        // $ranking = Artist::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
         $query = $request->has('from') && $request->has('to') ? 
             SongRequest::whereBetween('created_at', [carbon(datePtToUs($request->from)), carbon(datePtToUs($request->to))])->get() : 
             SongRequest::all();
 
-        $ranking = $query->groupBy('song_id')
+        $ranking = $query->groupBy('artist_id')
                          ->sortByDesc(function($item, $key) {
                              return count($item);
                          })->values()->take(10);
