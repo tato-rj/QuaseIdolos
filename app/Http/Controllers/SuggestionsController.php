@@ -15,7 +15,7 @@ class SuggestionsController extends Controller
      */
     public function index()
     {
-        $suggestions = Suggestion::unconfirmed()->sortable()->get();
+        $suggestions = Suggestion::unconfirmed()->sortable()->paginate(8);
 
         return view('pages.suggestions.index', compact('suggestions'));
     }
