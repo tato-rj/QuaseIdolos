@@ -38,10 +38,12 @@ $(".datepicker").datepicker({
 
 function reloadTable(from, to)
 {
+  $('#table-container').addClass('opacity-6');
+
   axios.get('{!! route('stats.artists') !!}', {params: {from: from, to: to}})
        .then(function(response) {
         log(response.data);
-        $('#table-container').html(response.data);
+        $('#table-container').removeClass('opacity-6').html(response.data);
        })
        .catch(function(error) {
         log(error)

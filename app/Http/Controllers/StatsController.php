@@ -61,7 +61,16 @@ class StatsController extends Controller
 
     public function genres(Request $request)
     {
-        $ranking = Genre::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
+        $query = $request->has('from') && $request->has('to') ? 
+            SongRequest::whereBetween('created_at', [carbon(datePtToUs($request->from)), carbon(datePtToUs($request->to))])->get() : SongRequest::all();
+
+        $ranking = $query->groupBy('song.genre_id')
+                         ->sortByDesc(function($item, $key) {
+                             return count($item);
+                         })->values()->take(10);
+
+        if ($request->wantsJson())
+            return view('pages.statistics.genres.table', compact('ranking'))->render();
 
         return view('pages.statistics.genres.index', compact(['ranking']));
     }

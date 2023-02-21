@@ -12,6 +12,8 @@
     @include('pages.statistics.nav')
 	</div>
 
+  @include('pages.statistics.components.dates', ['empty' => true])
+
   <div id="table-container">
     @include('pages.statistics.genres.table')
   </div>
@@ -36,10 +38,12 @@ $(".datepicker").datepicker({
 
 function reloadTable(from, to)
 {
+  $('#table-container').addClass('opacity-6');
+  
   axios.get('{!! route('stats.genres') !!}', {params: {from: from, to: to}})
        .then(function(response) {
         log(response.data);
-        $('#table-container').html(response.data);
+        $('#table-container').removeClass('opacity-6').html(response.data);
        })
        .catch(function(error) {
         log(error)
