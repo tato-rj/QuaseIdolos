@@ -23,13 +23,6 @@
 
   @slot('actions')
 		@if($gig->isLive())
-
-{{-- 		<button class="pause-switch btn btn-sm btn-secondary mr-2" data-url="{{route('gig.pause', $gig)}}">
-		  @fa(['icon' => $gig->is_paused ? 'play' : 'pause', 'mr' => 0])
-		</button> --}}
-		@endif
-
-		@if($gig->isLive())
 		<form method="POST" action="{{route('gig.pause', $gig)}}" class="d-inline mr-2">
 			@csrf
 			<button type="submit" class="btn btn-sm btn-secondary">
