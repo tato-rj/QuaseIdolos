@@ -4,8 +4,8 @@
   @endslot
 
   @slot('column2')
-  <div>{{$row->song_name}}</div>
-  <div class="text-secondary">{{$song->artist->name}}</div>
+  <div>{{ucWords($row->song_name)}}</div>
+  <div class="text-secondary">{{ucWords($row->artist_name)}}</div>
   @endslot
 
   @slot('column3')
