@@ -85,4 +85,20 @@ class SongTest extends AppTest
         
         $this->assertEquals(1, $this->song->fresh()->completed_count);
     }
+
+    /** @test */
+    public function it_knows_how_many_times_it_was_sung_between_two_given_dates()
+    {
+        SongRequest::factory()->create([
+            'song_id' => $this->song, 
+            'finished_at' => now(), 
+            'created_at' => now()->subMonth()
+        ]);
+
+        $this->assertCount(0, Song::withCount('songRequests')->withRequestsBetween(now()->subWeek()->format('d/m/Y'), now()->format('d/m/Y'))->get());
+
+        $this->assertCount(1, Song::withCount('songRequests')->withRequestsBetween(now()->subMonth()->format('d/m/Y'), now()->format('d/m/Y'))->get());
+
+        $this->assertCount(1, Song::withCount('songRequests')->withRequestsBetween()->get());
+    }
 }

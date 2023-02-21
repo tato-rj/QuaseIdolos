@@ -28,7 +28,10 @@ class StatsController extends Controller
 
     public function songs(Request $request)
     {
-        $ranking = Song::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
+        $ranking = Song::withCount('songRequests')->withRequestsBetween($request->from, $request->to)->orderBy('song_requests_count', 'DESC')->take(10)->get();
+
+        if ($request->wantsJson())
+            return view('pages.statistics.songs.table', compact('ranking'))->render();
 
         return view('pages.statistics.songs.index', compact(['ranking']));
     }

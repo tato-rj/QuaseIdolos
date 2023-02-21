@@ -83,4 +83,14 @@ class Song extends BaseModel
     {
     	return $query->orderBy('name');
     }
+
+    public function scopeWithRequestsBetween($query, $from = null, $to = null)
+    {
+    	if (! $from || ! $to)
+    		return $query;
+    	
+    	return $query->whereHas('songRequests', function($q) use ($from, $to) {
+    		$q->whereBetween('created_at', [carbon(datePtToUs($from)), carbon(datePtToUs($to))]);
+    	});
+    }
 }
