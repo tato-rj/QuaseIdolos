@@ -143,11 +143,6 @@ class User extends Authenticatable
         $this->liveGig = $this->gig()->live()->first();
     }
 
-    // public function liveGig()
-    // {
-    //     return $this->gig()->live()->first();
-    // }
-
     public function liveGigExists()
     {
         return $this->liveGig;
