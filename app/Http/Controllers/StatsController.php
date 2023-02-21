@@ -28,39 +28,37 @@ class StatsController extends Controller
 
     public function songs(Request $request)
     {
-        $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song_id');
-
-        if ($request->wantsJson())
+        if ($request->wantsJson()) {
+            $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song_id');
             return view('pages.statistics.songs.table', compact('ranking'))->render();
+        }
 
-        return view('pages.statistics.songs.index', compact(['ranking']));
+        return view('pages.statistics.songs.index');
     }
 
     public function artists(Request $request)
     {
-        $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song.artist_id');
-
-        if ($request->wantsJson())
+        if ($request->wantsJson()) {
+            $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song.artist_id');
             return view('pages.statistics.artists.table', compact('ranking'))->render();
+        }
 
-        return view('pages.statistics.artists.index', compact(['ranking']));
+        return view('pages.statistics.artists.index');
     }
 
     public function genres(Request $request)
     {
-        $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song.genre_id');
-
-        if ($request->wantsJson())
+        if ($request->wantsJson()) {
+            $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song.genre_id');
             return view('pages.statistics.genres.table', compact('ranking'))->render();
+        }
 
-        return view('pages.statistics.genres.index', compact(['ranking']));
+        return view('pages.statistics.genres.index');
     }
 
     public function users(Request $request)
     {
-        $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('user_id');
-
-        if ($request->wantsJson()) {
+        if ($request->wantsJson()) {    
             switch ($request->data) {
                 case 'genre':
                     return response()->json([
@@ -70,11 +68,12 @@ class StatsController extends Controller
                     break;
                 
                 default:
+                    $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('user_id');
                     return view('pages.statistics.users.table', compact('ranking'))->render();
                     break;
             }
         }
         
-        return view('pages.statistics.users.index', compact('ranking'));
+        return view('pages.statistics.users.index');
     }
 }
