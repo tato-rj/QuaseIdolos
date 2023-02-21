@@ -17,7 +17,7 @@
 			'created_at' => 'Data', 
 			'artist_name' => 'Música', 
 			'Usuário', ''],
-		'optional' => [1,4],
+		'optional' => [1,3],
 		'rows' => $suggestions,
 		'view' => 'pages.suggestions.row'
 	])
