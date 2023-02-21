@@ -11,28 +11,30 @@
 			data-bs-toggle="modal" 
 			data-bs-target="#setlist-gig-{{$gig->id}}-modal" 
 			class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'users'])Ver setlist</button>
+			@include('pages.gigs.modals.setlist')
 		
-		<button {{$gig->isPast() && ! $gig->isLive() ? 'disabled' : null}} 
-			data-bs-toggle="modal" 
-			data-bs-target="#edit-gig-{{$gig->id}}-modal" 
-			class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'edit'])Editar evento</button>
+		@unless($gig->isPast() && ! $gig->isLive())
+			@if($gig->password()->required())
+			<form method="POST" action="{{route('gig.update-password', $gig)}}">
+				@csrf
+				@method('PATCH')
+				<button type="submit" class="btn btn-secondary mb-2 text-truncate w-100">@fa(['icon' => 'key'])Mudar senha</button>
+			</form>
+			@endif
 
-		@if($gig->password()->required())
-		<form method="POST" action="{{route('gig.update-password', $gig)}}">
-			@csrf
-			@method('PATCH')
-			<button type="submit" class="btn btn-secondary mb-2 text-truncate w-100">@fa(['icon' => 'key'])Mudar senha</button>
-		</form>
-		@endif
+			<button {{$gig->isPast() && ! $gig->isLive() ? 'disabled' : null}} 
+				data-bs-toggle="modal" 
+				data-bs-target="#edit-gig-{{$gig->id}}-modal" 
+				class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'edit'])Editar evento</button>
+				@include('pages.gigs.modals.edit')
 
-		<button {{$gig->isPast() && ! $gig->isLive() ? 'disabled' : null}} 
-			data-bs-toggle="modal" 
-			data-bs-target="#delete-gig-{{$gig->id}}-modal" 
-			class="btn btn-outline-secondary text-truncate mb-2">@fa(['icon' => 'trash-alt'])Remover evento</button>
+			<button
+				data-bs-toggle="modal" 
+				data-bs-target="#delete-gig-{{$gig->id}}-modal" 
+				class="btn btn-outline-secondary text-truncate mb-2">@fa(['icon' => 'trash-alt'])Remover evento</button>
+				@include('pages.gigs.modals.delete')
+		@endunless
+
 		<small class="opacity-6">Criado por {{$gig->creator->name}}</small>
-
-		@include('pages.gigs.modals.setlist')
-		@include('pages.gigs.modals.edit')
-		@include('pages.gigs.modals.delete')
 	</div>
 </div>
