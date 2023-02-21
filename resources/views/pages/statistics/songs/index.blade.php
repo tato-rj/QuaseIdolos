@@ -1,4 +1,5 @@
 @php($initialDate = \App\Models\SongRequest::first()->created_at)
+@php($firstDate = now()->startOfMonth())
 @php($lastDate = now())
 
 @extends('layouts.app', ['title' => 'Estatísticas das músicas'])
