@@ -8,10 +8,6 @@
   <div class="text-secondary">{{ucWords($row->artist_name)}}</div>
   @endslot
 
-  @slot('column3')
-  
-  @endslot
-
   @slot('column4')
   <div class="d-flex align-items-center">
     <div class="mr-2 no-truncate">
