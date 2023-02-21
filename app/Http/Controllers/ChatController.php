@@ -20,7 +20,7 @@ class ChatController extends Controller
         $this->authorize('view', Chat::class);
         
         $user = $userTwo->is(auth()->user()) ? $userOne : $userTwo;
-        $chat = Chat::between($userOne, $userTwo)->get();
+        $chat = Chat::between($userOne, $userTwo)->with(['to', 'from'])->get();
 
         auth()->user()->read($chat);
 
@@ -34,7 +34,7 @@ class ChatController extends Controller
     {
         $this->authorize('view', Chat::class);
 
-        $users = auth()->user()->liveGig->participants()->wantsChat()->didntBlockMe()->get()->sortBy('user.name');
+        $users = auth()->user()->liveGig->participants()->with('user')->wantsChat()->didntBlockMe()->get()->sortBy('user.name');
 
         return view('pages.chat.components.users', compact('users'))->render();
     }
