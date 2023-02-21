@@ -53,6 +53,8 @@ $('.chart-container select[name="group_by"]').on('change', function() {
 $(".datepicker").datepicker({
     changeMonth: true,
     changeYear: true,
+    minDate: new Date('{!! $initialDate !!}'),
+    maxDate: new Date('{!! $lastDate !!}'),
     onSelect: function(dateText) {
       reloadChart(this);
     }
