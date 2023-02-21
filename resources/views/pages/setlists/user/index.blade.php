@@ -15,7 +15,7 @@
 		@table([
 			'title' => 'Lista de espera',
 			'legend' => 'música|músicas',
-			'headers' => ['Música', 'Convidados', ''],
+			'headers' => ['Música', ''],
 			'rows' => $waitingList,
 			'view' => 'pages.setlists.user.row'
 		])
@@ -23,7 +23,7 @@
 		@table([
 			'empty' => true,
 			'title' => 'Músicas que já cantei',
-			'headers' => ['Música', 'Convidados', ''],
+			'headers' => ['Música', ''],
 			'legend' => 'música|músicas',
 			'rows' => $pastList,
 			'view' => 'pages.setlists.user.row'

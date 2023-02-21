@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::prefix('setlist')->name('setlists.')->group(function() {
-        Route::get('', 'SetlistsController@user')->name('user');
+        Route::withoutMiddleware('join-gig')->get('', 'SetlistsController@user')->name('user');
 
         Route::get('alerta', 'SongRequestsController@alert')->name('alert');
     });
