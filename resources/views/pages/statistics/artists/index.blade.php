@@ -1,7 +1,7 @@
 @php($initialDate = \App\Models\SongRequest::first()->created_at)
 @php($lastDate = now())
 
-@extends('layouts.app', ['title' => 'Estatísticas'])
+@extends('layouts.app', ['title' => 'Estatísticas dos artistas'])
 
 @push('header')
 <style type="text/css">

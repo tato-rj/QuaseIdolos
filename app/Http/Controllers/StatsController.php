@@ -61,13 +61,7 @@ class StatsController extends Controller
 
     public function genres(Request $request)
     {
-        $query = $request->has('from') && $request->has('to') ? 
-            SongRequest::whereBetween('created_at', [carbon(datePtToUs($request->from)), carbon(datePtToUs($request->to))])->get() : SongRequest::all();
 
-        $ranking = $query->groupBy('song.genre_id')
-                         ->sortByDesc(function($item, $key) {
-                             return count($item);
-                         })->values()->take(10);
 
         if ($request->wantsJson())
             return view('pages.statistics.genres.table', compact('ranking'))->render();
@@ -77,15 +71,29 @@ class StatsController extends Controller
 
     public function users(Request $request)
     {
-        if (! $request->wantsJson()) {
-            $ranking = User::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
-            
-            return view('pages.statistics.users.index', compact(['ranking']));
-        }
+        $query = $request->has('from') && $request->has('to') ? 
+            SongRequest::whereBetween('created_at', [carbon(datePtToUs($request->from)), carbon(datePtToUs($request->to))])->get() : SongRequest::all();
 
-        return response()->json([
-            'labels' => ['Feminino', 'Masculino'],
-            'data' => [User::female()->count(), User::male()->count()]
-        ]);
+        $ranking = $query->groupBy('user_id')
+                         ->sortByDesc(function($item, $key) {
+                             return count($item);
+                         })->values()->take(10);
+
+        if ($request->wantsJson()) {
+            switch ($request->data) {
+                case 'genre':
+                    return response()->json([
+                        'labels' => ['Feminino', 'Masculino'],
+                        'data' => [User::female()->count(), User::male()->count()]
+                    ]);
+                    break;
+                
+                default:
+                    return view('pages.statistics.users.table', compact('ranking'))->render();
+                    break;
+            }
+        }
+        
+        return view('pages.statistics.users.index', compact('ranking'));
     }
 }
