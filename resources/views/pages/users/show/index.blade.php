@@ -63,7 +63,7 @@
 				'mb' => 4,
 				'headers' => ['Data', 'Evento'],
 				'legend' => 'evento|eventos',
-				'rows' => $user->participations()->confirmed()->get(),
+				'rows' => $user->participations()->confirmed()->paginate(8),
 				'view' => 'pages.users.rows.gigs'
 			])
 {{-- 			@table([
