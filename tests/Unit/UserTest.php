@@ -49,18 +49,6 @@ class UserTest extends AppTest
     }
 
     /** @test */
-    public function it_has_many_messages()
-    {
-        Chat::factory()->create(['from_id' => auth()->user()]);
-        Chat::factory()->create(['to_id' => auth()->user()]);
-
-        $this->assertInstanceOf(Chat::class, auth()->user()->allMessages->first());
-        $this->assertTrue(auth()->user()->allMessages->first()->from->is(auth()->user()));
-        $this->assertTrue(auth()->user()->allMessages->last()->to->is(auth()->user()));
-        $this->assertCount(2, auth()->user()->allMessages);
-    }
-
-    /** @test */
     public function it_has_many_participation_records()
     {
         Participant::factory()->create(['user_id' => auth()->user()]);

@@ -25,19 +25,22 @@
   @endslot
   
   @slot('column3')
-    @fa(['icon' => $user->gender, 'fa_color' => $user->genderColor]){{$user->genderPt}}
+    @fa(['icon' => $user->gender, 'fa_color' => $user->genderColor, 'classes' => 'no-stroke']){{$user->genderPt}}
   @endslot
 
   @slot('column4')
+  <div class="d-flex align-items-center">
+    @fa(['icon' => 'comment', 'classes' => $user->sent_messages_count ? 'text-green no-stroke' : 'opacity-4 no-stroke'])
+    <div>{{$user->sent_messages_count > 0 ? $user->sent_messages_count : null}}</div>
+  </div>
+  @endslot
+
+  @slot('column5')
     @php($count = $user->participations()->confirmed()->count())
     <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
   @endslot
 
-  @slot('column5')
-    <span class="{{! $user->song_requests_count ? 'opacity-4' : null}}">{{$user->song_requests_count}}</span>
-  @endslot
-
   @slot('column6')
-    <span class="{{! $user->sent_messages_count ? 'opacity-4' : null}}">{{$user->sent_messages_count}}</span>
+    <span class="{{! $user->song_requests_count ? 'opacity-4' : null}}">{{$user->song_requests_count}}</span>
   @endslot
 @endrow

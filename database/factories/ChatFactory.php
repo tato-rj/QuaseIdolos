@@ -27,4 +27,31 @@ class ChatFactory extends Factory
             'message' => $this->faker->sentence
         ];
     }
+
+    public function from(User $user)
+    {
+        return $this->state(function (array $attributes) use ($user) {
+            return [
+                'from_id' => $user
+            ];
+        });
+    }
+
+    public function to(User $user)
+    {
+        return $this->state(function (array $attributes) use ($user) {
+            return [
+                'to_id' => $user
+            ];
+        });
+    }
+
+    public function gig(Gig $gig)
+    {
+        return $this->state(function (array $attributes) use ($gig) {
+            return [
+                'gig_id' => $gig
+            ];
+        });
+    }
 }
