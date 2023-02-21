@@ -79,6 +79,7 @@ class StatsController extends Controller
     {
         if (! $request->wantsJson()) {
             $ranking = User::withCount('songRequests')->orderBy('song_requests_count', 'DESC')->take(10)->get();
+            
             return view('pages.statistics.users.index', compact(['ranking']));
         }
 
