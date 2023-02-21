@@ -1,8 +1,17 @@
+@php($initialDate = \App\Models\SongRequest::first()->created_at)
+@php($lastDate = now())
+
 @extends('layouts.app', ['title' => 'Estatísticas'])
 
 @push('header')
 <style type="text/css">
 </style>
+<script type="text/javascript">
+window.dates = <?php echo json_encode([
+    'initial' => $initialDate,
+    'last' => $lastDate
+  ]); ?>
+</script>
 @endpush
 
 @section('content')
@@ -28,6 +37,8 @@
 $(".datepicker").datepicker({
     changeMonth: true,
     changeYear: true,
+    minDate: new Date('{!! $initialDate !!}'),
+    maxDate: new Date('{!! $lastDate !!}'),
     onSelect: function(dateText) {
       let $inputs = $(this).parent().find('.datepicker');
       let from = $inputs.eq(0).val();

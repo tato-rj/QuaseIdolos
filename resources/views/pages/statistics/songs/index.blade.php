@@ -1,4 +1,7 @@
-@extends('layouts.app', ['title' => 'Estatísticas'])
+@php($initialDate = \App\Models\SongRequest::first()->created_at)
+@php($lastDate = now())
+
+@extends('layouts.app', ['title' => 'Estatísticas | Músicas'])
 
 @push('header')
 <style type="text/css">
@@ -6,6 +9,7 @@
 @endpush
 
 @section('content')
+<h1>{{$initialDate->toFormattedDateString()}}</h1>
 <section class="container mb-6">
 	<div class="text-center mb-4">
 		@pagetitle(['title' => 'Estatísticas do', 'highlight' => 'Quaseídolos'])
@@ -28,6 +32,8 @@
 $(".datepicker").datepicker({
     changeMonth: true,
     changeYear: true,
+    minDate: new Date('{!! $initialDate !!}'),
+    maxDate: new Date('{!! $lastDate !!}'),
     onSelect: function(dateText) {
       let $inputs = $(this).parent().find('.datepicker');
       let from = $inputs.eq(0).val();
