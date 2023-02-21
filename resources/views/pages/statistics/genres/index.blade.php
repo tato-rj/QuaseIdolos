@@ -20,15 +20,15 @@
     @include('pages.statistics.components.dates')
   </div>
 
-  <div id="table-container">
-    @include('pages.statistics.genres.table')
-  </div>
+  <div id="table-container"></div>
 </section>
 
 @endsection
 
 @push('scripts')
 <script type="text/javascript">
+reloadTable(new Date('{!! $firstDate !!}'), new Date('{!! $lastDate !!}'));
+
 $(".datepicker").datepicker({
     changeMonth: true,
     changeYear: true,

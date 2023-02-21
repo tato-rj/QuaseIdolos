@@ -28,9 +28,7 @@
       <div class="d-flex justify-content-end mb-4">
         @include('pages.statistics.components.dates')
       </div>
-      <div id="table-container">
-        @include('pages.statistics.users.table')
-      </div>
+      <div id="table-container"></div>
     </div>
   </div>
 </section>
@@ -41,6 +39,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script type="text/javascript">
+reloadTable(new Date('{!! $firstDate !!}'), new Date('{!! $lastDate !!}'));
+
 $(".datepicker").datepicker({
     changeMonth: true,
     changeYear: true,

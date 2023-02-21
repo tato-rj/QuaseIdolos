@@ -26,15 +26,15 @@ window.dates = <?php echo json_encode([
     @include('pages.statistics.components.dates')
   </div>
 
-  <div id="table-container">
-    @include('pages.statistics.artists.table')
-  </div>
+  <div id="table-container"></div>
 </section>
 
 @endsection
 
 @push('scripts')
 <script type="text/javascript">
+reloadTable(new Date('{!! $firstDate !!}'), new Date('{!! $lastDate !!}'));
+
 $(".datepicker").datepicker({
     changeMonth: true,
     changeYear: true,
