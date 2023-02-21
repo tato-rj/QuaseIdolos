@@ -116,16 +116,6 @@ class SongRequest extends BaseModel
         return $this->invitations()->to($user)->exists();
     }
 
-    // public function position($complete = false)
-    // {
-    //     $suffix = $complete ? ' da fila' : null;
-
-    //     if ($this->order == 0)
-    //         return $complete ? 'É a sua vez!' : fa('microphone-alt');
-
-    //     return '#' . $this->order . $suffix;
-    // }
-
     public function scopeExcludeInvitations($query)
     {
         return $query->whereDoesntHave('invitations');
@@ -204,6 +194,23 @@ class SongRequest extends BaseModel
         return $query->whereHas('user', function($q) {
             $q->doesntHave('admin');
         });
+    }
+
+    public function scopeBetweenDates($query, $from, $to)
+    {
+        if (! $from || ! $to)
+            return $query;
+
+        return $query->whereBetween('created_at', [carbon($from), carbon($to)]);
+    }
+
+    public function scopeGetRankingBy($query, $column, $count = 10)
+    {
+        return $query->get()
+                     ->groupBy($column)
+                     ->sortByDesc(function($item, $key) {
+                         return count($item);
+                     })->values()->take($count);
     }
 
     public function wasRequestedBy(User $user)
