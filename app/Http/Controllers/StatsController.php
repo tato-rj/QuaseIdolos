@@ -46,10 +46,9 @@ class StatsController extends Controller
     public function artists(Request $request)
     {
         $query = $request->has('from') && $request->has('to') ? 
-            SongRequest::whereBetween('created_at', [carbon(datePtToUs($request->from)), carbon(datePtToUs($request->to))])->get() : 
-            SongRequest::all();
+            SongRequest::whereBetween('created_at', [carbon(datePtToUs($request->from)), carbon(datePtToUs($request->to))])->get() : SongRequest::all();
 
-        $ranking = $query->groupBy('artist_id')
+        $ranking = $query->groupBy('song_id')
                          ->sortByDesc(function($item, $key) {
                              return count($item);
                          })->values()->take(10);
