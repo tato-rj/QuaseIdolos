@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\{User, Song, Gig};
+use Carbon\Carbon;
 
 class SongRequestFactory extends Factory
 {
@@ -32,6 +33,24 @@ class SongRequestFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'finished_at' => now()
+            ];
+        });
+    }
+
+    public function from(Carbon $date)
+    {
+        return $this->state(function (array $attributes) use ($date) {
+            return [
+                'created_at' => $date
+            ];
+        });
+    }
+
+    public function song(Song $song)
+    {
+        return $this->state(function (array $attributes) use ($song) {
+            return [
+                'song_id' => $song
             ];
         });
     }

@@ -233,4 +233,21 @@ class SongRequest extends BaseModel
     {
         return (bool) $this->finished_at;
     }
+
+    public function scopeRankingBetween($query, $from, $to)
+    {
+        return $query->selectRaw('created_at')
+                     ->whereRaw('created_at BETWEEN '.carbon(datePtToUs($from))->toDateTimeString().' AND '.carbon(datePtToUs($to))->toDateTimeString())
+                     // ->groupBy('song_id')
+                     // ->orderByRaw('min(created_at) asc')
+                     ->get();
+    }
+    // public function scopeRecords($query, $length)
+    // {
+    //     return $query->selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+    //         ->whereRaw('created_at >= DATE_ADD(LAST_DAY(DATE_SUB(NOW(), INTERVAL '.$length.')), INTERVAL 1 DAY) and created_at <= NOW()')
+    //         ->groupBy('year', 'month')
+    //         ->orderByRaw('min(created_at) asc')
+    //         ->get();
+    // }
 }
