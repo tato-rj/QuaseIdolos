@@ -9,16 +9,18 @@
   @endslot
 
   @slot('column4')
-  <div class="d-flex align-items-center">
-    <div class="mr-2 no-truncate">
-      @if($row->user->hasAvatar())
-      @include('components.avatar.image', ['size' => '32px', 'user' => $row->user])
-      @else
-      @include('components.avatar.initial', ['size' => '32px', 'user' => $row->user])
-      @endif
+  <a href="{{route('users.edit', $row->user)}}" class="link-none">
+    <div class="d-flex align-items-center">
+      <div class="mr-2 no-truncate">
+        @if($row->user->hasAvatar())
+        @include('components.avatar.image', ['size' => '32px', 'user' => $row->user])
+        @else
+        @include('components.avatar.initial', ['size' => '32px', 'user' => $row->user])
+        @endif
+      </div>
+      <div class="link-none align-middle">{{$row->user->name}}</div>
     </div>
-    <div class="align-middle">{{$row->user->name}}</div>
-  </div>
+  </a>
   @endslot
 
   @slot('actions')
