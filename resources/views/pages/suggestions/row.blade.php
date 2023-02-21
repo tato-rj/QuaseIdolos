@@ -4,15 +4,25 @@
   @endslot
 
   @slot('column2')
-  {{$row->artist_name}}
+  <div>{{$row->song_name}}</div>
+  <div class="text-secondary">{{$song->artist->name}}</div>
   @endslot
 
   @slot('column3')
-  {{$row->song_name}}
+  
   @endslot
 
   @slot('column4')
-  {{$row->user->name}}
+  <div class="d-flex align-items-center">
+    <div class="mr-2 no-truncate">
+      @if($row->user->hasAvatar())
+      @include('components.avatar.image', ['size' => '32px', 'user' => $row->user])
+      @else
+      @include('components.avatar.initial', ['size' => '32px', 'user' => $row->user])
+      @endif
+    </div>
+    <div class="align-middle">{{$row->user->name}}</div>
+  </div>
   @endslot
 
   @slot('actions')
