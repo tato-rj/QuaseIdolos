@@ -228,11 +228,11 @@ a {
 
 <script type="text/javascript">
 $(document).on('show.bs.modal', '.cardapio-song-modal', function() {
-    let $modal = $(this);
-    axios.get($modal.data('url'))
-         .then(function(response) {
-            $modal.find('.cardapio-modal-container').html(response.data);
-         });
+    // let $modal = $(this);
+    // axios.get($modal.data('url'))
+    //      .then(function(response) {
+    //         $modal.find('.cardapio-modal-container').html(response.data);
+    //      });
 });
 
 $(document).on('hidden.bs.modal', '.cardapio-song-modal', function() {
