@@ -1,4 +1,10 @@
-<div class="modal fade {{$class ?? null}}-modal {{iftrue($autoshow ?? null, 'modal-autoshow')}}" id="{{$id}}" style="white-space: initial; cursor: default;">
+<div class="modal fade {{$class ?? null}}-modal {{iftrue($autoshow ?? null, 'modal-autoshow')}}"
+  @isset($data)
+  @foreach($data as $type => $action)
+  data-{{$type}}="{{$action}}"
+  @endforeach
+  @endisset
+ id="{{$id}}" style="white-space: initial; cursor: default;">
   <div class="modal-dialog modal-{{$size ?? null}}">
     <div class="modal-content bg-primary rounded">
 

@@ -13,7 +13,11 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
-
+.table td:first-of-type, 
+.table th:first-of-type {
+    white-space: nowrap;
+    width: 1%;
+}
 u {
     text-decoration-color: white;
 }
@@ -222,6 +226,19 @@ a {
         <script src="{{mix('js/vendor/datepicker-pt-BR.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/vendor/jquery.jscroll.min.js')}}"></script>
 
+<script type="text/javascript">
+$(document).on('show.bs.modal', '.cardapio-song-modal', function() {
+    let $modal = $(this);
+    axios.get($modal.data('url'))
+         .then(function(response) {
+            $modal.find('.cardapio-modal-container').html(response.data);
+         });
+});
+
+$(document).on('hidden.bs.modal', '.cardapio-song-modal', function() {
+    $('.cardapio-modal-container').html('');
+});
+</script>
 <script type="text/javascript">
 let invitationVideo = document.getElementById('participant-video-confirmed')
 

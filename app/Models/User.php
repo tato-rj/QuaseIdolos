@@ -180,6 +180,18 @@ class User extends Authenticatable
         return $query->where('gender', 'male');
     }
 
+    public function scopeWithSocialAccount($query, $provider)
+    {
+        return $query->whereHas('socialAccounts', function($q) use ($provider) {
+            $q->provider($provider);
+        });
+    }
+
+    public function scopeWithoutSocialAccounts($query)
+    {
+        return $query->doesntHave('socialAccounts');
+    }
+
     public function join(Gig $gig)
     {
         Participant::by($this)->unconfirmed()->delete();

@@ -27,8 +27,10 @@
 	@table([
 		'title' => 'Sem data',
 		'legend' => 'evento|eventos',
+		'empty' => true,
+		'columns' => ['event' => 'Evento', 'actions' => ''],
 		'rows' => $venue->gigs()->unscheduled()->get(),
-		'view' => 'pages.venues.show.unscheduled'
+		'view' => 'pages.gigs.rows.unscheduled'
 	])
 </section>
 @endsection

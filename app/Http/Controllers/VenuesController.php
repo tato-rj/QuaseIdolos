@@ -16,26 +16,23 @@ class VenuesController extends Controller
 
     public function today(Venue $venue)
     {
-        $musicians = Admin::musicians()->get();
         $table = view('pages.venues.show.tables.today', compact('venue'));
 
-        return view('pages.venues.show.index', compact(['table', 'venue', 'musicians']));
+        return view('pages.venues.show.index', compact(['table', 'venue']));
     }
 
     public function past(Venue $venue)
     {
-        $musicians = Admin::musicians()->get();
         $table = view('pages.venues.show.tables.past', compact('venue'));
 
-        return view('pages.venues.show.index', compact(['table', 'venue', 'musicians']));
+        return view('pages.venues.show.index', compact(['table', 'venue']));
     }
 
     public function upcoming(Venue $venue)
     {
-        $musicians = Admin::musicians()->get();
-        $table = view('pages.venues.show.tables.upcoming', compact(['venue', 'musicians']));
+        $table = view('pages.venues.show.tables.upcoming', compact(['venue']));
 
-        return view('pages.venues.show.index', compact(['table', 'venue', 'musicians']));
+        return view('pages.venues.show.index', compact(['table', 'venue']));
     }
 
     public function store(Request $request)

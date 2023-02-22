@@ -59,11 +59,20 @@ class StatsController extends Controller
     public function users(Request $request)
     {
         if ($request->wantsJson()) {    
-            switch ($request->data) {
-                case 'genre':
+            switch ($request->chart) {
+                case 'gender':
                     return response()->json([
                         'labels' => ['Feminino', 'Masculino'],
-                        'data' => [User::female()->count(), User::male()->count()]
+                        'data' => [User::female()->count(), User::male()->count()],
+                        'colors' => ['#ec4899', '#0ea5e9'],
+                    ]);
+                    break;
+
+                case 'login':
+                    return response()->json([
+                        'labels' => ['Manual', 'Facebook', 'Google'],
+                        'data' => [User::withoutSocialAccounts()->count(), User::withSocialAccount('facebook')->count(), User::withSocialAccount('google')->count()],
+                        'colors' => ['#f2cd3d', '#4267b2', '#ea4335']
                     ]);
                     break;
                 

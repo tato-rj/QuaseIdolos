@@ -16,21 +16,30 @@
     @include('pages.statistics.nav')
 	</div>
 
+  <div class="d-flex justify-content-end mb-4">
+    @include('pages.statistics.components.dates')
+  </div>
+  <div id="table-container">
+    @include('components.placeholders.table')
+  </div>
+
   <div class="row">
     <div class="col-lg-4 col-md-6 col-12"> 
-      @include('pages.statistics.users.charts.gender', [
+      @include('pages.statistics.users.charts.pie', [
+        'title' => 'Gênero', 
+        'chart' => 'gender'])
+    </div>
+    <div class="col-lg-4 col-md-6 col-12"> 
+      @include('pages.statistics.users.charts.pie', [
+        'title' => 'Login', 
+        'chart' => 'login'])
+    </div>
+    <div class="col-lg-4 col-md-6 col-12"> 
+{{--       @include('pages.statistics.users.charts.pie', [
         'title' => 'Gênero', 
         'id' => 'gigs-chart', 
         'model' => \App\Models\User::class,
-        'column' => 'gender'])
-    </div>
-    <div class="col-lg-8 col-md-6 col-12">
-      <div class="d-flex justify-content-end mb-4">
-        @include('pages.statistics.components.dates')
-      </div>
-      <div id="table-container">
-        @include('components.placeholders.table')
-      </div>
+        'column' => 'gender']) --}}
     </div>
   </div>
 </section>
@@ -64,7 +73,6 @@ function reloadTable(from, to)
 
   axios.get('{!! route('stats.users') !!}', {params: {from: from, to: to, type: 'ranking'}})
        .then(function(response) {
-        log(response.data);
         $('#table-container').removeClass('opacity-6').html(response.data);
        })
        .catch(function(error) {
@@ -85,9 +93,7 @@ function reloadChart(element)
   let $container = $(element).closest('.chart-container');
 
   getChartData({
-    data: 'genre',
-    model: $container.data('model'),
-    column: $container.data('column')
+    chart: $container.data('chart'),
   }, $container.data('target'));
 }
 
@@ -95,7 +101,6 @@ function getChartData(options, id)
 {
   axios.get(window.location.href, {params: options})
        .then(function(response) {
-        log(response.data);
         renderChart(response.data, id);
        })
        .catch(function(error) {
@@ -112,7 +117,7 @@ function renderChart(records, id)
   data: {
     labels: records.labels,
     datasets: [{
-      backgroundColor: ['#ec4899', '#0ea5e9'],
+      backgroundColor: records.colors,
       data: records.data,
     }]
   },

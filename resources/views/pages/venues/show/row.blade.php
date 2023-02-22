@@ -1,29 +1,28 @@
 @php($gig = $row)
+@switch(str_replace('*', '', $field))
+  @case('scheduled_for')
+    <div class="d-flex align-items-center">
+      <form method="POST" action="{{route('gig.duplicate', $gig)}}">
+        @csrf
+        <button class="btn-raw">@fa(['icon' => 'copy', 'fa_color' => 'white'])</button>
+      </form>
+      <a href="{{route('gig.show', $gig)}}" class="link-secondary fw-bold d-block h5 mb-0">{{$gig->dateForHumans($showWeek = false)}}</a>
+    </div>
+      @break
 
-@row(['optional' => $optional ?? []])
-  @slot('column1')
-		<div class="d-flex align-items-center">
-			<form method="POST" action="{{route('gig.duplicate', $gig)}}">
-				@csrf
-				<button class="btn-raw">@fa(['icon' => 'copy', 'fa_color' => 'white'])</button>
-			</form>
-			<a href="{{route('gig.show', $gig)}}" class="link-secondary fw-bold d-block h5 mb-0">{{$gig->dateForHumans($showWeek = false)}}</a>
-		</div>
-  @endslot
+  @case('participants_count')
+    {{$gig->participants()->count()}}
+      @break
 
-  @slot('column2')
-  {{$gig->participants()->count()}}
-  @endslot
+  @case('song_requests_count')
+    {{$gig->setlist()->completed()->count()}}
+    @break
 
-  @slot('column3')
-  {{$gig->setlist()->completed()->count()}}
-  @endslot
+  @case('status')
+    {!! $gig->status()->get() !!}
+    @break
 
-  @slot('column4')
-  {!! $gig->status()->get() !!}
-  @endslot
-
-  @slot('actions')
+  @case('actions')
     @if(! $gig->isOver())
       <button data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="btn btn-sm btn-secondary text-truncate mr-2">@fa(['icon' => 'pencil-alt', 'mr' => 0])</button>
       <button data-bs-toggle="modal" data-bs-target="#delete-gig-{{$gig->id}}-modal" class="btn btn-sm btn-outline-secondary text-truncate">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
@@ -31,5 +30,5 @@
       @include('pages.gigs.modals.edit')
       @include('pages.gigs.modals.delete')
     @endif
-  @endslot
-@endrow
+    @break
+@endswitch

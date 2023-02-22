@@ -16,6 +16,8 @@
 	<div class="mb-4">
 		@table([
 			'legend' => 'estilo|estilos',
+			'header' => false,
+			'columns' => ['name' => 'Nome', 'actions' => ''],
 			'rows' => $genres,
 			'view' => 'pages.genres.row'
 		])

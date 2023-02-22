@@ -32,10 +32,22 @@ class CardapioController extends Controller
         return view('pages.cardapio.index', compact(['artists', 'songs', 'genres']));
     }
 
-    // public function artist(Artist $artist)
-    // {
-    //     return view('pages.cardapio.artist', compact('artist'));
-    // }
+    public function modal(Song $song)
+    {
+        $gigCount = Gig::ready()->count();
+
+        if (auth()->check()) {
+            if (auth()->user()->admin()->exists()) {
+                $songRequests = auth()->user()->liveGigExists() ? auth()->user()->liveGig->setlist()->waiting()->with(['song', 'user'])->get() : collect();
+            } else {
+                $songRequests = auth()->user()->songRequests()->waiting()->with(['song', 'user'])->get();
+            }
+        } else {
+            $songRequests = collect();
+        }
+
+        return view('pages.cardapio.components.song.content', compact(['song', 'gigCount', 'songRequests']))->render();
+    }
 
     public function search(Request $request)
     {

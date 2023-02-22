@@ -1,9 +1,9 @@
 @table([
 	'legend' => 'música|músicas',
 	'rows' => $songs,
-	'headers' => [
-		'created_at' => 'Data', 
-		'name' => 'Nome', 
-		''],
+	'columns' => [
+		'created_at*' => 'Data', 
+		'name*' => 'Nome', 
+		'actions' => ''],
 	'view' => 'pages.songs.row'
 ])

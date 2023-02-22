@@ -13,11 +13,11 @@
 	@table([
 		'empty' => true,
 		'legend' => 'sugestão|sugestões',
-		'headers' => [
-			'created_at' => 'Data', 
-			'artist_name' => 'Música', 
-			'Usuário', ''],
-		'optional' => [1,3],
+		'columns' => [
+			'created_at*' => 'Data', 
+			'artist_name*' => 'Música', 
+			'user_id*' => 'Usuário', 
+			'actions' => ''],
 		'rows' => $suggestions,
 		'view' => 'pages.suggestions.row'
 	])

@@ -29,6 +29,7 @@ Route::withoutMiddleware('join-gig')->group(function() {
 
     Route::prefix('cardapio')->name('cardapio.')->group(function() {
         // Route::get('', 'CardapioController@index')->name('index');
+        Route::get('{song}/modal', 'CardapioController@modal')->name('modal');
         
         Route::get('busca', 'CardapioController@search')->name('search');
     });
@@ -118,7 +119,9 @@ Route::middleware('auth')->group(function() {
         Route::post('senha/{gig}', 'GigsController@verifyPassword')->name('verify-password');
 
         Route::prefix('{gig}/participantes')->middleware('join-gig')->name('participants.')->group(function() {
+
             Route::get('', 'ParticipantsController@index')->name('index');
+        
         });
     });
 

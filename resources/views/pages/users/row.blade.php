@@ -1,11 +1,10 @@
 @php($user = $row)
-
-@row(['optional' => $optional ?? []])
-  @slot('column1')
+@switch(str_replace('*', '', $field))
+  @case('created_at')
   {{weekday($user->created_at->format('w'))}} {{$user->created_at->format('d/m')}}
-  @endslot
+  @break
 
-  @slot('column2')
+  @case('name')
     <a href="{{route('users.edit', $user)}}" class="link-secondary">
       <div class="d-flex align-items-center">
         <div class="mr-2 no-truncate">
@@ -22,25 +21,25 @@
         @endforeach
       </div>
     </a>
-  @endslot
-  
-  @slot('column3')
-    @fa(['icon' => $user->gender, 'fa_color' => $user->genderColor, 'classes' => 'no-stroke']){{$user->genderPt}}
-  @endslot
+  @break
 
-  @slot('column4')
+  @case('gender')
+  @fa(['icon' => $user->gender, 'fa_color' => $user->genderColor, 'classes' => 'no-stroke']){{$user->genderPt}}
+  @break
+
+  @case('sent_messages_count')
   <div class="d-flex align-items-center">
     @fa(['icon' => 'comment', 'classes' => $user->sent_messages_count ? 'text-green no-stroke' : 'opacity-4 no-stroke'])
     <div>{{$user->sent_messages_count > 0 ? $user->sent_messages_count : null}}</div>
   </div>
-  @endslot
+  @break
 
-  @slot('column5')
+  @case('participations_count')
     @php($count = $user->participations()->confirmed()->count())
     <span class="{{! $count ? 'opacity-4' : null}}">{{$count}}</span>
-  @endslot
+  @break
 
-  @slot('column6')
-    <span class="{{! $user->song_requests_count ? 'opacity-4' : null}}">{{$user->song_requests_count}}</span>
-  @endslot
-@endrow
+  @case('song_requests_count')
+  <span class="{{! $user->song_requests_count ? 'opacity-4' : null}}">{{$user->song_requests_count}}</span>
+  @break
+@endswitch

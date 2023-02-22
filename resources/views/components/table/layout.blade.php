@@ -1,12 +1,13 @@
 @php($hasPagination = hasPagination($rows))
 @php($total = $hasPagination ? $rows->total() : $rows->count())
+@php($header = $header ?? true)
 
 @if($rows->isEmpty())
 
   @isset($empty)
 
   @isset($title)
-  <h4 class="">@fa(['icon' => 'list-ul']){{$title}}</h4> 
+  <h4 class="mb-3">@fa(['icon' => 'list-ul']){{$title}}</h4> 
   @endisset
   
   @include('components.empty')
@@ -16,7 +17,7 @@
 
 <div class="mb-5">
   @isset($title)
-  <h4 class="">@fa(['icon' => 'list-ul']){{$title}}</h4> 
+  <h4 class="{{! isset($legend) ? 'mb-3' : null}}">@fa(['icon' => 'list-ul']){{$title}}</h4> 
   @endisset
 
   @isset($legend)
@@ -25,6 +26,8 @@
   </div>
   @endisset
   
-  @include('components.table.table')
+
+    @include('components.table.table')
+
 </div>
 @endif

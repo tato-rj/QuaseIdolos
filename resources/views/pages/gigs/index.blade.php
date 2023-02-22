@@ -16,7 +16,7 @@
 	@table([
 		'title' => 'Eventos hoje',
 		'empty' => true,
-		'headers' => ['Evento', 'Status', ''],
+		'columns' => ['event' => 'Evento', 'status' => 'Status', 'actions' => ''],
 		'legend' => 'evento|eventos',
 		'rows' => $today,
 		'view' => 'pages.gigs.rows.today'
@@ -27,6 +27,8 @@
 	@table([
 		'title' => 'Sem data',
 		'legend' => 'evento|eventos',
+		'header' => false,
+		'columns' => ['event' => 'Evento', 'actions' => ''],
 		'rows' => $unscheduled,
 		'view' => 'pages.gigs.rows.unscheduled'
 	])
@@ -36,6 +38,8 @@
 	@table([
 		'title' => 'Eventos por contratante',
 		'rows' => $venues,
+		'header' => false,
+		'columns' => ['venue' => 'Venue', 'actions' => ''],
 		'view' => 'pages.gigs.rows.venue'
 	])
 </section>
@@ -43,26 +47,6 @@
 
 @push('scripts')
 <script type="text/javascript">
-// $('input[name="is_live"]').change(function() {
-// 	let $switch = $(this);
-// 	let state = $switch.prop('checked');
-
-// 	axios.post($(this).data('url'))
-// 		 .then(function(response) {
-// 		 	(new Popup(response.data)).show();
-// 		 	let $pauseSwitch = $switch.closest('.gig-controls').find('.pause-switch');
-
-// 		 	$pauseSwitch.toggleClass('d-none');
-
-// 		 	if (! state)
-// 		 		$pauseSwitch.find('i').removeClass('fa-play').addClass('fa-pause');
-// 		 })
-// 		 .catch(function(error) {
-// 		 	$switch.prop('checked', ! state);
-// 		 	alert(error.response.data.message);
-// 		 });
-// });
-
 $('.pause-switch').click(function() {
 	let $button = $(this);
 	let $icon = $button.find('i');

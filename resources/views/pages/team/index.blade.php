@@ -22,10 +22,13 @@
 		@table([
 			'empty' => true,
 			'legend' => 'membro|membros',
-			'headers' => [
+			'columns' => [
+				'status' => 'Status',
 				'name' => 'Nome', 
-				'Instrumentos', 'Controla eventos', 'Controla setlist', ''],
-			'optional' => [2,3,4],
+				'instruments' => 'Instrumentos', 
+				'manage_events' => 'Controla eventos', 
+				'manage_setlist' => 'Controla setlist', 
+				'actions' => ''],
 			'rows' => $team,
 			'view' => 'pages.team.row'
 		])

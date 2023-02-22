@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\{Paginator, LengthAwarePaginator};
 use Illuminate\Support\Collection;
 use Jenssegers\Agent\Agent;
+use App\Models\Admin;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        \View::composer([
+            'pages.gigs.modals.edit', 
+            'pages.gigs.modals.create', 
+        ], function($view) {
+            $view->with(['musicians' => Admin::musicians()->get()]);
+        });
     }
 
     /**
@@ -65,7 +71,6 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('layouts.menu.components.link');
 
         \Blade::include('components.table.layout', 'table');
-        \Blade::aliasComponent('components.table.row');
 
         \Blade::if('admin', function () {
             return auth()->check() && auth()->user()->admin;

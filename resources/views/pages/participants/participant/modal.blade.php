@@ -1,10 +1,4 @@
-@modal(['title' => $participant->user->first_name, 'size' => 'lg', 'id' => 'participant-'.$participant->id.'-modal'])
-	@table([
-		'mb' => 4,
-		'legend' => 'música|músicas',
-		'rows' => $participant->user->songRequests,
-		'view' => 'pages.participants.participant.songRequest'
-	])
+@modal(['title' => $participant->user->first_name, 'size' => 'sm', 'id' => 'participant-'.$participant->id.'-modal'])
 
 	<div>
 		@form(['method' => 'DELETE', 'url' => route('gig.participant.remove', $participant)])

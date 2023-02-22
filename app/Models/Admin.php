@@ -46,4 +46,13 @@ class Admin extends BaseModel
     {
         return ! $this->manage_events && ! $this->manage_setlist;
     }
+
+    public function icon()
+    {
+        if ($this->isSuperAdmin())
+            return fa('chess-king', 'yellow');
+
+        if (! $this->manage_events && $this->manage_setlist)
+            return fa('guitar', 'orange');
+    }
 }

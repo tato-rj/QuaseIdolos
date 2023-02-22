@@ -1,7 +1,8 @@
 @table([
 	'empty' => true,
 	'legend' => 'usuário|usuários',
-	'headers' => ['Nome', ''],
+	'header' => false,
+	'columns' => ['name' => 'Nome', 'actions' => ''],
 	'rows' => $users,
 	'view' => 'pages.team.search.row'
 ])
