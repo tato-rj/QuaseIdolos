@@ -4,5 +4,7 @@
 	'legend' => 'música|músicas',
 	'rows' => $songs,
 	'songRequestId' => $songRequestId,
+	'header' => false,
+	'columns' => ['name' => 'Música', 'actions' => ''],
 	'view' => 'pages.song-requests.change.row'
 ])
