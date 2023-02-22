@@ -4,7 +4,7 @@
   data-{{$type}}="{{$action}}"
   @endforeach
   @endisset
- id="{{$id}}" style="white-space: initial; cursor: default;">
+ id="{{$id}}" style="white-space: initial; cursor: default; z-index: 1111111!important;">
   <div class="modal-dialog modal-{{$size ?? null}}">
     <div class="modal-content bg-primary rounded">
 
