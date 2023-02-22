@@ -278,7 +278,7 @@ $('.table-container select[name="order_by"]').on('change', function() {
 
 function enableScroll()
 {
-    $('ul.pagination').parent().hide();
+    // $('ul.pagination').parent().hide();
 
     $('.artists-container').jscroll({
         loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
