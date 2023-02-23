@@ -1,5 +1,5 @@
 <div class="results-container">
-  <div class="table-container ">
+  <div class="table-container table-responsive">
     <table class="table w-auto table-borderless table-striped text-nowrap table-hover">
       @if($header)
       <thead>
