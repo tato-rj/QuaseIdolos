@@ -1,5 +1,5 @@
 <div class="results-container">
-  <table class="table w-auo table-borderless table-striped text-nowrap table-hover">
+  <table class="table w-auto table-borderless table-striped Xtext-nowrap table-hover">
     @if($header)
     <thead>
       <tr>
@@ -11,9 +11,9 @@
     @endif
     <tbody>
       @foreach($rows as $row)
-      <tr>
+      <tr class="row">
         @foreach($columns as $field => $label)
-          <td class="{{$field == 'actions' ? 'text-right' : null}} align-middle px-3 py-3">
+          <td class="{{$field == 'actions' ? 'text-right' : null}} align-middle px-3 py-3 col-11">
             @if($field == 'actions')
             @include($view)
             @else
