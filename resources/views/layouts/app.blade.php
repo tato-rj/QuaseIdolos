@@ -13,6 +13,9 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
+            .results-container {
+                overflow-x: scroll;
+            }
 .table td:first-of-type, 
 .table th:first-of-type {
     white-space: nowrap;
