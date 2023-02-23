@@ -222,6 +222,8 @@ a {
             @endunless
         @endunless
 
+        @include('components.placeholders.cardapio')
+
         <script src="{{ mix('js/app.js') }}"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
         <script src="{{mix('js/vendor/datepicker-pt-BR.js')}}"></script>
@@ -230,6 +232,9 @@ a {
 <script type="text/javascript">
 $(document).on('show.bs.modal', '.cardapio-song-modal', function() {
     let $modal = $(this);
+    let $placeholder = $('#cardapio-placeholder').clone();
+    $modal.find('.cardapio-modal-container').html($placeholder.show());
+
     axios.get($modal.data('url'))
          .then(function(response) {
             $modal.find('.cardapio-modal-container').html(response.data);
