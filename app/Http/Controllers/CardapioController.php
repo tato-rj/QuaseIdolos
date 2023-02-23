@@ -17,10 +17,10 @@ class CardapioController extends Controller
         } elseif ($request->has('input')) {
             $songs = Song::search($request->input)->alphabetically()->paginate($this->songsPerPage);
         } else {
-            if (Artist::bySlug($request->artista)->visible()->exists()) {
-                $songs = Artist::bySlug($request->artista)->first()->songs()->alphabetically()->paginate($this->songsPerPage);
-            } elseif (Genre::bySlug($request->estilo)->exists()) {
-                $songs = Genre::bySlug($request->estilo)->first()->songs()->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
+            if ($request->has('artista')) {
+                $songs = Song::byArtist($request->artista)->alphabetically()->paginate($this->songsPerPage);
+            } elseif ($request->has('estilo')) {
+                $songs = Song::byGenre($request->estilo)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
             } else {
                 $songs = collect();
             }

@@ -58,6 +58,20 @@ class Song extends BaseModel
     	return SongRequest::waitingFor($this)->first()->order;
     }
 
+    public function scopeByGenre($query, $slug)
+    {
+    	return $query->whereHas('genre', function($q) use ($slug) {
+    		$q->where('slug', $slug);
+    	});
+    }
+
+    public function scopeByArtist($query, $slug)
+    {
+    	return $query->whereHas('artist', function($q) use ($slug) {
+    		$q->where('slug', $slug);
+    	});
+    }
+
 	public function scopeSearch($query, $input)
 	{
 		return $query
