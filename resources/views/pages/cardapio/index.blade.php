@@ -31,7 +31,7 @@
 		@include('pages.cardapio.artists', ['withlinks' => true])
 	</section>
 
-	<section id="results" class="container table-responsive">
+	<section id="results" class="container">
 		@include('pages.cardapio.results.table')
 	</section>
 </div>
