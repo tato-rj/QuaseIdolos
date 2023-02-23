@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Artist;
+use App\Models\{Artist, Genre};
 use Illuminate\Http\Request;
 
 class ArtistsController extends Controller
@@ -57,7 +57,9 @@ class ArtistsController extends Controller
      */
     public function edit(Artist $artist)
     {
-        return view('pages.artists.edit.index', compact('artist'));
+        $genres = Genre::orderBy('name')->get();
+
+        return view('pages.artists.edit.index', compact(['artist', 'genres']));
     }
 
     /**

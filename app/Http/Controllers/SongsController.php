@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Song;
+use App\Models\{Song, Genre};
 use Illuminate\Http\Request;
 
 class SongsController extends Controller
@@ -15,8 +15,9 @@ class SongsController extends Controller
     public function index()
     {
         $songs = Song::sortable('name', 'ASC')->paginate(12);
+        $genres = Genre::orderBy('name')->get();
 
-        return view('pages.songs.index', compact('songs'));
+        return view('pages.songs.index', compact(['songs', 'genres']));
     }
 
     /**
@@ -50,8 +51,9 @@ class SongsController extends Controller
     public function search(Request $request)
     {
         $songs = Song::search($request->input)->orderBy('name')->paginate(12);
+        $genres = Genre::orderBy('name')->get();
 
-        return view('pages.songs.results', compact('songs'))->render();
+        return view('pages.songs.results', compact(['songs', 'genres']))->render();
     }
 
     /**

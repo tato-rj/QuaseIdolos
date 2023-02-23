@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\{Paginator, LengthAwarePaginator};
 use Illuminate\Support\Collection;
 use Jenssegers\Agent\Agent;
-use App\Models\Admin;
+use App\Models\{Admin, Genre};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -71,8 +71,8 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('layouts.menu.components.link');
 
         \Blade::include('components.table.layout', 'table');
-        \Blade::include('components.simpleTable.layout', 'simpleTable');
-        \Blade::aliasComponent('components.simpleTable.row', 'simpleRow');
+        \Blade::include('components.table.responsive.layout', 'responsiveTable');
+        \Blade::aliasComponent('components.table.responsive.row', 'responsiveRow');
 
         \Blade::if('admin', function () {
             return auth()->check() && auth()->user()->admin;

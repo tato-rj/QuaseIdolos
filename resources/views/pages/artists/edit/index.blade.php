@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="col-lg-9 col-12">
-			@simpleTable([
+			@responsiveTable([
 				'legend' => 'música|músicas',
 				'rows' => $artist->songs,
 				'view' => 'pages.artists.edit.row'

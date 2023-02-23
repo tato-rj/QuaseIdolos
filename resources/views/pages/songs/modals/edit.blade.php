@@ -8,7 +8,7 @@
 		'name' => 'genre_id',
 		'required' => true])
 
-		@foreach(\App\Models\Genre::orderBy('name')->get() as $genre)
+		@foreach($genres as $genre)
 		@option(['label' => $genre->name, 'value' => $genre->id, 'name' => 'genre_id', 'selected' => $genre->id == $song->genre_id])
 		@endforeach
 	@endselect

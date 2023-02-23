@@ -25,6 +25,6 @@
   </div>
   @endisset
   
-  @include('components.simpleTable.table')
+  @include('components.table.responsive.table')
 </div>
 @endif

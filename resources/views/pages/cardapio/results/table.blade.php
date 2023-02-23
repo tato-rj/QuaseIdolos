@@ -4,7 +4,7 @@
 </div>
 @endunless
 
-@simpleTable([
+@responsiveTable([
 	'legend' => 'música|músicas',
 	'rows' => $songs,
 	'view' => 'pages.cardapio.results.row'

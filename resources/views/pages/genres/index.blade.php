@@ -14,10 +14,9 @@
 	</div>
 
 	<div class="mb-4">
-		@table([
+		@responsiveTable([
 			'legend' => 'estilo|estilos',
 			'header' => false,
-			'columns' => ['name' => 'Nome', 'actions' => ''],
 			'rows' => $genres,
 			'view' => 'pages.genres.row'
 		])
