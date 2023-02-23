@@ -15,3 +15,7 @@ a.link-secondary {
 		color: darken($secondary-color, 10%);
 	}
 }
+
+.no-stroke {
+    -webkit-text-stroke: 0 !important;
+}

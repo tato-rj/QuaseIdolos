@@ -1,5 +1,5 @@
 @php($artist = $row)
-@switch(str_replace('*', '', $field))
+@switch(table()->getFieldname($field))
   @case('created_at')
       {{weekday($artist->created_at->format('w'))}} {{$artist->created_at->format('d/m')}}
       @break

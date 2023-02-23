@@ -5,6 +5,11 @@ function aws()
 	return (new App\Storage\Providers\AWS);
 }
 
+function table()
+{
+	return new \App\Table\Table;	
+}
+
 function gender($name)
 {
 	return new \App\Genderize\Gender($name);

@@ -5,11 +5,22 @@
       <thead>
         <tr>
           @foreach($columns as $field => $label)
-          <th scope="col" class="text-white px-3">{{$label}}</th>
+          <th scope="col" 
+            @if(table()->isSortable($field))
+            data-sort="{{table()->getFieldname($field)}}" 
+            @endif
+            class="text-white px-3">
+              @if(table()->isSortable($field))
+                @include('components.table.headers.sortable')
+              @else
+              {{$label}}
+              @endif
+          </th>
           @endforeach
         </tr>
       </thead>
       @endif
+
       <tbody>
         @foreach($rows as $row)
         <tr>

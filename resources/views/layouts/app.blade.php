@@ -69,11 +69,6 @@ a {
     -webkit-text-stroke: inherit;
 }
 
-.no-stroke {
-    -webkit-text-stroke: 0 !important;
-}
-
-
 .setlist-counter {
     width: 90%;
     max-width: 900px;
