@@ -61,6 +61,6 @@ $('input[name="search_member"]').keyup(function() {
 
 });
 
-// $(".modal").detach().appendTo("body");
+$(".modal").detach().appendTo("body");
 </script>
 @endpush
