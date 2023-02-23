@@ -14,10 +14,11 @@
 	</div>
 
 	<div class="mb-4">
-		@responsiveTable([
+		@table([
 			'legend' => 'estilo|estilos',
 			'header' => false,
 			'rows' => $genres,
+			'columns' => ['name' => 'Estilo', 'actions' => ''],
 			'view' => 'pages.genres.row'
 		])
 	</div>
