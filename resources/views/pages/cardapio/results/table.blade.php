@@ -11,3 +11,4 @@
 	'columns' => ['name' => 'Música', 'actions' => ''],
 	'view' => 'pages.cardapio.results.row'
 ])
+
