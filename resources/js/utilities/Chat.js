@@ -90,7 +90,7 @@ class Chat
 
 			    	obj._loadChatHtml($user.data('url'), $user.data('from-id')).then(function() {
 			    		obj._pinChatToBottom();
-			    		$user.enable().removeClass('opacity-4');
+			    		// $user.enable().removeClass('opacity-4');
 			    	});
 			    })
 			    .catch(function(error) {
