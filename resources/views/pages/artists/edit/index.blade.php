@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="col-lg-9 col-12">
-			@table([
+			@simpleTable([
 				'legend' => 'música|músicas',
 				'rows' => $artist->songs,
 				'view' => 'pages.artists.edit.row'

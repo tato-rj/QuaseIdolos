@@ -1,5 +1,5 @@
 @php($song = $row)
-@row
+@simpleRow
   @slot('column1')
   <a href="#" data-bs-toggle="modal" data-bs-target="#edit-song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
   @include('components.song.admin.icons')
@@ -12,4 +12,4 @@
   @include('pages.songs.modals.edit')
   @include('pages.songs.modals.delete')
   @endslot
-@endrow
+@endsimpleRow
