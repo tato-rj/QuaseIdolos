@@ -4,7 +4,7 @@
 	<h4 class="modal-title text-secondary no-stroke">Chat</h4>
 </div>
 <div id="chat-back" style="display: none">
-	<button class="btn-raw modal-title text-secondary"><h4 class="no-stroke m-0">@fa(['icon' => 'chevron-left'])</h4></button>
+	<button class="btn-raw chat-reset modal-title text-secondary"><h4 class="no-stroke m-0">@fa(['icon' => 'chevron-left'])</h4></button>
 </div>
 @endslot
 

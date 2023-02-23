@@ -521,11 +521,11 @@ $(document).on('submit', '.chat-user form.chat-form', function(e) {
         chat.send(this);
 });
 
-$(document).on('click', '#chat-list button', function() {
+$(document).on('click', '#chat-list button.chat-user-btn', function() {
     chat.getUser(this);
 });
 
-$(document).on('click', '#chat-back button', function() {
+$(document).on('click', '#chat-back button.chat-reset', function() {
     chat.reset();
 });
 
