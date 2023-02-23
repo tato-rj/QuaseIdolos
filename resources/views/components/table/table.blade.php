@@ -11,7 +11,7 @@
     @endif
     <tbody>
       @foreach($rows as $row)
-      <tr class="row">
+      <tr class="row" style="width: 100%">
         @foreach($columns as $field => $label)
           <td class="{{$field == 'actions' ? 'text-right' : null}} align-middle px-3 py-3 col-11">
             @if($field == 'actions')
