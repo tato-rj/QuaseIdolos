@@ -82,7 +82,8 @@ class Chat
 		let obj = this;
 		let $user = $(button);
 
-		$user.disable().addClass('opacity-4');
+		$('.chat-user-btn').disable();
+		$user.addClass('opacity-4');
 
 	    axios.get(app.chatUrls.showUser, {params: {userId: $user.data('from-id')}})
 			    .then(function(response) {
