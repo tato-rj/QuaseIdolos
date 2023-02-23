@@ -712,6 +712,12 @@ $(document).on('keyup', 'input[name="search_participant"]', function() {
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".modal").detach().appendTo("body");
+});
+</script>
+
         @stack('scripts')
     </body>
 </html>
