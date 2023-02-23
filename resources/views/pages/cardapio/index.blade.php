@@ -31,7 +31,7 @@
 		@include('pages.cardapio.artists', ['withlinks' => true])
 	</section>
 
-	<section id="results" class="container">
+	<section id="results" class="container x-scroll">
 		@include('pages.cardapio.results.table')
 	</section>
 </div>

@@ -13,7 +13,7 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
-            .results-container {
+            .x-scroll {
                 overflow-x: scroll;
             }
 .table td:first-of-type, 
