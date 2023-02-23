@@ -71,15 +71,6 @@
 		'options' => ['fullwidth'],
 		'name' => 'scheduled_for'])
 
-{{-- 	@select([
-		'placeholder' => 'Hora que começa (opcional)',
-		'name' => 'starting_time'])
-
-		@foreach(timeslots(16, 24) as $date => $time)
-		@option(['label' => $time, 'value' => $time, 'name' => 'starting_time', 'selected' => $time == old('starting_time')])
-		@endforeach
-	@endselect --}}
-
 	@select([
 		'placeholder' => 'Duração do evento (opcional)',
 		'info' => 'Se escolhida o evento irá terminar automaticamente após o tempo escolhido.',

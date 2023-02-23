@@ -1,7 +1,7 @@
 @php($song = $row)
 
 @responsiveRow
-  @slot('column')
+  @slot('column1')
   @include('pages.cardapio.results.row.name')
   @endslot
 
