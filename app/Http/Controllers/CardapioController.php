@@ -7,7 +7,7 @@ use App\Models\{Artist, Song, Genre, Gig};
 
 class CardapioController extends Controller
 {
-    protected $songsPerPage = 120;
+    protected $songsPerPage = 12;
     protected $artistsPerPage = 24;
 
     public function index(Request $request)

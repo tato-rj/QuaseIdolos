@@ -71,6 +71,8 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('layouts.menu.components.link');
 
         \Blade::include('components.table.layout', 'table');
+        \Blade::include('components.simpleTable.layout', 'simpleTable');
+        \Blade::aliasComponent('components.simpleTable.row', 'simpleRow');
 
         \Blade::if('admin', function () {
             return auth()->check() && auth()->user()->admin;

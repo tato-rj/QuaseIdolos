@@ -4,11 +4,9 @@
 </div>
 @endunless
 
-@table([
+@simpleTable([
 	'legend' => 'música|músicas',
 	'rows' => $songs,
-	'header' => false,
-	'columns' => ['name' => 'Música', 'actions' => ''],
 	'view' => 'pages.cardapio.results.row'
 ])
 
