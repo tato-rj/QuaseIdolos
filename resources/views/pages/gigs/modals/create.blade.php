@@ -90,6 +90,8 @@
 		@endforeach
 	@endselect
 
-	@submit(['label' => 'Criar evento', 'theme' => 'secondary'])
+	<div class="text-center"> 
+		@submit(['label' => 'Criar evento', 'theme' => 'secondary'])
+	</div>
 </form>
 @endmodal
