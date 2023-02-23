@@ -1,7 +1,7 @@
 @php($gig = $row)
 
-@responsiveRow
-	@slot('column1')
+@switch(str_replace('*', '', $field))
+  @case('event')
 		<div class="d-flex align-items-center">
 			{!! $gig->status()->noText()->get() !!}
 			<form method="POST" action="{{route('gig.duplicate', $gig)}}">
@@ -15,13 +15,13 @@
 				@endif
 			</a>
 		</div>
-	@endslot
+      @break
 
-	@slot('column2')
-	{{$gig->status()->onlyText()->get()}}
-	@endslot
+  @case('status')
+	  {{$gig->status()->onlyText()->get()}}
+      @break
 
-	@slot('actions')
+  @case('actions')
 		@if($gig->isLive())
 		<form method="POST" action="{{route('gig.pause', $gig)}}" class="d-inline mr-2">
 			@csrf
@@ -37,5 +37,5 @@
 			<button class="btn btn-secondary btn-sm text-nowrap">Abrir</button>
 		</form>
 		@endif
-	@endslot
-@endresponsiveRow
+      @break
+@endswitch

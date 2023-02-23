@@ -13,9 +13,10 @@
 </section>
 
 <section class="mb-5 container">
-	@responsiveTable([
+	@table([
 		'title' => 'Eventos hoje',
 		'empty' => true,
+		'columns' => ['event' => 'Evento', 'status' => 'Status', 'actions' => ''],
 		'legend' => 'evento|eventos',
 		'rows' => $today,
 		'view' => 'pages.gigs.rows.today'
@@ -23,10 +24,11 @@
 </section>
 
 <section class="mb-5 container">
-	@responsiveTable([
+	@table([
 		'title' => 'Sem data',
 		'legend' => 'evento|eventos',
 		'header' => false,
+		'columns' => ['event' => 'Evento', 'actions' => ''],
 		'rows' => $unscheduled,
 		'view' => 'pages.gigs.rows.unscheduled'
 	])

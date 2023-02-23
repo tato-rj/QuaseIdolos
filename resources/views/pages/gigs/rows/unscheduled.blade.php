@@ -1,7 +1,8 @@
-@php($gig = $row)
 
-@responsiveRow
-	@slot('column1')
+
+@php($gig = $row)
+@switch(str_replace('*', '', $field))
+  @case('event')
 		<div class="d-flex align-items-center">
 			<form method="POST" action="{{route('gig.duplicate', $gig)}}">
 				@csrf
@@ -9,9 +10,9 @@
 			</form>
 			<div class="opacity-8">{{$gig->name()}}</div>
 		</div>
-	@endslot
+      @break
 
-	@slot('actions')
+  @case('actions')
 			<button data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="btn btn-sm btn-secondary text-truncate mr-2">@fa(['icon' => 'pencil-alt', 'mr' => 0])</button>
 
 			<form method="POST" action="{{route('gig.destroy', $gig)}}" class="d-inline">
@@ -22,6 +23,7 @@
 
 			@include('pages.gigs.modals.edit')
 			@include('pages.gigs.modals.delete')
-	@endslot
-@endresponsiveRow
+      @break
+@endswitch
 
+@php($gig = $row)
