@@ -94,7 +94,7 @@ class Chat
 			    	});
 			    })
 			    .catch(function(error) {
-			    	alert('Descuple, o chat não está disponível nesse momento');
+			    	// alert('Descuple, o chat não está disponível nesse momento');
 			    });
 	}
 
@@ -105,7 +105,7 @@ class Chat
 			 	$('#chat-list').html(response.data);
 			 })
 			 .catch(function(error) {
-			 	alert('Descuple, o chat não está disponível nesse momento');
+			 	// alert('Descuple, o chat não está disponível nesse momento');
 			 });
 	}
 
