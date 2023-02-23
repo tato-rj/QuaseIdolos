@@ -5,11 +5,9 @@
       @break
 
   @case('name')
-			<a href="#" data-bs-toggle="modal" data-bs-target="#edit-song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
+			<span class="mr-2">{{$song->name}}</span>
 			@include('components.song.admin.icons')
-			<div>
-				<a href="{{route('artists.edit', $song->artist)}}" class="link-secondary">{{$song->artist->name}}</a>
-			</div>
+			<div class="text-secondary">{{$song->artist->name}}</div>
       @break
 
   @case('actions')
