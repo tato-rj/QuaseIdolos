@@ -8,5 +8,7 @@
 @include('pages.cardapio.components.song.header')
 @endslot
 
-<div class="cardapio-modal-container"></div>
+<div class="cardapio-modal-container">
+	@include('components.placeholders.cardapio')
+</div>
 @endmodal
