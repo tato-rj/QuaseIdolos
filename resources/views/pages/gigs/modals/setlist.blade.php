@@ -1,6 +1,6 @@
 @modal(['title' => 'Setlist','id' => 'setlist-gig-'.$gig->id.'-modal', 'size' => 'lg'])
 <div class="text-left" id="setlist-accordion">
-	@table([
+	@responsiveTable([
 		'legend' => 'música|músicas',
 		'empty' => true,
 		'rows' => $gig->setlist,

@@ -1,6 +1,6 @@
 @php($song = $row->song)
 
-@row
+@responsiveRow
   @slot('column1')
   <div>
   	<div class="cursor-pointer" id="row-{{$row->id}}" data-bs-toggle="collapse" data-bs-target="#collapse-{{$row->id}}">
@@ -35,4 +35,4 @@
 	</div>
 </div>
   @endslot
-@endrow
+@endresponsiveRow
