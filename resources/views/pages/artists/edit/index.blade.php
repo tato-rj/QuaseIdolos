@@ -26,9 +26,10 @@
 		</div>
 
 		<div class="col-lg-9 col-12">
-			@responsiveTable([
+			@table([
 				'legend' => 'música|músicas',
 				'rows' => $artist->songs,
+				'columns' => ['name' => 'Música', 'actions' => ''],
 				'view' => 'pages.artists.edit.row'
 			])
 		</div>
