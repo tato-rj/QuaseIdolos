@@ -18,7 +18,7 @@ class UsersController extends Controller
 
     public function search(Request $request)
     {
-        $users = $request->input ? User::search($request->input)->orderBy('name')->get() : collect();
+        $users = $request->input ? User::search($request->input)->withCount(['participations', 'songRequests', 'favorites', 'sentMessages'])->orderBy('name')->get() : collect();
 
         return view('pages.users.results', compact('users'))->render();
     }
