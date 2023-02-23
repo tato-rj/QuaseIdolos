@@ -90,7 +90,6 @@ class Chat
 
 			    	obj._loadChatHtml($user.data('url'), $user.data('from-id')).then(function() {
 			    		obj._pinChatToBottom();
-			    		// $user.enable().removeClass('opacity-4');
 			    	});
 			    })
 			    .catch(function(error) {
@@ -113,6 +112,7 @@ class Chat
 	{
 		this.getParticipants();
 		
+		$('.chat-user-btn').enable().removeClass('opacity-4');
 	    $('#chat-user').html('');
 	    $('#chat-user').hide();
 	    $('#chat-list').show();
