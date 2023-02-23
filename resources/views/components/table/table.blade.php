@@ -1,5 +1,5 @@
 <div class="results-container">
-  <div class="table-container table-responsive">
+
     <table class="table w-auto table-borderless table-striped text-nowrap table-hover">
       @if($header)
       <thead>
@@ -26,7 +26,7 @@
         @endforeach
       </tbody>
     </table>
-  </div>
+
 
   @if($hasPagination)
   {{ $rows->appends(array_filter(request()->all()))->links() }}
