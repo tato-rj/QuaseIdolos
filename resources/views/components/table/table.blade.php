@@ -10,7 +10,7 @@
             data-sort="{{table()->getFieldname($field)}}" 
             @endif
             class="text-white px-3">
-              @if(table()->isSortable($field))
+              @if(table()->isSortable($field) && ! request()->wantsJson())
                 @include('components.table.headers.sortable')
               @else
               {{$label}}
