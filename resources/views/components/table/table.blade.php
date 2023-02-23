@@ -9,7 +9,7 @@
       </tr>
     </thead>
     @endif
-    <tbody style="display: block; overflow-x: scroll;">
+    <tbody>
       @foreach($rows as $row)
       <tr>
         @foreach($columns as $field => $label)
