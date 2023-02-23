@@ -18,7 +18,7 @@
               @if($field == 'actions')
               @include($view)
               @else
-              @include($view)
+              <h6 class="m-0 text-white">@include($view)</h6>
               @endif
             </td>
           @endforeach
