@@ -291,17 +291,17 @@ function enableScroll()
         }
     });
 
-    // $('.results-container').jscroll({
-    //     loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
-    //     autoTrigger: true,
-    //     padding: 0,
-    //     debug: true,
-    //     nextSelector: '.pagination li.active + li a',
-    //     contentSelector: '.results-container',
-    //     callback: function() {
-    //         $('ul.pagination').parent().remove();
-    //     }
-    // });
+    $('.results-container').jscroll({
+        loadingHtml: '<div class="text-center"><div class="spinner-border opacity-4 text-white"></div></div>',
+        autoTrigger: true,
+        padding: 0,
+        debug: true,
+        nextSelector: '.pagination li.active + li a',
+        contentSelector: '.results-container',
+        callback: function() {
+            $('ul.pagination').parent().remove();
+        }
+    });
 }
 
 function clearResults(container = null)
