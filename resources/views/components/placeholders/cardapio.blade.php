@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-lg-7 col-12" style="height: 400px;">
-		<div class="bg-transparent rounded p-3 h-100">
+		<div class="bg-transparent placeholder-animate rounded p-3 h-100">
 			@include('components.placeholders.block', ['height' => '30px', 'width' => '25%', 'classes' => 'mb-4'])
 			@for($i=0;$i<10;$i++)
 			@include('components.placeholders.block', ['height' => '22px', 'width' => rand(60, 90).'%', 'classes' => 'mb-2'])

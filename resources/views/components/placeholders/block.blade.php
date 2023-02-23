@@ -1,1 +1,1 @@
-<div class="bg-transparent {{isset($circle) ? 'rounded-circle' : 'rounded'}} {{$classes ?? null}}" style="height: {{$height}}; width: {{$width}};"></div>
+<div class="bg-transparent placeholder-animate {{isset($circle) ? 'rounded-circle' : 'rounded'}} {{$classes ?? null}}" style="height: {{$height}}; width: {{$width}};"></div>
