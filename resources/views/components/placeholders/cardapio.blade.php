@@ -9,7 +9,7 @@
 	</div>
 	<div class="col-12 d-lg-none d-md-block py-3"></div>
 	<div class="col-lg-5 col-12 d-flex flex-column" style="min-height: 360px;">
-		<div>
+		<div class="mb-4">
 			@include('components.placeholders.block', ['height' => '8px', 'width' => '100%'])
 			@include('components.placeholders.block', ['height' => '40px', 'width' => '60%', 'classes' => 'mx-auto my-3'])
 			@include('components.placeholders.block', ['height' => '8px', 'width' => '100%'])
