@@ -1,0 +1,1 @@
+<div class="bg-transparent rounded-circle m-2 placeholder-animate" style="width: 60px; height: 60px;"></div>

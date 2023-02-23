@@ -8,7 +8,14 @@
 </div>
 @endslot
 
-<div id="chat-list"></div>
+<div id="chat-list">
+	<div class="d-flex flex-wrap {{$agent->isMobile() ? 'justify-content-around' : null}}">
+		@include('components.placeholders.avatar')
+		@include('components.placeholders.avatar')
+		@include('components.placeholders.avatar')
+		@include('components.placeholders.avatar')
+	</div>
+</div>
 
 <div id="chat-user" style="display: none;"></div>
 

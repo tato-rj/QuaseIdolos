@@ -74,6 +74,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('components.table.responsive.layout', 'responsiveTable');
         \Blade::aliasComponent('components.table.responsive.row', 'responsiveRow');
 
+
         \Blade::if('admin', function () {
             return auth()->check() && auth()->user()->admin;
         });
