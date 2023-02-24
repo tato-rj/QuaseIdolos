@@ -2,23 +2,27 @@
 
 @responsiveRow
   @slot('column1')
-  <div>
-  	<div class="cursor-pointer" id="row-{{$row->id}}" data-bs-toggle="collapse" data-bs-target="#collapse-{{$row->id}}">
-		  <div>
-				{{$song->name}}
-			</div>
-			<div class="text-secondary">
-				{{$song->artist->name}}
+	  <div class="d-flex align-items-center">
+	  	<div class="mr-2">
+			@foreach($row->singers() as $user)
+				<div class="position-relative" style="margin-left: {{! $loop->first ? '-16px' : null}}; z-index: {{$loop->remaining}};">
+			      @if($user->hasAvatar())
+			      @include('components.avatar.image', ['size' => '46px'])
+			      @else
+			      @include('components.avatar.initial', ['size' => '46px'])
+			      @endif
+			  </div>
+			@endforeach
+		</div>
+	  	<div>
+			  <div>
+					{{$song->name}}
+				</div>
+				<div class="text-secondary">
+					{{$song->artist->name}}
+				</div>
 			</div>
 		</div>
-
-    <div id="collapse-{{$row->id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#setlist-accordion">
-      <div class="mt-3">
-        <p class="opacity-6 m-0">Cantada por</p>
-        <h6 class="m-0">{{$row->user->name}}</h6>
-      </div>
-    </div>
-</div>
   @endslot
 
   @slot('actions')
