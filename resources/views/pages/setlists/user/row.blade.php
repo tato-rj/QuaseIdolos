@@ -1,7 +1,7 @@
 @php($list = $row)
 @php($song = $list->song)
 
-@row
+@responsiveRow
   @slot('column1')
   <div class="d-flex align-items-center">
 		@include('pages.cardapio.results.row.name')
@@ -20,4 +20,4 @@
 	@include('pages.cardapio.components.song.modal')
 	@include('pages.song-requests.modals.cancel', ['entry' => $list])
   @endslot
-@endrow
+@endresponsiveRow

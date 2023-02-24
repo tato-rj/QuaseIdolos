@@ -12,7 +12,7 @@
 <section class="container mb-6">
 	@pagetitle(['title' => 'MINHA', 'highlight' => 'SETLIST'])
 
-		@table([
+		@responsiveTable([
 			'title' => 'Lista de espera',
 			'legend' => 'música|músicas',
 			'headers' => ['Música', ''],
@@ -20,7 +20,7 @@
 			'view' => 'pages.setlists.user.row'
 		])
 
-		@table([
+		@responsiveTable([
 			'empty' => true,
 			'title' => 'Músicas que já cantei',
 			'headers' => ['Música', ''],
@@ -29,7 +29,7 @@
 			'view' => 'pages.setlists.user.row'
 		])
 
-		@table([
+		@responsiveTable([
 			'title' => 'Convites recebidos',
 			'headers' => ['Convite de', 'Música', ''],
 			'legend' => 'música|músicas',

@@ -35,6 +35,8 @@
 @endsection
 
 @push('scripts')
+<script src="{{ mix('js/vendor/countdown.min.js') }}"></script>
+
 <script type="text/javascript">
 enableDraggable();
 
