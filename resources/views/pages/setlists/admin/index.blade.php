@@ -29,11 +29,11 @@
 	</div>
 </section>
 
-{{-- @if($gig)
+@if($gig)
 	@if($gig->duration)
 	@include('pages.setlists.admin.countdown')
 	@endif
-@endif --}}
+@endif
 
 <section class="container mb-6" id="setlist-container" data-url="{{route('setlists.table', request()->has('compact') ? 'compact' : null)}}">
 	@include('pages.setlists.admin.table')
@@ -42,12 +42,12 @@
 
 @push('scripts')
 <script type="text/javascript">
-// startCountdown();
+startCountdown();
 enableDraggable();
 
 $('#refresh-table').click(function() {
 	getEventTable();
-})
+});
 </script>
 
 <script type="text/javascript">
