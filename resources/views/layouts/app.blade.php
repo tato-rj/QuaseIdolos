@@ -441,12 +441,12 @@ function startCountdown()
 {
     let end = new Date($('#countdown-timer').data('end')).getTime();
 
-    var x = setInterval(function() {
-      var now = new Date().getTime();
-      var distance = end - now;
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    let x = setInterval(function() {
+      let now = new Date().getTime();
+      let distance = end - now;
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       if (minutes < 10)
         minutes = '0'+minutes;
@@ -454,8 +454,11 @@ function startCountdown()
       if (seconds < 10)
         seconds = '0'+seconds;
 
+    let countdown = hours+':'+minutes+':'+seconds+' h';
+    log(countdown);
+
       $('#countdown-timer').removeClass('opacity-0');
-      $('#countdown-timer span').text(hours+':'+minutes+':'+seconds+' h');
+      $('#countdown-timer span').text(countdown);
 
       if (distance < 0) {
         clearInterval(x);
