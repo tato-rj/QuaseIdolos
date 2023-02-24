@@ -439,7 +439,7 @@ function getUserAlert()
 
 function startCountdown()
 {
-    let end = new Date($('#countdown-timer').data('end')).getTime();
+    let end = new Date($('#countdown-timer span').data('end')).getTime();
 
     let x = setInterval(function() {
       let now = new Date().getTime();
@@ -455,7 +455,6 @@ function startCountdown()
         seconds = '0'+seconds;
 
     let countdown = hours+':'+minutes+':'+seconds+' h';
-    log(countdown);
 
       $('#countdown-timer').removeClass('opacity-0');
       $('#countdown-timer span').text(countdown);
