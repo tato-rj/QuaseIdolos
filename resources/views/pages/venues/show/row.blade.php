@@ -21,10 +21,4 @@
   @case('status')
     {!! $gig->status()->get() !!}
     @break
-
-  @case('actions')
-    @if(! $gig->isOver())
-      <a href="{{route('gig.show', $gig)}}" class="btn btn-sm btn-secondary text-truncate mr-2">@fa(['icon' => 'pencil-alt', 'mr' => 0])</a>
-    @endif
-    @break
 @endswitch

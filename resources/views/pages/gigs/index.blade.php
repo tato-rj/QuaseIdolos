@@ -16,7 +16,7 @@
 	@table([
 		'title' => 'Eventos hoje',
 		'empty' => true,
-		'columns' => ['event' => 'Evento', 'status' => 'Status', 'actions' => ''],
+		'columns' => ['event' => 'Evento', 'status' => 'Status', 'features' => 'Recursos', 'actions' => ''],
 		'legend' => 'evento|eventos',
 		'rows' => $today,
 		'view' => 'pages.gigs.rows.today'

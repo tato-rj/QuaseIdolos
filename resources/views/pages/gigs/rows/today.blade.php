@@ -21,6 +21,10 @@
 	  {{$gig->status()->onlyText()->get()}}
       @break
 
+  @case('features')
+	  @include('pages.gigs.features.all', ['size' => 'normal', 'classes' => ''])
+      @break
+
   @case('actions')
 		@if($gig->isLive())
 		<form method="POST" action="{{route('gig.pause', $gig)}}" class="d-inline mr-2">

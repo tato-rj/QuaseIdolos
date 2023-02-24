@@ -22,7 +22,7 @@
 		@if($gig)
 			@include('pages.setlists.admin.options')
 
-			@include('pages.setlists.admin.features.all')
+			@include('pages.gigs.features.all', ['classes' => 'justify-content-center align-items-center mb-2'])
 
 			<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h4>@fa(['icon' => 'clipboard-list'])Editar evento</h4></a>
 
