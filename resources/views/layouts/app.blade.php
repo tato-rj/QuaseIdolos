@@ -454,11 +454,12 @@ function startCountdown()
       if (seconds < 10)
         seconds = '0'+seconds;
 
-      $('#countdown-timer').text(hours+':'+minutes+':'+seconds+' h');
+      $('#countdown-timer span').text(hours+':'+minutes+':'+seconds+' h');
+      $('#countdown-timer span').fadeIn('fast');
 
       if (distance < 0) {
         clearInterval(x);
-        $('#countdown-timer').text('');
+        $('#countdown-timer span').text('');
       }
     }, 1000);
 }
