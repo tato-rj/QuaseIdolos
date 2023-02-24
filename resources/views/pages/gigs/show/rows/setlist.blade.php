@@ -3,7 +3,7 @@
 @responsiveRow
   @slot('column1')
 	  <div class="d-flex align-items-center">
-	  	<div class="mr-2">
+	  	<div class="mr-2 d-flex">
 			@foreach($row->singers() as $user)
 				<div class="position-relative" style="margin-left: {{! $loop->first ? '-16px' : null}}; z-index: {{$loop->remaining}};">
 			      @if($user->hasAvatar())
