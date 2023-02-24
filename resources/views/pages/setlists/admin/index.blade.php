@@ -11,7 +11,7 @@
 @endpush
 
 @section('content')
-<section class="container mb-4">
+<section class="container mb-3">
 	<div class="text-center">
 
 		@pagetitle([
@@ -21,6 +21,10 @@
 
 		@if($gig)
 			@include('pages.setlists.admin.options')
+
+			@include('pages.setlists.admin.features.all')
+
+			<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h4>@fa(['icon' => 'clipboard-list'])Editar evento</h4></a>
 
 			@include('pages.gigs.modals.edit', ['pausable' => true])
 		@else

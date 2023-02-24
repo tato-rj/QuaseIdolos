@@ -62,6 +62,11 @@
 				<h6 class="text-secondary">@fa(['icon' => 'trophy'])Votação</h6>
 				<h6>{{$gig->participatesInRatings() ? 'Aberto a votação' : 'Sem votação'}}</h6>
 			</div>
+
+			<div class="mb-4">
+				<h6 class="text-secondary">@fa(['icon' => 'comments'])Chat</h6>
+				<h6>{{$gig->participatesInChats() ? 'Chat liberado' : 'Sem chat'}}</h6>
+			</div>
 		</div>
 	</div>
 </div>

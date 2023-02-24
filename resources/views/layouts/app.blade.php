@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+        @if(production())
         @include('layouts.tagmanager.head')
+        @endif
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta name="facebook-domain-verification" content="83pyh25dcfvk4pk76pa6edpuw0d2uq" />
 
         <title>{{$title ?? 'Bem vindo'}} | {{config('app.name')}} - Rio de Janeiro</title>
 
