@@ -454,7 +454,7 @@ function startCountdown()
       if (seconds < 10)
         seconds = '0'+seconds;
 
-      $('#countdown-timer span').text(hours+':'+minutes+':'+seconds+' h');
+      $('#countdown-timer span').html(hours+':'+minutes+':'+seconds+' h');
       $('#countdown-timer').removeClass('opacity-0');
 
       if (distance < 0) {
