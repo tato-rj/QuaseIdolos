@@ -8,5 +8,5 @@ data-bs-target="#offcanvasUserMenu"
 class="nav-link bg-secondary rounded-circle d-center mx-auto position-relative avatar-img {{$classes ?? null}}"
 @endisset
 >
-  <span class="font-cursive" style="font-size: {{percent(40)->of($size ?? '39.2')}}px;">{{$user->initial}}</span>
+  <span class="font-cursive fw-normal" style="font-size: {{percent(40)->of($size ?? '39.2')}}px;">{{$user->initial}}</span>
 </div>

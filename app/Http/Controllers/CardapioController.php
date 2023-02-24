@@ -18,7 +18,7 @@ class CardapioController extends Controller
             $songs = Song::search($request->input)->alphabetically()->paginate($this->songsPerPage);
         } else {
             if ($request->has('artista')) {
-                $songs = Song::byArtist($request->artista)->alphabetically()->paginate($this->songsPerPage);
+                $songs = Song::byArtist($request->artista)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
             } elseif ($request->has('estilo')) {
                 $songs = Song::byGenre($request->estilo)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
             } else {
