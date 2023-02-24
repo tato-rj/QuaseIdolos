@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Traits\{Rateable, Archiveable, GigStates, Chateable};
+use App\Models\Traits\{Rateable, Archiveable, GigStates, Chateable, Sortable};
 use App\Voting\{Ranking, Rules};
 use App\Tools\Gig\{Status, Password};
 
 class Gig extends BaseModel
 {
-	use Rateable, Archiveable, GigStates, Chateable;
+	use Rateable, Archiveable, GigStates, Chateable, Sortable;
 
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for', 'scheduled_end_at'];
 	protected $casts = [
