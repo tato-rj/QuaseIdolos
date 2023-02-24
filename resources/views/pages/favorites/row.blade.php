@@ -1,6 +1,6 @@
 @php($song = $row)
 
-@row
+@responsiveRow
   @slot('column1')
 	<a href="#" data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="link-none mr-2">{{$song->name}}</a>
 	@include('components.song.user.icons')
@@ -14,4 +14,4 @@
 
 	@include('pages.cardapio.components.song.modal')
   @endslot
-@endrow
+@endresponsiveRow

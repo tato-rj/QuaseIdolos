@@ -11,7 +11,7 @@
 <section class="container mb-6">
 	@pagetitle(['title' => 'Músicas', 'highlight' => 'favoritas'])
 
-	@table([
+	@responsiveTable([
 		'empty' => true,
 		'legend' => 'música|músicas',
 		'rows' => auth()->user()->favorites,

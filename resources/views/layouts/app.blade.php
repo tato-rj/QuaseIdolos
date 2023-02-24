@@ -437,6 +437,35 @@ function getUserAlert()
          });
 }
 
+function startCountdown()
+{
+    let end = new Date($('#countdown-timer').data('end')).getTime();
+
+    var x = setInterval(function() {
+      var now = new Date().getTime();
+      var distance = end - now;
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (hours < 10)
+        hours = '0'+hours;
+
+      if (minutes < 10)
+        minutes = '0'+minutes;
+
+      if (seconds < 10)
+        seconds = '0'+seconds;
+
+      $('#countdown-timer').text(hours+':'+minutes+':'+seconds+' h');
+
+      if (distance < 0) {
+        clearInterval(x);
+        $('#countdown-timer').text('');
+      }
+    }, 1000);
+}
+
 function getEventTable(newOrder = null)
 {
     if ($('#setlist-container').length) {

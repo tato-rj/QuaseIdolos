@@ -29,15 +29,20 @@
 	</div>
 </section>
 
+{{-- @if($gig)
+	@if($gig->duration)
+	@include('pages.setlists.admin.countdown')
+	@endif
+@endif --}}
+
 <section class="container mb-6" id="setlist-container" data-url="{{route('setlists.table', request()->has('compact') ? 'compact' : null)}}">
 	@include('pages.setlists.admin.table')
 </section>
 @endsection
 
 @push('scripts')
-<script src="{{ mix('js/vendor/countdown.min.js') }}"></script>
-
 <script type="text/javascript">
+// startCountdown();
 enableDraggable();
 
 $('#refresh-table').click(function() {
