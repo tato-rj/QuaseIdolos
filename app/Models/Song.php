@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Traits\{Archiveable, Sortable};
+use App\Models\Traits\{Archiveable, Sortable, Cardapio};
 
 class Song extends BaseModel
 {
-	use Archiveable, Sortable;
+	use Archiveable, Sortable, Cardapio;
 	
 	protected $withCount = ['favorites', 'songRequests'];
 	protected $with = ['genre', 'artist'];
@@ -71,20 +71,6 @@ class Song extends BaseModel
     		$q->where('slug', $slug);
     	});
     }
-
-	public function scopeSearch($query, $input)
-	{
-		return $query
-			->where(function($q) use ($input) {
-				$q->where('name', 'LIKE', '%'.$input.'%');
-				$q->orWhereHas('genre', function($q) use ($input) {
-					$q->where('name', 'LIKE', '%'.$input.'%');
-				});
-				$q->orWhereHas('artist', function($q) use ($input) {
-					$q->where('name', 'LIKE', '%'.$input.'%');
-				});
-			})->visibleArtist();
-	}
 
 	public function scopeVisibleArtist($query)
 	{

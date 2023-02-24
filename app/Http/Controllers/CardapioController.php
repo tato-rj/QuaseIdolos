@@ -12,20 +12,7 @@ class CardapioController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->has('musica')) {
-            $songs = Song::where('id', $request->musica)->visibleArtist()->paginate($this->songsPerPage);
-        } elseif ($request->has('input')) {
-            $songs = Song::search($request->input)->alphabetically()->paginate($this->songsPerPage);
-        } else {
-            if ($request->has('artista')) {
-                $songs = Song::byArtist($request->artista)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
-            } elseif ($request->has('estilo')) {
-                $songs = Song::byGenre($request->estilo)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
-            } else {
-                $songs = collect();
-            }
-        }
-
+        $songs = Song::cardapio($request)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
         $artists = Artist::orderby('name')->visible()->has('songs')->paginate($this->artistsPerPage);
         $genres = Genre::orderby('name')->has('songs')->get();
 
