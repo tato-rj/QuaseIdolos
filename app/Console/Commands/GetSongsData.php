@@ -29,15 +29,17 @@ class GetSongsData extends Command
      */
     public function handle()
     {
-        $song = Song::first();
+        $songs = Song::whereNull('bpm')->take(20)->get();
 
-        $data = (new MusicData)->song($song->name);
+        foreach($songs as $song) {
+            $data = (new MusicData)->song($song->name);
 
-        $song->update([
-            'duration' => $data['duration'],
-            'bpm' => $data['bpm'],
-            'preview_url' => $data['preview_url']
-        ]);
+            $song->update([
+                'duration' => $data['duration'],
+                'bpm' => $data['bpm'],
+                'preview_url' => $data['preview_url']
+            ]);
+        }
 
         $this->info('All set');
     }
