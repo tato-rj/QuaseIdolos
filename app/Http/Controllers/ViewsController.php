@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Artist, Genre, User};
-// use App\Tools\MusicData\MusicData;
+use App\Tools\MusicData\MusicData;
 
 class ViewsController extends Controller
 {
     public function home()
     {
 
-        // return (new MusicData)->artist('Aerosmith')->song('I Don´t Wanna Miss a Thing')->get();
+        return (new MusicData)->artist('Araketu')->song('Mal Acostumado')->get();
 
         $artists = Artist::inRandomOrder()->visible()->has('songs')->orderby('name')->take(10)->get();
         $genres = Genre::inRandomOrder()->has('songs')->orderby('name')->take(10)->get();

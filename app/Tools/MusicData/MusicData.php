@@ -32,7 +32,7 @@ class MusicData
 	public function get()
 	{
 		$query = $this->searchFor($this->song . ' - ' . $this->artist);
-
+return $query;
 		if ($query)
 			$this->createDataFrom($query);
 

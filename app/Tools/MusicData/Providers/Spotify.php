@@ -9,7 +9,7 @@ trait Spotify
 	public function searchFor($input)
 	{
 		$response = SpotifyApi::searchTracks($input)->limit(10)->get()['tracks'];
-
+return $response['items'];
 		if (count($response['items'])) {
 			foreach($response['items'] as $index => $result) {
 				if (str_slug($result['artists'][0]['name']) == str_slug($this->artist))
