@@ -29,10 +29,10 @@ class GetSongsData extends Command
      */
     public function handle()
     {
-        $songs = Song::whereNull('bpm')->take(20)->get();
+        $songs = Song::whereNull('bpm')->with('artist')->take(5)->get();
 
         foreach($songs as $song) {
-            $data = (new MusicData)->song($song->name);
+            $data = (new MusicData)->song($song->name . ' - ' . $song->artist->name);
 
             $song->update([
                 'duration' => $data['duration'],

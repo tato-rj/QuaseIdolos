@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Artist, Genre, User};
+use App\Tools\MusicData\MusicData;
 
 class ViewsController extends Controller
 {
