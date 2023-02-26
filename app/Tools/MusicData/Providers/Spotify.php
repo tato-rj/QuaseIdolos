@@ -12,7 +12,7 @@ trait Spotify
 // return $response;
 		if (count($response['items'])) {
 			foreach($response['items'] as $index => $result) {
-				if ($this->nameMatch($result['artists'][0]['name'], $this->artist))
+				if ($this->nameMatch($this->fixArtistName($result['artists'][0]['name']), $this->artist))
 					return $response['items'][$index];
 			}
 		}
@@ -21,5 +21,10 @@ trait Spotify
 	public function findSong($songId)
 	{
 		return SpotifyApi::audioFeaturesForTrack($songId)->get();
+	}
+
+	public function fixArtistName($name)
+	{
+		return str_replace('&', 'e', $name);
 	}
 }

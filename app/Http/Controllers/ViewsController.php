@@ -10,7 +10,7 @@ class ViewsController extends Controller
 {
     public function home()
     {
-        // return (new MusicData)->artist('Celly Campelo')->song('Estúpido Cupido')->get();
+        // return (new MusicData)->artist('Claudinho e Buchecha')->song('Conquista')->get();
 
         $artists = Artist::inRandomOrder()->visible()->has('songs')->orderby('name')->take(10)->get();
         $genres = Genre::inRandomOrder()->has('songs')->orderby('name')->take(10)->get();
