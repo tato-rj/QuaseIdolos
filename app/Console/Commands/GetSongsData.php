@@ -32,11 +32,11 @@ class GetSongsData extends Command
         $song = Song::first();
 
         $data = (new MusicData)->song($song->name);
-dd($data);
+
         $song->update([
-            'duration' => $data->duration,
-            'bpm' => $data->bpm,
-            'preview_url' => $data->preview_url
+            'duration' => $data['duration'],
+            'bpm' => $data['bpm'],
+            'preview_url' => $data['preview_url']
         ]);
 
         $this->info('All set');
