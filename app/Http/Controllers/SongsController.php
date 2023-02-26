@@ -77,7 +77,9 @@ class SongsController extends Controller
             'duration' => $request->duration,
             'genre_id' => $request->genre_id,
             'lyrics' => $request->lyrics,
-            'chords_url' => $request->chords_url
+            'chords_url' => $request->chords_url,
+            'bpm' => $request->bpm,
+            'preview_url' => $request->preview_url
         ]);
 
         return back()->with('success', 'A música foi atualizada com sucesso');
