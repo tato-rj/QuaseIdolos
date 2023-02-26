@@ -18,7 +18,7 @@ class MusicData
 	public function song($input)
 	{
 		$query = $this->searchFor($input);
-return $query;
+
 		if ($query)
 			$this->createDataFrom($query);
 
