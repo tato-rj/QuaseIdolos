@@ -47,4 +47,12 @@ class MusicData
 		$this->data->put('preview_url', $query['preview_url']);
 		$this->data->put('duration', round(($song['duration_ms']/1000)/60));
 	}
+
+	public function nameMatch($nameA, $nameB)
+	{
+		$nameA = str_slug($nameA);
+		$nameB = str_slug($nameB);
+
+		return $nameA == $nameB || str_contains($nameA, $nameB) || str_contains($nameB, $nameA);
+	}
 }
