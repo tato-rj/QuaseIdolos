@@ -35,7 +35,7 @@ class GetSongsData extends Command
             $data = (new MusicData)->artist($song->artist->name)->song($song->name)->get();
 
             $song->update([
-                'duration' => $data['duration'] ?? null,
+                'duration' => $data['duration'] ?? $song->duration,
                 'bpm' => $data['bpm'] ?? null,
                 'preview_url' => $data['preview_url'] ?? null
             ]);
