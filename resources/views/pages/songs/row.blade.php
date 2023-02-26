@@ -9,9 +9,11 @@
   		@if($song->preview_url)
   		@include('pages.songs.preview')
   		@endif
-			<span class="mr-2">{{$song->name}}</span>
-			@include('components.song.admin.icons')
-			<div class="text-secondary">{{$song->artist->name}}</div>
+  		<div>
+				<span class="mr-2">{{$song->name}}</span>
+				@include('components.song.admin.icons')
+				<div class="text-secondary">{{$song->artist->name}}</div>
+			</div>
 		</div>
       @break
 
