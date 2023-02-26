@@ -8,16 +8,30 @@ class MusicData
 {
 	use Spotify;
 
-	protected $data;
+	protected $data, $artist, $song;
 
 	public function __construct()
 	{
 		$this->data = collect();
 	}
 
-	public function song($input)
+	public function artist($artist)
 	{
-		$query = $this->searchFor($input);
+		$this->artist = $artist;
+
+		return $this;
+	}
+
+	public function song($song)
+	{
+		$this->song = $song;
+
+		return $this;
+	}
+
+	public function get()
+	{
+		$query = $this->searchFor($this->song . ' - ' . $this->artist);
 
 		if ($query)
 			$this->createDataFrom($query);
