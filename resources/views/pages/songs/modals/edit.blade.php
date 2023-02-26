@@ -4,7 +4,7 @@
 	@method('PATCH')
 
 	@select([
-		'placeholder' => 'Estilo',
+		'label' => 'Estilo',
 		'name' => 'genre_id',
 		'required' => true])
 
@@ -13,19 +13,13 @@
 		@endforeach
 	@endselect
 
-	@input(['placeholder' => 'Nome', 'name' => 'name', 'value' => $song->name, 'required' => true])
-	@input(['placeholder' => 'Duração', 'name' => 'duration', 'value' => $song->duration, 'type' => 'number', 'required' => true, 'min' => 1])
+	@input(['label' => 'Nome', 'name' => 'name', 'value' => $song->name, 'required' => true])
+	@input(['label' => 'Duração', 'name' => 'duration', 'value' => $song->duration, 'type' => 'number', 'required' => true, 'min' => 1])
+	@textarea(['label' => 'Letra', 'name' => 'lyrics', 'value' => $song->lyrics, 'required' => true, 'rows' => 5])
+	@input(['placeholder' => 'BPM', 'label' => 'BPM', 'type' => 'number', 'min' => 0, 'max' => 300, 'name' => 'bpm', 'value' => $song->bpm])
+	@input(['placeholder' => 'Site com cifra', 'label' => 'Site com cifra', 'name' => 'chords_url', 'value' => $song->chords_url])
+	@input(['placeholder' => 'Audio preview', 'label' => 'Audio preview', 'name' => 'preview_url', 'value' => $song->preview_url])
 
-	@textarea(['placeholder' => 'Letra', 'name' => 'lyrics', 'value' => $song->lyrics, 'required' => true, 'rows' => 5])
-
-	<div class="d-flex">
-		<div class="mr-2">
-			<a href="{{$song->chords_url}}" title="Ver acordes" target="_blank" class="btn btn-secondary form-control border-0">@fa(['icon' => 'external-link-alt', 'mr' => 0])</a>
-		</div>
-		<div class="w-100">
-			@input(['placeholder' => 'Site com cifra', 'name' => 'chords_url', 'value' => $song->chords_url])
-		</div>
-	</div>
 
 	@submit(['label' => 'Confirmar mudanças', 'theme' => 'secondary'])
 </form>
