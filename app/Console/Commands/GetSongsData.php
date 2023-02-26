@@ -33,7 +33,7 @@ class GetSongsData extends Command
 
         foreach($songs as $song) {
             $data = (new MusicData)->song($song->name . ' - ' . $song->artist->name);
-dd($data);
+
             $song->update([
                 'duration' => $data['duration'] ?? null,
                 'bpm' => $data['bpm'] ?? null,
