@@ -12,7 +12,7 @@ trait Spotify
 // return $response;
 		if (count($response['items'])) {
 			foreach($response['items'] as $index => $result) {
-				if ($this->closeEnough($result['artists'][0]['name'], $this->artist))
+				if ($result['preview_url'] && $this->closeEnough($result['artists'][0]['name'], $this->artist))
 					return $response['items'][$index];
 			}
 		}
