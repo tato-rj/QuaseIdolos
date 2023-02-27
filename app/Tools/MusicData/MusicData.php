@@ -48,11 +48,13 @@ class MusicData
 		$this->data->put('duration', round(($song['duration_ms']/1000)/60));
 	}
 
-	public function nameMatch($nameA, $nameB)
+	public function closeEnough($nameA, $nameB)
 	{
 		$nameA = str_slug($nameA);
 		$nameB = str_slug($nameB);
 
-		return $nameA == $nameB || str_contains($nameA, $nameB) || str_contains($nameB, $nameA);
+		similar_text($nameA, $nameB, $percent);
+
+		return $percent > 85;
 	}
 }
