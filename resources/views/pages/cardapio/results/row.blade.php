@@ -2,7 +2,13 @@
 
 @responsiveRow
   @slot('column1')
-  @include('pages.cardapio.results.row.name')
+  <div class="d-flex align-items-center">
+    @if($song->preview_url)
+    @include('pages.songs.preview')
+    @endif
+    
+    @include('pages.cardapio.results.row.name')
+  </div>
   @endslot
 
   @slot('actions')
