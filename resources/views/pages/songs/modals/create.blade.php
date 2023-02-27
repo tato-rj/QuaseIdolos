@@ -27,7 +27,6 @@
 	@endselect
 
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'required' => true])
-	@input(['placeholder' => 'Duração', 'name' => 'duration', 'type' => 'number', 'min' => 1, 'required' => true])
 
 	@textarea(['placeholder' => 'Letra', 'name' => 'lyrics', 'value' => old('lyrics'), 'required' => true])
 

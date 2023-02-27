@@ -31,7 +31,6 @@ class SongsController extends Controller
         $request->validate([
             'name' => 'required|string',
             'lyrics' => 'required',
-            'duration' => 'required',
             'genre_id' => 'required',
             'artist_id' => 'required'
         ]);
@@ -40,7 +39,6 @@ class SongsController extends Controller
             'artist_id' => $request->artist_id,
             'genre_id' => $request->genre_id,
             'name' => $request->name,
-            'duration' => $request->duration,
             'lyrics' => $request->lyrics,
             'chords_url' => $request->chords_url
         ]);
@@ -69,7 +67,6 @@ class SongsController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'duration' => 'required',
             'genre_id' => 'required',
             'lyrics' => 'required'
         ]);
