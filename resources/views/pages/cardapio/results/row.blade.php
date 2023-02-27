@@ -3,9 +3,9 @@
 @responsiveRow
   @slot('column1')
   <div class="d-flex align-items-center">
-{{--     @if($song->preview_url)
+    @if($song->preview_url)
     @include('pages.songs.preview')
-    @endif --}}
+    @endif
     
     @include('pages.cardapio.results.row.name')
   </div>
