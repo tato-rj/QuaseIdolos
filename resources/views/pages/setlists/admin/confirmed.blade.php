@@ -13,6 +13,12 @@
 			</div>
 
 			<div class="d-flex">
+				@if($entry->song->chords_url)
+				<a href="{{$entry->song->chords_url}}" title="Ver cifra" target="_blank" class="rounded-circle btn-sm btn btn-secondary mr-2 d-center first-only" style="width: 32px; height: 32px;">@fa(['icon' => 'guitar', 'mr' => 0])</a>
+				@endif
+				
+				<button data-url="{{route('lyrics.get', $entry)}}" title="Abrir letra" class="show-lyrics btn-sm btn btn-secondary rounded-circle d-center mr-2" style="width: 32px; height: 32px;">@fa(['icon' => 'font', 'mr' => 0])</button>
+
 				@if($entry->ratings()->exists())
 				<div class="mr-2">
 					<button data-bs-toggle="modal" data-bs-target="#ratings-{{$entry->id}}-modal" class="btn-raw bg-secondary rounded-circle d-center" style="width: 32px; height: 32px;">@fa(['icon' => 'star', 'mr' => 0, 'fa_size' => 'sm'])</button>

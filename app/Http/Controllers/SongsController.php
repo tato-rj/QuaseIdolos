@@ -43,7 +43,11 @@ class SongsController extends Controller
             'chords_url' => $request->chords_url
         ]);
 
-        $song->getMusicData();
+        try {
+            $song->getMusicData();   
+        } catch (\Exception $e) {
+            bugreport($e);
+        }
 
         return back()->with('success', 'A música foi adicionada com sucesso');
     }
