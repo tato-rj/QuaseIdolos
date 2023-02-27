@@ -1,7 +1,7 @@
 @php($rating = $rating ?? auth()->user()->ratingFor($songRequest))
 <div class="d-flex justify-content-{{$position ?? null}}">
 	@for($i=1;$i<=5;$i++)
-	<button class="btn-raw star-rating {{$rating >= $i ? 'selected' : null}}" 
+	<button class="btn-raw text-grey star-rating {{$rating >= $i ? 'selected' : null}}" 
 		@isset($editable)
 		data-url="{{route('ratings.store', ['songRequest' => $songRequest, 'score' => $i])}}"
 		@else

@@ -59,6 +59,12 @@
 	}
 }
 
+.modal {
+	button.star-rating:not(.selected) {
+		@extend .text-white;
+	}
+}
+
 .bg-center {
   background-size: cover;
   background-position: center;
