@@ -1,0 +1,1 @@
+<div class="ring position-absolute-center rounded-circle border border-secondary pulse" style="display: none;"></div>

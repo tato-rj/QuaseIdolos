@@ -1,10 +1,11 @@
-<button data-bs-toggle="modal" data-bs-target="#screens-modal" class="btn btn-secondary mb-3">@fa(['icon' => 'share-alt'])Projetar no telão</button>
+<button data-bs-toggle="modal" data-bs-target="#screens-modal" class="btn btn-secondary mb-3">@fa(['icon' => 'share-alt'])Extensões</button>
 
 @modal(['title' => 'Projetar','id' => 'screens-modal', 'size' => 'sm'])
 	<div>
 		@if($gig->password()->required())
 		<a class="btn btn-secondary mb-3 w-100" target="_blank" href="{{route('gig.password', $gig)}}">Senha</a>
 		@endif
+		<a class="btn btn-secondary mb-3 w-100" target="_blank" href="{{route('metronome.index')}}">Metrônomo</a>
 		<a class="btn btn-secondary mb-3 w-100" target="_blank" href="{{route('lyrics.index')}}">Letras</a>
 		<a href="{{route('ratings.live')}}" target="_blank" class="btn btn-secondary w-100 mb-3">Votação</a>
 		<div>

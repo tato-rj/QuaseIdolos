@@ -23,6 +23,7 @@ class SongSeeder extends Seeder
                         ], [
                                 'genre_id' => Genre::inRandomOrder()->first()->id,
                                 'duration' => rand(2,6),
+                                'bpm' => rand(40,160),
                                 'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24)
                         ]);
                 }

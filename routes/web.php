@@ -203,6 +203,16 @@ Route::middleware('admin')->group(function() {
         Route::post('{songRequest}', 'LyricsController@get')->name('get');
     });
 
+    Route::prefix('metronomo')->withoutMiddleware('join-gig')->name('metronome.')->group(function() {
+        Route::get('', 'MetronomeController@index')->name('index');
+
+        Route::get('{song}', 'MetronomeController@show')->name('show');
+
+        Route::get('busca', 'MetronomeController@search')->name('search');
+        
+        Route::post('{songRequest}', 'MetronomeController@get')->name('get');
+    });
+
     Route::prefix('setlist')->name('setlists.')->group(function() {
         Route::get('admin', 'SetlistsController@admin')->name('admin');
 

@@ -55,11 +55,11 @@ $('#refresh-table').click(function() {
 </script>
 
 <script type="text/javascript">
-$(document).on('click', 'button.show-lyrics', function() {
+$(document).on('click', 'button.show-lyrics, button.show-metronome', function() {
 	let $btn = $(this);
 
 	axios.post($(this).data('url'))
-		 .then(function() {
+		 .then(function(response) {
 		 	$btn.animateCSS('bounce');
 		 })
 		 .catch(function(response) {
