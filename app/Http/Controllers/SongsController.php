@@ -36,7 +36,7 @@ class SongsController extends Controller
             'artist_id' => 'required'
         ]);
 
-        Song::create([
+        $song = Song::create([
             'artist_id' => $request->artist_id,
             'genre_id' => $request->genre_id,
             'name' => $request->name,
@@ -44,6 +44,8 @@ class SongsController extends Controller
             'lyrics' => $request->lyrics,
             'chords_url' => $request->chords_url
         ]);
+
+        $song->getMusicData();
 
         return back()->with('success', 'A música foi adicionada com sucesso');
     }

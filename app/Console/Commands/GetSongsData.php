@@ -32,13 +32,7 @@ class GetSongsData extends Command
         $songs = Song::whereNull('preview_url')->with('artist')->take(20)->get();
 
         foreach($songs as $song) {
-            $data = (new MusicData)->artist($song->artist->name)->song($song->name)->get();
-
-            $song->update([
-                'duration' => $data['duration'] ?? $song->duration,
-                'bpm' => $data['bpm'] ?? null,
-                'preview_url' => $data['preview_url'] ?? null
-            ]);
+            $song->getMusicData();
         }
 
         $this->info('All set');

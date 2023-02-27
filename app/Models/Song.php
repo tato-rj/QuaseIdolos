@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\{Archiveable, Sortable, Cardapio};
+use App\Tools\MusicData\MusicData;
 
 class Song extends BaseModel
 {
@@ -82,5 +83,16 @@ class Song extends BaseModel
     public function scopeAlphabetically($query)
     {
     	return $query->orderBy('name');
+    }
+
+    public function getMusicData()
+    {
+        $data = (new MusicData)->artist($this->artist->name)->song($this->name)->get();
+
+        return $this->update([
+            'duration' => $data['duration'] ?? $this->duration,
+            'bpm' => $data['bpm'] ?? null,
+            'preview_url' => $data['preview_url'] ?? null
+        ]);
     }
 }
