@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::domain('{gig}.'.config('app.short_url'))->group(function () {
+Route::domain('{gig}.quaseidolos.com.br')->group(function () {
     Route::get('', function ($gig) {
         return $gig;
     });
