@@ -387,10 +387,22 @@ function listenToAdminEvents()
     window.Echo
           .channel('setlist')
           .listen('SongRequested', function(event) {
-                getEventTable();
+                getEventTable().then(function() {
+                if ($('.ring:visible').length) {
+                    let id = $('.ring:visible').data('requestid');
+
+                    $('.setlist-row').filter(':not([data-id='+id+'])').addClass('opacity-4');
+                }
+            });;
           })
           .listen('SongCancelled', function(event) {
-                getEventTable();
+                getEventTable().then(function() {
+                if ($('.ring:visible').length) {
+                    let id = $('.ring:visible').data('requestid');
+
+                    $('.setlist-row').filter(':not([data-id='+id+'])').addClass('opacity-4');
+                }
+            });;
           });
     } catch (error) {
         log(error);
@@ -474,7 +486,7 @@ function startCountdown()
 function getEventTable(newOrder = null)
 {
     if ($('#setlist-container').length) {
-    axios.get($('#setlist-container').data('url'), {params: {newOrder: newOrder}})
+    return axios.get($('#setlist-container').data('url'), {params: {newOrder: newOrder}})
         .then(function(response) {
             $('#setlist-container').html(response.data);
             

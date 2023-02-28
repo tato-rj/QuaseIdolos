@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Gig, SongRequest, Admin};
+use App\Events\SetlistReordered;
 
 class SetlistsController extends Controller
 {
@@ -29,6 +30,12 @@ class SetlistsController extends Controller
                 $set = json_decode($data);
                 if ($songRequest = SongRequest::find($set->id))
                     $songRequest->update(['order' => $set->order]);
+            }
+
+            try {
+                SetlistReordered::dispatch(auth()->user()->liveGig);
+            } catch (\Exception $e) {
+                bugreport($e);
             }
         }
 

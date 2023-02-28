@@ -5,7 +5,6 @@
 		@if($gig->password()->required())
 		<a class="btn btn-secondary mb-3 w-100" target="_blank" href="{{route('gig.password', $gig)}}">Senha</a>
 		@endif
-		<a class="btn btn-secondary mb-3 w-100" target="_blank" href="{{route('metronome.index')}}">Metrônomo</a>
 		<a class="btn btn-secondary mb-3 w-100" target="_blank" href="{{route('lyrics.index')}}">Letras</a>
 		<a href="{{route('ratings.live')}}" target="_blank" class="btn btn-secondary w-100 mb-3">Votação</a>
 		<div>

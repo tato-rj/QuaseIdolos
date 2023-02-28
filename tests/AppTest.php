@@ -3,7 +3,7 @@
 namespace Tests;
 
 use App\Models\{Admin, User, Song};
-use App\Events\{LyricsRequested, ScoreSubmitted, SongCancelled, SongFinished, SongRequested, ChatSent, ChatRead};
+use App\Events\{LyricsRequested, ScoreSubmitted, SongCancelled, SongFinished, SongRequested, SetlistReordered, ChatSent, ChatRead};
 use Tests\Traits\InteractsWithRedis;
 
 class AppTest extends TestCase
@@ -22,8 +22,10 @@ class AppTest extends TestCase
             ScoreSubmitted::class,
             SongCancelled::class,
             SongFinished::class,
-            SongRequested::class
+            SongRequested::class,
+            SetlistReordered::class
         ]);
+        
         \Storage::fake();
 
         $this->redisPrefix = config('database.redis.options.prefix');

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\AppTest;
 use App\Models\{Gig, SongRequest, Song};
+use App\Events\SetlistReordered;
 
 class SetlistTest extends AppTest
 {
@@ -68,6 +69,36 @@ class SetlistTest extends AppTest
         $this->get(route('setlists.table', ['newOrder' => $newOrder]));
 
         $this->assertNotEquals($oldSetlist, $gig->fresh()->setlist);
+    }
+
+    /** @test */
+    public function when_a_setlist_is_reordered_an_event_is_fired()
+    {
+        $this->signIn();
+        
+        auth()->user()->join($this->gig);
+        
+        $gig = auth()->user()->gig()->live()->first();
+
+        (new SongRequest)->add(auth()->user(), Song::factory()->create(), $gig);
+        (new SongRequest)->add(auth()->user(), Song::factory()->create(), $gig);
+        (new SongRequest)->add(auth()->user(), Song::factory()->create(), $gig);
+
+        $oldSetlist = $gig->setlist;
+
+        $this->logout();
+
+        $this->signIn($this->admin);
+
+        $newOrder = [
+            json_encode(['id' => 1, 'order' => 2]),
+            json_encode(['id' => 2, 'order' => 3]),
+            json_encode(['id' => 3, 'order' => 1]),
+        ];
+
+        $this->get(route('setlists.table', ['newOrder' => $newOrder]));
+
+        \Event::assertDispatched(SetlistReordered::class);
     }
 
     /** @test */
