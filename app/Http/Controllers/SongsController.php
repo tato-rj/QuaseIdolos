@@ -14,7 +14,7 @@ class SongsController extends Controller
      */
     public function index()
     {
-        $songs = Song::sortable('name', 'ASC')->paginate(12);
+        $songs = Song::sortable('created_at', 'DESC')->paginate(12);
         $genres = Genre::orderBy('name')->get();
 
         return view('pages.songs.index', compact(['songs', 'genres']));
