@@ -2,13 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
-Route::domain('{gig}.quaseidolos.test')->group(function () {
-    Route::get('', function ($gig) {
-        return $gig;
-    });
-});
-
 //////////////////
 // GUEST ROUTES //
 //////////////////
