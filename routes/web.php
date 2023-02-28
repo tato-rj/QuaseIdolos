@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::domain('{gig}.quaseidolos.test')->group(function () {
+Route::domain('{gig}.quaseidolos.com.br')->group(function () {
     Route::get('', function ($gig) {
         return $gig;
     });
