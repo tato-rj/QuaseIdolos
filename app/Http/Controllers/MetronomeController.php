@@ -20,6 +20,15 @@ class MetronomeController extends Controller
         return response(200);
     }
 
+    public function update(Request $request)
+    {
+        // $songRequest = SongRequest::findOrFail($request->id);
+
+        // $songRequest->song->update(['bpm' => $request->tempo]);
+
+        return $request->all();//response(200);
+    }
+
     public function index()
     {
         return view('pages.songs.metronome.index');

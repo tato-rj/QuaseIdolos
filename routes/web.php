@@ -216,6 +216,8 @@ Route::middleware('admin')->group(function() {
         Route::get('{song}', 'MetronomeController@show')->name('show');
 
         Route::get('busca', 'MetronomeController@search')->name('search');
+
+        Route::patch('mudar-tempo', 'MetronomeController@update')->name('update');
         
         Route::post('{songRequest}', 'MetronomeController@get')->name('get');
     });

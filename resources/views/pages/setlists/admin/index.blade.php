@@ -71,7 +71,6 @@
 <script src="{{asset('js/vendor/metronome/metronome.js')}}"></script>
 
 <script type="text/javascript">
-
 $(document).on('click', 'button.start-metronome', function() {
 	let $button = $(this);
 
@@ -113,6 +112,8 @@ $(document).on('click', '.metronome-control', function() {
 	} else {
 		updateTempo(currentTempo + 1);
 	}
+
+	$('#update-tempo').show();
 });
 
 var holding, rollingTempo;
@@ -146,6 +147,13 @@ $('.metronome-control').on('mousedown', function() {
 	rollingTempo = null;
 });
 
+
+// $(document).on('click', '#update-tempo', function() {
+// 	axios.patch($(this).data('url'), {id: $('#bpm').data('requestid'), tempo: 99})
+// 			 .then(function(response) {
+// 			 	log(response.data);
+// 			 })
+// });
 </script>
 
 <script type="text/javascript">
