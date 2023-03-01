@@ -449,7 +449,7 @@ function getUserAlert()
 function highlightMetronomeSetlist()
 {
     if ($('.ring:visible').length) {
-        let id = $('.ring:visible').data('requestid');
+        let id = $('#bpm').data('requestid');
 
         $('.setlist-row').filter(':not([data-id='+id+'])').addClass('opacity-4');
     }

@@ -92,7 +92,7 @@ function startMetronome(bpm, requestid)
 	let duration = 60/bpm; 
 
 	$ring.css('animation-duration', duration+'s').appendTo('#bpm').show();
-	$ring.attr('data-requestid', requestid);
+	$('#bpm').attr('data-requestid', requestid);
 
 	setTempo(bpm);
 	play();
