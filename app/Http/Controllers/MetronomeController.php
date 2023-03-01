@@ -4,29 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Events\MetronomeRequested;
-use App\Models\{Song, SongRequest};
+use App\Models\Song;
 
 class MetronomeController extends Controller
 {
-    public function get(SongRequest $songRequest)
+    public function update(Request $request, Song $song)
     {
-        try {
-            MetronomeRequested::dispatch($songRequest);
-        } catch (\Exception $e) {
-            bugreport($e);
-            abort(503);
-        }
-        
+        $song->update(['bpm' => $request->tempo]);
+
         return response(200);
-    }
-
-    public function update(Request $request)
-    {
-        // $songRequest = SongRequest::findOrFail($request->id);
-
-        // $songRequest->song->update(['bpm' => $request->tempo]);
-
-        return $request->all();//response(200);
     }
 
     public function index()

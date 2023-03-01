@@ -1,4 +1,4 @@
-<div class="text-white setlist-row striped-row d-flex align-items-center" data-id="{{$entry->id}}">
+<div class="text-white setlist-row striped-row d-flex align-items-center" id="song-{{$entry->song->id}}">
 	<div class="align-middle p-3 text-truncate d-flex flex-grow align-items-center w-100">
 		<div class="text-truncate w-100 d-flex align-items-center">
 		<div>
@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div>
-			<button data-requestid="{{$entry->id}}" data-tempo="{{$entry->song->bpm}}" class="start-metronome btn btn-secondary">Ligar</button>
+			<button data-target="#song-{{$entry->id}}" data-url="{{route('metronome.show', $entry->song)}}" data-tempo="{{$entry->song->bpm}}" class="start-metronome btn btn-secondary">Ligar</button>
 		</div>
 	</div>
 </div>

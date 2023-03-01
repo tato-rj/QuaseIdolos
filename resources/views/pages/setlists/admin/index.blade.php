@@ -57,11 +57,8 @@
 </section>
 
 @if(request()->formato == 'metronomo')
-<div id="metronome-placeholder">
+<section id="metronome-container" class="container-fluid">
 	@include('pages.songs.metronome.placeholder')
-</div>
-<section id="metronome-container" class="container-fluid" style="display: none">
-	@include('pages.songs.metronome.show')
 </section>
 @endif
 @endsection
@@ -71,36 +68,37 @@
 <script src="{{asset('js/vendor/metronome/metronome.js')}}"></script>
 
 <script type="text/javascript">
+
+
 $(document).on('click', 'button.start-metronome', function() {
 	let $button = $(this);
 
-	$('.setlist-row').removeClass('opacity-4');
-	
-	$button.closest('.setlist-row').siblings('.setlist-row').addClass('opacity-4');
+	songMetronome = new Metronome(this);
 
-	$('#metronome-placeholder').hide();
-	$('#metronome-container').show();
-
-	updateTempo($button.data('tempo'), $button.data('requestid'));
+	songMetronome.get().then(function() {
+		songMetronome.highlightSetlist();
+		setTempo(songMetronome.bpm);
+		play();
+	});
 });
+
 
 function startMetronome(bpm, requestid)
 {
-	$('.ring:visible').remove();
-	let $ring = $('.ring').clone();
+	// $('.ring:visible').remove();
+
+}
+
+function updateTempo(bpm)
+{
+	let $ring = $('.ring');
 	let duration = 60/bpm; 
 
-	$ring.css('animation-duration', duration+'s').appendTo('#bpm').show();
-	$('#bpm').attr('data-requestid', requestid);
+	$ring.css('animation-duration', duration+'s');
+	$('#bpm').find('span').text(bpm);
 
 	setTempo(bpm);
 	play();
-}
-
-function updateTempo(bpm, requestid = null)
-{
-	$('#bpm').find('span').text(bpm);
-	startMetronome(bpm, requestid);
 }
 
 $(document).on('click', '.metronome-control', function() {
@@ -118,7 +116,7 @@ $(document).on('click', '.metronome-control', function() {
 
 var holding, rollingTempo;
 
-$('.metronome-control').on('mousedown', function() {
+$(document).on('mousedown', '.metronome-control', function() {
 	let $tempo = $('#bpm').find('span');
 	let direction = $(this).data('direction');
 	let currentTempo = parseInt($tempo.text());
@@ -136,7 +134,7 @@ $('.metronome-control').on('mousedown', function() {
 			}
 		}, 50);
   }, 500);
-}).on('mouseup mouseleave', function() {
+}).on('mouseup mouseleave', '.metronome-control', function() {
 
 	$(this).addClass('opacity-4');
 
@@ -148,12 +146,13 @@ $('.metronome-control').on('mousedown', function() {
 });
 
 
-// $(document).on('click', '#update-tempo', function() {
-// 	axios.patch($(this).data('url'), {id: $('#bpm').data('requestid'), tempo: 99})
-// 			 .then(function(response) {
-// 			 	log(response.data);
-// 			 })
-// });
+$(document).on('click', '#update-tempo', function() {
+	axios.patch($(this).data('url'), {tempo: songMetronome.getTempo()})
+			 .then(function(response) {
+			 	$('#bpm span').animateCSS('heartBeat');
+			 	$('#update-tempo').hide();
+			 });
+});
 </script>
 
 <script type="text/javascript">
@@ -166,7 +165,7 @@ window.Echo
       .listen('SetlistReordered', function(event) {
       	if (event.user.id != app.user.id)
       		getEventTable().then(function() {
-      			highlightMetronomeSetlist();
+      			(new Metronome).highlightSetlist();
       		});
       });
 } catch (error) {

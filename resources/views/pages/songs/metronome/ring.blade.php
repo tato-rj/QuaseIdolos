@@ -1,1 +1,2 @@
-<div class="ring position-absolute-center rounded-circle border border-secondary pulse" style="display: none;"></div>
+<div class="ring position-absolute-center rounded-circle border border-secondary pulse" 
+	style="animation-duration: {{60/$song->bpm}}s;"></div>

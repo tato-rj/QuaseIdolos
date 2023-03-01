@@ -366,6 +366,7 @@ $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
 </script>
 
 <script type="text/javascript">
+let songMetronome;
 var sortable, sorting;
 
 var chat = new Chat;
@@ -388,12 +389,12 @@ function listenToAdminEvents()
           .channel('setlist')
           .listen('SongRequested', function(event) {
             getEventTable().then(function() {
-                highlightMetronomeSetlist();
+                (new Metronome).highlightSetlist();
             });
           })
           .listen('SongCancelled', function(event) {
             getEventTable().then(function() {
-                highlightMetronomeSetlist();
+                (new Metronome).highlightSetlist();
             });
           });
     } catch (error) {
@@ -444,15 +445,6 @@ function getUserAlert()
          .catch(function(error) {
             alert(error);
          });
-}
-
-function highlightMetronomeSetlist()
-{
-    if ($('.ring:visible').length) {
-        let id = $('#bpm').data('requestid');
-
-        $('.setlist-row').filter(':not([data-id='+id+'])').addClass('opacity-4');
-    }
 }
 
 function startCountdown()
