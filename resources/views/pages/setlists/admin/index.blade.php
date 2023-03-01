@@ -82,13 +82,6 @@ $(document).on('click', 'button.start-metronome', function() {
 	});
 });
 
-
-function startMetronome(bpm, requestid)
-{
-	// $('.ring:visible').remove();
-
-}
-
 function updateTempo(bpm)
 {
 	let $ring = $('.ring');
@@ -144,7 +137,6 @@ $(document).on('mousedown', '.metronome-control', function() {
 	holding = null;
 	rollingTempo = null;
 });
-
 
 $(document).on('click', '#update-tempo', function() {
 	axios.patch($(this).data('url'), {tempo: songMetronome.getTempo()})
