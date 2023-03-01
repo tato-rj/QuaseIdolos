@@ -387,22 +387,14 @@ function listenToAdminEvents()
     window.Echo
           .channel('setlist')
           .listen('SongRequested', function(event) {
-                getEventTable().then(function() {
-                if ($('.ring:visible').length) {
-                    let id = $('.ring:visible').data('requestid');
-
-                    $('.setlist-row').filter(':not([data-id='+id+'])').addClass('opacity-4');
-                }
-            });;
+            getEventTable().then(function() {
+                highlightMetronomeSetlist();
+            });
           })
           .listen('SongCancelled', function(event) {
-                getEventTable().then(function() {
-                if ($('.ring:visible').length) {
-                    let id = $('.ring:visible').data('requestid');
-
-                    $('.setlist-row').filter(':not([data-id='+id+'])').addClass('opacity-4');
-                }
-            });;
+            getEventTable().then(function() {
+                highlightMetronomeSetlist();
+            });
           });
     } catch (error) {
         log(error);
@@ -452,6 +444,15 @@ function getUserAlert()
          .catch(function(error) {
             alert(error);
          });
+}
+
+function highlightMetronomeSetlist()
+{
+    if ($('.ring:visible').length) {
+        let id = $('.ring:visible').data('requestid');
+
+        $('.setlist-row').filter(':not([data-id='+id+'])').addClass('opacity-4');
+    }
 }
 
 function startCountdown()

@@ -5,6 +5,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copyDirectory('resources/js/vendor', 'public/js/vendor')
     // .copyDirectory('resources/fonts', 'public/fonts')
     .copyDirectory('resources/images', 'public/images')
-    .copyDirectory('resources/audio', 'public/audio')
+    // .copyDirectory('resources/audio', 'public/audio')
     .copyDirectory('resources/videos', 'public/videos')
     .version();

@@ -33,13 +33,13 @@
 			'subtitle' => $gig && $gig->musicians()->exists() ? arrayToSentence($gig->musicians->pluck('admin.user.first_name')->toArray()) : null])
 
 		@if($gig)
-			@include('pages.setlists.admin.options')
+			<div class="mx-auto" style="width: 300px"> 
+				@include('pages.setlists.admin.formats')
 
-			@include('pages.gigs.features.all', ['classes' => 'justify-content-center align-items-center mb-2'])
+				@include('pages.setlists.admin.options')
+			</div>
 
-			<a href="" data-bs-toggle="modal" data-bs-target="#edit-gig-{{$gig->id}}-modal" class="link-secondary"><h4>@fa(['icon' => 'clipboard-list'])Editar evento</h4></a>
-
-			@include('pages.gigs.modals.edit', ['pausable' => true])
+			@include('pages.gigs.features.all', ['classes' => 'justify-content-center align-items-center mb-2'])			
 		@else
 		<h5>Não tem nenhum evento acontecendo agora</h5>
 		@endif
@@ -52,11 +52,14 @@
 	@endif
 @endif
 
-<section class="container mb-6" id="setlist-container" data-url="{{route('setlists.table', ['formato' => request()->formato])}}">
+<section class="container" id="setlist-container" data-url="{{route('setlists.table', ['formato' => request()->formato])}}">
 	@include('pages.setlists.admin.table')
 </section>
 
 @if(request()->formato == 'metronomo')
+<div id="metronome-placeholder">
+	@include('pages.songs.metronome.placeholder')
+</div>
 <section id="metronome-container" class="container-fluid" style="display: none">
 	@include('pages.songs.metronome.show')
 </section>
@@ -64,8 +67,10 @@
 @endsection
 
 @push('scripts')
+<script src="{{asset('js/vendor/metronome/monkeypatch.js')}}"></script>
+<script src="{{asset('js/vendor/metronome/metronome.js')}}"></script>
+
 <script type="text/javascript">
-let audio = new Audio;
 
 $(document).on('click', 'button.start-metronome', function() {
 	let $button = $(this);
@@ -74,6 +79,7 @@ $(document).on('click', 'button.start-metronome', function() {
 	
 	$button.closest('.setlist-row').siblings('.setlist-row').addClass('opacity-4');
 
+	$('#metronome-placeholder').hide();
 	$('#metronome-container').show();
 
 	updateTempo($button.data('tempo'), $button.data('requestid'));
@@ -82,19 +88,14 @@ $(document).on('click', 'button.start-metronome', function() {
 function startMetronome(bpm, requestid)
 {
 	$('.ring:visible').remove();
-
 	let $ring = $('.ring').clone();
-	let click = $('#bpm').data('click');
 	let duration = 60/bpm; 
-
-	if (click) {
-		log(click);
-	  // audio.src = click;
-	  // audio.play();
-	}
 
 	$ring.css('animation-duration', duration+'s').appendTo('#bpm').show();
 	$ring.attr('data-requestid', requestid);
+
+	setTempo(bpm);
+	play();
 }
 
 function updateTempo(bpm, requestid = null)
@@ -114,11 +115,37 @@ $(document).on('click', '.metronome-control', function() {
 	}
 });
 
-      	// axios.get(event.url)
-      	// 		 .then(function(response) {
-      	// 		 	$('#metronome-container').html(response.data);
-      	// 		 	metronome($('#bpm').data('tempo'));
-      	// 		 });
+var holding, rollingTempo;
+
+$('.metronome-control').on('mousedown', function() {
+	let $tempo = $('#bpm').find('span');
+	let direction = $(this).data('direction');
+	let currentTempo = parseInt($tempo.text());
+
+	$(this).removeClass('opacity-4');
+
+  holding = setTimeout(function() {
+  	stop();
+
+		rollingTempo = setInterval(function(){
+			if (direction == 'minus') {
+				$tempo.text(currentTempo -= 1);
+			} else {
+				$tempo.text(currentTempo += 1);
+			}
+		}, 50);
+  }, 500);
+}).on('mouseup mouseleave', function() {
+
+	$(this).addClass('opacity-4');
+
+	clearTimeout(holding);
+	clearInterval(rollingTempo);
+
+	holding = null;
+	rollingTempo = null;
+});
+
 </script>
 
 <script type="text/javascript">
@@ -131,11 +158,7 @@ window.Echo
       .listen('SetlistReordered', function(event) {
       	if (event.user.id != app.user.id)
       		getEventTable().then(function() {
-	      		if ($('.ring:visible').length) {
-	      			let id = $('.ring:visible').data('requestid');
-
-	      			$('.setlist-row').filter(':not([data-id='+id+'])').addClass('opacity-4');
-	      		}
+      			highlightMetronomeSetlist();
       		});
       });
 } catch (error) {
@@ -196,9 +219,5 @@ $('#show-winner-cancel').click(function() {
 	$(this).grandparent().toggle();
 	$(this).grandparent().siblings('button').toggle();
 });
-</script>
-
-<script type="text/javascript">
-
 </script>
 @endpush
