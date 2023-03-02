@@ -3,12 +3,20 @@
 @push('header')
 <style type="text/css">
 @keyframes metronome {
+  0%   {width: 50%; height: 50%; opacity: 0}
+  5% {opacity: 1}
+  90% {opacity: 0}
+  100% {width: 100%; height: 100%; opacity: 0;}
+}
+
+@keyframes metronome {
   0%   {width: 50%; height: 50%; opacity: 1}
   90% {opacity: 0}
   100% {width: 100%; height: 100%; opacity: 0;}
 }
 
 .pulse {
+	opacity: 0;
 	width: 50%;
 	height: 50%;
 	border-width: 10px !important;
