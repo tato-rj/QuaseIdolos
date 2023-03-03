@@ -2,6 +2,7 @@
 <form method="POST" action="{{route('venues.store')}}">
 	@csrf
 	@input(['placeholder' => 'Nome', 'name' => 'name', 'required' => true, 'value' => old('name')])
+	@input(['placeholder' => 'ID (ex: id.quaseidolos.com.br)', 'name' => 'uid', 'required' => true, 'value' => old('uid')])
 	@textarea(['placeholder' => 'Descrição (opcional)', 'name' => 'description', 'value' => old('description'), 'rows' => 3])
 	<div class="row">
 		<div class="col"> 

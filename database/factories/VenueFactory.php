@@ -16,6 +16,7 @@ class VenueFactory extends Factory
         $name = ucfirst($this->faker->unique()->word);
 
         return [
+            'uid' => $this->faker->unique()->word,
             'name' => $name,
             'slug' => str_slug($name),
             'lat' => geoip()->getLocation()->lat,

@@ -38,10 +38,12 @@ class VenuesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:venues,name'
+            'name' => 'required|unique:venues,name',
+            'uid' => 'required|unique:venues,uid',
         ]);
 
         Venue::create([
+            'uid' => $request->uid,
             'name' => $request->name,
             'slug' => str_slug($request->name),
             'description' => $request->description,
@@ -55,10 +57,12 @@ class VenuesController extends Controller
     public function update(Request $request, Venue $venue)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'uid' => 'required'
         ]);
 
         $venue->update([
+            'uid' => $request->uid,
             'name' => $request->name,
             'slug' => str_slug($request->name),
             'description' => $request->description,

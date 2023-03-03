@@ -1,4 +1,4 @@
-@php($gig = \App\Models\Gig::ready()->first())
+@php($gig = \App\Models\Gig::inSubdomain()->ready()->first())
 
 @modal(['title' => $gig->name(), 'id' => 'select-gig-modal', 'autoshow' => true])
 

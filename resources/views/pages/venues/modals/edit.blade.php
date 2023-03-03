@@ -3,6 +3,7 @@
 	@csrf
 	@method('PATCH')
 	@input(['label' => 'Nome', 'name' => 'name', 'value' => $venue->name, 'required' => true])
+	@input(['label' => 'ID', 'name' => 'uid', 'value' => $venue->uid, 'required' => true])
 	@textarea(['label' => 'Descrição (opcional)', 'placeholder' => 'Sem descrição', 'value' => $venue->description, 'name' => 'description', 'rows' => 3])
 	
 	<div class="row">

@@ -20,6 +20,11 @@ class Venue extends BaseModel
         return $this->hasMany(Gig::class)->where('scheduled_for', '!=', now()->startOfDay());
     }
 
+    public function scopeUid($query, $uid)
+    {
+        return $query->where('uid', $uid);
+    }
+
     public function scopeByName($query, $name)
     {
         return $query->where('name', $name)->first();

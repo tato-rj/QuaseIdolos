@@ -80,6 +80,21 @@ class Gig extends BaseModel
     {
     	return new Password($this);
     }
+
+    public function scopeInSubdomain($query)
+    {
+    	if (! subdomain())
+    		return $query;
+    	
+    	return $query->whereHas('venue', function($q) {
+    		$q->uid(subdomain());
+    	});
+    }
+
+    public function scopeIn($query, Venue $venue)
+    {
+    	return $query->where('venue_id', $venue->id);
+    }
     
 	public function scopeByEventDate($query)
 	{
