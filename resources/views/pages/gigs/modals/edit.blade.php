@@ -48,6 +48,10 @@
 	@input(['label' => 'Limite de músicas por pessoa', 'placeholder' => 'Sem limite', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0, 'value' => $gig->songs_limit_per_user])
 
 	<div class="text-left mb-3"> 
+		@toggle(['label' => 'Esse evento é um show solo da banda?', 'name' => 'is_show', 'on' => $gig->isShow()])
+	</div>
+
+	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => $gig->isPrivate()])
 	</div>
 

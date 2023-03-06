@@ -46,7 +46,7 @@ class ArchivesTest extends AppTest
 
         $this->post(route('gig.close', $gig));
 
-        $this->assertCount(1, $gig->archives()->get('participants'));
+        $this->assertCount(2, $gig->archives()->get('participants'));
 
         $this->assertRedisHas('gig:'.$gig->id.':participants');
         $this->assertRedisHas('user:'.$user->id.':gigs');

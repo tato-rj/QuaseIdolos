@@ -261,7 +261,7 @@ class Gig extends BaseModel
 		$today = now()->copy()->startOfDay();
 
 		if (! $admin)
-			$query->where('is_test', false);
+			$query->where(['is_test' => false, 'is_show' => false]);
 
 		return $query->where(function($q) use ($today) {
 						$q->whereDate('scheduled_for', '>=', $today);

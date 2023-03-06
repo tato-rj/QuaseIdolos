@@ -56,6 +56,30 @@ class GigTest extends AppTest
     }
 
     /** @test */
+    public function guests_do_not_automatically_join_a_gig_if_it_is_a_show()
+    {
+        Gig::truncate();
+
+        $this->signIn();
+
+        $this->get(route('home'));
+
+        $this->assertFalse(auth()->user()->gig()->exists());
+
+        $gig = Gig::factory()->show()->create();
+
+        $this->get(route('home'));
+
+        $this->assertFalse(auth()->user()->gig()->exists());
+
+        $gig->update(['is_live' => true]);
+
+        $this->get(route('setlists.user'));
+
+        $this->assertFalse(auth()->user()->gig()->exists());
+    }
+
+    /** @test */
     public function users_do_not_join_a_gig_automatically_if_there_is_more_than_one_ready_on_that_day()
     {
         Gig::truncate();
@@ -466,7 +490,7 @@ class GigTest extends AppTest
 
         $this->post(route('gig.close', $gig));
 
-        $this->assertCount(1, Participant::in($gig)->confirmed()->get());
+        $this->assertCount(2, Participant::in($gig)->confirmed()->get());
         $this->assertCount(0, Participant::in($gig)->unconfirmed()->get());
 
         $this->assertEmpty(auth()->user()->gig()->live()->first());
