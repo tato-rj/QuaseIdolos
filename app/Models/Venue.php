@@ -25,6 +25,13 @@ class Venue extends BaseModel
         return $query->where('uid', $uid);
     }
 
+    public function scopeFromSubdomain($query)
+    {
+        $uid = str_replace('.', '', strbetween(url()->previous(), '://', 'quaseidolos'));
+        
+        return $query->uid($uid);
+    }
+
     public function scopeByName($query, $name)
     {
         return $query->where('name', $name)->first();

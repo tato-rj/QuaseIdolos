@@ -114,13 +114,16 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::prefix('eventos')->withoutMiddleware('join-gig')->name('gig.')->group(function() {
-        Route::get('entrar', 'GigsController@select')->name('select');
 
-        Route::patch('entrar/{gig}', 'GigsController@join')->name('join');
+        Route::group(['domain' => config('app.short_url')], function() {
+            Route::get('entrar', 'GigsController@select')->name('select');
+            
+            Route::patch('entrar/{gig}', 'GigsController@join')->name('join');
 
-        Route::patch('sair/{gig}', 'GigsController@leave')->name('leave');
+            Route::patch('sair/{gig}', 'GigsController@leave')->name('leave');
 
-        Route::post('senha/{gig}', 'GigsController@verifyPassword')->name('verify-password');
+            Route::post('senha/{gig}', 'GigsController@verifyPassword')->name('verify-password');
+        });
 
         Route::prefix('{gig}/participantes')->middleware('join-gig')->name('participants.')->group(function() {
 

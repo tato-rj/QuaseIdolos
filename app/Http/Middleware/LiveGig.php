@@ -18,7 +18,7 @@ class LiveGig
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check()) {
-            // $this->checkSubdomain();
+            $this->checkSubdomain();
             auth()->user()->checkLiveGig();
         }
 
