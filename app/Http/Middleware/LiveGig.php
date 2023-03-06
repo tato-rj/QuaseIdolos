@@ -28,7 +28,7 @@ class LiveGig
     public function checkSubdomain()
     {
         if ($gigs = Gig::inSubdomain()->ready()) {
-            $modal = auth()->user()->tryToJoin($gigs);
+            $modal = auth()->user()->forceJoin($gigs);
 
             if ($gigs->count() == 1 && $gigs->first()->password()->required())
                 session()->flash('modal', $modal);

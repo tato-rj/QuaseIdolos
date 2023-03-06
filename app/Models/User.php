@@ -232,6 +232,21 @@ class User extends Authenticatable
         }
     }
 
+    public function forceJoin($gigs)
+    {
+        if ($gigs->count() == 1 && $gigs->first()->isLive()) {
+            if ($this->gig()->live()->exists() && $this->gig()->live()->first()->is($gigs->first()))
+                return null;
+
+            if (! $gigs->first()->password()->required()) {
+                $this->join($gigs->first());
+                return 'pages.gigs.welcome.modal';
+            } else {
+                return 'pages.gigs.modals.password';
+            }
+        }
+    }
+
     public function scopeByEmail($query, $email = null)
     {
         return $query->whereNotNull('email')->where('email', $email);
