@@ -9,7 +9,8 @@
 @section('content')
 <section class="container-fluid text-center mb-5">
 	@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'eventos'])
-	@create(['name' => 'gig', 'label' => 'Novo evento', 'folder' => 'gigs'])
+	@create(['name' => 'gig', 'label' => 'Novo karaokê', 'folder' => 'gigs'])
+	@create(['name' => 'show', 'label' => 'Novo show', 'folder' => 'shows'])
 </section>
 
 <section class="mb-5 container">

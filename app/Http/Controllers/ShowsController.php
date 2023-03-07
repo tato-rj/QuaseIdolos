@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Show;
 use Illuminate\Http\Request;
 
-class ShowController extends Controller
+class ShowsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class ShowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return back()->with('error', 'Ainda não está pronto');
     }
 
     /**

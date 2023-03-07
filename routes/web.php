@@ -318,6 +318,24 @@ Route::middleware('super-admin')->group(function() {
         });
     });
 
+    Route::prefix('shows')->name('shows.')->withoutMiddleware('join-gig')->group(function() {
+        Route::get('{show}', 'ShowsController@show')->name('show');
+
+        Route::post('', 'ShowsController@store')->name('store');
+
+        Route::patch('{show}', 'ShowsController@update')->name('update');
+
+        Route::post('{show}/duplicar', 'ShowsController@duplicate')->name('duplicate');
+
+        Route::post('{show}/abrir', 'ShowsController@open')->name('open');
+
+        Route::post('{show}/fechar', 'ShowsController@close')->name('close');
+
+        Route::post('{show}/pausar', 'ShowsController@pause')->name('pause');
+
+        Route::delete('{show}', 'ShowsController@destroy')->name('destroy');
+    });
+
     Route::prefix('emails')->name('mail.')->withoutMiddleware('join-gig')->group(function() {
         Route::get('{mail}', 'MailController@preview');
     });

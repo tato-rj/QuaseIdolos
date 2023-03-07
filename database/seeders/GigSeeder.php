@@ -36,22 +36,6 @@ class GigSeeder extends Seeder
             'starts_at' => now()
         ]);
 
-        Gig::create([
-            'venue_id' => Venue::byName('Big Ben')->id,
-            'creator_id' => Admin::superAdmin()->first()->user->id,
-            'is_show' => true,
-            'starting_time' => '21:00',
-            'scheduled_for' => now(),
-        ]);
-
-        Gig::create([
-            'venue_id' => Venue::byName('Big Ben')->id,
-            'creator_id' => Admin::superAdmin()->first()->user->id,
-            'is_show' => true,
-            'starting_time' => '21:00',
-            'scheduled_for' => now()->addDays(2),
-        ]);
-
         foreach (Admin::musicians()->get() as $musician) {
             $liveGig->musicians()->save($musician);
         }

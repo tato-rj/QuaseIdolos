@@ -1,4 +1,4 @@
-@modal(['title' => 'Novo evento', 'id' => 'create-gig-modal'])
+@modal(['title' => 'Novo karaokê', 'id' => 'create-gig-modal'])
 <form method="POST" action="{{route('gig.store')}}">
 	@csrf
 	
@@ -27,7 +27,7 @@
 	@input(['placeholder' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0])
 
 	<div class="text-left mb-3"> 
-		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => old('is_private') ?? false])
+		@toggle(['label' => 'Esse karaokê é fechado?', 'name' => 'is_private', 'on' => old('is_private') ?? false])
 	</div>
 	<div class="text-left mb-3 has-password-container"> 
 		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => old('has_password') ?? false])
@@ -48,7 +48,7 @@
 	</div>
 	
 	<div class="text-left"> 
-		@checkbox(['label' => 'Quem vai tocar nesse evento?', 'name' => 'musicians'])
+		@checkbox(['label' => 'Quem vai tocar nesse karaokê?', 'name' => 'musicians'])
 			@foreach($musicians as $musician)
 	        <div class="form-check">
 	          <input 
@@ -66,15 +66,15 @@
 	</div>
 
 	@datepicker([
-		'label' => 'Data do evento',
+		'label' => 'Data do karaokê',
 		'value' => now()->format('d/m/Y'),
 		'id' => uuid(),
 		'options' => ['fullwidth'],
 		'name' => 'scheduled_for'])
 
 	@select([
-		'placeholder' => 'Duração do evento (opcional)',
-		'info' => 'Se escolhida o evento irá terminar automaticamente após o tempo escolhido.',
+		'placeholder' => 'Duração do karaokê (opcional)',
+		'info' => 'Se escolhida o karaokê irá terminar automaticamente após o tempo escolhido.',
 		'name' => 'duration'])
 
 		@foreach([1,2,3,4,5,6,7,8] as $duration)
@@ -83,7 +83,7 @@
 	@endselect
 
 
-	@submit(['label' => 'Criar evento', 'theme' => 'secondary'])
+	@submit(['label' => 'Criar karaokê', 'theme' => 'secondary'])
 
 </form>
 @endmodal
