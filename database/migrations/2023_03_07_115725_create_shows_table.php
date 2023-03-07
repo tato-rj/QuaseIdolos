@@ -17,6 +17,15 @@ class CreateShowsTable extends Migration
             $table->id();
             $table->unsignedInteger('creator_id');
             $table->unsignedInteger('venue_id');
+            $table->string('name')->nullable();
+            $table->string('description')->nullable();
+            $table->boolean('is_live')->default(false);
+            $table->date('scheduled_for')->nullable();
+            $table->string('starting_time')->nullable();
+            $table->boolean('is_paused')->default(false);
+            $table->timestamp('starts_at')->nullable();
+            $table->timestamp('ends_at')->nullable();
+            $table->unsignedTinyInteger('duration')->nullable();
             $table->timestamps();
         });
     }

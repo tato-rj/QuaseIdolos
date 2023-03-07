@@ -21,6 +21,7 @@ class ShowFactory extends Factory
             'venue_id' => function() {
                 return Venue::factory()->create()->id;
             },
+            'scheduled_for' => now()->startOfDay(),
         ];
     }
 }

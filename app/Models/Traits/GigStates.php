@@ -9,11 +9,6 @@ trait GigStates
 		return $this->isUnscheduled() ? false : $this->scheduled_for->isSameDay(now());
 	}
 
-	public function isShow()
-	{
-		return (bool) $this->is_show;
-	}
-
 	public function isPrivate()
 	{
 		return (bool) $this->is_private;

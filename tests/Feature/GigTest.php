@@ -56,30 +56,6 @@ class GigTest extends AppTest
     }
 
     /** @test */
-    public function guests_do_not_automatically_join_a_gig_if_it_is_a_show()
-    {
-        Gig::truncate();
-
-        $this->signIn();
-
-        $this->get(route('home'));
-
-        $this->assertFalse(auth()->user()->gig()->exists());
-
-        $gig = Gig::factory()->show()->create();
-
-        $this->get(route('home'));
-
-        $this->assertFalse(auth()->user()->gig()->exists());
-
-        $gig->update(['is_live' => true]);
-
-        $this->get(route('setlists.user'));
-
-        $this->assertFalse(auth()->user()->gig()->exists());
-    }
-
-    /** @test */
     public function users_do_not_join_a_gig_automatically_if_there_is_more_than_one_ready_on_that_day()
     {
         Gig::truncate();

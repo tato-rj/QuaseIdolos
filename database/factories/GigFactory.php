@@ -64,13 +64,4 @@ class GigFactory extends Factory
             ];
         });
     }
-
-    public function show()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'is_show' => true
-            ];
-        });
-    }
 }

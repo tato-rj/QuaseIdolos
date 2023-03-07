@@ -13,4 +13,14 @@ abstract class EventModel extends BaseModel
 	{
 		return $this->belongsTo(Venue::class);
 	}
+
+    public function name()
+    {
+    	return $this->name ?? $this->venue->name;
+    }
+        
+    public function description()
+    {
+    	return $this->description ?? $this->venue->description;
+    }
 }

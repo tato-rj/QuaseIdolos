@@ -51,19 +51,9 @@ class Gig extends EventModel
     	return $this->hasManyThrough(Rating::class, SongRequest::class);
     }
 
-    public function name()
-    {
-    	return $this->name ?? $this->venue->name;
-    }
-
     public function sandbox()
     {
     	return $this->is_test;
-    }
-    
-    public function description()
-    {
-    	return $this->description ?? $this->venue->description;
     }
 
     public function password()
@@ -251,7 +241,7 @@ class Gig extends EventModel
 		$today = now()->copy()->startOfDay();
 
 		if (! $admin)
-			$query->where(['is_test' => false, 'is_show' => false]);
+			$query->where(['is_test' => false]);
 
 		return $query->where(function($q) use ($today) {
 						$q->whereDate('scheduled_for', '>=', $today);
