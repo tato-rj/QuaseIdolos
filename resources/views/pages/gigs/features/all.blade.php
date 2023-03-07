@@ -1,4 +1,4 @@
-<div class="d-flex flex-wrap {{$classes ?? null}}">
+<div class="d-flex {{$classes ?? null}}">
 
 	@include('pages.gigs.features.icon', [
 		'hasFeature' => $gig->password()->required(), 
