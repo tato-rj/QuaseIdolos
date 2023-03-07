@@ -21,16 +21,6 @@ class Gig extends EventModel
 		'has_ratings' => 'boolean'
 	];
 
-	public function creator()
-	{
-		return $this->belongsTo(User::class, 'creator_id');
-	}
-
-	public function venue()
-	{
-		return $this->belongsTo(Venue::class);
-	}
-
     public function musicians()
     {
         return $this->belongsToMany(User::class, 'gig_users', 'gig_id', 'user_id')->orderBy('users.name');
