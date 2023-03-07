@@ -7,7 +7,7 @@ use App\Models\Traits\{Rateable, Archiveable, GigStates, Chateable, Sortable};
 use App\Voting\{Ranking, Rules};
 use App\Tools\Gig\{Status, Password};
 
-class Gig extends BaseModel
+class Gig extends EventModel
 {
 	use Rateable, Archiveable, GigStates, Chateable, Sortable;
 

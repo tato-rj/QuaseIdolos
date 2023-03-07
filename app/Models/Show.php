@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Show extends BaseModel
+class Show extends EventModel
 {
     public function creator()
     {
