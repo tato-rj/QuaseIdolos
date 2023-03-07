@@ -11,7 +11,6 @@ class Gig extends EventModel
 {
 	use Rateable, Archiveable, GigStates, Chateable, Sortable;
 
-	protected $dates = ['starts_at', 'ends_at', 'scheduled_for', 'scheduled_end_at'];
 	protected $casts = [
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
@@ -69,56 +68,6 @@ class Gig extends EventModel
     	return $query->whereHas('venue', function($q) {
     		$q->uid(subdomain());
     	});
-    }
-
-    public function scopeIn($query, Venue $venue)
-    {
-    	return $query->where('venue_id', $venue->id);
-    }
-    
-	public function scopeByEventDate($query)
-	{
-		return $query->orderBy('scheduled_for', 'desc');
-	}
-
-	public function scopeUnscheduled($query)
-	{
-		return $query->whereNull('scheduled_for');
-	}
-
-	public function scopeScheduled($query)
-	{
-		return $query->whereNotNull('scheduled_for');
-	}
-
-	public function scopeNotLive($query)
-	{
-		return $query->where('is_live', false);
-	}
-
-	public function scopeLive($query)
-	{
-		return $query->where('is_live', true);
-	}
-
-	public function scopeOrLive($query)
-	{
-		return $query->orWhere('is_live', true);
-	}
-
-    public function scopeUpcoming($query)
-    {
-    	return $query->where('scheduled_for', '>=', now()->startOfDay());
-    }
-
-    public function scopePast($query)
-    {
-    	return $query->where('scheduled_for', '<', now()->startOfDay());
-    }
-
-    public function scopeOrPast($query)
-    {
-    	return $query->orWhere('scheduled_for', '<', now()->startOfDay());
     }
 
     public function scopePublic($query)
@@ -192,44 +141,6 @@ class Gig extends EventModel
 		return $count > $this->repeat_limit;
 	}
 
-	public function getFullNameAttribute()
-	{
-		return $this->name;
-	}
-
-	public function getDateForHumansAttribute()
-	{
-		return $this->dateForHumans();
-	}
-
-	public function dateForHumans($showWeek = true)
-	{
-		$weekday = weekday($this->scheduled_for->dayOfWeek);
-		$month = month($this->scheduled_for->month);
-
-		if ($showWeek)
-			return $weekday . ', ' . $this->scheduled_for->day . ' de ' . $month;
-
-		return $this->scheduled_for->day . ' de ' . $month;
-	}
-
-	public function dateInContext()
-	{
-		if ($this->isUnscheduled())
-			return null;
-
-		if ($this->scheduled_for->isToday())
-			return 'Hoje';
-
-		if ($this->scheduled_for->isYesterday())
-			return 'Ontem';
-
-		if ($this->scheduled_for->isTomorrow())
-			return 'Amanhã';
-
-		return $this->dateForHumans;
-	}
-
 	public function status()
 	{
 		return (new Status($this));
@@ -274,19 +185,5 @@ class Gig extends EventModel
         $this->archives()->save();
 
         return $this;
-    }
-
-    public function open()
-    {
-        return $this->update([
-            'is_live' => true,
-            'starts_at' => now(),
-        ]);
-    }
-
-    public function endingTime()
-    {
-    	if ($this->duration && $this->hasStarted())
-    		return local() ? $this->starts_at->copy()->addMinutes($this->duration) : $this->starts_at->copy()->addHours($this->duration);
     }
 }

@@ -28,6 +28,16 @@ class CreateShowsTable extends Migration
             $table->unsignedTinyInteger('duration')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('show_songs', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('show_id');
+            $table->unsignedInteger('song_id');
+            $table->unsignedInteger('order')->nullable();
+            $table->timestamps();
+
+            $table->unique(['show_id', 'song_id']);
+        });
     }
 
     /**
@@ -38,5 +48,6 @@ class CreateShowsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('shows');
+        Schema::dropIfExists('show_songs');
     }
 }

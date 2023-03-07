@@ -24,4 +24,23 @@ class ShowFactory extends Factory
             'scheduled_for' => now()->startOfDay(),
         ];
     }
+
+    public function live()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'starts_at' => now(),
+                'is_live' => true,
+            ];
+        });
+    }
+
+    public function paused()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_paused' => true
+            ];
+        });
+    }
 }
