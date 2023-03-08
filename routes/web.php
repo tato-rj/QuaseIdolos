@@ -321,9 +321,13 @@ Route::middleware('super-admin')->group(function() {
     Route::prefix('shows')->name('shows.')->withoutMiddleware('join-gig')->group(function() {
         Route::get('{show}', 'ShowsController@show')->name('show');
 
+        Route::get('{show}/musicas', 'ShowsController@search')->name('search');
+
         Route::post('', 'ShowsController@store')->name('store');
 
         Route::patch('{show}', 'ShowsController@update')->name('update');
+
+        Route::post('{show}/{song}', 'ShowsController@updateSetlist')->name('update-setlist');
 
         Route::post('{show}/duplicar', 'ShowsController@duplicate')->name('duplicate');
 

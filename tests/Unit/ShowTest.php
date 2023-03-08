@@ -41,4 +41,16 @@ class ShowTest extends AppTest
         
         return $this->assertInstanceOf(User::class, $this->show->musicians->first());
     }
+
+    /** @test */
+    public function it_knows_if_a_song_is_in_the_setlist()
+    {
+        $songInSetlist = Song::factory()->create();
+        $songNotInSetlist = Song::factory()->create();
+
+        $this->show->setlist()->save($songInSetlist);
+        
+        $this->assertTrue($this->show->setlist()->where('song_id', $songInSetlist->id)->exists());
+        $this->assertFalse($this->show->setlist()->where('song_id', $songNotInSetlist->id)->exists());
+    }
 }

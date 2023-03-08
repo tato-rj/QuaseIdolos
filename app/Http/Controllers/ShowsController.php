@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Show;
+use App\Models\{Show, Admin, Venue, Song};
 use Illuminate\Http\Request;
 
 class ShowsController extends Controller
@@ -35,7 +35,7 @@ class ShowsController extends Controller
      */
     public function store(Request $request)
     {
-        return back()->with('error', 'Ainda não está pronto');
+        return back()->with('error', 'Não está pronto ainda');
 
         $request->validate([
             'venue_id' => 'required|exists:venues,id',
@@ -65,7 +65,35 @@ class ShowsController extends Controller
      */
     public function show(Show $show)
     {
-        //
+        if ($show->isUnscheduled())
+            return redirect(route('shows.index'));
+
+        $musicians = Admin::musicians()->get();
+        $venues = Venue::all();
+
+        return view('pages.shows.show.index', compact(['show', 'venues', 'musicians']));
+    }
+
+    public function search(Request $request, Show $show)
+    {
+        if (strlen($request->input) <= 3) {
+            $songs = collect();
+        } else {
+            $songs = Song::search($request->input)->orderBy('name')->get();
+        }
+
+        return view('pages.shows.show.results', compact(['songs', 'show']))->render();
+    }
+
+    public function updateSetlist(Show $show, Song $song)
+    {
+        if ($show->setlist()->where('song_id', $song->id)->exists()) {
+            $show->setlist()->delete($song);
+        } else {
+            $show->setlist()->save($song);
+        }
+
+        return view('pages.shows.show.setlist', compact('show'))->render();
     }
 
     /**
