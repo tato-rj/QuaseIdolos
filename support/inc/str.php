@@ -53,3 +53,8 @@ function firstNChar($string, $count)
 {
 	return substr($string, 0, $count);
 }
+
+function className($path)
+{
+	return implode(' ',preg_split('/(?=[A-Z])/', class_basename($path)));
+}

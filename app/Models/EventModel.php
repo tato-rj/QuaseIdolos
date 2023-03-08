@@ -6,6 +6,15 @@ abstract class EventModel extends BaseModel
 {
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for', 'scheduled_end_at'];
 
+	abstract function scopeReady($query);
+	
+	abstract function status();
+
+    public function scopeNotReady($query)
+    {
+		return $query->except($this->ready()->get('id'));
+    }
+
 	public function creator()
 	{
 		return $this->belongsTo(User::class, 'creator_id');

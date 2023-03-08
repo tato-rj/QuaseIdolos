@@ -33,4 +33,12 @@ class ShowTest extends AppTest
 
         return $this->assertInstanceOf(Song::class, $this->show->setlist->first());
     }
+
+    /** @test */
+    public function it_has_many_musicians()
+    {
+        $this->show->musicians()->save(User::factory()->create());
+        
+        return $this->assertInstanceOf(User::class, $this->show->musicians->first());
+    }
 }

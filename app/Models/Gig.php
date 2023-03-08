@@ -161,11 +161,6 @@ class Gig extends EventModel
 					 });
 	}
 
-    public function scopeNotReady($query)
-    {
-		return $query->except($this->ready()->get('id'));
-    }
-
     public function close($confirmRequests = false)
     {
         $this->update([

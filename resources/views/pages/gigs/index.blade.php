@@ -15,11 +15,11 @@
 
 <section class="mb-5 container">
 	@table([
-		'title' => 'Eventos hoje',
+		'title' => 'Karaokês hoje',
 		'empty' => true,
-		'columns' => ['event' => 'Evento', 'status' => 'Status', 'features' => 'Recursos', 'actions' => ''],
-		'legend' => 'evento|eventos',
-		'rows' => $today,
+		'columns' => ['event' => 'Karaokê', 'status' => 'Status', 'features' => 'Recursos', 'actions' => ''],
+		'legend' => 'karaokê|karaokês',
+		'rows' => $kareokeToday,
 		'view' => 'pages.gigs.rows.today'
 	])
 </section>
@@ -29,9 +29,19 @@
 		'title' => 'Sem data',
 		'legend' => 'evento|eventos',
 		'header' => false,
-		'columns' => ['event' => 'Evento', 'actions' => ''],
+		'columns' => ['event' => 'Karaokê', 'actions' => ''],
 		'rows' => $unscheduled,
 		'view' => 'pages.gigs.rows.unscheduled'
+	])
+</section>
+
+<section class="mb-5 container">
+	@table([
+		'title' => 'Shows hoje',
+		'legend' => 'show|shows',
+		'columns' => ['event' => 'Show', 'status' => 'Status', 'actions' => ''],
+		'rows' => $showsToday,
+		'view' => 'pages.shows.rows.today'
 	])
 </section>
 

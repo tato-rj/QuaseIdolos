@@ -20,16 +20,17 @@
 	<div class="text-left"> 
 		@checkbox(['label' => 'Quem vai tocar nesse show?', 'name' => 'musicians'])
 			@foreach($musicians as $musician)
+			@php($checkID = uuid())
 	        <div class="form-check">
 	          <input 
 	            class="form-check-input" 
 	            name="musicians[]" 
 	            type="checkbox" 
 	            value="{{$musician->user->id}}" 
-	            id="checkbox-musician-{{$musician->user->id}}" 
+	            id="checkbox-musician-{{$checkID}}" 
 	            {{ is_array(old('musicians')) && in_array($musician->user->id, old('musicians')) ? ' checked' : '' }}
 	            >
-	                <label class="form-check-label" for="checkbox-musician-{{$musician->user->id}}">{{$musician->user->name}}</label>
+	                <label class="form-check-label" for="checkbox-musician-{{$checkID}}">{{$musician->user->name}}</label>
 	        </div>
 	        @endforeach
 		@endcheckbox

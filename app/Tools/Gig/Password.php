@@ -2,11 +2,11 @@
 
 namespace App\Tools\Gig;
 
-use App\Models\Gig;
+use App\Models\EventModel;
 
 class Password
 {
-	public function __construct(Gig $gig)
+	public function __construct(EventModel $gig)
 	{
 		$this->gig = $gig;
 	}

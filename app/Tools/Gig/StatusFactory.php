@@ -2,13 +2,13 @@
 
 namespace App\Tools\Gig;
 
-use App\Models\Gig;
+use App\Models\EventModel;
 
 abstract class StatusFactory
 {
 	protected $gig, $withText, $onlyText;
 
-	public function __construct(Gig $gig)
+	public function __construct(EventModel $gig)
 	{
 		$this->gig = $gig;
 		$this->withText = true;

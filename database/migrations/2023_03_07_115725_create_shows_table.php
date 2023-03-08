@@ -19,6 +19,7 @@ class CreateShowsTable extends Migration
             $table->unsignedInteger('venue_id');
             $table->string('name')->nullable();
             $table->string('description')->nullable();
+            $table->string('password')->nullable();
             $table->boolean('is_live')->default(false);
             $table->date('scheduled_for')->nullable();
             $table->string('starting_time')->nullable();

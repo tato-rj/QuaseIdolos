@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Route::domain('{gig}.'.config('app.short_url'))->group(function () {
-//     Route::get('', 'ViewsController@home');
-// });
+Route::middleware('super-admin')->withoutMiddleware('join-gig')->domain('status.'.config('app.short_url'))->group(function () {
+    Route::get('', 'StatusController@index')->name('status');
+});
 
 //////////////////
 // GUEST ROUTES //
@@ -351,7 +351,5 @@ Route::middleware('super-admin')->group(function() {
         
         Route::get('usuarios', 'StatsController@users')->name('users');
     });
-
-    Route::withoutMiddleware('join-gig')->get('status', 'StatusController@index')->name('status');
 });
 

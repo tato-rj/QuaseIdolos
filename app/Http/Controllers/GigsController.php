@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Gig, Venue, Participant, Admin};
+use App\Models\{Gig, Venue, Participant, Admin, Show};
 use Illuminate\Http\Request;
 use App\Events\GigFinished;
 
@@ -12,10 +12,11 @@ class GigsController extends Controller
     {
         $musicians = Admin::musicians()->get();
         $venues = Venue::all();
-        $today = Gig::ready()->orLive()->get();
+        $kareokeToday = Gig::ready()->orLive()->get();
+        $showsToday = Show::ready()->orLive()->get();
         $unscheduled = Gig::unscheduled()->get();
 
-        return view('pages.gigs.index', compact(['today', 'venues', 'unscheduled', 'musicians']));
+        return view('pages.gigs.index', compact(['showsToday', 'kareokeToday', 'venues', 'unscheduled', 'musicians']));
     }
 
     public function password(Gig $gig)
@@ -116,7 +117,7 @@ class GigsController extends Controller
         if ($request->has_password)
             $gig->password()->update($request->password);
 
-        return back()->with('success', 'O evento foi criado com sucesso');
+        return back()->with('success', 'O karaokê foi criado com sucesso');
     }
 
     /**
@@ -177,7 +178,7 @@ class GigsController extends Controller
             $gig->password()->destroy();
         }
 
-        return back()->with('success', 'O evento foi alterado com sucesso');
+        return back()->with('success', 'O karaokê foi alterado com sucesso');
     }
 
     public function updatePassword(Request $request, Gig $gig)
@@ -191,14 +192,14 @@ class GigsController extends Controller
     {
         $gig->duplicate();
 
-        return back()->with('success', 'O evento foi duplicado com sucesso');
+        return back()->with('success', 'O karaokê foi duplicado com sucesso');
     }
 
     public function pause(Request $request, Gig $gig)
     {
         $gig->update(['is_paused' => ! $gig->is_paused]);
 
-        $message = $gig->is_paused ? 'O evento está pausado' : 'O evento voltou';
+        $message = $gig->is_paused ? 'O karaokê está pausado' : 'O karaokê voltou';
 
         return back()->with('success', $message);
 
@@ -218,7 +219,7 @@ class GigsController extends Controller
         
         $gig->open();
 
-        return back()->with('success', 'O evento começou');
+        return back()->with('success', 'O karaokê começou');
     }
 
     public function close(Request $request, Gig $gig)
@@ -227,7 +228,7 @@ class GigsController extends Controller
 
         $gig->close();
 
-        return back()->with('success', 'O evento terminou');
+        return back()->with('success', 'O karaokê terminou');
     }
 
     /**
@@ -247,8 +248,8 @@ class GigsController extends Controller
         $gig->delete();
 
         if (url()->previous() == route('gig.show', $gig))
-            return redirect(route('gig.index'))->with('success', 'O evento foi removido com sucesso');
+            return redirect(route('gig.index'))->with('success', 'O karaokê foi removido com sucesso');
 
-        return back()->with('success', 'O evento foi removido com sucesso');
+        return back()->with('success', 'O karaokê foi removido com sucesso');
     }
 }

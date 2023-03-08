@@ -36,6 +36,25 @@ class ShowsController extends Controller
     public function store(Request $request)
     {
         return back()->with('error', 'Ainda não está pronto');
+
+        $request->validate([
+            'venue_id' => 'required|exists:venues,id',
+            'scheduled_for' => 'required'
+        ]);
+
+        $show = Show::create([
+            'creator_id' => auth()->user()->id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'starting_time' => $request->starting_time,
+            'venue_id' => $request->venue_id,
+            'duration' => $request->duration,
+            'scheduled_for' => datePtToUs($request->scheduled_for),
+        ]);
+
+        $show->musicians()->attach($request->musicians);
+
+        return back()->with('success', 'O show foi criado com sucesso');
     }
 
     /**
