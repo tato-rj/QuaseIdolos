@@ -1,42 +1,16 @@
-@php($song = $row->song)
+<div class="draggable-sm text-white striped-row d-flex align-items-center" data-id="{{$entry->id}}">
+	<div class="align-middle p-3 text-truncate d-flex flex-grow align-items-center w-100">
+		@fa(['icon' => 'bars', 'classes' => 'my-handle', 'fa_size' => '2x', 'mr' => 3])
 
-@responsiveRow
-  @slot('column1')
-	  <div class="d-flex align-items-center">
-	  	<div class="mr-2 d-flex">
-			@foreach($row->singers() as $user)
-				<div class="position-relative" style="margin-left: {{! $loop->first ? '-16px' : null}}; z-index: {{$loop->remaining}};">
-			      @if($user->hasAvatar())
-			      @include('components.avatar.image', ['size' => '46px'])
-			      @else
-			      @include('components.avatar.initial', ['size' => '46px'])
-			      @endif
-			  </div>
-			@endforeach
-		</div>
-	  	<div>
-			  <div>
-					{{$song->name}}
-				</div>
-				<div class="text-secondary">
-					{{$song->artist->name}}
-				</div>
+		<div class="d-flex text-truncate w-100">
+			<img src="{{$entry->song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 43px; height: 43px">
+			<div>
+				<h6 class="m-0 text-truncate">{{$entry->song->name}}</h6>
+				<h6 class="text-secondary m-0">{{$entry->song->artist->name}}</h6>
 			</div>
 		</div>
-  @endslot
-
-  @slot('actions')
-  <div class="d-flex justify-content-end">
-	<div class="rating">
-			<div class="d-flex text-truncate">
-				@if($count = $row->ratings()->count())
-				<h5 class="mb-0 mr-2">x{{$count}}</h5>
-				@endif
-				@include('pages.ratings.stars', [
-					'rating' => $row->score()
-				])
-			</div>
+		<div>
+			<h4 class="mb-0 ml-3 text-secondary">{{$entry->orderForHumans}}</h4>
+		</div>
 	</div>
 </div>
-  @endslot
-@endresponsiveRow

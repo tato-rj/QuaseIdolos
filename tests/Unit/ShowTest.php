@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{User, Show, Venue, Song};
+use App\Models\{User, Show, Venue, Song, Setlist};
 
 class ShowTest extends AppTest
 {
@@ -29,9 +29,9 @@ class ShowTest extends AppTest
     /** @test */
     public function it_has_many_songs()
     {
-        $this->show->setlist()->save(Song::factory()->create());
+        Setlist::factory()->create(['show_id' => $this->show]);
 
-        return $this->assertInstanceOf(Song::class, $this->show->setlist->first());
+        return $this->assertInstanceOf(Setlist::class, $this->show->setlist->first());
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class ShowTest extends AppTest
         $songInSetlist = Song::factory()->create();
         $songNotInSetlist = Song::factory()->create();
 
-        $this->show->setlist()->save($songInSetlist);
+        Setlist::toggle($this->show, $songInSetlist);
         
         $this->assertTrue($this->show->setlist()->where('song_id', $songInSetlist->id)->exists());
         $this->assertFalse($this->show->setlist()->where('song_id', $songNotInSetlist->id)->exists());

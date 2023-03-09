@@ -21,10 +21,7 @@ class Show extends EventModel
 
     public function setlist()
     {
-        return $this->belongsToMany(Song::class, 'show_songs', 'show_id', 'song_id')
-                    ->with(['artist'])
-                    ->withTimestamps()
-                    ->orderBy('show_songs.order');
+        return $this->hasMany(Setlist::class, 'show_id')->orderBy('order');
     }
 
     public function status()
@@ -35,6 +32,17 @@ class Show extends EventModel
     public function password()
     {
         return new Password($this);
+    }
+
+    public function reorderSetlist($order = [])
+    {
+        foreach ($this->setlist as $key => $song) {
+            $song->pivot->update(['order' => 1]);
+        }
+        
+        // $this->setlist->each(function($song, $index) {
+        //     $song->pivot->update(['order' => $index + 1]);
+        // });
     }
 
     public function scopeReady($query)

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Show, Admin, Venue, Song};
+use App\Models\{Show, Admin, Venue, Song, Setlist};
 use Illuminate\Http\Request;
 
 class ShowsController extends Controller
@@ -87,11 +87,9 @@ class ShowsController extends Controller
 
     public function updateSetlist(Show $show, Song $song)
     {
-        if ($show->setlist()->where('song_id', $song->id)->exists()) {
-            $show->setlist()->delete($song);
-        } else {
-            $show->setlist()->save($song);
-        }
+        (new Setlist)->toggle($show, $song);
+
+        $show->setlist()->reorder();
 
         return view('pages.shows.show.setlist', compact('show'))->render();
     }

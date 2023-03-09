@@ -2,7 +2,9 @@
 
 @push('header')
 <style type="text/css">
-
+.dragged {
+	opacity: 0.2;
+}
 </style>
 @endpush
 
@@ -12,8 +14,9 @@
 		@include('pages.shows.show.actions')
 		<div class="offset-lg-1 col-lg-8 col-md-8 col-12">
 			<button data-bs-toggle="modal" data-bs-target="#search-setlist-modal" 
-				class="btn btn-secondary mb-2 text-truncate">Adicionar músicas</button>
+				class="btn btn-secondary mb-4 text-truncate">Adicionar músicas</button>
 				@include('pages.shows.modals.search')
+
 			<section id="setlist-container">
 				@include('pages.shows.show.setlist')
 			</section>
@@ -52,40 +55,42 @@ $(document).on('click', 'button.add-song', function() {
 			alert('Try again...');
 		});
 });
+
+enableDraggable();
 </script>
 <script type="text/javascript">
-$('input[name="is_live"]').change(function() {
-	let $switch = $(this);
-	let state = $switch.prop('checked');
+// $('input[name="is_live"]').change(function() {
+// 	let $switch = $(this);
+// 	let state = $switch.prop('checked');
 
-	axios.post($(this).data('url'))
-		 .then(function(response) {
-		 	(new Popup(response.data)).show();
-		 	let $pauseSwitch = $switch.closest('.gig-controls').find('.pause-switch');
+// 	axios.post($(this).data('url'))
+// 		 .then(function(response) {
+// 		 	(new Popup(response.data)).show();
+// 		 	let $pauseSwitch = $switch.closest('.gig-controls').find('.pause-switch');
 
-		 	$pauseSwitch.toggleClass('d-none');
+// 		 	$pauseSwitch.toggleClass('d-none');
 
-		 	if (! state)
-		 		$pauseSwitch.find('i').removeClass('fa-play').addClass('fa-pause');
-		 })
-		 .catch(function(error) {
-		 	$switch.prop('checked', ! state);
-		 	alert(error.response.data.message);
-		 });
-});
+// 		 	if (! state)
+// 		 		$pauseSwitch.find('i').removeClass('fa-play').addClass('fa-pause');
+// 		 })
+// 		 .catch(function(error) {
+// 		 	$switch.prop('checked', ! state);
+// 		 	alert(error.response.data.message);
+// 		 });
+// });
 
-$('.pause-switch').click(function() {
-	let $button = $(this);
-	let $icon = $button.find('i');
+// $('.pause-switch').click(function() {
+// 	let $button = $(this);
+// 	let $icon = $button.find('i');
 
-	axios.post($button.data('url'))
-		 .then(function(response) {
-		 	(new Popup(response.data)).show();
-		 	$icon.toggleClass('fa-play fa-pause');
-		 })
-		 .catch(function(error) {
-		 	alert(error.response.data.message);
-		 });
-});
+// 	axios.post($button.data('url'))
+// 		 .then(function(response) {
+// 		 	(new Popup(response.data)).show();
+// 		 	$icon.toggleClass('fa-play fa-pause');
+// 		 })
+// 		 .catch(function(error) {
+// 		 	alert(error.response.data.message);
+// 		 });
+// });
 </script>
 @endpush
