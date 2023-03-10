@@ -6,5 +6,5 @@
 		'created_at*' => 'Data', 
 		'name*' => 'Nome', 
 		'actions' => ''],
-	'view' => 'pages.shows.show.rows.song'
+	'view' => 'pages.shows.edit.rows.song'
 ])

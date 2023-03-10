@@ -8,26 +8,6 @@ use Illuminate\Http\Request;
 class ShowsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,7 +15,7 @@ class ShowsController extends Controller
      */
     public function store(Request $request)
     {
-        return back()->with('error', 'Não está pronto ainda');
+        // return back()->with('error', 'Não está pronto ainda');
 
         $request->validate([
             'venue_id' => 'required|exists:venues,id',
@@ -63,7 +43,7 @@ class ShowsController extends Controller
      * @param  \App\Models\Show  $show
      * @return \Illuminate\Http\Response
      */
-    public function show(Show $show)
+    public function edit(Show $show)
     {
         if ($show->isUnscheduled())
             return redirect(route('shows.index'));
@@ -71,7 +51,7 @@ class ShowsController extends Controller
         $musicians = Admin::musicians()->get();
         $venues = Venue::all();
 
-        return view('pages.shows.show.index', compact(['show', 'venues', 'musicians']));
+        return view('pages.shows.edit.index', compact(['show', 'venues', 'musicians']));
     }
 
     public function search(Request $request, Show $show)
@@ -82,7 +62,7 @@ class ShowsController extends Controller
             $songs = Song::search($request->input)->orderBy('name')->get();
         }
 
-        return view('pages.shows.show.results', compact(['songs', 'show']))->render();
+        return view('pages.shows.edit.results', compact(['songs', 'show']))->render();
     }
 
     public function updateSetlist(Show $show, Song $song)
@@ -91,18 +71,20 @@ class ShowsController extends Controller
 
         $show->setlist()->reorder();
 
-        return view('pages.shows.show.setlist', compact('show'))->render();
+        return view('pages.shows.edit.setlist', compact('show'))->render();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Show  $show
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Show $show)
+    public function setlist(Request $request, Show $show)
     {
-        //
+        if ($request->has('newOrder')) {
+            foreach($request->newOrder as $data) {
+                $set = json_decode($data);
+                if ($setlist = Setlist::find($set->id))
+                    $setlist->update(['order' => $set->order]);
+            }
+        }
+
+        return view('pages.shows.edit.setlist', compact('show'))->render();
     }
 
     /**
@@ -114,7 +96,24 @@ class ShowsController extends Controller
      */
     public function update(Request $request, Show $show)
     {
-        //
+        $request->validate([
+            'venue_id' => 'required|exists:venues,id',
+            'scheduled_for' => 'required'
+        ]);
+
+        $show->update([
+            'creator_id' => auth()->user()->id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'starting_time' => $request->starting_time,
+            'venue_id' => $request->venue_id,
+            'duration' => $request->duration,
+            'scheduled_for' => datePtToUs($request->scheduled_for) ?? $show->scheduled_for,
+        ]);
+
+        $show->musicians()->sync($request->musicians);
+
+        return back()->with('success', 'O show foi alterado com sucesso');
     }
 
     /**
@@ -125,6 +124,13 @@ class ShowsController extends Controller
      */
     public function destroy(Show $show)
     {
-        //
+        $show->musicians()->detach();
+        $show->setlist()->delete();
+        $show->delete();
+
+        if (url()->previous() == route('shows.edit', $show))
+            return redirect(route('gig.index'))->with('success', 'O show foi removido com sucesso');
+
+        return back()->with('success', 'O show foi removido com sucesso');
     }
 }

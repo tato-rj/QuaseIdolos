@@ -491,6 +491,7 @@ function getEventTable(newOrder = null)
             }
         })
         .catch(function(error) {
+            log(error.message);
             popup('error', 'Não foi! ('+error.message+')');
         });
     }

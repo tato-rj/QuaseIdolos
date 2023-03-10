@@ -319,9 +319,11 @@ Route::middleware('super-admin')->group(function() {
     });
 
     Route::prefix('shows')->name('shows.')->withoutMiddleware('join-gig')->group(function() {
-        Route::get('{show}', 'ShowsController@show')->name('show');
+        Route::get('{show}', 'ShowsController@edit')->name('edit');
 
         Route::get('{show}/musicas', 'ShowsController@search')->name('search');
+
+        Route::get('{show}/setlist', 'ShowsController@setlist')->name('setlist');
 
         Route::post('', 'ShowsController@store')->name('store');
 

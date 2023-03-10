@@ -8,9 +8,6 @@
 		  @fa(['icon' => $gig->isPaused() ? 'play' : 'pause', 'mr' => 0])
 		</button>
 	</form>
-{{-- 	<button class="pause-switch btn btn-sm btn-secondary" data-url="{{route('gig.pause', $gig)}}">
-	  @fa(['icon' => $gig->isPaused() ? 'play' : 'pause', 'mr' => 0])
-	</button> --}}
 </div>
 @divider
 @endisset

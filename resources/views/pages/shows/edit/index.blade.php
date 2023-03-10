@@ -11,17 +11,12 @@
 @section('content')
 <section class="container py-4">
 	<div class="row">		
-		@include('pages.shows.show.actions')
+		@include('pages.shows.edit.actions')
 		<div class="offset-lg-1 col-lg-8 col-md-8 col-12">
-			<button data-bs-toggle="modal" data-bs-target="#search-setlist-modal" 
-				class="btn btn-secondary mb-4 text-truncate">Adicionar músicas</button>
-				@include('pages.shows.modals.search')
-
-			<section id="setlist-container">
-				@include('pages.shows.show.setlist')
+			<section id="setlist-container" data-url="{{route('shows.setlist', $show)}}">
+				@include('pages.shows.edit.setlist')
 			</section>
 		</div>
-		{{-- @include('pages.gigs.show.info') --}}
 	</div>
 </section>
 
@@ -50,6 +45,8 @@ $(document).on('click', 'button.add-song', function() {
 	axios.post($(this).data('url'))
 		 .then(function(response) {
 		 	$('#setlist-container').html(response.data);
+
+		 	enableDraggable();
 		 })
 		 .catch(function(error) {
 			alert('Try again...');

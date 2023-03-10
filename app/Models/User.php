@@ -192,7 +192,7 @@ class User extends Authenticatable
         return $query->doesntHave('socialAccounts');
     }
 
-    public function join(Gig $gig)
+    public function join(EventModel $gig)
     {
         Participant::by($this)->unconfirmed()->delete();
 
@@ -205,14 +205,14 @@ class User extends Authenticatable
         return $this->liveGig;
     }
 
-    public function leave(Gig $gig)
+    public function leave(EventModel $gig)
     {
         Participant::in($gig)->by($this)->delete();
 
         $this->songRequests()->waiting()->delete();
     }
 
-    public function joined(Gig $gig)
+    public function joined(EventModel $gig)
     {
         return $this->liveGig && $this->liveGig->is($gig);
     }

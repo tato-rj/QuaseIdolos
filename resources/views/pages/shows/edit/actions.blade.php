@@ -6,8 +6,12 @@
 		</div>
 	</div>
 
-	<div class="d-flex flex-column text-center">		
+	<div class="d-flex flex-column text-center">
 		@unless($show->isPast() && ! $show->isLive())
+			<button data-bs-toggle="modal" data-bs-target="#search-setlist-modal" 
+				class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'plus'])Adicionar músicas</button>
+				@include('pages.shows.modals.search')
+
 			<button {{$show->isPast() && ! $show->isLive() ? 'disabled' : null}} 
 				data-bs-toggle="modal" 
 				data-bs-target="#edit-show-{{$show->id}}-modal" 
