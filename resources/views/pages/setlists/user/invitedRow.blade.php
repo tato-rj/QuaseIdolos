@@ -2,7 +2,7 @@
 @php($user = $list->songRequest->user)
 @php($song = $list->songRequest->song)
 
-@row
+@responsiveRow
   @slot('column1')
   <div class="d-flex align-items-center">
       <div class="mr-2 no-truncate">
@@ -27,15 +27,15 @@
   @endslot
 
   @slot('actions')
-	@if($list->finished_at)
-		{{-- <button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">@fa(['icon' => 'guitar', 'mr' => 0])</button> --}}
+	@if($list->songRequest->finished_at)
+		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">@fa(['icon' => 'guitar', 'mr' => 0])</button>
 	@else
 
-		{{-- <button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate mr-2">@fa(['icon' => 'guitar', 'mr' => 0])</button> --}}
-		{{-- <button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$list->id}}-modal" class="btn btn-red btn-s">@fa(['icon' => 'trash-alt', 'mr' => 0])</button> --}}
+		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate mr-2">@fa(['icon' => 'guitar', 'mr' => 0])</button>
+		<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$list->id}}-modal" class="btn btn-red btn-s">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
 
 	@endif
-	{{-- @include('pages.cardapio.components.song.modal') --}}
-	{{-- @include('pages.song-requests.modals.cancel', ['entry' => $list]) --}}
+	@include('pages.cardapio.components.song.modal')
+	@include('pages.song-requests.modals.cancel', ['entry' => $list])
   @endslot
-@endrow
+@endresponsiveRow
