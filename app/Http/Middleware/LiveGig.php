@@ -20,6 +20,7 @@ class LiveGig
         if (auth()->check()) {
             $this->checkSubdomain();
             auth()->user()->checkLiveGig();
+            auth()->user()->checkLiveShow();
         }
 
         return $next($request);

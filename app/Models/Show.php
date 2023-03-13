@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Tools\Gig\{Status, Password};
-use App\Models\Traits\GigStates;
+use App\Models\Traits\{GigStates, Chateable, Rateable};
 
 class Show extends EventModel
 {
-    use GigStates;
+    use GigStates, Chateable, Rateable;
 
     protected $casts = [
         'is_live' => 'boolean',
@@ -16,7 +16,7 @@ class Show extends EventModel
 
     public function musicians()
     {
-        return $this->belongsToMany(User::class, 'show_users', 'show_id', 'user_id')->orderBy('users.name');
+        return $this->belongsToMany(User::class, 'show_user', 'show_id', 'user_id')->orderBy('users.name');
     }
 
     public function setlist()
@@ -34,6 +34,16 @@ class Show extends EventModel
         return new Password($this);
     }
 
+    public function isKareoke()
+    {
+        return false;
+    }
+
+    public function isShow()
+    {
+        return true;
+    }
+
     public function reorderSetlist($order = [])
     {
         foreach ($this->setlist as $key => $song) {
@@ -43,6 +53,30 @@ class Show extends EventModel
         // $this->setlist->each(function($song, $index) {
         //     $song->pivot->update(['order' => $index + 1]);
         // });
+    }
+
+
+    public function openRoute()
+    {
+        return route('shows.open', $this);
+    }
+
+    public function closeRoute()
+    {
+        return route('shows.close', $this);
+    }
+
+    public function close($confirmRequests = false)
+    {
+        $this->update([
+            'is_live' => false,
+            'is_paused' => false,
+            'ends_at' => now()
+        ]);
+
+        // $this->archives()->save();
+
+        return $this;
     }
 
     public function scopeReady($query)

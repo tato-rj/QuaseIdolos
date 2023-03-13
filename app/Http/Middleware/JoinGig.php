@@ -22,8 +22,8 @@ class JoinGig
     public function handle(Request $request, Closure $next)
     {
         session()->forget('origin');
-
-        if (auth()->check() && ! auth()->user()->gig()->live()->exists()) {
+        // if (auth()->check() && ! auth()->user()->gig()->live()->exists()) {
+        if (auth()->check() && ! auth()->user()->liveGigExists()) {
             if (! Gig::ready()->live()->exists())
                 return $next($request);
 

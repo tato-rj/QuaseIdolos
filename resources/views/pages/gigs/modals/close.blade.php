@@ -1,7 +1,7 @@
 @php($requests = $gig->setlist()->waiting()->count())
 
 @modal(['title' => 'Fechar evento', 'id' => 'close-gig-'.$gig->id.'-modal'])
-<form method="POST" action="{{route('gig.close', $gig)}}" class="text-center">
+<form method="POST" action="{{$gig->closeRoute()}}" class="text-center">
 	@csrf
 
 	<div class="text-left bg-white px-4 py-3 rounded mb-3">

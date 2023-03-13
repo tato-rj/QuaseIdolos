@@ -7,12 +7,21 @@ abstract class EventModel extends BaseModel
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for', 'scheduled_end_at'];
 
 	abstract function scopeReady($query);
-	
+	abstract function isKareoke();
+	abstract function isShow();
 	abstract function status();
+	abstract function close();
+	abstract function openRoute();
+	abstract function closeRoute();
 
     public function scopeNotReady($query)
     {
 		return $query->except($this->ready()->get('id'));
+    }
+
+    public function sandbox()
+    {
+    	return $this->is_test;
     }
 
 	public function creator()

@@ -89,6 +89,11 @@ class User extends Authenticatable
         return $this->hasMany(Suggestion::class);
     }
 
+    public function shows()
+    {
+        return $this->belongsToMany(Show::class);
+    }
+
     public function ratings()
     {
         return $this->hasManyThrough(Rating::class, SongRequest::class);
@@ -131,6 +136,12 @@ class User extends Authenticatable
     public function gig()
     {
         return $this->belongsToMany(Gig::class, 'participants');
+    }
+
+    public function checkLiveShow()
+    {
+        if ($this->admin()->exists())
+            $this->liveGig = $this->shows()->live()->first() ?? $this->liveGig;
     }
 
     public function checkLiveGig()

@@ -1,5 +1,6 @@
 @php($song = $row)
 
+<div class="text-left">
 @responsiveRow
   @slot('column1')
       @include('pages.cardapio.results.row.name')
@@ -14,3 +15,4 @@
     </form>
   @endslot
 @endresponsiveRow
+</div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ShowUsersTable extends Migration
+class ShowUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class ShowUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('show_users', function (Blueprint $table) {
+        Schema::create('show_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('show_id');
             $table->unsignedInteger('user_id');
@@ -28,6 +28,6 @@ class ShowUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('show_users');
+        Schema::dropIfExists('show_user');
     }
 }

@@ -18,15 +18,22 @@ class SongRequestForm extends FormRequest
         $this->liveGig = auth()->user()->liveGig;
 
         if (auth()->user()->admin()->exists() && $this->gigIsLive())
-            return true;        
+            return $this->gigIsKareoke();        
 
         return $this->gigIsLive() && 
+               $this->gigIsKareoke() &&
                $this->gigIsNotPaused() && 
                $this->gigIsNotFull() && 
                $this->votingHasNotFinished() && 
                $this->userCanMakeRequests() &&
                $this->songNotYetRequestedByUser() &&
                $this->songCanBeRequestedAgain();
+    }
+
+    public function gigIsKareoke()
+    {
+        return $this->liveGig->isKareoke() ? true 
+             : $this->failWithMessage('Este evento não é Karaokê');
     }
 
     public function gigIsLive()

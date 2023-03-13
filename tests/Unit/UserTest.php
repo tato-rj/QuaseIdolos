@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Song, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant, Invitation, Chat, BlockedUser};
+use App\Models\{Song, Show, SongRequest, Gig, Admin, Rating, User, Venue, SocialAccount, Participant, Invitation, Chat, BlockedUser};
 
 class UserTest extends AppTest
 {
@@ -134,6 +134,14 @@ class UserTest extends AppTest
         Rating::factory()->create(['user_id' => auth()->user()]);
 
         $this->assertInstanceOf(Rating::class, auth()->user()->ratingsGiven->first());
+    }
+
+    /** @test */
+    public function it_plays_in_many_shows()
+    {
+        Show::factory()->create()->musicians()->attach(auth()->user()->id);
+
+        $this->assertInstanceOf(Show::class, auth()->user()->shows->first());
     }
 
     /** @test */

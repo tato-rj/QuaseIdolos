@@ -10,6 +10,9 @@
 
 @include('pages.setlists.admin.options.password')
 @include('pages.setlists.admin.options.lyrics')
+
+@if($gig->participatesInRatings())
 @include('pages.setlists.admin.options.ratings')
+@endif
 
 @endmodal

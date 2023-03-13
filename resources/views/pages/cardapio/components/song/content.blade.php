@@ -9,9 +9,11 @@
 </div>
 
 @auth
-	@include('pages.cardapio.components.song.inviteUser')
+	@if(auth()->user()->liveGigExists() && auth()->user()->liveGig->isKareoke())
+		@include('pages.cardapio.components.song.inviteUser')
 
-	@isset($songRequests)
-	@include('pages.cardapio.components.song.changeRequest')
-	@endisset
+		@isset($songRequests)
+		@include('pages.cardapio.components.song.changeRequest')
+		@endisset
+	@endif
 @endauth

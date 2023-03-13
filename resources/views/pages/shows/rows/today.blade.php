@@ -23,16 +23,10 @@
 
   @case('actions')
 		@if($show->isLive())
-		<form method="POST" action="{{route('gig.pause', $show)}}" class="d-inline mr-2">
-			@csrf
-			<button type="submit" class="btn btn-sm btn-secondary">
-			  @fa(['icon' => $show->isPaused() ? 'play' : 'pause', 'mr' => 0])
-			</button>
-		</form>
-		<button data-bs-toggle="modal" data-bs-target="#close-gig-{{$show->id}}-modal" class="btn btn-red btn-sm text-nowrap">Fechar</button>
-		@include('pages.gigs.modals.close')
+		<button data-bs-toggle="modal" data-bs-target="#close-show-{{$show->id}}-modal" class="btn btn-red btn-sm text-nowrap">Fechar</button>
+		@include('pages.shows.modals.close')
 		@else
-		<form method="POST" action="{{route('gig.open', $show)}}">
+		<form method="POST" action="{{$show->openRoute()}}">
 			@csrf
 			<button class="btn btn-secondary btn-sm text-nowrap">Abrir</button>
 		</form>

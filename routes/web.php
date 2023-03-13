@@ -329,8 +329,6 @@ Route::middleware('super-admin')->group(function() {
 
         Route::patch('{show}', 'ShowsController@update')->name('update');
 
-        Route::post('{show}/{song}', 'ShowsController@updateSetlist')->name('update-setlist');
-
         Route::post('{show}/duplicar', 'ShowsController@duplicate')->name('duplicate');
 
         Route::post('{show}/abrir', 'ShowsController@open')->name('open');
@@ -338,6 +336,8 @@ Route::middleware('super-admin')->group(function() {
         Route::post('{show}/fechar', 'ShowsController@close')->name('close');
 
         Route::post('{show}/pausar', 'ShowsController@pause')->name('pause');
+        
+        Route::post('{show}/{song}', 'ShowsController@updateSetlist')->name('update-setlist');
 
         Route::delete('{show}', 'ShowsController@destroy')->name('destroy');
     });

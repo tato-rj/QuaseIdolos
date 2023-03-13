@@ -50,11 +50,27 @@ class Gig extends EventModel
     	return $this->hasManyThrough(Rating::class, SongRequest::class);
     }
 
-    public function sandbox()
+    public function isKareoke()
     {
-    	return $this->is_test;
+    	return true;
     }
 
+    public function isShow()
+    {
+    	return false;
+    }
+
+
+    public function openRoute()
+    {
+    	return route('gig.open', $this);
+    }
+
+    public function closeRoute()
+    {
+    	return route('gig.close', $this);
+    }
+    
     public function password()
     {
     	return new Password($this);

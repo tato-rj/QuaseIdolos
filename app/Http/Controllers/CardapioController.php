@@ -25,7 +25,11 @@ class CardapioController extends Controller
 
         if (auth()->check()) {
             if (auth()->user()->admin()->exists()) {
-                $songRequests = auth()->user()->liveGigExists() ? auth()->user()->liveGig->setlist()->waiting()->with(['song', 'user'])->get() : collect();
+                if (auth()->user()->liveGigExists() && auth()->user()->liveGig->isKareoke()) {
+                    $songRequests =  auth()->user()->liveGig->setlist()->waiting()->with(['song', 'user'])->get();
+                } else {
+                    $songRequests = collect();
+                }
             } else {
                 $songRequests = auth()->user()->songRequests()->waiting()->with(['song', 'user'])->get();
             }

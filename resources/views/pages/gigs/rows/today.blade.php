@@ -36,7 +36,7 @@
 		<button data-bs-toggle="modal" data-bs-target="#close-gig-{{$gig->id}}-modal" class="btn btn-red btn-sm text-nowrap">Fechar</button>
 		@include('pages.gigs.modals.close')
 		@else
-		<form method="POST" action="{{route('gig.open', $gig)}}">
+		<form method="POST" action="{{$gig->openRoute()}}">
 			@csrf
 			<button class="btn btn-secondary btn-sm text-nowrap">Abrir</button>
 		</form>

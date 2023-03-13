@@ -15,7 +15,7 @@ class ShowsController extends Controller
      */
     public function store(Request $request)
     {
-        // return back()->with('error', 'Não está pronto ainda');
+        return back()->with('error', 'Não está pronto ainda');
 
         $request->validate([
             'venue_id' => 'required|exists:venues,id',
@@ -35,6 +35,23 @@ class ShowsController extends Controller
         $show->musicians()->attach($request->musicians);
 
         return back()->with('success', 'O show foi criado com sucesso');
+    }
+
+    public function open(Request $request, Show $show)
+    {
+        // $this->authorize('open', $show);
+        
+        $show->open();
+
+        return back()->with('success', 'O show começou');
+    }
+
+
+    public function close(Request $request, Show $show)
+    {
+        $show->close();
+
+        return back()->with('success', 'O karaokê terminou');
     }
 
     /**

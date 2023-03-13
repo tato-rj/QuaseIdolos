@@ -12,7 +12,7 @@ class SetlistsController extends Controller
     {
         $gig = auth()->user()->liveGig;
 
-        if ($gig)
+        if ($gig && $gig->isKareoke())
             $this->authorize('viewSetlist', $gig);
 
         $setlist = $gig ? $gig->setlist()->orderBy('order')->get() : collect();
