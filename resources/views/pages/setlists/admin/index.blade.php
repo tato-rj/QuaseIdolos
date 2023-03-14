@@ -126,9 +126,8 @@ function Timer(callback, timeInterval, options) {
 }
 
 function playclick() {
-	$('.ring').hide();
+	woodblock.pause();
 	woodblock.play();
-	$('.ring').show();
 }
 
 function changeTempo(bpm)
