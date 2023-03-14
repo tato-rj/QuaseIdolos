@@ -126,8 +126,10 @@ function Timer(callback, timeInterval, options) {
 }
 
 function playclick() {
-	woodblock.pause();
 	woodblock.play();
+	setTimeout(function() {
+		woodblock.pause();
+	}, 100);
 }
 
 function changeTempo(bpm)
