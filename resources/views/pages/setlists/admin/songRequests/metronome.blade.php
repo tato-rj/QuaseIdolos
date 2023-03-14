@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div>
-			<button data-target="#song-{{$entry->id}}" data-url="{{route('metronome.show', $entry->song)}}" data-tempo="{{$entry->song->bpm}}" class="start-metronome btn btn-secondary">Ligar</button>
+			<button data-target="#song-{{$entry->id}}" data-url="{{route('metronome.show', $entry->song)}}" data-tempo="{{$entry->song->bpm}}" class="start-metronome btn btn-secondary">@fa(['icon' => 'play', 'mr' => 0])</button>
 		</div>
 	</div>
 </div>

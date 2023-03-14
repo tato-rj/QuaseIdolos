@@ -2,20 +2,21 @@
 
 @push('header')
 <style type="text/css">
-@keyframes metronome {
-  0%   {width: 50%; height: 50%; opacity: 0}
-  90% {width: 90%; height: 90%; opacity: 1}
-  100% {width: 100%; height: 100%; opacity: 0;}
+@keyframes pulse {
+  from {
+    box-shadow:  0 0 0 -0.05em #f2cd3d;
+  }
+  to {
+    box-shadow:  0 0 0 0.2em #f2cd3d;
+  }
 }
 
-.pulse {
-	opacity: 0;
-	width: 50%;
-	height: 50%;
-	border-width: 10px !important;
-  animation-name: metronome;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
+.ring {
+	width: 60%;
+	height: 60%;
+
+/*	border-radius: 50%;*/
+animation: pulse 0.6s infinite ease-out;
 }
 
 .dragged {
@@ -65,25 +66,72 @@
 @endsection
 
 @push('scripts')
-<script src="{{asset('js/vendor/metronome/monkeypatch.js')}}"></script>
-<script src="{{asset('js/vendor/metronome/metronome.js')}}"></script>
+
+{{-- <script src="{{asset('js/vendor/metronome/monkeypatch.js')}}"></script> --}}
+{{-- <script src="{{asset('js/vendor/metronome/metronome.js')}}"></script> --}}
 
 <script type="text/javascript">
+// Add accurate timer constructor function
+const woodblock = new Audio('{{asset('audio/woodblock.wav')}}');
 
+function Timer(callback, timeInterval, options) {
+  this.timeInterval = timeInterval;
+  
+  // Add method to start timer
+  this.start = () => {
+    // Set the expected time. The moment in time we start the timer plus whatever the time interval is. 
+    this.expected = Date.now() + this.timeInterval;
+    // Start the timeout and save the id in a property, so we can cancel it later
+    this.theTimeout = null;
+    
+    if (options.immediate) {
+      callback();
+    } 
+    
+    this.timeout = setTimeout(this.round, this.timeInterval);
+    console.log('Timer Started');
+  }
+  // Add method to stop timer
+  this.stop = () => {
 
-$(document).on('click', 'button.start-metronome', function() {
-	let $button = $(this);
+    clearTimeout(this.timeout);
+    console.log('Timer Stopped');
+  }
+  // Round method that takes care of running the callback and adjusting the time
+  this.round = () => {
+    // console.log('timeout', this.timeout);
+    // The drift will be the current moment in time for this round minus the expected time..
+    let drift = Date.now() - this.expected;
+    // Run error callback if drift is greater than time interval, and if the callback is provided
+    if (drift > this.timeInterval) {
+      // If error callback is provided
+      if (options.errorCallback) {
+        options.errorCallback();
+      }
+    }
+    callback();
+    // Increment expected time by time interval for every round after running the callback function.
+    this.expected += this.timeInterval;
+    // console.log('Drift:', drift);
+    // console.log('Next round time interval:', this.timeInterval - drift);
+    // Run timeout again and set the timeInterval of the next iteration to the original time interval minus the drift.
+    this.timeout = setTimeout(this.round, this.timeInterval - drift);
+  }
+  this.bpm = () => {
+  	return 60000 / this.timeInterval;
+  }
+  this.setBpm = (bpm) => {
+  	this.timeInterval = 60000 / bpm;
+  }
+}
 
-	songMetronome = new Metronome(this);
+function playclick() {
+	$('.ring').hide();
+	woodblock.play();
+	$('.ring').show();
+}
 
-	songMetronome.get().then(function() {
-		songMetronome.highlightSetlist();
-		setTempo(songMetronome.bpm);
-		play();
-	});
-});
-
-function updateTempo(bpm)
+function changeTempo(bpm)
 {
 	let $ring = $('.ring');
 	let duration = 60/bpm; 
@@ -91,18 +139,68 @@ function updateTempo(bpm)
 	$ring.css('animation-duration', duration+'s');
 	$('#bpm').find('span').text(bpm);
 
-	setTempo(bpm);
-	play();
+	metronome.setBpm(bpm);
 }
+</script>
+
+<script type="text/javascript">
+let bpm = 60;
+let playing;
+
+const metronome = new Timer(playclick, 60000 / bpm, {immediate: true});
+
+$(document).on('click', 'button.start-metronome', function() {
+	let $button = $(this);
+	let $siblings = $('button.start-metronome').not(this);
+
+	if (playing != $button.data('target')) {
+		axios.get($button.data('url'))
+				 .then(function(response) {
+				 	$('#metronome-container').html(response.data);
+				 	let bpm = $('#metronome-container').find('#bpm span').text();
+
+				 	changeTempo(bpm);
+					metronome.stop();
+					metronome.start();
+					playing = $button.data('target');
+					$siblings.removeClass('btn-outline-secondary').find('i').removeClass('fa-stop').addClass('fa-start');
+				 });
+	} else {
+		metronome.stop();
+		playing = null;
+	}
+
+	$button.toggleClass('btn-outline-secondary').find('i').toggleClass('fa-start fa-stop');
+	
+	// songMetronome = new Metronome(this);
+
+	// songMetronome.get().then(function() {
+	// 	songMetronome.highlightSetlist();
+	// 	setTempo(songMetronome.bpm);
+	// 	play();
+	// });
+});
+
+// function updateTempo(bpm)
+// {
+// 	let $ring = $('.ring');
+// 	let duration = 60/bpm; 
+
+// 	$ring.css('animation-duration', duration+'s');
+// 	$('#bpm').find('span').text(bpm);
+
+// 	setTempo(bpm);
+// 	play();
+// }
 
 $(document).on('click', '.metronome-control', function() {
 	let direction = $(this).data('direction');
 	let currentTempo = parseInt($('#bpm').find('span').text());
 
 	if (direction == 'minus') {
-		updateTempo(currentTempo - 1);
+		changeTempo(currentTempo - 1);
 	} else {
-		updateTempo(currentTempo + 1);
+		changeTempo(currentTempo + 1);
 	}
 
 	$('#update-tempo').show();
@@ -118,7 +216,6 @@ $(document).on('mousedown', '.metronome-control', function() {
 	$(this).removeClass('opacity-4');
 
   holding = setTimeout(function() {
-  	stop();
 
 		rollingTempo = setInterval(function(){
 			if (direction == 'minus') {
@@ -140,7 +237,7 @@ $(document).on('mousedown', '.metronome-control', function() {
 });
 
 $(document).on('click', '#update-tempo', function() {
-	axios.patch($(this).data('url'), {tempo: songMetronome.getTempo()})
+	axios.patch($(this).data('url'), {tempo: metronome.bpm()})
 			 .then(function(response) {
 			 	$('#bpm span').animateCSS('heartBeat');
 			 	$('#update-tempo').hide();
