@@ -72,8 +72,8 @@ animation: pulse 0.6s infinite ease-out;
 
 <script type="text/javascript">
 // Add accurate timer constructor function
-// const woodblock = new Audio('{{asset('audio/woodblock.wav')}}');
-let woodblock;
+const woodblock = new Audio('{{asset('audio/woodblock.wav')}}');
+
 function Timer(callback, timeInterval, options) {
   this.timeInterval = timeInterval;
   
@@ -126,7 +126,6 @@ function Timer(callback, timeInterval, options) {
 }
 
 function playclick() {
-	woodblock = new Audio('{{asset('audio/woodblock.wav')}}');
 	woodblock.play();
 }
 
