@@ -4,10 +4,11 @@
 <style type="text/css">
 @keyframes pulse {
   from {
-    box-shadow:  0 0 0 -0.05em #f2cd3d;
+/*    box-shadow:  0 0 0 -0.05em #f2cd3d;*/
+    box-shadow:  0 0 0 0.2em #f2cd3d;
   }
   to {
-    box-shadow:  0 0 0 0.2em #f2cd3d;
+    box-shadow:  0 0 0 0.2em transparent;
   }
 }
 
@@ -109,7 +110,7 @@ $(document).on('click', 'button.start-metronome', function() {
 				 	$('#metronome-container').html(response.data);
 
 				 	let bpm = $('#metronome-container').find('#bpm span').text();
-				 	
+
 				 	changeTempo(bpm, true);
 
 				 	metronome.start();
