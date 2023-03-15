@@ -75,11 +75,6 @@ animation: pulse 0.6s infinite ease-out;
 
 <script type="text/javascript">
 var metronome = new Metronome();
-var tempo = document.getElementById('tempo');
-tempo.textContent = metronome.tempo;
-$('#tempo').click(function() {
-	metronome.startStop();
-});
 </script>
 <script type="text/javascript">
 // Add accurate timer constructor function
@@ -140,16 +135,16 @@ $('#tempo').click(function() {
 // 	woodblock.play();
 // }
 
-// function changeTempo(bpm)
-// {
-// 	let $ring = $('.ring');
-// 	let duration = 60/bpm; 
+function changeTempo(bpm)
+{
+	let $ring = $('.ring');
+	let duration = 60/bpm;
 
-// 	$ring.css('animation-duration', duration+'s');
-// 	$('#bpm').find('span').text(bpm);
-
-// 	metronome.setBpm(bpm);
-// }
+	$ring.css('animation-duration', duration+'s');
+	$('#bpm').find('span').text(bpm);
+	metronome.tempo = bpm;
+	// metronome.setBpm(bpm);
+}
 </script>
 
 <script type="text/javascript">
@@ -167,15 +162,16 @@ $(document).on('click', 'button.start-metronome', function() {
 				 .then(function(response) {
 				 	$('#metronome-container').html(response.data);
 				 	let bpm = $('#metronome-container').find('#bpm span').text();
-
 				 	changeTempo(bpm);
-					metronome.stop();
-					metronome.start();
+				 	metronome.start();
+					// metronome.stop();
+					// metronome.start();
 					playing = $button.data('target');
 					$siblings.removeClass('btn-outline-secondary').find('i').removeClass('fa-stop').addClass('fa-start');
 				 });
 	} else {
 		metronome.stop();
+		// metronome.stop();
 		playing = null;
 	}
 
