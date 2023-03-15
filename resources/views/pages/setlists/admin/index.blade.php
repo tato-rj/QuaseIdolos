@@ -13,8 +13,8 @@
 }
 
 .ring {
-	width: 60%;
-	height: 60%;
+	width: 80%;
+	height: 80%;
 }
 
 .pulse {

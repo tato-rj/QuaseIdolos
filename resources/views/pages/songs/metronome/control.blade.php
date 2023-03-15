@@ -1,1 +1,1 @@
-<button data-direction="{{$icon}}" class="metronome-control btn-raw opacity-4 p-3 {{isset($mobile) ? 'd-sm-none' : 'd-none d-sm-block'}}">@fa(['icon' => $icon, 'fa_size' => isset($mobile) ? '4x' : '3x', 'mr' => 0])</button>
+<button data-direction="{{$icon}}" class="metronome-control btn-raw opacity-4 px-3 {{isset($mobile) ? 'd-sm-none' : 'd-none d-sm-block'}}">@fa(['icon' => $icon, 'fa_size' => isset($mobile) ? '4x' : '3x', 'mr' => 0])</button>

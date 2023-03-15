@@ -1,4 +1,4 @@
-<div class="d-center flex-column mb-6 pb-6 pt-6">
+<div class="d-center flex-column mb-6 pb-6 pt-4">
 	<div class="d-flex align-items-center">
 		<div class="bg-transparent rounded d-none d-sm-block" style="width: 62px; height: 32px;"></div>
 		

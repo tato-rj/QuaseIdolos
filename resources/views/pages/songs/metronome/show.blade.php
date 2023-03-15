@@ -1,7 +1,7 @@
 <div class="d-center flex-column mb-4">
 	<div class="d-flex">
 		@include('pages.songs.metronome.control', ['icon' => 'minus'])
-		<h3 class="m-0 h1 d-center position-relative" data-song-id="{{$song->id}}" id="bpm" style="width: 360px; height: 360px">
+		<h3 class="m-0 h1 d-center position-relative" data-song-id="{{$song->id}}" id="bpm" style="width: 260px; height: 260px">
 			@include('pages.songs.metronome.ring')
 			<span>{{$song->bpm}}</span>
 		</h3>
