@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('gigs:close')->everyMinute();
+        $schedule->command('gigs:close')->everyHour();
     }
 
     /**
