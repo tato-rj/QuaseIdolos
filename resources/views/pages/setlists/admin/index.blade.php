@@ -106,10 +106,10 @@ $(document).on('click', 'button.start-metronome', function() {
 	if (playing != $button.data('target')) {
 		axios.get($button.data('url'))
 				 .then(function(response) {
-				 	let bpm = $('#metronome-container').find('#bpm span').text();
-
 				 	$('#metronome-container').html(response.data);
 
+				 	let bpm = $('#metronome-container').find('#bpm span').text();
+				 	
 				 	changeTempo(bpm, true);
 
 				 	metronome.start();
