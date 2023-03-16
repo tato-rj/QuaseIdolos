@@ -82,7 +82,7 @@ user-select:none;
 
 @push('scripts')
 <script type="text/javascript">
-$('#test').on('click', function() {
+$(document).on('click', '#test', function() {
 	alert('OK');
 });
 </script>
