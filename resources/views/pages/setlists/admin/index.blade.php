@@ -77,12 +77,12 @@ user-select:none;
 @endif
 
 
-<button id="test">TESTE</button>
+<button class="test">TESTE</button>
 @endsection
 
 @push('scripts')
 <script type="text/javascript">
-$(document).on('click', '#test', function() {
+$(document).on('click', '.test', function() {
 	alert('OK');
 });
 </script>
