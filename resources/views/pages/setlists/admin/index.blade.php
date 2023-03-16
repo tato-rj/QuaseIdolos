@@ -172,7 +172,7 @@ $(document).on('click', '.metronome-control', function() {
 
 var holding, rollingTempo;
 
-$(document).on('mousedown pressHold', '.metronome-control', function(e) {
+$(document).on('mousedown tap taphold', '.metronome-control', function(e) {
 	e.preventDefault();
 	let $tempo = $('#bpm').find('span');
 	let direction = $(this).data('direction');
