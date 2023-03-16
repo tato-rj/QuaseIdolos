@@ -77,7 +77,21 @@ user-select:none;
 @endif
 
 
-<button class="test btn btn-secondary">TESTE</button>
+<div class="text-white setlist-row striped-row d-flex align-items-center">
+	<div class="align-middle p-3 text-truncate d-flex flex-grow align-items-center w-100">
+		<div class="text-truncate w-100 d-flex align-items-center">
+		<div>
+			<h4 class="mb-0 mr-3 text-secondary"></h4>
+		</div>
+			<div class="text-truncate">
+
+			</div>
+		</div>
+		<div>
+			<button class="test btn btn-secondary">TESTE</button>
+		</div>
+	</div>
+</div>
 @endsection
 
 @push('scripts')
