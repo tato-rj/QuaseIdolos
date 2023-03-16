@@ -191,6 +191,7 @@ $(document).on('mousedown touchstart', '.metronome-control', function(e) {
 		}, 50);
   }, 500);
 }).on('mouseup mouseleave touchend', '.metronome-control', function() {
+	let currentTempo = parseInt($('#bpm').find('span').text());
 
 	$(this).addClass('opacity-4');
 
@@ -200,7 +201,7 @@ $(document).on('mousedown touchstart', '.metronome-control', function(e) {
 	holding = null;
 	rollingTempo = null;
 
-	// $(this).click();
+	changeTempo(currentTempo);
 });
 
 $(document).on('click', '#update-tempo', function() {
