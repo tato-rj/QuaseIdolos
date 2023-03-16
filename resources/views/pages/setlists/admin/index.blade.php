@@ -157,7 +157,7 @@ $(document).on('click', 'button.start-metronome', function() {
 
 });
 
-$(document).on('click', '.metronome-control', function() {
+$(document).on('click tap', '.metronome-control', function() {
 	let direction = $(this).data('direction');
 	let currentTempo = parseInt($('#bpm').find('span').text());
 
