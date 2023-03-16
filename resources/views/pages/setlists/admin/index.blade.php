@@ -77,7 +77,7 @@ user-select:none;
 @endif
 
 
-<button class="test">TESTE</button>
+<button class="test btn btn-secondary">TESTE</button>
 @endsection
 
 @push('scripts')
@@ -116,7 +116,6 @@ let bpm = 60;
 let playing;
 
 $(document).on('click', 'button.start-metronome', function() {
-	alert('OK');
 	let $button = $(this);
 	let $siblings = $('button.start-metronome').not(this);
 
