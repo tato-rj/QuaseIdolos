@@ -1,4 +1,4 @@
-<div> 
+<div id="setlist"> 
 	@forelse($setlist->whereNull('finished_at') as $entry)
 	@include('pages.setlists.admin.song-request')
 	@empty
