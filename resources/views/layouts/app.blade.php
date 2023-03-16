@@ -506,7 +506,7 @@ function enableDraggable() {
 
     sortable = new Sortable(setlist, {
         animation: 150,
-        filter: '.btn, .btn-raw, .modal',
+        // filter: '.btn, .btn-raw, .modal',
         forceFallback: true,
         handle: ".my-handle",
         scrollSensitivity: 120,

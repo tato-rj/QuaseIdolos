@@ -1,4 +1,4 @@
-<div class="row mb-4"> 
+<div class="row mb-4" id="setlist"> 
 	<div class="col-lg-8 col-12 mx-auto">
 		<div class="border border-secondary rounded" style="max-height: 300px; overflow-y: scroll;"> 
 			@forelse($setlist->whereNull('finished_at') as $entry)
