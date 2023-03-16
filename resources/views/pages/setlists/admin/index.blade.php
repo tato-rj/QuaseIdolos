@@ -157,7 +157,7 @@ $(document).on('click', 'button.start-metronome', function() {
 
 });
 
-$(document).on('click tap', '.metronome-control', function() {
+$(document).on('click', '.metronome-control', function() {
 	let direction = $(this).data('direction');
 	let currentTempo = parseInt($('#bpm').find('span').text());
 
@@ -199,6 +199,8 @@ $(document).on('mousedown touchstart', '.metronome-control', function(e) {
 
 	holding = null;
 	rollingTempo = null;
+
+	$(this).click();
 });
 
 $(document).on('click', '#update-tempo', function() {
