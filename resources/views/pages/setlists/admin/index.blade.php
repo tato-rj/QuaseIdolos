@@ -107,7 +107,6 @@ let bpm = 60;
 let playing;
 
 $(document).on('click', 'button.start-metronome', function() {
-	alert('OK');
 	let $button = $(this);
 	let $siblings = $('button.start-metronome').not(this);
 
