@@ -1,4 +1,4 @@
-<div class="draggable mb-3" data-id="{{$entry->id}}">
+{{-- <div class="draggable mb-3" data-id="{{$entry->id}}"> --}}
 	<div class="rounded border-secondary event-box py-3 px-2 row">
 		<div class="col-lg-8 col-12">
 			<h4 class="no-stroke text-primary font-cursive">@fa(['icon' => 'bars', 'classes' => 'my-handle'])
@@ -39,4 +39,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+{{-- </div> --}}
