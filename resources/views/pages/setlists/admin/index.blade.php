@@ -77,10 +77,15 @@ user-select:none;
 @endif
 
 
-<div id="tempo"></div>
+<button id="test">TESTE</button>
 @endsection
 
 @push('scripts')
+<script type="text/javascript">
+$('#test').click(function() {
+	alert('OK');
+});
+</script>
 
 <script type="text/javascript">
 var metronome = new Metronome();
