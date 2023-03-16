@@ -200,7 +200,7 @@ $(document).on('mousedown touchstart', '.metronome-control', function(e) {
 	holding = null;
 	rollingTempo = null;
 
-	$(this).click();
+	// $(this).click();
 });
 
 $(document).on('click', '#update-tempo', function() {
