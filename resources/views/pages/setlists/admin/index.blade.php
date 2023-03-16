@@ -75,18 +75,9 @@ user-select:none;
 	@include('pages.songs.metronome.placeholder')
 </section>
 @endif
-
-
-<button class="start-metronome btn btn-secondary">@fa(['icon' => 'play', 'mr' => 0])</button>
 @endsection
 
 @push('scripts')
-<script type="text/javascript">
-$(document).on('click', '.test', function() {
-	alert('OK');
-});
-</script>
-
 <script type="text/javascript">
 var metronome = new Metronome();
 metronome.beatsPerBar = 1;
