@@ -8,6 +8,10 @@ require('./bootstrap/components');
 //// CUSTOM JS BELOW
 //////////////////////////////////////
 
+$(document).ready(function(){
+   $('.notSelectable').disableSelection();
+});
+
 $(document).on('click', 'button[name="show_password_container"]', function(event) {
     let $passwords = $($(this).data('target'));
     $('.join-content').show();
