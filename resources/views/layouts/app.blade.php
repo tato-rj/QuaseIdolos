@@ -389,12 +389,12 @@ function listenToAdminEvents()
           .channel('setlist')
           .listen('SongRequested', function(event) {
             getEventTable().then(function() {
-                (new Metronome).highlightSetlist();
+                // (new Metronome).highlightSetlist();
             });
           })
           .listen('SongCancelled', function(event) {
             getEventTable().then(function() {
-                (new Metronome).highlightSetlist();
+                // (new Metronome).highlightSetlist();
             });
           });
     } catch (error) {
