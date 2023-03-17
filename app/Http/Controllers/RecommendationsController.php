@@ -23,7 +23,7 @@ class RecommendationsController extends Controller
 
         foreach ($results['tracks'] as $result) {
             if (Song::bySpotifyId($result['id'])->exists())
-                dd(Song::bySpotifyId($result['id'])->first());
+                return Song::bySpotifyId($result['id'])->first();
         }
 
         return 'No songs found.';
