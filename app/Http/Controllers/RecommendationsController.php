@@ -23,11 +23,9 @@ class RecommendationsController extends Controller
 
         foreach ($results['tracks'] as $result) {
             if ($match = Song::bySpotifyId($result['id']))
-                return $match;
+                dd($match);
         }
 
         return 'No songs found.';
     }
 }
-
-https://open.spotify.com/track/2WjLc16JdLH2V6FMk8VFsZ?si=5f57556745b746be
