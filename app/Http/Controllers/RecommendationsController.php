@@ -27,7 +27,7 @@ class RecommendationsController extends Controller
                     return Song::bySpotifyId($result['id'])->first();
             }
         } catch (\Exception $e) {
-            //
+            bugreport($e);
         }
 
         return 'No songs found.';
