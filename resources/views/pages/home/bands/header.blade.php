@@ -10,6 +10,7 @@
 			@if(auth()->check() && auth()->user()->admin && auth()->user()->admin->manage_setlist)
 			<div class="d-center flex-column">
 				<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])@lang('views/home.header.btn-setlist')</a>
+				<a href="{{route('cardapio.index')}}" class="btn btn-secondary btn-lg mb-3 text-uppercase">@fa(['icon' => 'utensils'])@lang('views/header.songs-menu')</a>
 			</div>
 			@else
 			<div class="d-center flex-column">
