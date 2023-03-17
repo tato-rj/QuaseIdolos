@@ -8,4 +8,9 @@ trait Spotify
 	{
 		return (bool) $this->spotify_id;
 	}
+
+	public function scopeBySpotifyId($query, $id)
+	{
+		return $query->where('spotify_id', $id)->first();
+	}
 }

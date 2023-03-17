@@ -21,7 +21,12 @@ class RecommendationsController extends Controller
 
         $results = SpotifyApi::recommendations($seeder)->limit(10)->get();
 
-        return randval($results['tracks']);
+        foreach ($results['tracks'] as $result) {
+            if ($match = Song::bySpotifyId($result['id']))
+                return $match;
+        }
+
+        return 'No songs found.';
     }
 }
 
