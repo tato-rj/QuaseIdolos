@@ -34,13 +34,14 @@
     -o-transition:all 0.5s ease-in-out;
     -ms-transition:all 0.5s ease-in-out;
     transition:all 0.5s ease-in-out;
-    -moz-animation:blink normal 1.5s infinite ease-in-out;
+
+    -moz-animation:blink normal 1s infinite ease-in-out;
     /* Firefox */
-    -webkit-animation:blink normal 1.5s infinite ease-in-out;
+    -webkit-animation:blink normal 1s infinite ease-in-out;
     /* Webkit */
-    -ms-animation:blink normal 1.5s infinite ease-in-out;
+    -ms-animation:blink normal 1s infinite ease-in-out;
     /* IE */
-    animation:blink normal 1.5s infinite ease-in-out;
+    animation:blink normal 1s infinite ease-in-out;
     /* Opera */
 }
 

@@ -72,8 +72,8 @@ user-select:none;
 
 @if(request()->formato == 'metronomo')
 <section id="metronome-container" class="container-fluid">
-	@include('pages.songs.metronome.placeholder')
 </section>
+@include('pages.songs.metronome.placeholder')
 @endif
 @endsection
 
@@ -110,9 +110,20 @@ $(document).on('click', 'button.start-metronome', function() {
 	let $button = $(this);
 	let $siblings = $('button.start-metronome').not(this);
 
+	stopMetronome();
+
+	$('#metronome-container').html('');
+
+	$('#metronome-placeholder').addClass('placeholder-animate').show();
+	$siblings.removeClass('btn-outline-secondary').find('i').removeClass('fa-stop').addClass('fa-start');
+
 	if (playing != $button.data('target')) {
+		$('button.start-metronome').disable();
+
 		axios.get($button.data('url'))
 				 .then(function(response) {
+				 	$('#metronome-placeholder').removeClass('placeholder-animate').hide();
+
 				 	$('#metronome-container').html(response.data);
 
 				 	let bpm = $('#metronome-container').find('#bpm span').text();
@@ -122,11 +133,11 @@ $(document).on('click', 'button.start-metronome', function() {
 				 	metronome.start();
 					
 					playing = $button.data('target');
-					
-					$siblings.removeClass('btn-outline-secondary').find('i').removeClass('fa-stop').addClass('fa-start');
+
+					$('button.start-metronome').enable();
 				 });
 	} else {
-		stopMetronome();
+		$('#metronome-placeholder').removeClass('placeholder-animate');
 		playing = null;
 	}
 
