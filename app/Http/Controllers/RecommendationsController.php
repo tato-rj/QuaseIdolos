@@ -26,7 +26,7 @@ class RecommendationsController extends Controller
                 if (Song::bySpotifyId($result['id'])->exists())
                     return Song::bySpotifyId($result['id'])->first();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             //
         }
 
