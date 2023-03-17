@@ -29,12 +29,14 @@ class GetSongsData extends Command
      */
     public function handle()
     {
-        $songs = Song::whereNull('preview_url')->with('artist')->take(20)->get();
+        $songs = Song::whereNull('spotify_id')->with('artist')->take(50)->get();
 
         foreach($songs as $song) {
             $song->getMusicData();
         }
 
-        $this->info('All set');
+        $left = Song::whereNull('spotify_id')->count();
+
+        $this->info('All set, '.$left. ' more to go.');
     }
 }

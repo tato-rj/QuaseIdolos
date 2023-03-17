@@ -11,7 +11,7 @@ class RecommendationsController extends Controller
 {
     public function get()
     {
-        return SpotifyApi::searchTracks('bob marley')->limit(5)->get();
+        return SpotifyApi::searchTracks('Caetano veloso - sozinho')->limit(5)->get();
 
         $seeder = SpotifySeed::addArtists(['4NHQUGzhtTLFvgF5SZesLK'])->addGenres(['classical', 'country'])->addTracks(['0c6xIDDpzE81m2q797ordA']);
 

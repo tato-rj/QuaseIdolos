@@ -15,6 +15,7 @@ class CreateSongsTable extends Migration
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
+            $table->string('spotify_id')->nullable();
             $table->unsignedInteger('artist_id');
             $table->unsignedInteger('genre_id');
             $table->string('name');

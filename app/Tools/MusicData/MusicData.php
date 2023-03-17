@@ -45,6 +45,7 @@ class MusicData
 		$artist = $this->findArtist($query['artists']);
 
 		$this->data->put('artist_id', $artist['id'] ?? null);
+		$this->data->put('song_id', $query['id']);
 		$this->data->put('bpm', round($song['tempo']));
 		$this->data->put('preview_url', $query['preview_url']);
 		$this->data->put('duration', round(($song['duration_ms']/1000)/60));

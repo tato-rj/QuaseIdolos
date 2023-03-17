@@ -90,9 +90,10 @@ class Song extends BaseModel
         $data = (new MusicData)->artist($this->artist->name)->song($this->name)->get();
 
         return $this->update([
+            'spotify_id' => $data['song_id'] ?? $this->spotify_id,
             'duration' => $data['duration'] ?? $this->duration,
-            'bpm' => $data['bpm'] ?? null,
-            'preview_url' => $data['preview_url'] ?? null
+            'bpm' => $data['bpm'] ?? $this->bpm,
+            'preview_url' => $data['preview_url'] ?? $this->preview_url
         ]);
     }
 }

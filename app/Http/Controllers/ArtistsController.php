@@ -32,12 +32,18 @@ class ArtistsController extends Controller
             'image' => 'required|max:200|mimes:jpg,jpeg'
         ]);
 
-        Artist::create([
+        $artist = Artist::create([
             'name' => $request->name,
             'slug' => str_slug($request->name),
             'is_hidden' => $request->has('is_hidden'),
             'image_path' => $request->file('image')->store('artists', 'public')
         ]);
+
+        try {
+            $artist->getMusicData();   
+        } catch (\Exception $e) {
+            bugreport($e);
+        }
 
         return back()->with('success', 'O artista foi adicionado com sucesso');
     }

@@ -2,6 +2,7 @@
 <form method="POST" action="{{route('artists.update', $artist)}}" enctype="multipart/form-data">
 	@csrf
 	@method('PATCH')
+	@input(['label' => 'Spotify ID', 'name' => 'spotify_id', 'value' => $artist->spotify_id])
 	@input(['label' => 'Nome', 'name' => 'name', 'value' => $artist->name, 'required' => true])
 	<div class="form-group text-left">
 		@label(['label' => 'Foto'])
