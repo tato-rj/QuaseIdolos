@@ -23,8 +23,10 @@ class RecommendationsController extends Controller
             $results = SpotifyApi::recommendations($seeder)->limit(10)->get();
 
             foreach ($results['tracks'] as $result) {
-                if (Song::bySpotifyId($result['id'])->exists())
+                if (Song::bySpotifyId($result['id'])->exists()) {
+                    dd('HERE!');
                     return Song::bySpotifyId($result['id'])->first();
+                }
             }
         } catch (\Exception $e) {
             bugreport($e);
