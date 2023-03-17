@@ -43,7 +43,7 @@
   <span class="{{! $user->song_requests_count ? 'opacity-4' : null}}">{{$user->song_requests_count}}</span>
   @break
 
-  @case('sent_messages_count')
-  <span class="{{! $user->sent_messages_count ? 'opacity-4' : null}}">{{$user->sent_messages_count}}</span>
+  @case('ratings_count')
+  <span class="{{! $user->ratings_count ? 'opacity-4' : null}}">{{$user->ratings_count}}</span>
   @break
 @endswitch

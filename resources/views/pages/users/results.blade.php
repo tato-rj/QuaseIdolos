@@ -7,7 +7,7 @@
 		'sent_messages_count*' => 'Chats',
 		'participations_count*' => 'Eventos', 
 		'song_requests_count*' => 'Músicas', 
-		'sent_messages_count*' => 'Chats'],
+		'ratings_count*' => 'Votos'],
 	'rows' => $users,
 	'view' => 'pages.users.row'
 ])
