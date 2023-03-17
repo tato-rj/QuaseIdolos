@@ -18,12 +18,12 @@ class RecommendationsController extends Controller
         // return $songs->pluck('spotify_id');
         // try {
             
-return $songs->pluck('spotify_id');
+// return $songs->pluck('spotify_id');
         // $seeder = SpotifySeed::addArtists([$songs->first()->artist->spotify_id])->addGenres([$songs->first()->genre->name])->addTracks([$songs->first()->spotify_id]);      
 
-        $seeder = SpotifySeed::addArtists(["4dpARuHxo51G3z768sgnrY", "7HGNYPmbDrMkylWqeFCOIQ"])->addGenres(["Pop/Rock", "MPB"])->addTracks(['0c6xIDDpzE81m2q797ordA']);
+        $seeder = SpotifySeed::addArtists(["4dpARuHxo51G3z768sgnrY", "7HGNYPmbDrMkylWqeFCOIQ"])->addGenres(["Pop/Rock", "MPB"])->addTracks(["1c8gk2PeTE04A1pIDH9YMk", "02a8cGumnKuEPgoCzmalJp"]);
 
-            $seeder = SpotifySeed::addArtists($songs->pluck('artist.spotify_id'))->addGenres($songs->pluck('genre.name'))->addTracks($songs->pluck('spotify_id'));
+            // $seeder = SpotifySeed::addArtists($songs->pluck('artist.spotify_id'))->addGenres($songs->pluck('genre.name'))->addTracks($songs->pluck('spotify_id'));
 
             return SpotifyApi::recommendations($seeder)->limit(10)->get();   
         // } catch (\Exception $e) {
