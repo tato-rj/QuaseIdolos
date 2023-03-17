@@ -29,7 +29,7 @@ class GetArtistsData extends Command
      */
     public function handle()
     {
-        $artists = Artist::whereNull('spotify_id')->take(2)->get();
+        $artists = Artist::whereNull('spotify_id')->take(20)->get();
 
         foreach($artists as $artist) {
             $artist->getMusicData();
