@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Spotify as SpotifyApi;
 use SpotifySeed;
 use App\Tools\MusicData\MusicData;
+use App\Models\Song;
 
 class RecommendationsController extends Controller
 {
@@ -14,7 +15,11 @@ class RecommendationsController extends Controller
         // return SpotifyApi::track('2WjLc16JdLH2V6FMk8VFsZ')->get();
         // return SpotifyApi::searchTracks('João Penca & Seus Miquinhos Amestrados - popstar')->limit(5)->get();
 
-        $seeder = SpotifySeed::addArtists(['4NHQUGzhtTLFvgF5SZesLK'])->addGenres(['classical', 'country'])->addTracks(['0c6xIDDpzE81m2q797ordA']);
+        $songs = Song::inRandomOrder()->take(3)->get();
+
+return $songs->get('artist.spotify_id');
+
+        $seeder = SpotifySeed::addArtists([$song->artist->spotify_id])->addGenres([$song->genre->name])->addTracks([$song->spotify_id]);
 
         return SpotifyApi::recommendations($seeder)->limit(10)->get();
     }
