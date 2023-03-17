@@ -35,6 +35,8 @@ class GetArtistsData extends Command
             $artist->getMusicData();
         }
 
-        $this->info('All set');
+        $left = Artist::whereNull('spotify_id')->count();
+
+        $this->info('All set, '.$left. ' more to go.');
     }
 }
