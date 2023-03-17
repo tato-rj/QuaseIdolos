@@ -3,7 +3,7 @@
 	@csrf
 	@method('PATCH')
 
-	@input(['label' => 'Spotify ID', 'name' => 'spotify_id', 'value' => $song->spotify_id, 'disabled' => $song->spotify_id])
+	@input(['label' => 'Spotify ID', 'name' => 'spotify_id', 'value' => $song->spotify_id, 'disabled' => $song->hasSpotifyId()])
 
 	@select([
 		'label' => 'Estilo',

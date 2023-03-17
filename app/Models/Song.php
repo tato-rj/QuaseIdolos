@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Traits\{Archiveable, Sortable, Cardapio};
+use App\Models\Traits\{Archiveable, Sortable, Cardapio, Spotify};
 use App\Tools\MusicData\MusicData;
 
 class Song extends BaseModel
 {
-	use Archiveable, Sortable, Cardapio;
+	use Archiveable, Sortable, Cardapio, Spotify;
 	
 	protected $withCount = ['favorites', 'songRequests'];
 	protected $with = ['genre', 'artist'];

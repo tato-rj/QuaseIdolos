@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Traits\{Searchable, FindBySlug, HasAvatar};
+use App\Models\Traits\{Searchable, FindBySlug, HasAvatar, Spotify};
 use App\Tools\MusicData\MusicData;
 
 class Artist extends BaseModel
 {
-    use Searchable, FindBySlug, HasAvatar;
+    use Searchable, FindBySlug, HasAvatar, Spotify;
 
     protected $appends = ['image'];
     protected $withCount = ['songs'];
