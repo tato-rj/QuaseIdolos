@@ -20,9 +20,7 @@ class RecommendationsController extends Controller
                              ->addGenres($songs->pluck('genre.name'))
                              ->addTracks($songs->pluck('spotify_id'));
 
-        $results = SpotifyApi::recommendations($seeder)->limit(10)->get();
-
-        return randval($results['tracks']);
+        return SpotifyApi::recommendations($seeder)->limit(10)->get();
     }
 }
 
