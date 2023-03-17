@@ -53,7 +53,7 @@ class MusicData
 	public function findArtist(array $artists)
 	{
 		foreach ($artists as $artist) {
-			if (str_slug($artist['name']) == str_slug($this->artist))
+			if ($this->closeEnough($artist['name'], $this->artist))
 				return $artist;
 		}
 	}
