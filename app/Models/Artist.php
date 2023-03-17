@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\{Searchable, FindBySlug, HasAvatar};
+use App\Tools\MusicData\MusicData;
 
 class Artist extends BaseModel
 {
@@ -49,5 +50,14 @@ class Artist extends BaseModel
         });
 
         return $collection->values();
+    }
+
+    public function getMusicData()
+    {
+        $data = (new MusicData)->artist($this->name)->get();
+
+        return $this->update([
+            'spotify_id' => $data['artist_id'] ?? $this->spotify_id
+        ]);
     }
 }

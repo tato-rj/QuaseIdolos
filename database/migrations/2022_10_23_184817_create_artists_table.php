@@ -15,6 +15,7 @@ class CreateArtistsTable extends Migration
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
+            $table->string('spotify_id')->nullable();
             $table->string('name')->unique();
             $table->string('slug');
             $table->string('image_path');

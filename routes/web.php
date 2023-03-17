@@ -51,6 +51,10 @@ Route::withoutMiddleware('join-gig')->group(function() {
 /////////////////
 
 Route::middleware('auth')->group(function() {
+    Route::prefix('recomendacoes')->withoutMiddleware('join-gig')->name('recommendations.')->group(function() {
+        Route::get('', 'RecommendationsController@get')->name('get');
+    });
+
     Route::prefix('meu-perfil')->withoutMiddleware('join-gig')->name('profile.')->group(function() {
         Route::get('', 'UsersController@profile')->name('show');
 
