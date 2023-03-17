@@ -3,8 +3,8 @@
 	@csrf
 	@method('PATCH')
 
-	@input(['label' => 'Spotify ID', 'name' => 'spotify_id', 'value' => $artist->spotify_id])
-	
+	@input(['label' => 'Spotify ID', 'name' => 'spotify_id', 'value' => $song->spotify_id])
+
 	@select([
 		'label' => 'Estilo',
 		'name' => 'genre_id',
