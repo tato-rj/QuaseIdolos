@@ -14,7 +14,7 @@ class RecommendationsController extends Controller
     {
         // return SpotifyApi::track('2WjLc16JdLH2V6FMk8VFsZ')->get();
         // return SpotifyApi::searchTracks('João Penca & Seus Miquinhos Amestrados - popstar')->limit(5)->get();
-        $songs = Song::inRandomOrder()->take(3)->get();   
+        $songs = Song::inRandomOrder()->take(5)->get();   
 
         $seeder = SpotifySeed::addGenres($songs->pluck('genre.name'))
                              ->addTracks($songs->pluck('spotify_id'));
