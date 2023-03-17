@@ -11,6 +11,6 @@ trait Spotify
 
 	public function scopeBySpotifyId($query, $id)
 	{
-		return $query->where('spotify_id', $id)->first();
+		return $query->where('spotify_id', $id)->get();
 	}
 }
