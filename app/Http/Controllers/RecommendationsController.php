@@ -12,6 +12,7 @@ class RecommendationsController extends Controller
 {
     public function get()
     {
+        return response(200);
         // return SpotifyApi::track('2WjLc16JdLH2V6FMk8VFsZ')->get();
         // return SpotifyApi::searchTracks('João Penca & Seus Miquinhos Amestrados - popstar')->limit(5)->get();
         $songs = Song::inRandomOrder()->take(5)->get();   
@@ -24,7 +25,7 @@ class RecommendationsController extends Controller
 
             foreach ($results['tracks'] as $result) {
                 if (Song::bySpotifyId($result['id'])->exists()) {
-                    dd('HERE!');
+                    // dd('HERE!');
                     return Song::bySpotifyId($result['id'])->first();
                 }
             }
