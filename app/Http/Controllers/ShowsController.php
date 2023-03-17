@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class ShowsController extends Controller
 {
+    public function index()
+    {
+        $musicians = Admin::musicians()->get();
+        $venues = Venue::all();
+        $showsToday = Show::ready()->orLive()->get();
+        $unscheduled = Show::unscheduled()->get();
+        $shows = Show::withCount(['setlist'])->notReady()->sortable('scheduled_for')->paginate(8);
+
+        return view('pages.shows.index', compact(['shows', 'showsToday', 'venues', 'unscheduled', 'musicians']));
+    }
     /**
      * Store a newly created resource in storage.
      *

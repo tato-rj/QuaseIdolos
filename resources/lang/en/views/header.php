@@ -19,6 +19,8 @@ return [
 	'suggestions' => 'Suggestions',
 	'venues' => 'Venues',
 	'events' => 'Events',
+	'shows' => 'Shows',
+	'kareokes' => 'Kareokes',
 	'team' => 'Team',
 	'statistics' => 'Statistics',
 	'chat' => 'Chat'

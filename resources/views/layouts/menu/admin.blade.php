@@ -43,7 +43,8 @@
      @include('layouts.menu.components.divider')
 
      @link(['route' => route('venues.index'), 'lang' => 'views/header.venues'])
-     @link(['route' => route('gig.index'), 'lang' => 'views/header.events'])
+     @link(['route' => route('gig.index'), 'lang' => 'views/header.kareokes'])
+     @link(['route' => route('shows.index'), 'lang' => 'views/header.shows'])
      @link(['route' => route('team.index'), 'lang' => 'views/header.team'])
      @link(['route' => route('stats.gigs'), 'lang' => 'views/header.statistics'])
      @endif

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Karaokês'])
+@extends('layouts.app', ['title' => 'Shows'])
 
 @push('header')
 <style type="text/css">
@@ -8,19 +8,18 @@
 
 @section('content')
 <section class="container-fluid text-center mb-5">
-	@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'karaokês'])
-	@create(['name' => 'gig', 'label' => 'Novo karaokê', 'folder' => 'gigs'])
-	{{-- @create(['name' => 'show', 'label' => 'Novo show', 'folder' => 'shows']) --}}
+	@pagetitle(['title' => 'Gerencie aqui os', 'highlight' => 'shows'])
+	@create(['name' => 'show', 'label' => 'Novo show', 'folder' => 'shows'])
 </section>
 
 <section class="mb-5 container">
 	@table([
-		'title' => 'Karaokês hoje',
+		'title' => 'Shows hoje',
 		'empty' => true,
-		'columns' => ['event' => 'Karaokê', 'status' => 'Status', 'features' => 'Recursos', 'actions' => ''],
-		'legend' => 'karaokê|karaokês',
-		'rows' => $kareokeToday,
-		'view' => 'pages.gigs.rows.today'
+		'columns' => ['event' => 'Show', 'status' => 'Status', 'actions' => ''],
+		'legend' => 'show|shows',
+		'rows' => $showsToday,
+		'view' => 'pages.shows.rows.today'
 	])
 </section>
 
@@ -29,20 +28,20 @@
 		'title' => 'Sem data',
 		'legend' => 'evento|eventos',
 		'header' => false,
-		'columns' => ['event' => 'Karaokê', 'actions' => ''],
+		'columns' => ['event' => 'Show', 'actions' => ''],
 		'rows' => $unscheduled,
-		'view' => 'pages.gigs.rows.unscheduled'
+		'view' => 'pages.rows.unscheduled'
 	])
 </section>
 
 <section class="mb-5 container">
 	@table([
-		'title' => 'Todos os karaokês',
+		'title' => 'Todos os shows',
 		'empty' => true,
-		'columns' => ['scheduled_for*' => 'Data', 'venue.name*' => 'Contratante', 'participants_count*' => 'Participantes', 'setlist_count*' => 'Músicas'],
-		'legend' => 'karaokê|karaokês',
-		'rows' => $kareokes,
-		'view' => 'pages.gigs.rows.all'
+		'columns' => ['scheduled_for*' => 'Data', 'venue.name*' => 'Contratante', 'setlist_count*' => 'Músicas'],
+		'legend' => 'show|shows',
+		'rows' => $shows,
+		'view' => 'pages.shows.rows.all'
 	])
 </section>
 

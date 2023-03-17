@@ -14,6 +14,11 @@ abstract class EventModel extends BaseModel
 	abstract function openRoute();
 	abstract function closeRoute();
 
+	public function getVenueNameAttribute()
+	{
+		return $this->venue->name;
+	}
+
     public function scopeNotReady($query)
     {
 		return $query->except($this->ready()->get('id'));

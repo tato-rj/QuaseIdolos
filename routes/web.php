@@ -319,6 +319,8 @@ Route::middleware('super-admin')->group(function() {
     });
 
     Route::prefix('shows')->name('shows.')->withoutMiddleware('join-gig')->group(function() {
+        Route::get('', 'ShowsController@index')->name('index');
+
         Route::get('{show}', 'ShowsController@edit')->name('edit');
 
         Route::get('{show}/musicas', 'ShowsController@search')->name('search');

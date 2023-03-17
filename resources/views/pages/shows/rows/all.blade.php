@@ -8,17 +8,13 @@
       </form>
       <a href="{{route('gig.show', $gig)}}" class="link-secondary fw-bold d-block h5 mb-0">{{$gig->dateForHumans($showWeek = false)}}</a>
     </div>
-      @break
+  @break
 
-  @case('participants_count')
-    {{$gig->participants()->count()}}
-      @break
+@case('venue.name')
+{{$gig->venue->name}}
+@break
 
   @case('setlist_count')
     {{$gig->setlist()->completed()->count()}}
-    @break
-
-  @case('status')
-    {!! $gig->status()->get() !!}
-    @break
+  @break
 @endswitch

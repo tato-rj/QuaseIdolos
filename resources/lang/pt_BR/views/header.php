@@ -19,6 +19,8 @@ return [
 	'suggestions' => 'Sugestões',
 	'venues' => 'Contratantes',
 	'events' => 'Eventos',
+	'shows' => 'Shows',
+	'kareokes' => 'Karaokês',
 	'team' => 'Equipe',
 	'statistics' => 'Estatísticas',
 	'chat' => 'Chat'

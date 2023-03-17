@@ -13,10 +13,10 @@ class GigsController extends Controller
         $musicians = Admin::musicians()->get();
         $venues = Venue::all();
         $kareokeToday = Gig::ready()->orLive()->get();
-        $showsToday = Show::ready()->orLive()->get();
         $unscheduled = Gig::unscheduled()->get();
+        $kareokes = Gig::withCount(['participants', 'setlist'])->notReady()->sortable('scheduled_for')->paginate(8);
 
-        return view('pages.gigs.index', compact(['showsToday', 'kareokeToday', 'venues', 'unscheduled', 'musicians']));
+        return view('pages.gigs.index', compact(['kareokes', 'kareokeToday', 'venues', 'unscheduled', 'musicians']));
     }
 
     public function password(Gig $gig)
