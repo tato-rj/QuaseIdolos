@@ -12,7 +12,7 @@ class RecommendationsController extends Controller
 {
     public function get(Request $request)
     {
-        $songs = Song::whereIn('id', $request->ids)->get();
+        $songs = Song::whereIn('id', $request->ids ?? [])->get();
         // $songs = auth()->user()->favorites()->take(3)->get();
 
         $seeder = SpotifySeed::addTracks($songs->pluck('spotify_id'));
