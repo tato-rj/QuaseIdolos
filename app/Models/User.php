@@ -203,6 +203,11 @@ class User extends Authenticatable
         return $query->doesntHave('socialAccounts');
     }
 
+    public function isArthur()
+    {
+        return $this->email == 'arthurvillar@gmail.com';
+    }
+
     public function join(EventModel $gig)
     {
         Participant::by($this)->unconfirmed()->delete();

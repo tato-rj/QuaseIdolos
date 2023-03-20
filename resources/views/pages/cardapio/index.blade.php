@@ -13,14 +13,20 @@
 	<section class="container">
 		@pagetitle(['title' => __('views/cardapio.title.text'), 'highlight' => __('views/cardapio.title.highlight')])
 
-		<div class="text-center mb-4">
+		<div class="text-center">
 			@searchbar([
 				'url' => route('cardapio.search'),
 				'paginate' => true,
 				'placeholder' => __('views/cardapio.search.placeholder'),
 				'target' => 'results'])
 
-			@include('pages.cardapio.components.recommendation.modal')
+			@auth
+			@if(auth()->user()->isArthur())
+			<div class="mb-4">
+				@include('pages.cardapio.components.recommendation.modal')
+			</div>
+			@endif
+			@endauth
 		</div>
 		@auth
 		<div class="text-center mb-4">
