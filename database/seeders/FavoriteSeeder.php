@@ -14,9 +14,24 @@ class FavoriteSeeder extends Seeder
      */
     public function run()
     {
+        Favorite::create([
+            'user_id' => User::first()->id,
+            'song_id' => Song::where('name', 'Rolling in the Deep')->first()->id
+        ]);
+
+        Favorite::create([
+            'user_id' => User::first()->id,
+            'song_id' => Song::where('name', 'Sozinho')->first()->id
+        ]);
+
+        Favorite::create([
+            'user_id' => User::first()->id,
+            'song_id' => Song::where('name', 'All My Loving')->first()->id
+        ]);
+
         for ($i=0; $i<10; $i++) { 
             Favorite::firstOrCreate([
-                'user_id' => User::inRandomOrder()->first()->id,
+                'user_id' => User::where('id', '!=', 1)->inRandomOrder()->first()->id,
                 'song_id' => Song::inRandomOrder()->first()->id
             ]);
         }

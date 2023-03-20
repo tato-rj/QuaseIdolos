@@ -22,6 +22,7 @@
       @endif
 
      @link(['route' => route('profile.show'), 'lang' => 'views/header.profile'])
+    <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('favorites.index')}}">@lang('views/header.my-favorites')</a>
      @link(['route' => route('cardapio.index'), 'lang' => 'views/header.songs-menu'])
 
      @if(auth()->user()->admin->manage_setlist)

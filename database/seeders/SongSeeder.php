@@ -29,5 +29,35 @@ class SongSeeder extends Seeder
                 }
 
         }
+
+        Song::create([
+                'name' => 'Rolling in the Deep',
+                'artist_id' => Artist::byName('Adele')->id,
+                'genre_id' => Genre::inRandomOrder()->first()->id,
+                'duration' => rand(2,6),
+                'bpm' => rand(40,160),
+                'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24),
+                'spotify_id' => '1c8gk2PeTE04A1pIDH9YMk'
+        ]);
+
+        Song::create([
+                'name' => 'Sozinho',
+                'artist_id' => Artist::byName('Caetano Veloso')->id,
+                'genre_id' => Genre::inRandomOrder()->first()->id,
+                'duration' => rand(2,6),
+                'bpm' => rand(40,160),
+                'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24),
+                'spotify_id' => '02a8cGumnKuEPgoCzmalJp'
+        ]);
+        
+        Song::create([
+                'name' => 'All My Loving',
+                'artist_id' => Artist::byName('The Beatles')->id,
+                'genre_id' => Genre::inRandomOrder()->first()->id,
+                'duration' => rand(2,6),
+                'bpm' => rand(40,160),
+                'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24),
+                'spotify_id' => '4joiWvli4qJVEW6qZV2i2J'
+        ]);
     }
 }
