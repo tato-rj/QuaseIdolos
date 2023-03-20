@@ -19,7 +19,7 @@ class RecommendationsController extends Controller
         $seeder = SpotifySeed::addTracks($songs->pluck('spotify_id'));
 
         try {
-            $results = SpotifyApi::recommendations($seeder)->limit(10)->get();
+            $results = SpotifyApi::recommendations($seeder)->limit(20)->get();
 
             foreach ($results['tracks'] as $result) {
                 if (Song::bySpotifyId($result['id'])->exists()) {
