@@ -10,14 +10,11 @@ use App\Models\Song;
 
 class RecommendationsController extends Controller
 {
-    public function get()
+    public function get(Request $request)
     {
-        // return response(200);
-        // return SpotifyApi::track('2WjLc16JdLH2V6FMk8VFsZ')->get();
-        // return SpotifyApi::searchTracks('João Penca & Seus Miquinhos Amestrados - popstar')->limit(5)->get();
-        $songs = Song::inRandomOrder()->take(3)->get();
+        $songs = Song::whereIn('id', $request->ids)->get();
         // $songs = auth()->user()->favorites()->take(3)->get();
-        
+
         $seeder = SpotifySeed::addTracks($songs->pluck('spotify_id'));
 
         try {
@@ -29,10 +26,9 @@ class RecommendationsController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            dd($e);
-            //bugreport($e);
+            //
         }
 
-        return 'No songs found.';
+        return response(404);
     }
 }
