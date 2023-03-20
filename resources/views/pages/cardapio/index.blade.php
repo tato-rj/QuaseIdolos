@@ -2,6 +2,9 @@
 
 @push('header')
 <style type="text/css">
+.choice-song.selected {
+/*	transform: scale(1.1);*/
+}
 </style>
 @endpush
 
@@ -10,12 +13,15 @@
 	<section class="container">
 		@pagetitle(['title' => __('views/cardapio.title.text'), 'highlight' => __('views/cardapio.title.highlight')])
 
-		@searchbar([
-			'url' => route('cardapio.search'),
-			'paginate' => true,
-			'placeholder' => __('views/cardapio.search.placeholder'),
-			'target' => 'results'])
+		<div class="text-center mb-4">
+			@searchbar([
+				'url' => route('cardapio.search'),
+				'paginate' => true,
+				'placeholder' => __('views/cardapio.search.placeholder'),
+				'target' => 'results'])
 
+			@include('pages.cardapio.components.recommendation.modal')
+		</div>
 		@auth
 		<div class="text-center mb-4">
 			<h6>@lang('views/cardapio.suggestion.question')</h6>
@@ -91,6 +97,48 @@ $('#suggestion-modal form').submit(function(e) {
 });
 </script>
 <script type="text/javascript">
+$('.choose-song').click(function() {
+	if ($('.choice-song.selected').length != 3) {
+		$(this).closest('.choice-song').toggleClass('selected border').removeClass('opacity-6');
+	} else {
+		$(this).closest('.choice-song').removeClass('selected border').addClass('opacity-6');
+	}
+
+	if ($('.choice-song.selected').length > 0) {
+		$('.choice-song').not('.selected').removeClass('border').addClass('opacity-6');
+	} else {
+		$('.choice-song').removeClass('border opacity-6');	
+	}
+
+	if ($('.choice-song.selected').length == 3) {
+		$('#get-recommendations').show();
+	} else {
+		$('#get-recommendations').hide();
+	}
+});
+
+$('#get-recommendations').click(function() {
+	let $button = $(this);
+	let ids = []
+
+	$button.disable();
+
+	 $('.choice-song.selected').each(function() {
+	 	ids.push($(this).data('id'));
+	 })
+
+	axios.get($(this).data('url'), {params: {ids: ids}})
+		 .then(function(response) {
+		 	$('#recommendation-container').html(response.data);
+
+		 	$button.enable();
+		 })
+		 .catch(function(error) {
+		 	log(error);
+		 });
+});
+</script>
+<script type="text/javascript">
 let audio = new Audio;
 
 $(document).on('click', 'button.preview-song', function() {
@@ -99,6 +147,7 @@ $(document).on('click', 'button.preview-song', function() {
 
 	if (src) {
 		$('.preview-song i').not($icon).removeClass('fa-pause').addClass('fa-play');
+
 		stop();
 
 		if ($icon.hasClass('fa-play'))

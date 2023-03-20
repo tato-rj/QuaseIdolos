@@ -24,6 +24,7 @@ class SongSeeder extends Seeder
                                 'genre_id' => Genre::inRandomOrder()->first()->id,
                                 'duration' => rand(2,6),
                                 'bpm' => rand(40,160),
+                                'preview_url' => 'https://p.scdn.co/mp3-preview/d2d7e717c72a4fa08b3a8b22722c7369e8aa587d?cid=7d8b6533ad544266b94de9e3956a8544',
                                 'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24)
                         ]);
                 }
@@ -36,6 +37,7 @@ class SongSeeder extends Seeder
                 'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => rand(2,6),
                 'bpm' => rand(40,160),
+                'preview_url' => 'https://p.scdn.co/mp3-preview/d2d7e717c72a4fa08b3a8b22722c7369e8aa587d?cid=7d8b6533ad544266b94de9e3956a8544',
                 'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24),
                 'spotify_id' => '1c8gk2PeTE04A1pIDH9YMk'
         ]);
@@ -46,6 +48,7 @@ class SongSeeder extends Seeder
                 'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => rand(2,6),
                 'bpm' => rand(40,160),
+                'preview_url' => 'https://p.scdn.co/mp3-preview/d2d7e717c72a4fa08b3a8b22722c7369e8aa587d?cid=7d8b6533ad544266b94de9e3956a8544',
                 'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24),
                 'spotify_id' => '02a8cGumnKuEPgoCzmalJp'
         ]);
@@ -56,6 +59,7 @@ class SongSeeder extends Seeder
                 'genre_id' => Genre::inRandomOrder()->first()->id,
                 'duration' => rand(2,6),
                 'bpm' => rand(40,160),
+                'preview_url' => 'https://p.scdn.co/mp3-preview/d2d7e717c72a4fa08b3a8b22722c7369e8aa587d?cid=7d8b6533ad544266b94de9e3956a8544',
                 'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24),
                 'spotify_id' => '4joiWvli4qJVEW6qZV2i2J'
         ]);

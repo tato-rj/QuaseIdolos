@@ -12,9 +12,7 @@ class RecommendationsController extends Controller
 {
     public function get(Request $request)
     {
-
         $songs = Song::whereIn('id', $request->ids ?? [])->get();
-        // $songs = auth()->user()->favorites()->take(3)->get();
 
         $seeder = SpotifySeed::addTracks($songs->pluck('spotify_id'));
 
@@ -23,13 +21,13 @@ class RecommendationsController extends Controller
 
             foreach ($results['tracks'] as $result) {
                 if (Song::bySpotifyId($result['id'])->exists()) {
-                    return Song::bySpotifyId($result['id'])->first();
+                    $song = Song::bySpotifyId($result['id'])->first();
+                    
+                    return view('pages.cardapio.components.recommendation.result', compact('song'))->render(); 
                 }
             }
         } catch (\Exception $e) {
             //
         }
-
-        return response(404);
     }
 }

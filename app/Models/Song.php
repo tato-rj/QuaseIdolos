@@ -85,6 +85,14 @@ class Song extends BaseModel
     	return $query->orderBy('name');
     }
 
+    public function scopeTop($query, $count = null)
+    {
+        if (local())
+            return $query->whereNotNull('spotify_id')->take($count);
+        
+        return $query->orderBy('song_requests_count', 'desc')->take($count);
+    }
+
     public function getMusicData()
     {
         $data = (new MusicData)->artist($this->artist->name)->song($this->name)->get();
