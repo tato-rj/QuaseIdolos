@@ -15,7 +15,7 @@ class RecommendationsController extends Controller
 
         $songs = Song::whereIn('id', $request->ids ?? [])->get();
         // $songs = auth()->user()->favorites()->take(3)->get();
-return $songs;
+
         $seeder = SpotifySeed::addTracks($songs->pluck('spotify_id'));
 
         try {
