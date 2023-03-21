@@ -104,18 +104,13 @@ $('#suggestion-modal form').submit(function(e) {
 </script>
 <script type="text/javascript">
 $('#recommendation-modal').on('show.bs.modal', function() {
+ 	$('#recommendation-placeholder').show();
+ 	$('#recommendation-choices').html('');
+
 	axios.get($(this).data('url'))
 		 .then(function(response) {
 		 	$('#recommendation-placeholder').hide();
 		 	$('#recommendation-choices').html(response.data);
-		 });
-});
-
-$('#recommendation-modal').on('hidden.bs.modal', function() {
-	axios.get($(this).data('url'))
-		 .then(function(response) {
-		 	$('#recommendation-placeholder').show();
-		 	$('#recommendation-choices').html('');
 		 });
 });
 
