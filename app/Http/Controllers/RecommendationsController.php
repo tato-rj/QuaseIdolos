@@ -12,7 +12,7 @@ class RecommendationsController extends Controller
 {
     public function choices()
     {
-        $choices = Song::top(20)->inRandomOrder()->take(10)->get();
+        $choices = Song::top(20)->get()->shuffle()->take(10);
 
         return view('pages.cardapio.components.recommendation.choices', compact('choices'))->render();
     }
