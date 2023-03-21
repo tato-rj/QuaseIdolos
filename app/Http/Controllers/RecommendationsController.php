@@ -17,7 +17,7 @@ class RecommendationsController extends Controller
         $seeder = SpotifySeed::addTracks($songs->pluck('spotify_id'));
 
         try {
-            $results = SpotifyApi::recommendations($seeder)->limit(20)->get();
+            $results = SpotifyApi::recommendations($seeder)->limit(50)->get();
 
             return Song::whereIn('spotify_id', collect($results['tracks'])->pluck('id'))->get();
             // $songs = Song::whereIn()
