@@ -104,7 +104,7 @@ $('#suggestion-modal form').submit(function(e) {
 </script>
 <script type="text/javascript">
 $('.choose-song').click(function() {
-	if ($('.choice-song.selected').length != 3) {
+	if ($('.choice-song.selected').length != 5) {
 		$(this).closest('.choice-song').toggleClass('selected border').removeClass('opacity-6');
 	} else {
 		$(this).closest('.choice-song').removeClass('selected border').addClass('opacity-6');
@@ -116,7 +116,7 @@ $('.choose-song').click(function() {
 		$('.choice-song').removeClass('border opacity-6');	
 	}
 
-	if ($('.choice-song.selected').length == 3) {
+	if ($('.choice-song.selected').length == 5) {
 		$('#get-recommendations').show();
 	} else {
 		$('#get-recommendations').hide();
