@@ -114,7 +114,7 @@ $('#recommendation-modal').on('show.bs.modal', function() {
 		 });
 });
 
-$('.choose-song').click(function() {
+$(document).on('click', '.choose-song', function() {
 	if ($('.choice-song.selected').length != 5) {
 		$(this).closest('.choice-song').toggleClass('selected border').removeClass('opacity-6');
 	} else {
@@ -134,7 +134,7 @@ $('.choose-song').click(function() {
 	}
 });
 
-$('#get-recommendations button').click(function() {
+$(document).on('click', '#get-recommendations button', function() {
 	let $button = $(this);
 	let ids = []
 
