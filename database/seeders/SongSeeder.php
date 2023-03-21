@@ -15,22 +15,6 @@ class SongSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Artist::all() as $artist) {
-                for ($i=0; $i < rand(6,40); $i++) { 
-                        Song::firstOrCreate([
-                                'artist_id' => $artist->id,
-                                'name' => (new LoremIpsum)->wordsBetween(2,3),
-                        ], [
-                                'genre_id' => Genre::inRandomOrder()->first()->id,
-                                'duration' => rand(2,6),
-                                'bpm' => rand(40,160),
-                                'preview_url' => 'https://p.scdn.co/mp3-preview/d2d7e717c72a4fa08b3a8b22722c7369e8aa587d?cid=7d8b6533ad544266b94de9e3956a8544',
-                                'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24)
-                        ]);
-                }
-
-        }
-
         Song::create([
                 'name' => 'Rolling in the Deep',
                 'artist_id' => Artist::byName('Adele')->id,
@@ -63,5 +47,21 @@ class SongSeeder extends Seeder
                 'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24),
                 'spotify_id' => '4joiWvli4qJVEW6qZV2i2J'
         ]);
+        
+        foreach (Artist::all() as $artist) {
+                for ($i=0; $i < rand(6,40); $i++) { 
+                        Song::firstOrCreate([
+                                'artist_id' => $artist->id,
+                                'name' => (new LoremIpsum)->wordsBetween(2,3),
+                        ], [
+                                'genre_id' => Genre::inRandomOrder()->first()->id,
+                                'duration' => rand(2,6),
+                                'bpm' => rand(40,160),
+                                'preview_url' => 'https://p.scdn.co/mp3-preview/d2d7e717c72a4fa08b3a8b22722c7369e8aa587d?cid=7d8b6533ad544266b94de9e3956a8544',
+                                'lyrics' => (new LoremIpsum)->paragraphsBetween(4,24)
+                        ]);
+                }
+
+        }
     }
 }
