@@ -15,9 +15,8 @@ class CardapioController extends Controller
         $songs = Song::cardapio($request)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
         $artists = Artist::orderby('name')->visible()->has('songs')->paginate($this->artistsPerPage);
         $genres = Genre::orderby('name')->has('songs')->get();
-        $choices = Song::top(20)->inRandomOrder()->take(10)->get();
-
-        return view('pages.cardapio.index', compact(['artists', 'songs', 'genres', 'choices']));
+        
+        return view('pages.cardapio.index', compact(['artists', 'songs', 'genres']));
     }
 
     public function modal(Song $song)

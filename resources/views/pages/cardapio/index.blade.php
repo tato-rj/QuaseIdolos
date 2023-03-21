@@ -103,6 +103,22 @@ $('#suggestion-modal form').submit(function(e) {
 });
 </script>
 <script type="text/javascript">
+$('#recommendation-modal').on('show.bs.modal', function() {
+	axios.get($(this).data('url'))
+		 .then(function(response) {
+		 	$('#recommendation-placeholder').hide();
+		 	$('#recommendation-choices').html(response.data);
+		 });
+});
+
+$('#recommendation-modal').on('hidden.bs.modal', function() {
+	axios.get($(this).data('url'))
+		 .then(function(response) {
+		 	$('#recommendation-placeholder').show();
+		 	$('#recommendation-choices').html('');
+		 });
+});
+
 $('.choose-song').click(function() {
 	if ($('.choice-song.selected').length != 5) {
 		$(this).closest('.choice-song').toggleClass('selected border').removeClass('opacity-6');

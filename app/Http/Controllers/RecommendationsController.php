@@ -10,6 +10,13 @@ use App\Models\Song;
 
 class RecommendationsController extends Controller
 {
+    public function choices()
+    {
+        $choices = Song::top(20)->inRandomOrder()->take(10)->get();
+
+        return view('pages.cardapio.components.recommendation.choices', compact('choices'))->render();
+    }
+
     public function get(Request $request)
     {
         $songs = Song::whereIn('id', $request->ids ?? [])->get();
