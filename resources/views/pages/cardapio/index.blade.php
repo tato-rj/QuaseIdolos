@@ -111,6 +111,9 @@ $('#recommendation-modal').on('show.bs.modal', function() {
 });
 
 $(document).on('click', '.choose-song', function() {
+	if ($('#get-recommendations').is(':visible') && ! $(this).closest('.choice-song').hasClass('selected'))
+		$(this).animateCSS('shakeX');
+	
 	if ($('.choice-song.selected').length != 5) {
 		$(this).closest('.choice-song').toggleClass('selected border').removeClass('opacity-6');
 	} else {
