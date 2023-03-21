@@ -19,9 +19,9 @@ class RecommendationsController extends Controller
         try {
             $results = SpotifyApi::recommendations($seeder)->limit(50)->get();
 
-            $song = Song::whereIn('spotify_id', collect($results['tracks'])->pluck('id'))->inRandomOrder()->first();
+            $song = local() ? Song::inRandomOrder()->first() : Song::whereIn('spotify_id', collect($results['tracks'])->pluck('id'))->inRandomOrder()->first();
 
-            return view('pages.cardapio.components.recommendations.result', compact(['song']))->render();
+            return view('pages.cardapio.components.recommendation.result', compact(['song']))->render();
         } catch (\Exception $e) {
             //
         }

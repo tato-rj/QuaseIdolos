@@ -123,7 +123,7 @@ $('.choose-song').click(function() {
 	}
 });
 
-$('#get-recommendations').click(function() {
+$('#get-recommendations button').click(function() {
 	let $button = $(this);
 	let ids = []
 
@@ -135,7 +135,10 @@ $('#get-recommendations').click(function() {
 
 	axios.get($(this).data('url'), {params: {ids: ids}})
 		 .then(function(response) {
+
+		 	$('#recommendation-container').closest('.modal-dialog').removeClass('modal-lg');
 		 	$('#recommendation-container').html(response.data);
+		 	$('#results').append($('#recommended-song-modal'));
 
 		 	$button.enable();
 		 })
@@ -143,6 +146,8 @@ $('#get-recommendations').click(function() {
 		 	log(error);
 		 });
 });
+
+
 </script>
 <script type="text/javascript">
 let audio = new Audio;

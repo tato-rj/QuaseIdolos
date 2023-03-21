@@ -15,12 +15,12 @@ class ArtistSeeder extends Seeder
     public function run()
     {
         $artists = [
-            'Adele' => '4dpARuHxo51G3z768sgnrY',
-            'Caetano Veloso' => '7HGNYPmbDrMkylWqeFCOIQ',
-            'The Beatles' => '3WrFJ7ztbogyGnTHbHJFl2',
-            'Babado Novo',
-            'Zeca Pagodinho',
-            'Metallica',
+            '4dpARuHxo51G3z768sgnrY' => 'Adele',
+            '7HGNYPmbDrMkylWqeFCOIQ' => 'Caetano Veloso',
+            '3WrFJ7ztbogyGnTHbHJFl2' => 'The Beatles',
+            '2jGuS7w8SfDzRNbxW1Lo2c' => 'Babado Novo',
+            '3qZ2n5keOAat1SoF6bHwmb' => 'Zeca Pagodinho',
+            '2ye2Wgw4gimLv2eAKyk1NB' => 'Metallica',
             'Beyoncé',
             'É o Tchan',
             'Djavan',
@@ -55,10 +55,10 @@ class ArtistSeeder extends Seeder
             'Bee Gees'
         ];
 
-        foreach ($artists as $artist => $spotifyId) {
+        foreach ($artists as $spotifyId => $artist) {
             Artist::create([
                 'name' => $artist,
-                'spotify_id' => $spotifyId ?? null,
+                'spotify_id' => is_int($spotifyId) ? null : $spotifyId,
                 'slug' => str_slug($artist),
                 'image_path' => 'artists/'.str_slug($artist).'.jpeg'
             ]);
