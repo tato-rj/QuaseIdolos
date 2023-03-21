@@ -38,6 +38,12 @@ Route::withoutMiddleware('join-gig')->group(function() {
         Route::get('busca', 'CardapioController@search')->name('search');
     });
 
+    Route::prefix('recomendacoes')->name('recommendations.')->group(function() {
+        Route::get('', 'RecommendationsController@get')->name('get');
+
+        Route::get('escolhas', 'RecommendationsController@choices')->name('choices');
+    });
+
     Route::prefix('calendario')->name('calendar.')->group(function() {
         Route::get('', 'CalendarController@index')->name('index');
     });
@@ -51,12 +57,6 @@ Route::withoutMiddleware('join-gig')->group(function() {
 /////////////////
 
 Route::middleware('auth')->group(function() {
-    Route::prefix('recomendacoes')->withoutMiddleware('join-gig')->name('recommendations.')->group(function() {
-        Route::get('', 'RecommendationsController@get')->name('get');
-
-        Route::get('escolhas', 'RecommendationsController@choices')->name('choices');
-    });
-
     Route::prefix('meu-perfil')->withoutMiddleware('join-gig')->name('profile.')->group(function() {
         Route::get('', 'UsersController@profile')->name('show');
 

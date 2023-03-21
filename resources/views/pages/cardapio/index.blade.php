@@ -20,13 +20,9 @@
 				'placeholder' => __('views/cardapio.search.placeholder'),
 				'target' => 'results'])
 
-			@auth
-			@if(auth()->user()->isArthur())
 			<div class="mb-4">
 				@include('pages.cardapio.components.recommendation.modal')
 			</div>
-			@endif
-			@endauth
 		</div>
 		@auth
 		<div class="text-center mb-4">
