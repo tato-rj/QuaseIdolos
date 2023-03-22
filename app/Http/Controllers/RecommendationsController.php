@@ -28,6 +28,7 @@ class RecommendationsController extends Controller
 
             $song = local() ? Song::inRandomOrder()->first() : Song::whereIn('spotify_id', collect($results['tracks'])->pluck('id'))->inRandomOrder()->first();
 
+            $song = $song ?? Song::first();
             return view('pages.cardapio.components.recommendation.result', compact(['song']))->render();
         } catch (\Exception $e) {
             //
