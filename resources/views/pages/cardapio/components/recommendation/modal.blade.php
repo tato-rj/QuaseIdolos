@@ -17,7 +17,7 @@
 	</div>
 
 	<div id="get-recommendations" class="position-fixed bottom-0 left-0 w-100 pb-4 animate__animated animate__bounceInUp" style="display: none">
-		<button class="btn btn-secondary" data-url="{{route('recommendations.get')}}">Escolhe uma música pra mim</button>
+		<button class="btn btn-secondary shadow-lg" data-url="{{route('recommendations.get')}}">Escolhe uma música pra mim</button>
 	</div>
 </div>
 @endmodal

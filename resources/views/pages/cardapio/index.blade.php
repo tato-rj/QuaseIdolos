@@ -5,6 +5,10 @@
 .choice-song.selected {
 /*	transform: scale(1.1);*/
 }
+
+.choice-song.selected .choice-check {
+	display: block !important;
+}
 </style>
 @endpush
 
@@ -99,6 +103,7 @@ $('#suggestion-modal form').submit(function(e) {
 });
 </script>
 <script type="text/javascript">
+
 $('#recommendation-modal').on('show.bs.modal', function() {
  	$('#recommendation-placeholder').show();
  	$('#recommendation-choices').html('');
@@ -111,25 +116,22 @@ $('#recommendation-modal').on('show.bs.modal', function() {
 });
 
 $(document).on('click', '.choose-song', function() {
-	if ($('#get-recommendations').is(':visible') && ! $(this).closest('.choice-song').hasClass('selected'))
+	let $selection = $(this).closest('.choice-song');
+
+	if ($('#get-recommendations').is(':visible') && ! $selection.hasClass('selected'))
 		$(this).animateCSS('shakeX');
 	
-	if ($('.choice-song.selected').length != 5) {
-		$(this).closest('.choice-song').toggleClass('selected border').removeClass('opacity-6');
-	} else {
-		$(this).closest('.choice-song').removeClass('selected border').addClass('opacity-6');
-	}
-
-	if ($('.choice-song.selected').length > 0) {
-		$('.choice-song').not('.selected').removeClass('border').addClass('opacity-6');
-	} else {
-		$('.choice-song').removeClass('border opacity-6');	
+	if ($('.choice-song.selected').length < 5 || $selection.hasClass('selected')) {
+		$selection.toggleClass('selected border');
 	}
 
 	if ($('.choice-song.selected').length == 5) {
-		$('#get-recommendations').show();
+		$('#get-recommendations').bind('beforeShow', function() {
+			$('.choice-song').not('.selected').addClass('opacity-6');
+		}).show();
 	} else {
 		$('#get-recommendations').hide();
+		$('.choice-song').not('.selected').removeClass('opacity-6');
 	}
 });
 
@@ -137,11 +139,13 @@ $(document).on('click', '#get-recommendations button', function() {
 	let $button = $(this);
 	let ids = []
 
-	$button.disable();
+	$button.addLoader();
 
-	 $('.choice-song.selected').each(function() {
-	 	ids.push($(this).data('id'));
-	 })
+	stop(true);
+
+	$('.choice-song.selected').each(function() {
+		ids.push($(this).data('id'));
+	})
 
 	axios.get($(this).data('url'), {params: {ids: ids}})
 		 .then(function(response) {
@@ -149,8 +153,6 @@ $(document).on('click', '#get-recommendations button', function() {
 		 	$('#recommendation-container').closest('.modal-dialog').removeClass('modal-lg');
 		 	$('#recommendation-container').html(response.data);
 		 	$('#results').append($('#recommended-song-modal'));
-
-		 	$button.enable();
 		 })
 		 .catch(function(error) {
 		 	log(error);
@@ -178,14 +180,21 @@ $(document).on('click', 'button.preview-song', function() {
 	}
 });
 
-function stop() {
+function stop(all = false) {
   audio.pause;
   audio.src = null;
+
+  if (all)
+	  $('.preview-song i').removeClass('fa-pause').addClass('fa-play');
 }
 
 function play(src) {
   audio.src = src;
   audio.play();
 }
+
+$('.modal').on('hide.bs.modal show.bs.modal', function() {
+	stop(true);
+});
 </script>
 @endpush
