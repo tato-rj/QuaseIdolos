@@ -159,7 +159,6 @@ $(document).on('click', '#get-recommendations button', function() {
 		 });
 });
 
-
 </script>
 <script type="text/javascript">
 let audio = new Audio;

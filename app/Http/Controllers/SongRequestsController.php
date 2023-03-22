@@ -16,6 +16,9 @@ class SongRequestsController extends Controller
         if ($request->has('participants'))
             $songRequest->inviteMany($request->participants);
 
+        if ($request->has('recommended'))
+            $songRequest->update(['was_recommended' => true]);
+
         try {
             SongRequested::dispatch($songRequest);
         } catch (\Exception $e) {

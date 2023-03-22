@@ -6,9 +6,9 @@
 		<button class="btn btn-outline-secondary btn-sm preview-song" data-src="{{$song->preview_url}}" style="white-space: nowrap;">@fa(['icon' => 'play'])Ouvir</button>
 	</div>
 
-	<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary">@fa(['icon' => 'guitar'])Quero essa!</button>
+	<button id="recommendation-choose" data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary">@fa(['icon' => 'guitar'])Quero essa!</button>
 
 	<div id="recommended-song-modal">
-		@include('pages.cardapio.components.song.modal')
+		@include('pages.cardapio.components.song.modal', ['recommended' => 'yes'])
 	</div>
 </div>

@@ -3,6 +3,9 @@
 		<div class="col-lg-8 col-12">
 			<h4 class="no-stroke text-primary font-cursive">@fa(['icon' => 'bars', 'classes' => 'my-handle'])
 				{{arrayToSentence($entry->singersNames()->toArray())}}
+				@if($entry->was_recommended)
+				@fa(['icon' => 'magic', 'mr' => 0, 'fa_color' => 'blue', 'classes' => 'ml-1', 'fa_size' => 'sm'])
+				@endif
 			</h4>
 
 			<div class="mb-2">

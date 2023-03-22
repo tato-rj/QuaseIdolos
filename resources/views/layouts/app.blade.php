@@ -237,7 +237,13 @@ $(document).on('show.bs.modal', '.cardapio-song-modal', function() {
 
     axios.get($modal.data('url'))
          .then(function(response) {
-            $modal.find('.cardapio-modal-container').html(response.data);
+            let $container = $modal.find('.cardapio-modal-container');
+
+            $container.html(response.data);
+
+            if ($container.data('recommended') == 'yes')
+                $container.find('form[data-action="sing"]').prepend('<input type="hidden" name="recommended" value="1" />');
+
          });
 });
 

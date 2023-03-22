@@ -21,6 +21,7 @@ class CreateSongRequestsTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('order')->nullable();
             $table->timestamp('finished_at')->nullable();
+            $table->boolean('was_recommended')->default(false);
             $table->timestamps();
         });
     }

@@ -8,5 +8,5 @@
 @include('pages.cardapio.components.song.header')
 @endslot
 
-<div class="cardapio-modal-container"></div>
+<div class="cardapio-modal-container" data-recommended="{{$recommended ?? 'no'}}"></div>
 @endmodal

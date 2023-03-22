@@ -5,6 +5,7 @@ namespace App\Models;
 class SongRequest extends BaseModel
 {
     protected $dates = ['finished_at'];
+    protected $casts = ['was_recommended' => 'boolean'];
 
     protected static function booted()
     {
