@@ -8,7 +8,7 @@ return [
 	'contact' => 'Reservas',
 	'profile' => 'Meu Perfil',
 	'my-songs' => 'Minha Setlist',
-	'my-favorites' => 'Músicas Favoritas',
+	'my-favorites' => 'Favoritos',
 	'my-ratings' => 'Minhas Notas',
 	'ratings' => 'Votação',
 	'participants' => 'Participantes',

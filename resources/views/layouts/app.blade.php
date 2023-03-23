@@ -392,7 +392,7 @@ function listenToAdminEvents()
 {
     try {
     window.Echo
-          .channel('setlist')
+          .channel('setlist.'+app.gig.id)
           .listen('SongRequested', function(event) {
             getEventTable().then(function() {
                 // (new Metronome).highlightSetlist();

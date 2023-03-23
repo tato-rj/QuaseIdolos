@@ -8,7 +8,7 @@ return [
 	'contact' => 'Contact',
 	'profile' => 'My Profile',
 	'my-songs' => 'My Setlist',
-	'my-favorites' => 'My Favorites',
+	'my-favorites' => 'Favorites',
 	'my-ratings' => 'My Ratings',
 	'ratings' => 'Vote Now',
 	'participants' => 'Participants',

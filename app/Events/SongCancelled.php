@@ -15,7 +15,7 @@ class SongCancelled implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $song, $user;
+    public $song, $user, $gig;
     /**
      * Create a new event instance.
      *
@@ -23,6 +23,7 @@ class SongCancelled implements ShouldBroadcast
      */
     public function __construct(SongRequest $songRequest)
     {
+        $this->gig = $songRequest->gig;
         $this->song = $songRequest->song;
         $this->user = auth()->user();
 
@@ -36,6 +37,6 @@ class SongCancelled implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('setlist');
+        return new Channel('setlist.'.$this->gig->id);
     }
 }
