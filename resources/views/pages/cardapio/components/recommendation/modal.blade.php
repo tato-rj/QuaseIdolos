@@ -1,8 +1,8 @@
-<button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#recommendation-modal">@fa(['icon' => 'magic'])Quero uma recomencação</button>
+<button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#recommendation-modal">@fa(['icon' => 'magic'])Que tal um desafio?</button>
 
 @modal([
 	'size' => 'lg', 
-	'title' => 'Recomendação',
+	'title' => 'Desafio',
 	'id' => 'recommendation-modal',
 	'data' => ['url' => route('recommendations.choices')]
 ])

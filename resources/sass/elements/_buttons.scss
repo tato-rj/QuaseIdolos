@@ -16,11 +16,12 @@ button, .btn {outline: none!important};
 }
 
 .btn-raw {
-    @extend .no-stroke, .fw-bold, .text-white;
+    @extend .fw-bold, .text-white;
     background: 0 0;
     border: none;
     padding: 0;
     font-family: 'Nunito', sans-serif;
+    -webkit-text-stroke: 0;
 }
 
 .btn-wide, .btn-lg {
