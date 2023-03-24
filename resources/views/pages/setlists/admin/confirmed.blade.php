@@ -2,7 +2,12 @@
 	<div class="row">
 		<div class="col-12 d-flex justify-content-between">
 			<div class="text-truncate">
-				<h4 class="nke mb-0 font-cursive text-truncate">{{arrayToSentence($entry->singersNames()->toArray())}}</h4>
+				<h4 class="nke mb-0 font-cursive text-truncate">
+					{{arrayToSentence($entry->singersNames()->toArray())}}
+					@if($entry->was_recommended)
+					@fa(['icon' => 'magic', 'mr' => 0, 'fa_color' => 'blue', 'classes' => 'ml-1 no-stroke', 'fa_size' => 'xs'])
+					@endif
+				</h4>
 				<div class="d-flex align-items-center">
 					{{-- <img src="{{$entry->song->artist->coverImage()}}" class="rounded-circle mr-3" style="width: 56px"> --}}
 					<div class="text-truncate">
