@@ -14,13 +14,19 @@ class CardapioController extends Controller
     {
         $songs = Song::cardapio($request)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
         $artists = Artist::orderby('name')->visible()->has('songs')->paginate($this->artistsPerPage);
-        $genres = Genre::orderby('name')->has('songs')->get();
-        
+        $genres = cache()->remember('genres', now()->addDay(), function() {
+            return Genre::orderby('name')->has('songs')->get();
+        });
+
         return view('pages.cardapio.index', compact(['artists', 'songs', 'genres']));
     }
 
-    public function modal(Song $song)
+    public function modal($songId)
     {
+        $song = cache()->remember('song.'.$songId, now()->addDay(), function() use ($songId) {
+            return Song::find($songId);
+        });
+
         $gigCount = Gig::ready()->count();
 
         if (auth()->check()) {

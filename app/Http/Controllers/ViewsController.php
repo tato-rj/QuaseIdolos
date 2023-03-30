@@ -43,3 +43,5 @@ class ViewsController extends Controller
         return view('pages.legal.privacy');
     }
 }
+
+

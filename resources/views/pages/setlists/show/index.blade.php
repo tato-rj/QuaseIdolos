@@ -19,14 +19,12 @@
 
 		@if($gig)
 			<div class="mx-auto" style="width: 300px"> 
-				@include('pages.setlists.admin.formats')
+				@include('pages.setlists.show.formats')
 
 				@include('pages.setlists.admin.options')
-			</div>
-
-			@include('pages.gigs.features.all', ['classes' => 'justify-content-center align-items-center mb-2'])			
+			</div>		
 		@else
-		<h5>Não tem nenhum evento acontecendo agora</h5>
+		<h5>Não tem nenhum show acontecendo agora</h5>
 		@endif
 	</div>
 </section>
@@ -38,7 +36,7 @@
 @endif
 
 <section class="container" id="setlist-container" data-url="{{route('setlists.table', ['formato' => request()->formato])}}">
-	@include('pages.setlists.admin.table')
+	{{-- @include('pages.setlists.admin.table') --}}
 </section>
 
 @if(request()->formato == 'metronomo')
@@ -206,23 +204,8 @@ $(document).on('click', 'button.show-lyrics', function() {
 		 	$btn.animateCSS('shakeX');
 		 });
 });
-
 </script>
-<script type="text/javascript">
-$('.pause-switch').click(function() {
-	let $button = $(this);
-	let $icon = $button.find('i');
 
-	axios.post($button.data('url'))
-		 .then(function(response) {
-		 	(new Popup(response.data)).show();
-		 	$icon.toggleClass('fa-play fa-pause');
-		 })
-		 .catch(function(error) {
-		 	alert(error.response.data.message);
-		 });
-});
-</script>
 <script type="text/javascript">
 $(document).on('hidden.bs.modal', '.modal', function (e) {
   enableDraggable();
@@ -230,18 +213,6 @@ $(document).on('hidden.bs.modal', '.modal', function (e) {
 
 $(document).on('show.bs.modal', '.modal', function (e) {
   disableDraggable();
-});
-</script>
-
-<script type="text/javascript">
-$('#show-winner').click(function() {
-	$(this).toggle();
-	$(this).siblings('div').toggle();
-});
-
-$('#show-winner-cancel').click(function() {
-	$(this).grandparent().toggle();
-	$(this).grandparent().siblings('button').toggle();
 });
 </script>
 @endpush

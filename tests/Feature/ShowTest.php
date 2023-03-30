@@ -107,7 +107,19 @@ class ShowTest extends AppTest
 
         $this->get(route('setlists.admin'));
 
+        $this->assertNotNull(auth()->user()->liveGig);
+
         $this->assertTrue(auth()->user()->liveGig->is($this->show));
+    }
+
+    /** @test */
+    public function admins_not_in_the_musicians_list_for_a_show_dont_join_the_event()
+    {
+        $this->signIn($this->admin);
+
+        $this->get(route('setlists.admin'));
+
+        $this->assertNull(auth()->user()->liveGig);
     }
 
     /** @test */

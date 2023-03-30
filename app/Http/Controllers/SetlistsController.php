@@ -18,6 +18,9 @@ class SetlistsController extends Controller
         $setlist = $gig ? $gig->setlist()->orderBy('order')->get() : collect();
         $musicians = Admin::musicians()->get();
 
+        if ($gig && $gig->isShow())
+            return view('pages.setlists.show.index', compact(['setlist', 'gig']));
+
         return view('pages.setlists.admin.index', compact(['setlist', 'gig', 'musicians']));
     }
 
