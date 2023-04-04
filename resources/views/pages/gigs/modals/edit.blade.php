@@ -40,9 +40,10 @@
 	@input(['label' => 'Nome', 'placeholder' => $gig->venue->name, 'name' => 'name', 'value' => $gig->name])
 	@textarea(['label' => 'Descrição', 'placeholder' => $gig->venue->description ?? 'Sem descrição', 'name' => 'description', 'value' => $gig->description, 'rows' => 3])
 
-	@input(['label' => 'Limite de repetições por música', 'placeholder' => 'Sem limite', 'name' => 'repeat_limit', 'type' => 'number', 'min' => 0, 'value' => $gig->repeat_limit])
-	@input(['label' => 'Limite total de músicas', 'placeholder' => 'Sem limite', 'name' => 'songs_limit', 'type' => 'number', 'min' => 0, 'value' => $gig->songs_limit])
-	@input(['label' => 'Limite de músicas por pessoa', 'placeholder' => 'Sem limite', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0, 'value' => $gig->songs_limit_per_user])
+	@input(['label' => 'Limite de repetições por música', 'placeholder' => 'Sem limite', 'name' => 'repeat_limit', 'type' => 'number', 'min' => 1, 'value' => $gig->repeat_limit])
+	@input(['label' => 'Limite total de músicas', 'placeholder' => 'Sem limite', 'name' => 'songs_limit', 'type' => 'number', 'min' => 1, 'value' => $gig->songs_limit])
+	@input(['label' => 'Limite de músicas por pessoa', 'placeholder' => 'Sem limite', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 1, 'value' => $gig->songs_limit_per_user])
+	@input(['label' => 'Limite de músicas por set', 'placeholder' => 'Sem limite', 'name' => 'set_limit', 'type' => 'number', 'min' => 1, 'value' => $gig->set_limit])
 
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => $gig->isPrivate()])

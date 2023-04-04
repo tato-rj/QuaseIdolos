@@ -34,6 +34,11 @@ trait GigStates
 		return is_null($this->songs_limit) ? false : $this->setlist()->byGuests()->count() >= $this->songs_limit;
 	}
 
+	public function setIsFull()
+	{
+		return is_null($this->set_limit) ? false : $this->setlist()->byGuests()->waiting()->count() >= $this->set_limit;
+	}
+
 	public function isOver()
 	{
 		return (bool) $this->ends_at;

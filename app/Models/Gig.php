@@ -60,7 +60,6 @@ class Gig extends EventModel
     	return false;
     }
 
-
     public function openRoute()
     {
     	return route('gig.open', $this);

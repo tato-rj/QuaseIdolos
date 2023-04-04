@@ -22,9 +22,10 @@
 
 	@input(['placeholder' => 'Nome (opcional)', 'name' => 'name', 'value' => old('name')])
 	@textarea(['placeholder' => 'Descrição (opcional)', 'name' => 'description', 'value' => old('description'), 'rows' => 3])
-	@input(['placeholder' => 'Limite de repetições por música', 'name' => 'repeat_limit', 'type' => 'number', 'min' => 0])
-	@input(['placeholder' => 'Limite total de músicas', 'name' => 'songs_limit', 'type' => 'number', 'min' => 0])
-	@input(['placeholder' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0])
+	@input(['placeholder' => 'Limite de repetições por música', 'name' => 'repeat_limit', 'type' => 'number', 'min' => 1])
+	@input(['placeholder' => 'Limite total de músicas', 'name' => 'songs_limit', 'type' => 'number', 'min' => 1])
+	@input(['placeholder' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 1])
+	@input(['placeholder' => 'Limite de músicas por set', 'name' => 'set_limit', 'type' => 'number', 'min' => 1])
 
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse karaokê é fechado?', 'name' => 'is_private', 'on' => old('is_private') ?? false])

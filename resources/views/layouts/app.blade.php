@@ -80,7 +80,7 @@ a {
 }
 
 .setlist-counter-fill {
-    background: #f2cd3d !important;
+    background: #f2cd3d;
     min-width: 37px;
     position: absolute;
     top: 0;

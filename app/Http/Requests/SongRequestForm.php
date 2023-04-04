@@ -24,6 +24,7 @@ class SongRequestForm extends FormRequest
                $this->gigIsKareoke() &&
                $this->gigIsNotPaused() && 
                $this->gigIsNotFull() && 
+               $this->setIsNotFull() && 
                $this->votingHasNotFinished() && 
                $this->userCanMakeRequests() &&
                $this->songNotYetRequestedByUser() &&
@@ -51,6 +52,12 @@ class SongRequestForm extends FormRequest
     public function gigIsNotFull()
     {
         return ! $this->liveGig->isFull() ? true 
+             : $this->failWithMessage('O limite de músicas desse evento foi alcançado');
+    }
+
+    public function setIsNotFull()
+    {
+        return ! $this->liveGig->setIsFull() ? true 
              : $this->failWithMessage('O limite de músicas desse set foi alcançado');
     }
 

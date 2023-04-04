@@ -89,6 +89,7 @@ class GigsController extends Controller
     {
         $request->validate([
             'venue_id' => 'required|exists:venues,id',
+            'set_limit' => 'integer',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
             'scheduled_for' => 'required',
@@ -103,6 +104,7 @@ class GigsController extends Controller
             'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
+            'set_limit' => $request->set_limit,
             'duration' => $request->duration,
             'is_private' => $request->is_private ? 1 : 0,
             'has_ratings' => $request->has_ratings ? 1 : 0,
@@ -148,6 +150,7 @@ class GigsController extends Controller
     {
         $request->validate([
             'venue_id' => 'required|exists:venues,id',
+            'set_limit' => 'integer',
             'song_limit' => 'integer',
             'song_limit_per_user' => 'integer',
             'password' => 'sometimes|nullable|digits:4|numeric'
@@ -160,6 +163,7 @@ class GigsController extends Controller
             'venue_id' => $request->venue_id,
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
+            'set_limit' => $request->set_limit,
             'duration' => $request->duration,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'is_private' => $request->is_private ? 1 : 0,

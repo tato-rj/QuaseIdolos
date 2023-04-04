@@ -1,5 +1,8 @@
 @isset($gig)
+<div class="mb-4"> 
 @include('pages.setlists.admin.counter', ['setlist' => $setlist->where('user_id', '!=', auth()->user()->id)])
+@include('pages.setlists.admin.setcounter', ['setlist' => $setlist->where('user_id', '!=', auth()->user()->id)])
+</div>
 @endisset
 
 @if(request()->formato == 'minimizado')
