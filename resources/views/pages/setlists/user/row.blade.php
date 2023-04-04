@@ -9,14 +9,12 @@
   @endslot
 
   @slot('actions')
-	@if($list->finished_at)
-		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">@fa(['icon' => 'guitar', 'mr' => 0])</button>
-	@else
+	<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-secondary text-truncate">@fa(['icon' => 'microphone', 'mr' => 0])</button>
+	
+	@unless($list->finished_at)
+		<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$list->id}}-modal" class="btn btn-red btn-sm ml-2">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
+	@endunless
 
-		<button data-bs-toggle="modal" data-bs-target="#song-{{$song->id}}-modal" class="btn btn-sm btn-secondary text-truncate mr-2">@fa(['icon' => 'guitar', 'mr' => 0])</button>
-		<button data-bs-toggle="modal" data-bs-target="#song-requests-cancel-{{$list->id}}-modal" class="btn btn-red btn-sm">@fa(['icon' => 'trash-alt', 'mr' => 0])</button>
-
-	@endif
 	@include('pages.cardapio.components.song.modal')
 	@include('pages.song-requests.modals.cancel', ['entry' => $list])
   @endslot
