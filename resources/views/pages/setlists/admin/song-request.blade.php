@@ -26,6 +26,10 @@
 
 					<button data-url="{{route('lyrics.get', $entry)}}" title="Abrir letra" class="show-lyrics btn btn-secondary rounded-circle d-center mr-2" style="width: 38px; height: 38px;">@fa(['icon' => 'font', 'mr' => 0])</button>
 
+					@if($entry->song->drumScore())
+					<a href="{{$entry->song->drumScore()}}" target="_blank" class="btn btn-secondary rounded-circle d-center mr-2" style="width: 38px; height: 38px;">@fa(['icon' => 'drum', 'mr' => 0])</a>
+					@endif
+
 					<button title="Trocar música" data-bs-toggle="modal" data-bs-target="#song-requests-change-{{$entry->id}}-modal" class="btn btn-secondary rounded-circle d-center" style="width: 38px; height: 38px;">@fa(['icon' => 'exchange-alt', 'mr' => 0])</button>
 				</div>
 				@if($loop->first)

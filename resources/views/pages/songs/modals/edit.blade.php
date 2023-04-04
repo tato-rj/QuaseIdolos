@@ -19,7 +19,7 @@
 	@input(['label' => 'Duração', 'name' => 'duration', 'value' => $song->duration, 'type' => 'number', 'required' => true, 'min' => 1])
 	@textarea(['label' => 'Letra', 'name' => 'lyrics', 'value' => $song->lyrics, 'required' => true, 'rows' => 5])
 	@input(['placeholder' => 'BPM', 'label' => 'BPM', 'type' => 'number', 'min' => 0, 'max' => 300, 'name' => 'bpm', 'value' => $song->bpm])
-	@input(['placeholder' => 'Site com cifra', 'label' => 'Site com cifra', 'name' => 'chords_url', 'value' => $song->chords_url])
+	@input(['placeholder' => 'Site com acordes', 'label' => 'Site com acordes', 'name' => 'chords_url', 'value' => $song->chords_url])
 	@input(['placeholder' => 'Audio preview', 'label' => 'Audio preview', 'name' => 'preview_url', 'value' => $song->preview_url])
 
 	<div class="form-group text-left">

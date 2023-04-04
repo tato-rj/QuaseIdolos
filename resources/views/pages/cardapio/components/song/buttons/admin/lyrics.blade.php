@@ -1,1 +1,1 @@
-<a href="{{route('lyrics.index', ['id' => $song->id])}}" target="_blank" class="btn btn-outline-secondary text-truncate d-block w-100 mx-2" title="Ver letra">@fa(['icon' => 'file', 'mr' => 0])</a>
+<a href="{{route('lyrics.index', ['id' => $song->id])}}" target="_blank" class="btn btn-outline-secondary text-truncate d-block w-100 mr-2" title="Ver letra">@fa(['icon' => 'file', 'mr' => 0])</a>
