@@ -97,6 +97,14 @@ class SongsController extends Controller
         return back()->with('success', 'A música foi atualizada com sucesso');
     }
 
+    public function destroyScore(Request $request, Song $song)
+    {
+        \Storage::disk('public')->delete($song->drum_score_path);
+        $song->update(['drum_score_path' => null]);
+
+        return back()->with('success', 'A partitura foi removida com sucesso');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

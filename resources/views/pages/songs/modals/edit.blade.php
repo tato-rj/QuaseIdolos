@@ -35,4 +35,15 @@
 
 	@submit(['label' => 'Confirmar mudanças', 'theme' => 'secondary'])
 </form>
+
+@if($song->drumScore())
+
+<div class="text-center pt-3">
+	@include('layouts.menu.components.divider')
+
+	@form(['method' => 'DELETE', 'url' => route('songs.destroy-score', $song)])
+	<button class="btn-raw text-secondary">Remover partitura</a>
+	@endform
+</div>
+@endif
 @endmodal

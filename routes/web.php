@@ -192,6 +192,8 @@ Route::middleware('admin')->group(function() {
 
         Route::post('salvar', 'SongsController@store')->name('store');
 
+        Route::delete('{song}/score', 'SongsController@destroyScore')->name('destroy-score');
+
         Route::delete('{song}', 'SongsController@destroy')->name('destroy');
     });
 
