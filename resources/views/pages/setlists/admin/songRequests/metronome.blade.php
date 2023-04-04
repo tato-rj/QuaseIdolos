@@ -9,7 +9,10 @@
 				<h6 class="m-0 text-truncate">{{$entry->song->name}} <span class="opacity-4">{{$entry->song->artist->name}}</span></h6>
 			</div>
 		</div>
-		<div>
+		<div class="d-flex">
+			@if($entry->song->drumScore())
+			<a href="{{$entry->song->drumScore()}}" target="_blank" class="btn btn-outline-secondary mr-2">@fa(['icon' => 'external-link-alt', 'mr' => 0])</a>
+			@endif
 			<button data-target="#song-{{$entry->id}}" data-url="{{route('metronome.show', $entry->song)}}" data-tempo="{{$entry->song->bpm}}" class="start-metronome btn btn-secondary">@fa(['icon' => 'play', 'mr' => 0])</button>
 		</div>
 	</div>

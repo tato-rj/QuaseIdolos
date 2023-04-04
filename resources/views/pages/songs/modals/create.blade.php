@@ -1,12 +1,13 @@
 @modal(['title' => 'Nova música','id' => 'create-song-modal'])
-<form method="POST" action="{{route('songs.store')}}" class="text-center">
+<form method="POST" action="{{route('songs.store')}}" class="text-center" enctype="multipart/form-data">
 	@csrf
 
 	@isset($artist)
 	<input type="hidden" name="artist_id" value="{{$artist->id}}">
 	@else
 	@select([
-		'placeholder' => 'Artista',
+		'label' => 'Artista',
+		'placeholder' => 'Escolha um',
 		'name' => 'artist_id',
 		'required' => true])
 
@@ -17,7 +18,8 @@
 	@endisset
 
 	@select([
-		'placeholder' => 'Estilo',
+		'label' => 'Estilo',
+		'placeholder' => 'Escolha um',
 		'name' => 'genre_id',
 		'required' => true])
 
@@ -26,9 +28,14 @@
 		@endforeach
 	@endselect
 
-	@input(['placeholder' => 'Nome', 'name' => 'name', 'required' => true])
+	@input(['label' => 'Nome', 'placeholder' => 'Nome da música', 'name' => 'name', 'required' => true])
 
-	@textarea(['placeholder' => 'Letra', 'name' => 'lyrics', 'value' => old('lyrics'), 'required' => true])
+	@textarea(['label' => 'Letra', 'placeholder' => 'Letra da música', 'name' => 'lyrics', 'value' => old('lyrics'), 'required' => true])
+
+	<div class="form-group text-left">
+		@label(['label' => 'Partitura pra bateria'])
+		<input class="form-control" name="drum_score" placeholder="Partitura pra bateria" type="file">
+	</div>
 
 	@submit(['label' => 'Adicionar música', 'theme' => 'secondary'])
 </form>

@@ -9,7 +9,7 @@
 		rows="{{$rows ?? 4}}" 
 		placeholder="{{$placeholder ?? null}}"
 		@isset($id)id="{{$id}}"@endisset 
-		{{iftrue($readonly ?? null, 'readonly')}} 
+		{{iftrue($required ?? null, 'required')}}
 		{{iftrue($readonly ?? null, 'readonly')}}>{{$value}}</textarea>
 	
 	@isset($info)

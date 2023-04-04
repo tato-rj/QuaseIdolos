@@ -49,6 +49,11 @@ class Song extends BaseModel
 		return 'https://www.cifraclub.com.br/' . $this->artist->slug . '/' . str_slug($this->name);
 	}
 
+    public function drumScore()
+    {
+        return $this->drum_score_path ? asset('storage/' . $this->drum_score_path) : null;
+    }
+
     public function getCompletedCountAttribute()
     {
         return $this->songRequests()->whereNotNull('finished_at')->count();

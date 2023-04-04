@@ -32,7 +32,8 @@ class SongsController extends Controller
             'name' => 'required|string',
             'lyrics' => 'required',
             'genre_id' => 'required',
-            'artist_id' => 'required'
+            'artist_id' => 'required',
+            'drum_score' => 'nullable|max:200|mimes:jpg,jpeg'
         ]);
 
         $song = Song::create([
@@ -40,7 +41,8 @@ class SongsController extends Controller
             'genre_id' => $request->genre_id,
             'name' => $request->name,
             'lyrics' => $request->lyrics,
-            'chords_url' => $request->chords_url
+            'chords_url' => $request->chords_url,
+            'drum_score_path' => $request->hasFile('drum_score') ? $request->file('drum_score')->store('songs/drum_scores', 'public') : null
         ]);
 
         try {
@@ -72,7 +74,8 @@ class SongsController extends Controller
         $request->validate([
             'name' => 'required|string',
             'genre_id' => 'required',
-            'lyrics' => 'required'
+            'lyrics' => 'required',
+            'drum_score' => 'sometimes|max:200|mimes:jpg,jpeg'
         ]);
 
         $song->update([
@@ -85,6 +88,12 @@ class SongsController extends Controller
             'preview_url' => $request->preview_url
         ]);
 
+        if ($request->drum_score) {
+            $oldImage = $song->drum_score_path;
+            $song->update(['drum_score_path' => $request->file('drum_score')->store('songs/drum_scores', 'public')]);
+            \Storage::disk('public')->delete($oldImage);
+        }
+
         return back()->with('success', 'A música foi atualizada com sucesso');
     }
 
@@ -96,6 +105,7 @@ class SongsController extends Controller
      */
     public function destroy(Song $song)
     {
+        \Storage::disk('public')->delete($song->drum_score_path);
         $song->songRequests->each->delete();
         $song->delete();
 

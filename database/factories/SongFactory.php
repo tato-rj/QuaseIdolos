@@ -22,7 +22,8 @@ class SongFactory extends Factory
                 return Genre::factory()->create()->id;
             },
             'name' => ucfirst($this->faker->word),
-            'bpm' => $this->faker->numberBetween(40, 160)
+            'bpm' => $this->faker->numberBetween(40, 160),
+            'lyrics' => $this->faker->sentence
         ];
     }
 }
