@@ -58,7 +58,7 @@ class SongRequestForm extends FormRequest
     public function setIsNotFull()
     {
         return ! $this->liveGig->setIsFull() ? true 
-             : $this->failWithMessage('O limite de músicas desse set foi alcançado');
+             : $this->failWithMessage('Este set está completo, por favor espere o próximo abrir pra enviar o seu pedido');
     }
 
     public function votingHasNotFinished()
