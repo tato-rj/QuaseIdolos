@@ -12,6 +12,7 @@ class Gig extends EventModel
 	use Rateable, Archiveable, GigStates, Chateable, Sortable;
 
 	protected $casts = [
+        'set_is_full' => 'boolean',
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
 		'is_private' => 'boolean',
@@ -143,6 +144,22 @@ class Gig extends EventModel
 
 		return $this->setlist()->where('user_id', auth()->user()->id)->count() >= $this->songs_limit_per_user;
 	}
+
+    public function checkSetLimit()
+    {
+        if (! $this->set_limit)
+            return null;
+
+        $songsWaiting = $this->setlist()->byGuests()->waiting()->count();
+
+        $isFull = $songsWaiting >= $this->set_limit;
+
+        if ($isFull) {
+            $this->update(['set_is_full' => true]);
+        } else if ($songsWaiting == 0) {
+            $this->update(['set_is_full' => false]);
+        }
+    }
 
 	public function repeatLimitReachedFor(Song $song)
 	{

@@ -237,10 +237,34 @@ class SetlistTest extends AppTest
     }
 
     /** @test */
+    public function once_full_users_have_to_wait_for_the_set_to_finish_to_send_new_requests()
+    {
+        $this->expectException('\App\Exceptions\SetlistException');
+        $this->signIn();
+
+        $this->gig->update(['set_limit' => 2]);
+
+        auth()->user()->join($this->gig);
+
+        $this->assertFalse($this->gig->setIsFull());
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->assertTrue($this->gig->fresh()->setIsFull());
+
+        $this->gig->setlist()->waiting()->first()->finish();
+
+        $this->assertTrue($this->gig->fresh()->setIsFull());
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+    }
+
+    /** @test */
     public function users_have_to_wait_for_the_last_request_of_a_set_to_be_confirmed_before_they_can_submit_a_new_one()
     {
         $this->expectNotToPerformAssertions();
-        $this->signIn();
+        $user = $this->signIn();
 
         $this->gig->update(['set_limit' => 2]);
 
@@ -249,16 +273,24 @@ class SetlistTest extends AppTest
         $this->post(route('song-requests.store', Song::factory()->create()));
         $this->post(route('song-requests.store', Song::factory()->create()));
 
+        $this->signIn($this->admin);
+
         foreach($this->gig->setlist()->waiting()->get() as $request) {
-            $request->finish();
+            $this->post(route('song-requests.finish', $request));
         }
+
+        $this->signIn($user);
 
         $this->post(route('song-requests.store', Song::factory()->create()));
         $this->post(route('song-requests.store', Song::factory()->create()));
 
+        $this->signIn($this->admin);
+        
         foreach($this->gig->setlist()->waiting()->get() as $request) {
-            $request->finish();
+            $this->post(route('song-requests.finish', $request));
         }
+
+        $this->signIn($user);
 
         $this->post(route('song-requests.store', Song::factory()->create()));
         $this->post(route('song-requests.store', Song::factory()->create()));
