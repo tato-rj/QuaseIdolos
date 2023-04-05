@@ -14,7 +14,7 @@
 	</div>
 </div>
 
-@unless(auth()->user()->isAdmin())
+@unless(auth()->user()->admin()->exists())
 <div class="bg-white text-center fw-bold px-1 text-primary border-top boder border-primary">
 	{!! $gig->feedback() !!}
 </div>
