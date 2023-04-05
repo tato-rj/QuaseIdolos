@@ -13,7 +13,7 @@
 		@endif
 	</div>
 </div>
-<div class="bg-secondary text-center fw-bold px-1 text-primary">
+<div class="bg-secondary text-center fw-bold px-1 text-primary border-top boder border-primary">
 	Aguarde um pouquinho... as inscrições já vão voltar!
 </div>
 @endif
