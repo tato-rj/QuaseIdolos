@@ -14,6 +14,6 @@
 	</div>
 </div>
 <div class="bg-white text-center fw-bold px-1 text-primary border-top boder border-primary">
-	@fa(['icon' => 'exclamation-triangle'])Aguarde um pouquinho... as inscrições já vão voltar!
+	{!! $gig->feedback() !!}
 </div>
 @endif
