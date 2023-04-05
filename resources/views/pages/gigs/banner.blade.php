@@ -13,4 +13,7 @@
 		@endif
 	</div>
 </div>
+<div class="bg-secondary text-center fw-bold">
+	Aguarde um pouquinho... as inscrições já vão voltar!
+</div>
 @endif
