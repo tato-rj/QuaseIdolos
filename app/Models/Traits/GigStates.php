@@ -85,10 +85,10 @@ trait GigStates
 			return null;
 
 		if ($this->setIsFull())
-			return fa('exclamation-triangle', null, 'mr-2') . 'Aguarde um pouquinho... as inscrições já vão voltar!';
+			return fa('exclamation-triangle', null, 'mr-2') . 'As inscrições já vão voltar!';
 
 		if ($this->isFull())
-			return fa('exclamation-triangle', null, 'mr-2') . 'Encerramos as inscrições por hoje, muito obrigado!';
+			return fa('exclamation-triangle', null, 'mr-2') . 'Inscrições encerradas, muito obrigado!';
 
 		if ($this->isPaused())
 			return fa('exclamation-triangle', null, 'mr-2') . 'Voltamos daqui a alguns instantes';
@@ -96,6 +96,6 @@ trait GigStates
 		if ($this->userLimitReached())
 			return fa('exclamation-triangle', null, 'mr-2') . 'O seu limite de músicas foi alcançado';
 
-		return '<div class="text-green">'.fa('smile', null, 'mr-2') . 'Incrições liberadas, estamos esperando você!</div>';
+		return '<div class="text-green">'.fa('smile', null, 'mr-2') . 'Incrições abertas, esperamos você!</div>';
 	}
 }
