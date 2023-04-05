@@ -124,6 +124,7 @@ class Gig extends EventModel
         $new = $this->replicate();
 
         $new->creator_id = auth()->user()->id;
+        $new->set_is_full = false;
         $new->scheduled_for = null;
         $new->starts_at = null;
         $new->ends_at = null;
