@@ -81,7 +81,7 @@ trait GigStates
 
 	public function feedback()
 	{
-		if (! $this->isKareok())
+		if (! $this->isKareoke())
 			return null;
 
 		if ($this->setIsFull())
