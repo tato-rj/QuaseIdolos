@@ -164,6 +164,7 @@ class GigsController extends Controller
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
             'set_limit' => $request->set_limit,
+            'set_is_full' => $gig->set_limit != $request->set_limit ? false : $gig->set_is_full,
             'duration' => $request->duration,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'is_private' => $request->is_private ? 1 : 0,
