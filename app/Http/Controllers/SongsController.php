@@ -33,7 +33,7 @@ class SongsController extends Controller
             'lyrics' => 'required',
             'genre_id' => 'required',
             'artist_id' => 'required',
-            'drum_score' => 'nullable|max:200|mimes:jpg,jpeg'
+            'drum_score' => 'nullable|max:200|mimes:jpg,jpeg,pdf'
         ]);
 
         $song = Song::create([
@@ -75,7 +75,7 @@ class SongsController extends Controller
             'name' => 'required|string',
             'genre_id' => 'required',
             'lyrics' => 'required',
-            'drum_score' => 'sometimes|max:200|mimes:jpg,jpeg'
+            'drum_score' => 'sometimes|max:200|mimes:jpg,jpeg,pdf'
         ]);
 
         $song->update([
