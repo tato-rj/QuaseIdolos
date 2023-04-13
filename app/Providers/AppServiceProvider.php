@@ -88,7 +88,5 @@ class AppServiceProvider extends ServiceProvider
 
             return new LengthAwarePaginator($this->forPage($page, $perPage), $this->count(), $perPage, null, ['path' => Paginator::resolveCurrentPath()]);
         });
-
-        \View::share('agent', new Agent());
     }
 }
