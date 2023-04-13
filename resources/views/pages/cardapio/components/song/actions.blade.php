@@ -30,8 +30,7 @@
 
 @admin
 <div class="mt-3">
-	@include('layouts.menu.components.divider')
-	<div class="d-flex">
+	<div class="d-flex pt-3" style="border-top: 10px dotted rgba(0,0,0,.2);">
 		@include('pages.cardapio.components.song.buttons.admin.chords')
 		@include('pages.cardapio.components.song.buttons.admin.lyrics')
 		@include('pages.cardapio.components.song.buttons.admin.drums')

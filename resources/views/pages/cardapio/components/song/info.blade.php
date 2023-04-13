@@ -1,5 +1,8 @@
 <div class="d-flex flex-column justify-content-between h-100">
 	<div class="mb-3">
+		@include('pages.cardapio.components.song.actions')
+	</div>
+	<div class="mb-">
 		<div class="py-2 mb-4 text-center" style="border-top: 10px dotted rgba(0,0,0,.2); border-bottom: 10px dotted rgba(0,0,0,.2);">
 			<h5>@lang('views/cardapio.song.avg-score')</h5>
 			<div class="d-center rating">
@@ -20,8 +23,5 @@
 				<h5 class="text-white">{{$song->songRequests()->count()}} @choice('vez|vezes', $song->songRequests()->count())</h5>
 			</div>
 		</div>
-	</div>
-	<div>
-		@include('pages.cardapio.components.song.actions')
 	</div>
 </div>
