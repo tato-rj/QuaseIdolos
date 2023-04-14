@@ -30,7 +30,7 @@
         </button>
       @endform
 
-      @form(['method' => 'POST', 'url' => route('suggestions.destroy', $row), 'classes' => 'd-inline'])
+      @form(['method' => 'DELETE', 'url' => route('suggestions.destroy', $row), 'classes' => 'd-inline'])
         <button type="submit" class="btn btn-sm btn-red">
           @fa(['icon' => 'trash-alt', 'mr' => 0])
         </button>
