@@ -213,7 +213,7 @@ class SetlistTest extends AppTest
         $this->expectNotToPerformAssertions();
         $this->signIn();
 
-        $this->gig->update(['set_limit' => 2]);
+        $this->gig->update(['current_set_limit' => 2]);
 
         auth()->user()->join($this->gig);
 
@@ -227,7 +227,7 @@ class SetlistTest extends AppTest
         $this->expectException('\App\Exceptions\SetlistException');
         $this->signIn();
 
-        $this->gig->update(['set_limit' => 2]);
+        $this->gig->update(['current_set_limit' => 2]);
 
         auth()->user()->join($this->gig);
 
@@ -242,7 +242,7 @@ class SetlistTest extends AppTest
         $this->expectException('\App\Exceptions\SetlistException');
         $this->signIn();
 
-        $this->gig->update(['set_limit' => 2]);
+        $this->gig->update(['current_set_limit' => 2]);
 
         auth()->user()->join($this->gig);
 
@@ -266,7 +266,7 @@ class SetlistTest extends AppTest
         $this->expectNotToPerformAssertions();
         $user = $this->signIn();
 
-        $this->gig->update(['set_limit' => 2]);
+        $this->gig->update(['current_set_limit' => 2]);
 
         auth()->user()->join($this->gig);
 

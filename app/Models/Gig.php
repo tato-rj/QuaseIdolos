@@ -131,6 +131,7 @@ class Gig extends EventModel
         $new->winner_id = null;
         $new->is_live = false;
         $new->is_paused = false;
+        $new->current_set_limit = $this->set_limit;
         $new->password = $this->password()->required() ? $this->password()->generate() : null;
 
         $new->push();
@@ -140,7 +141,7 @@ class Gig extends EventModel
 
 	public function userLimitReached()
 	{
-		if (is_null($this->songs_limit_per_user))
+		if (! $this->songs_limit_per_user)
 			return false;
 
 		return $this->setlist()->where('user_id', auth()->user()->id)->count() >= $this->songs_limit_per_user;
@@ -148,17 +149,20 @@ class Gig extends EventModel
 
     public function checkSetLimit()
     {
-        if (! $this->set_limit)
+        if (! $this->current_set_limit)
             return null;
 
         $songsWaiting = $this->setlist()->byGuests()->waiting()->count();
 
-        $isFull = $songsWaiting >= $this->set_limit;
+        $isFull = $songsWaiting >= $this->current_set_limit;
 
         if ($isFull) {
             $this->update(['set_is_full' => true]);
         } else if ($songsWaiting == 0) {
-            $this->update(['set_is_full' => false]);
+            $this->update([
+                'current_set_limit' => $this->set_limit,
+                'set_is_full' => false
+            ]);
         }
     }
 

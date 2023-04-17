@@ -22,6 +22,7 @@ class CreateGigsTable extends Migration
             $table->string('password')->nullable();
             $table->unsignedInteger('winner_id')->nullable();
             $table->unsignedSmallInteger('set_limit')->nullable();
+            $table->unsignedSmallInteger('current_set_limit')->nullable();
             $table->boolean('set_is_full')->default(false);
             $table->unsignedSmallInteger('repeat_limit')->nullable();
             $table->unsignedSmallInteger('songs_limit')->nullable();

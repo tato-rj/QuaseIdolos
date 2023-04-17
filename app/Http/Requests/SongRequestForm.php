@@ -57,8 +57,10 @@ class SongRequestForm extends FormRequest
 
     public function setIsNotFull()
     {
+        $waitingCount = $this->liveGig->setlist()->waiting()->count();
+
         return ! $this->liveGig->setIsFull() ? true 
-             : $this->failWithMessage('Aguarde um pouquinho... as inscrições já vão voltar!');
+             : $this->failWithMessage('Aguarde um pouquinho... As inscrições voltam  daqui a ' . $waitingCount . ' ' . str_plural('música', $waitingCount));
     }
 
     public function votingHasNotFinished()

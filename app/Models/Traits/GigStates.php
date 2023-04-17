@@ -84,14 +84,17 @@ trait GigStates
 		if (! $this->isKareoke())
 			return null;
 
-		if ($this->setIsFull())
-			return fa('exclamation-triangle', null, 'mr-2') . 'As inscrições já vão voltar!';
-
 		if ($this->isFull())
 			return fa('exclamation-triangle', null, 'mr-2') . 'Inscrições encerradas, muito obrigado!';
 
 		if ($this->isPaused())
 			return fa('exclamation-triangle', null, 'mr-2') . 'Voltamos daqui a alguns instantes';
+		
+		if ($this->setIsFull()) {
+			$waitingCount = $this->setlist()->waiting()->count();
+
+			return fa('exclamation-triangle', null, 'mr-2') . 'As inscrições voltam  daqui a ' . $waitingCount . ' ' . str_plural('música', $waitingCount);
+		}
 
 		if ($this->userLimitReached())
 			return fa('exclamation-triangle', null, 'mr-2') . 'O seu limite de músicas foi alcançado';
