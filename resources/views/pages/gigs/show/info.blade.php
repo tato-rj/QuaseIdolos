@@ -30,14 +30,32 @@
 			
 			<div class="mb-4">
 				@php($count = $gig->songs_limit)
-				<h6 class="text-secondary">@fa(['icon' => 'lock'])Limite de músicas</h6>
-				<h6>Máximo de {{$count}} @choice('música|músicas', $count)</h6>
+				<h6 class="text-secondary">@fa(['icon' => 'lock'])Limite total de músicas</h6>
+				@if($count)
+				<h6>Total de {{$count}} @choice('música|músicas', $count)</h6>
+				@else
+				<h6 class="opacity-6">Sem limite</h6>
+				@endif
+			</div>
+
+			<div class="mb-4">
+				@php($count = $gig->set_limit)
+				<h6 class="text-secondary">@fa(['icon' => 'lock'])Limite de músicas por set</h6>
+				@if($count)
+				<h6>{{$count}} @choice('música|músicas', $count) por set</h6>
+				@else
+				<h6 class="opacity-6">Sem limite</h6>
+				@endif
 			</div>
 
 			<div class="mb-4">
 				@php($count = $gig->songs_limit_per_user)
 				<h6 class="text-secondary">@fa(['icon' => 'user-lock'])Limite por usuário</h6>
+				@if($count)
 				<h6>{{$count}} @choice('música|músicas', $count) por pessoa</h6>
+				@else
+				<h6 class="opacity-6">Sem limite</h6>
+				@endif
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-12 px-4">
