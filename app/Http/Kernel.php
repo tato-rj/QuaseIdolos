@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'admin' => \App\Http\Middleware\AdminOnly::class,
-        'authorize' => \App\Http\Middleware\AUthorize::class,
+        'authorize' => \App\Http\Middleware\Authorize::class,
         'super-admin' => \App\Http\Middleware\SuperAdminOnly::class,
         'join-gig' => \App\Http\Middleware\JoinGig::class,
         'live-gig' => \App\Http\Middleware\LiveGig::class,
