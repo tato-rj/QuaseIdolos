@@ -5,7 +5,7 @@
   @break
 
   @case('name')
-    <a href="{{route('users.edit', $user)}}" class="link-secondary">
+    <a href="{{route('users.edit', $user)}}" class="link-secondary {{$user->banned() ? 'opacity-4' : null}}">
       <div class="d-flex align-items-center">
         <div class="mr-2 no-truncate">
           @if($user->hasAvatar())

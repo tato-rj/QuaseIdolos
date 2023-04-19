@@ -161,4 +161,24 @@ class UserTest extends AppTest
 
         $this->assertDatabaseMissing('participants', ['user_id' => $user->id]);
     }
+
+    /** @test */
+    public function blocked_users_cannot_join_any_other_events()
+    {
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
+        $gig = Gig::factory()->live()->create();
+
+        $this->signIn();
+
+        $user = auth()->user();
+
+        $this->signIn($this->superAdmin);
+
+        $user->ban();
+
+        $this->signIn($user);
+        
+        $this->get(route('cardapio.index'));
+    }
 }

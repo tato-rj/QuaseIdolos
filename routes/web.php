@@ -278,6 +278,8 @@ Route::middleware('super-admin')->group(function() {
         Route::get('busca', 'UsersController@search')->name('search');
 
         Route::post('', 'UsersController@store')->name('store');
+        
+        Route::post('{user}/reativar', 'ParticipantsController@unban')->name('unban');
     });
 
     Route::prefix('contratantes')->name('venues.')->withoutMiddleware('join-gig')->group(function() {
@@ -323,6 +325,8 @@ Route::middleware('super-admin')->group(function() {
 
         Route::prefix('participantes/{participant}')->name('participant.')->group(function() {
             Route::delete('', 'ParticipantsController@remove')->name('remove');
+            
+            Route::delete('banir', 'ParticipantsController@ban')->name('ban');
         });
     });
 

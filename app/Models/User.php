@@ -21,6 +21,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'banned_at' => 'datetime',
         'has_ratings' => 'boolean',
         'participates_in_chat' => 'boolean'
     ];
@@ -102,6 +103,16 @@ class User extends Authenticatable
     public function ratingsGiven()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function ban()
+    {
+        return $this->update(['banned_at' => now()]);
+    }
+
+    public function unban()
+    {
+        return $this->update(['banned_at' => null]);
     }
 
     public function rate(SongRequest $songRequest, $score)
@@ -233,9 +244,14 @@ class User extends Authenticatable
         return $this->liveGig && $this->liveGig->is($gig);
     }
 
+    public function banned()
+    {
+        return ! is_null($this->banned_at);
+    }
+
     public function tryToJoin($gigs)
     {
-        if ($this->gig()->live()->exists())
+        if ($this->gig()->live()->exists() || $this->banned())
             return null;
 
         if ($gigs->count() == 1 && $gigs->first()->isLive()){
@@ -250,6 +266,9 @@ class User extends Authenticatable
 
     public function forceJoin($gigs)
     {
+        if ($this->banned())
+            return null;
+
         if ($gigs->count() == 1 && $gigs->first()->isLive()) {
             if ($this->gig()->live()->exists() && $this->gig()->live()->first()->is($gigs->first()))
                 return null;

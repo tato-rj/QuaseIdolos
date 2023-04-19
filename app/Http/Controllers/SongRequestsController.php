@@ -24,7 +24,7 @@ class SongRequestsController extends Controller
         try {
             SongRequested::dispatch($songRequest);
         } catch (\Exception $e) {
-            bugreport($e);
+            // bugreport($e);
         }
 
         return back()->with('success', 'O seu nome está na lista, vai se preparando!');

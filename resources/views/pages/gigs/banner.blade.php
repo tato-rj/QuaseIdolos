@@ -15,8 +15,10 @@
 </div>
 
 @unless(auth()->user()->admin()->exists())
-<div class="bg-white text-center fw-bold px-1 text-primary border-top boder border-primary">
-	{!! $gig->feedback() !!}
+<div class="bg-white text-center fw-bold px-1">
+	<div class="animate__animated animate__bounceIn animate__slow">
+		{!! $gig->feedback() !!}
+	</div>
 </div>
 @endunless
 @endif

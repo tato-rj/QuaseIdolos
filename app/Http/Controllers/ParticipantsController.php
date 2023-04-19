@@ -20,4 +20,19 @@ class ParticipantsController extends Controller
 
         return back()->with('success', 'O usuário foi removido desse evento');
     }
+
+    public function ban(Participant $participant)
+    {
+        $participant->user->ban();
+        $participant->delete();
+
+        return back()->with('success', 'O usuário foi removido e bloqueado com sucesso');
+    }
+
+    public function unban(User $user)
+    {
+        $user->unban();
+
+        return back()->with('success', 'O usuário foi reativado com sucesso');
+    }
 }

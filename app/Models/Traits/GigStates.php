@@ -85,20 +85,20 @@ trait GigStates
 			return null;
 
 		if ($this->isFull())
-			return fa('exclamation-triangle', null, 'mr-2') . 'Inscrições encerradas, muito obrigado!';
+			return '<span class="text-red">Inscrições encerradas, muito obrigado!</span>';
 
 		if ($this->isPaused())
-			return fa('exclamation-triangle', null, 'mr-2') . 'Voltamos daqui a alguns instantes';
+			return '<span class="text-red">Voltamos daqui a alguns instantes</span>';
 		
 		if ($this->setIsFull()) {
 			$waitingCount = $this->setlist()->waiting()->count();
 
-			return fa('exclamation-triangle', null, 'mr-2') . 'As inscrições voltam  daqui a ' . $waitingCount . ' ' . str_plural('música', $waitingCount);
+			return '<span class="text-secondary">As inscrições voltam  daqui a ' . $waitingCount . ' ' . str_plural('música', $waitingCount) . '</span>';
 		}
 
 		if ($this->userLimitReached())
-			return fa('exclamation-triangle', null, 'mr-2') . 'O seu limite de músicas foi alcançado';
+			return '<span class="text-red">O seu limite de músicas foi alcançado</span>';
 
-		return '<div class="text-green">'.fa('smile', null, 'mr-2') . 'Incrições abertas, esperamos você!</div>';
+		return '<span class="text-green">Incrições abertas, esperamos você!</span>';
 	}
 }

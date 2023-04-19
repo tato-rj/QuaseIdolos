@@ -13,6 +13,16 @@
 
 @section('content')
 <section class="container py-4">
+		@if($user->banned())
+		<div class="mx-auto mb-4" style="width: 100%; max-width: 600px"> 
+		@alert([
+	    'color' => 'red',
+	    'headline' => __('views/alert.error'),
+	    'message' => 'Este usuário está banido',
+	    'dismissible' => true])
+	  </div>
+	  @endif
+
 		@if(! $user->email && auth()->user()->is($user))
 		<div class="mx-auto mb-4" style="width: 100%; max-width: 600px"> 
 		@alert([
@@ -29,6 +39,12 @@
 			</div>
 
 			<div class="d-flex flex-column">
+				@if($user->banned())
+				@form(['method' => 'POST', 'classes' => 'mb-2', 'url' => route('users.unban', $user)])
+				<button type="subtmie" class="btn btn-outline-secondary w-100">Reativar conta</button>
+				@endform
+				@endif
+
 				@if($user->socialAccounts()->exists())
 					@include('pages.users.actions.social')
 				@endif
