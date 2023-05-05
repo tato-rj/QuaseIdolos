@@ -221,20 +221,30 @@ class SongRequest extends BaseModel
     
     public function add(User $user, Song $song, Gig $gig, $name = null)
     {
-        return $this->create([
+        $songRequest = $this->create([
             'user_name' => $name,
             'user_id' => $user->id, 
             'song_id' => $song->id,
             'gig_id' => $gig->id,
             'order' => $gig->setlist()->waiting()->count()]);
+
+        $gig->incrementSet($songRequest);
+
+        return $songRequest;
     }
 
     public function finish()
     {
+        $this->gig->decrementSet($this);
+
         if (! $this->user || $this->user->admin()->exists())
             return $this->delete();
 
-        return $this->update(['finished_at' => now()]);
+        $this->update(['finished_at' => now()]);
+
+        $this->gig->resetSet();
+
+        return $this;
     }
 
     public function isOver()

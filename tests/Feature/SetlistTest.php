@@ -213,7 +213,7 @@ class SetlistTest extends AppTest
         $this->expectNotToPerformAssertions();
         $this->signIn();
 
-        $this->gig->update(['current_set_limit' => 2]);
+        $this->gig->update(['current_set_limit' => 2, 'set_limit' => 2]);
 
         auth()->user()->join($this->gig);
 
@@ -227,7 +227,7 @@ class SetlistTest extends AppTest
         $this->expectException('\App\Exceptions\SetlistException');
         $this->signIn();
 
-        $this->gig->update(['current_set_limit' => 2]);
+        $this->gig->update(['current_set_limit' => 2, 'set_limit' => 2]);
 
         auth()->user()->join($this->gig);
 
@@ -242,20 +242,47 @@ class SetlistTest extends AppTest
         $this->expectException('\App\Exceptions\SetlistException');
         $this->signIn();
 
-        $this->gig->update(['current_set_limit' => 2]);
+        $this->gig->update(['current_set_limit' => 2, 'set_limit' => 2]);
 
         auth()->user()->join($this->gig);
 
-        $this->assertFalse($this->gig->setIsFull());
+        $this->assertFalse($this->gig->set_is_full);
 
         $this->post(route('song-requests.store', Song::factory()->create()));
         $this->post(route('song-requests.store', Song::factory()->create()));
 
-        $this->assertTrue($this->gig->fresh()->setIsFull());
+        $this->assertTrue($this->gig->fresh()->set_is_full);
 
         $this->gig->setlist()->waiting()->first()->finish();
 
-        $this->assertTrue($this->gig->fresh()->setIsFull());
+        $this->assertTrue($this->gig->fresh()->set_is_full);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+    }
+
+    /** @test */
+    public function the_set_limit_is_maintained_regardless_if_the_requests_are_confirmed_or_not()
+    {
+        $this->expectException('\App\Exceptions\SetlistException');
+
+        $this->signIn();
+
+        $this->gig->update(['set_limit' => 3, 'current_set_limit' => 3]);
+
+        auth()->user()->join($this->gig);
+
+        $this->assertFalse($this->gig->set_is_full);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->assertFalse($this->gig->fresh()->set_is_full);
+
+        $this->gig->setlist()->waiting()->first()->finish();
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->assertTrue($this->gig->fresh()->set_is_full);
 
         $this->post(route('song-requests.store', Song::factory()->create()));
     }
@@ -266,7 +293,7 @@ class SetlistTest extends AppTest
         $this->expectNotToPerformAssertions();
         $user = $this->signIn();
 
-        $this->gig->update(['current_set_limit' => 2]);
+        $this->gig->update(['current_set_limit' => 2, 'set_limit' => 2]);
 
         auth()->user()->join($this->gig);
 

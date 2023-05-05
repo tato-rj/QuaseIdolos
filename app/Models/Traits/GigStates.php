@@ -34,9 +34,12 @@ trait GigStates
 		return is_null($this->songs_limit) ? false : $this->setlist()->byGuests()->count() >= $this->songs_limit;
 	}
 
-	public function setIsFull()
+	public function setHasReachedItsLimit()
 	{
-		return $this->set_is_full;
+		if (! $this->current_set_limit)
+			return false;
+
+		return $this->current_set_limit <= $this->set_counter;//$this->set_is_full;
 	}
 
 	public function isOver()
@@ -90,7 +93,7 @@ trait GigStates
 		if ($this->isPaused())
 			return '<span class="text-red">Voltamos daqui a alguns instantes</span>';
 		
-		if ($this->setIsFull()) {
+		if ($this->set_is_full) {
 			$waitingCount = $this->setlist()->waiting()->count();
 
 			return '<span class="text-secondary">As inscrições voltam  daqui a ' . $waitingCount . ' ' . str_plural('música', $waitingCount) . '</span>';

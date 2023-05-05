@@ -19,7 +19,7 @@ class SongRequestsController extends Controller
         if ($request->has('recommended'))
             $songRequest->update(['was_recommended' => true]);
 
-        $songRequest->gig->checkSetLimit();
+        // $songRequest->gig->checkSetLimit();
 
         try {
             SongRequested::dispatch($songRequest);
@@ -74,7 +74,7 @@ class SongRequestsController extends Controller
 
         $songRequest->gig->sortSetlist();
 
-        $songRequest->gig->checkSetLimit();
+        // $songRequest->gig->checkSetLimit();
         
         try {
             SongFinished::dispatch($songRequest);
@@ -104,7 +104,9 @@ class SongRequestsController extends Controller
 
         $songRequest->gig->sortSetlist();
 
-        $songRequest->gig->checkSetLimit();
+        $songRequest->gig->decrement('set_counter');
+
+        $songRequest->gig->resetSet();
 
         return back()->with('success', 'O pedido foi cancelado com sucesso');
     }

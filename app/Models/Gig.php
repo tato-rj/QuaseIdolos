@@ -147,24 +147,58 @@ class Gig extends EventModel
 		return $this->setlist()->where('user_id', auth()->user()->id)->count() >= $this->songs_limit_per_user;
 	}
 
-    public function checkSetLimit()
+    public function incrementSet(SongRequest $songRequest)
     {
-        if (! $this->current_set_limit)
-            return null;
-
-        $songsWaiting = $this->setlist()->byGuests()->waiting()->count();
-
-        $isFull = $songsWaiting >= $this->current_set_limit;
-
-        if ($isFull) {
+        if ($songRequest->user->admin()->exists())
+            return $this;
+        
+        if (! $this->setHasReachedItsLimit())
+            $this->increment('set_counter');
+        
+        if ($this->setHasReachedItsLimit())
             $this->update(['set_is_full' => true]);
-        } else if ($songsWaiting == 0) {
+    }
+
+    public function decrementSet(SongRequest $songRequest)
+    {
+        if (! $this->set_is_full || $songRequest->user->admin()->exists())
+            return $this;
+        
+        if ($this->set_counter > 0)
+            $this->decrement('set_counter');
+        
+        $this->resetSet();
+    }
+
+    public function resetSet()
+    {
+        if ($this->set_counter == 0 || $this->setlist()->waiting()->byGuests()->count() == 0) {
             $this->update([
                 'current_set_limit' => $this->set_limit,
-                'set_is_full' => false
+                'set_is_full' => false,
+                'set_counter' => 0,
             ]);
         }
     }
+
+    // public function checkSetLimit()
+    // {
+    //     if (! $this->current_set_limit)
+    //         return null;
+
+    //     $songsWaiting = $this->setlist()->byGuests()->waiting()->count();
+
+    //     $isFull = $songsWaiting >= $this->current_set_limit;
+
+    //     if ($isFull) {
+    //         $this->update(['set_is_full' => true]);
+    //     } else if ($songsWaiting == 0) {
+    //         $this->update([
+    //             'current_set_limit' => $this->set_limit,
+    //             'set_is_full' => false
+    //         ]);
+    //     }
+    // }
 
 	public function repeatLimitReachedFor(Song $song)
 	{
