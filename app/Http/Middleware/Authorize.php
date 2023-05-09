@@ -16,8 +16,8 @@ class Authorize
      */
     public function handle(Request $request, Closure $next)
     {
-        // if (auth()->check() && auth()->user()->banned())
-            // throw new \Illuminate\Auth\Access\AuthorizationException('Você não pode mais acessar esse site.');
+        if (auth()->check() && auth()->user()->banned())
+            throw new \Illuminate\Auth\Access\AuthorizationException('Você não pode mais acessar esse site.');
 
         return $next($request);
     }
