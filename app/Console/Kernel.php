@@ -16,6 +16,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('gigs:close')->hourly();
+
+        $schedule->command('log:clear')->dailyAt('8:00');
     }
 
     /**
