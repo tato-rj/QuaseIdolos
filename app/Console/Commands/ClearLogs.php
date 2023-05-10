@@ -27,7 +27,7 @@ class ClearLogs extends Command
      */
     public function handle()
     {
-        exec('truncate -s 0 storage/logs/laravel.log');
+        exec('sudo truncate -s 0 storage/logs/laravel.log');
 
         $this->info('The log file has been cleared.');
     }
