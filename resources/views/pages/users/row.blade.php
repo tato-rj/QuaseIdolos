@@ -24,7 +24,14 @@
   @break
 
   @case('gender')
+  @if($user->hasGender())
   @fa(['icon' => $user->gender, 'fa_color' => $user->genderColor, 'classes' => 'no-stroke']){{$user->genderPt}}
+  @else
+  <div class="d-flex">
+    <button class="btn-raw px-2 hover-opacity-7 update-gender" data-url="{{route('profile.update-gender', $user)}}" data-gender="male">@fa(['icon' => 'male', 'fa_color' => 'white', 'classes' => 'opacity-4 no-stroke'])</button>
+    <button class="btn-raw px-2 hover-opacity-7 update-gender" data-url="{{route('profile.update-gender', $user)}}" data-gender="female">@fa(['icon' => 'female', 'fa_color' => 'white', 'classes' => 'opacity-4 no-stroke'])</button>
+  </div>
+  @endif
   @break
 
   @case('sent_messages_count')

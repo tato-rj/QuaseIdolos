@@ -178,6 +178,11 @@ class User extends Authenticatable
         $this->update(['gender' => gender($this->first_name)->guess()]);
     }
 
+    public function hasGender()
+    {
+        return $this->gender == 'male' || $this->gender == 'female';
+    }
+
     public function getGenderPtAttribute()
     {
         $genders = ['male' => 'Masculino', 'female' => 'Feminino', 'unknown' => ''];

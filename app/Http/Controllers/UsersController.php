@@ -78,6 +78,13 @@ class UsersController extends Controller
         return back()->with('success', 'Os seus dados foram alterados com sucesso');
     }
 
+    public function updateGender(Request $request, User $user)
+    {
+        $user->update(['gender' => $request->gender]);
+
+        return $user->gender;
+    }
+
     public function password(Request $request, User $user = null)
     {
         $this->authorize('update', $user ?? User::class);

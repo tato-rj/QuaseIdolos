@@ -32,6 +32,28 @@
 
 @push('scripts')
 <script type="text/javascript">
+$('button.update-gender').on('click', function() {
+	let $button = $(this);
+	let gender = $(this).data('gender');
+	let $buttons = $button.parent().children();
+
+	$button.disable();
+
+	axios.patch($(this).data('url'), {gender: gender})
+		 .then(function(response) {
+			$buttons.addClass('hover-opacity-7').find('i').addClass('opacity-4');
+			$button.removeClass('hover-opacity-7').find('i').removeClass('opacity-4');
+
+			$buttons.enable();
+			$button.disable();
+		 })
+		 .catch(function(error) {
+		 	$button.enable();
+		 });
+});
+</script>
+
+<script type="text/javascript">
 $('input[name="search_user"]').keyup(function() {
 	let input = $(this).val();
 

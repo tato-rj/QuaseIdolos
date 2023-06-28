@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function() {
 
         Route::patch('{user?}', 'UsersController@update')->name('update');
 
+        Route::patch('genero/{user}', 'UsersController@updateGender')->name('update-gender');
+
         Route::post('senha/{user?}', 'UsersController@password')->name('password');
 
         Route::post('avatar/{user?}', 'UsersController@destroyAvatar')->name('destroy-avatar');
