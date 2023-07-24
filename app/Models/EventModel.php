@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ReadableDates;
+
 abstract class EventModel extends BaseModel
 {
+	use ReadableDates;
+
 	protected $dates = ['starts_at', 'ends_at', 'scheduled_for', 'scheduled_end_at'];
 
 	abstract function scopeReady($query);
@@ -108,18 +112,7 @@ abstract class EventModel extends BaseModel
 	{
 		return $this->dateForHumans();
 	}
-
-	public function dateForHumans($showWeek = true)
-	{
-		$weekday = weekday($this->scheduled_for->dayOfWeek);
-		$month = month($this->scheduled_for->month);
-
-		if ($showWeek)
-			return $weekday . ', ' . $this->scheduled_for->day . ' de ' . $month;
-
-		return $this->scheduled_for->day . ' de ' . $month;
-	}
-
+	
 	public function dateInContext()
 	{
 		if ($this->isUnscheduled())

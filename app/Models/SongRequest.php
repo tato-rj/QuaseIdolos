@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ReadableDates;
+
 class SongRequest extends BaseModel
 {
+    use ReadableDates;
+    
     protected $dates = ['finished_at'];
     protected $casts = ['was_recommended' => 'boolean'];
 

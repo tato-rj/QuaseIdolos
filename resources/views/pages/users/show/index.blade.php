@@ -81,6 +81,14 @@
 				'rows' => $user->participations()->confirmed()->paginate(8),
 				'view' => 'pages.users.rows.gigs'
 			])
+			@table([
+				'title' => __('views/user.tables.songs'),
+				'empty' => true,
+				'columns' => ['scheduled_for' => 'Data', 'name' => 'Música'],
+				'legend' => 'música|músicas',
+				'rows' => $user->songRequests()->completed()->paginate(8),
+				'view' => 'pages.users.rows.song'
+			])
 		</div>
 	</div>
 </section>
