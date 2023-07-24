@@ -7,7 +7,7 @@
   @isset($empty)
 
   @isset($title)
-  <h4 class="mb-3">@fa(['icon' => 'list-ul']){{$title}}</h4> 
+  <h5 class="mb-3">@fa(['icon' => 'list-ul']){{$title}}</h5> 
   @endisset
   
   @include('components.empty')
@@ -15,9 +15,9 @@
 
 @else
 
-<div class="mb-5">
+<div class="{{$margin ?? 'mb-5'}}">
   @isset($title)
-  <h4 class="{{! isset($legend) ? 'mb-3' : null}}">@fa(['icon' => 'list-ul']){{$title}}</h4> 
+  <h5 class="{{! isset($legend) ? 'mb-3' : null}}">@fa(['icon' => 'list-ul']){{$title}}</h5> 
   @endisset
 
   @isset($legend)

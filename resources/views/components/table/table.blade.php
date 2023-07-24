@@ -25,7 +25,7 @@
         @foreach($rows as $row)
         <tr>
           @foreach($columns as $field => $label)
-            <td class="{{$field == 'actions' ? 'text-right' : null}} align-middle px-3 py-3">
+            <td class="{{$field == 'actions' ? 'text-right' : null}} align-middle {{$padding ?? 'px-3 py-3'}}">
               @if($field == 'actions')
               @include($view)
               @else

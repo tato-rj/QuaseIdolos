@@ -167,6 +167,8 @@ Route::middleware('admin')->group(function() {
         Route::get('', 'UsersController@index')->name('index');
 
         Route::get('{user}/editar', 'UsersController@edit')->name('edit');
+
+        Route::get('{user}/info', 'UsersController@info')->name('info');
     });
 
     Route::prefix('artistas')->withoutMiddleware('join-gig')->name('artists.')->group(function() {

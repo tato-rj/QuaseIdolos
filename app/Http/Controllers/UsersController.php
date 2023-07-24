@@ -33,6 +33,11 @@ class UsersController extends Controller
         return view('pages.users.show.index', compact('user'));
     }
 
+    public function info(User $user)
+    {
+        return view('pages.setlists.admin.tables.modals.user-info', compact('user'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([

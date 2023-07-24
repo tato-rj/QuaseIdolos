@@ -244,4 +244,18 @@ $('#show-winner-cancel').click(function() {
 	$(this).grandparent().siblings('button').toggle();
 });
 </script>
+
+<script type="text/javascript">
+$('[id^="user-info-modal"]').on('show.bs.modal', function() {
+	let $content = $(this).find('#user-info-content');
+ 	// $('#recommendation-placeholder').show();
+ 	$content.html('');
+
+	axios.get($(this).data('url'))
+		 .then(function(response) {
+		 	// $('#recommendation-placeholder').hide();
+		 	$content.html(response.data);
+		 });
+});
+</script>
 @endpush

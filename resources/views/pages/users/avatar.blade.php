@@ -1,4 +1,4 @@
-<div class="m-4">
+<div class="{{$margin ?? 'm-4'}}">
 	<div class="d-center flex-column">
 		<div class="position-relative mb-2">
 			@if($user->hasAvatar())

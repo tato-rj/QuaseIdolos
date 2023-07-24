@@ -2,7 +2,7 @@
 
 @switch(str_replace('*', '', $field))
   @case('scheduled_for')
-    {{$row->dateForHumans(true, 'finished_at')}}
+    {{$row->dateForHumans(false, 'finished_at')}}
       @break
 
   @case('name')
