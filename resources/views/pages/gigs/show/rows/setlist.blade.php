@@ -6,11 +6,13 @@
 	  	<div class="mr-2 d-flex">
 			@foreach($row->singers() as $user)
 				<div class="position-relative" style="margin-left: {{! $loop->first ? '-16px' : null}}; z-index: {{$loop->remaining}};">
+					<a href="{{route('users.edit', $user)}}" class="link-none">
 			      @if($user->hasAvatar())
 			      @include('components.avatar.image', ['size' => '46px'])
 			      @else
 			      @include('components.avatar.initial', ['size' => '46px'])
 			      @endif
+			    </a>
 			  </div>
 			@endforeach
 		</div>
