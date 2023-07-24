@@ -246,7 +246,7 @@ $('#show-winner-cancel').click(function() {
 </script>
 
 <script type="text/javascript">
-$('[id^="user-info-modal"]').on('show.bs.modal', function() {
+$(document).on('show.bs.modal', '[id^="user-info-modal"]', function() {
 	let $content = $(this).find('#user-info-content');
  	// $('#recommendation-placeholder').show();
  	$content.html('');
