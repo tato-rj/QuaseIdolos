@@ -78,7 +78,7 @@
 				'empty' => true,
 				'columns' => ['scheduled_for' => 'Data', 'name' => 'Evento'],
 				'legend' => 'evento|eventos',
-				'rows' => $user->participations()->confirmed()->get(),
+				'rows' => $user->participations()->confirmed()->latest()->get(),
 				'view' => 'pages.users.rows.gigs'
 			])
 			@table([
@@ -86,7 +86,7 @@
 				'empty' => true,
 				'columns' => ['scheduled_for' => 'Data', 'name' => 'Música'],
 				'legend' => 'música|músicas',
-				'rows' => $user->songRequests()->completed()->get(),
+				'rows' => $user->songRequests()->completed()->latest()->get(),
 				'view' => 'pages.users.rows.song'
 			])
 		</div>
