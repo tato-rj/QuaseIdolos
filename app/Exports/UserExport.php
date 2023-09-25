@@ -12,6 +12,6 @@ class UserExport implements FromCollection
     */
     public function collection()
     {
-        return User::get('email');
+        return User::whereNotNull('email')->get('email');
     }
 }
