@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Tools\Cropper\ImageUpload;
 use App\Rules\NotEmail;
+use App\Exports\UserExport;
 
 class UsersController extends Controller
 {
@@ -14,6 +15,11 @@ class UsersController extends Controller
         $users = User::guests()->withCount(['participations', 'songRequests', 'favorites', 'sentMessages', 'ratings'])->sortable()->paginate(12);
 
         return view('pages.users.index', compact('users'));
+    }
+
+    public function emails()
+    {
+        return \Excel::download(new UserExport, 'Quaseidolos emails '.now()->toDateString().'.csv');
     }
 
     public function search(Request $request)

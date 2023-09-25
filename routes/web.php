@@ -166,6 +166,8 @@ Route::middleware('admin')->group(function() {
     Route::prefix('usuarios')->withoutMiddleware('join-gig')->name('users.')->group(function() {
         Route::get('', 'UsersController@index')->name('index');
 
+        Route::get('lista-de-emails', 'UsersController@emails')->name('emails');
+
         Route::get('{user}/editar', 'UsersController@edit')->name('edit');
 
         Route::get('{user}/info', 'UsersController@info')->name('info');

@@ -17,6 +17,8 @@
 			'url' => route('users.search')])
 
 		@create(['name' => 'user', 'label' => 'Novo usuário', 'folder' => 'users'])
+		
+		<a href="{{route('users.emails')}}" class="btn btn-secondary m-1 btn-lg">@fa(['icon' => 'envelope'])Lista de Emails</a>
 	</div>
 
 	<div id="users-container">
