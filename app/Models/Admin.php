@@ -7,11 +7,30 @@ class Admin extends BaseModel
     protected $casts = [
         'manage_events' => 'boolean',
         'manage_setlist' => 'boolean',
+        'unknown_songs' => 'json',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function unknownSongs()
+    {
+        return Song::whereIn('id', $this->unknown_songs)->get();
+    }
+
+    public function knows(Song $song)
+    {
+        if ($this->unknown_songs)
+            return ! in_array($song->id, $this->unknown_songs);
+
+        return true;
+    }
+
+    public function getUnknownSongsAttribute($attr)
+    {
+        return is_null($attr) ? [] : json_decode($attr);
     }
 
     public function scopeSuperAdmin($query)

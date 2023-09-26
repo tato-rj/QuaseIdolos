@@ -1,5 +1,7 @@
+<button data-bs-toggle="modal" data-bs-target="#admin-{{$user->admin->id}}-modal" class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'pencil-alt'])@lang('views/user.buttons.edit')</button>
+
 @modal(['title' => 'Editar Admin', 'id' => 'admin-'.$user->admin->id.'-modal'])
-<form method="POST" action="{{route('team.update', $user)}}" class="text-center mb-3">
+<form method="POST" action="{{route('team.update', $user)}}" class="text-center">
 	@csrf
 	@method('PATCH')
 
@@ -32,12 +34,5 @@
 	</div>
 
 	@submit(['label' => 'Confirmar alterações', 'theme' => 'secondary'])
-</form>
-
-<form method="POST" action="{{route('team.revoke', $user)}}" class="text-center">
-	@csrf
-	@method('DELETE')
-
-	@submit(['label' => 'Remover admin status', 'theme' => 'outline-secondary'])
 </form>
 @endmodal

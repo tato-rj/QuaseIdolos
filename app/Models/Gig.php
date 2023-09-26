@@ -12,7 +12,6 @@ class Gig extends EventModel
 	use Rateable, Archiveable, GigStates, Chateable, Sortable;
 
 	protected $casts = [
-        'excluded_songs' => 'json',
         'set_is_full' => 'boolean',
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
@@ -24,7 +23,7 @@ class Gig extends EventModel
 
     public function musicians()
     {
-        return $this->belongsToMany(User::class, 'gig_users', 'gig_id', 'user_id')->orderBy('users.name');
+        return $this->belongsToMany(User::class, 'gig_users', 'gig_id', 'user_id')->with('admin')->orderBy('users.name');
     }
 
 	public function winner()
@@ -62,6 +61,11 @@ class Gig extends EventModel
     	return false;
     }
 
+    public function getUnknownSongsAttribute()
+    {
+        return $this->musicians->pluck('admin.unknown_songs')->collapse()->unique()->values();
+    }
+
     public function openRoute()
     {
     	return route('gig.open', $this);
@@ -75,16 +79,6 @@ class Gig extends EventModel
     public function password()
     {
     	return new Password($this);
-    }
-
-    public function excludedSongs()
-    {
-        return Song::whereIn('id', $this->excluded_songs)->get();
-    }
-
-    public function getExcludedSongsAttribute($attr)
-    {
-        return is_null($attr) ? [] : json_decode($attr);
     }
 
     public function scopeInSubdomain($query)
@@ -152,8 +146,8 @@ class Gig extends EventModel
 
     public function canPlay(Song $song)
     {
-        if ($this->excluded_songs)
-            return ! in_array($song->id, $this->excluded_songs);
+        // if ($this->excluded_songs)
+            // return ! in_array($song->id, $this->excluded_songs);
 
         return true;
     }

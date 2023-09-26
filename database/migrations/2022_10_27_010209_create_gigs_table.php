@@ -39,7 +39,6 @@ class CreateGigsTable extends Migration
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->unsignedTinyInteger('duration')->nullable();
-            $table->json('excluded_songs')->nullable();
             $table->timestamps();
         });
     }

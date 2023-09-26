@@ -101,7 +101,7 @@ class Song extends BaseModel
     public function scopeShouldShow($query)
     {
         if (auth()->check() && auth()->user()->liveGig) {
-            return $query->whereNotIn('id', auth()->user()->liveGig->excluded_songs);
+            return $query->whereNotIn('id', auth()->user()->liveGig->unknown_songs);
         } else {
             return $query;
         }

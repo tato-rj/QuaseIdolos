@@ -1,30 +1,4 @@
-@php($excludedSongs = $gig->excludedSongs())
-
 <div class="offset-lg-1 col-lg-8 col-md-8 col-12">
-	<div class="bg-transparent px-4 pt-4 pb-3 rounded mb-4">
-		<h6 class="text-secondary">@fa(['icon' => 'filter'])Músicas excluídas</h6>
-		<div class="d-flex flex-wrap">
-			@forelse($excludedSongs as $song)
-			<div class="excluded-song" style="display: {{$loop->remaining > 5 ? 'none' : null}}">
-				<div class="border border-secondary bg-dark px-2 py-1 rounded d-flex align-items-center mr-2 mb-2">
-					<img src="{{$song->artist->coverImage()}}" class="rounded-circle mr-2" style="width: 33px; height: 33px">
-					<h6 class="mb-0 mr-1">{{$song->name}}</h6>
-					<button name="excluded_songs" data-url="{{route('gig.excluded-songs.update', compact(['gig', 'song']))}}" class="btn-raw text-secondary pl-2 pr-1 d-center">@fa(['icon' => 'times', 'mr' => 0, 'fa_size' => '1x'])</button>
-				</div>
-			</div>
-			@empty
-			<h6 class="m-0 opacity-4">Todas as {{\App\Models\Song::count()}} músicas estão disponíveis</h6>
-			@endforelse
-		</div>
-
-		@if($excludedSongs->count() > 5)
-		<div class="text-center border-top mt-2 pt-1 border-secondary">
-			<p class="mb-1 opacity-6"><small>Total de {{$excludedSongs->count()}} músicas</small></p>
-			<button id="show-all-excluded" class="btn btn-sm btn-secondary p-1">Ver todas</button>
-		</div>
-		@endif
-	</div>
-
 	<div class="row">
 		@if($gig->password()->required())
 		<div class="col-12 mb-4">

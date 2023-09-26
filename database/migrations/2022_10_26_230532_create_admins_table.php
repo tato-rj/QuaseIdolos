@@ -17,6 +17,7 @@ class CreateAdminsTable extends Migration
             $table->id();
             $table->unsignedInteger('user_id')->unique();
             $table->json('instruments')->nullable();
+            $table->json('unknown_songs')->nullable();
             $table->boolean('manage_events')->default(false);
             $table->boolean('manage_setlist')->default(false);
             $table->timestamps();

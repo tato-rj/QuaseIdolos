@@ -13,6 +13,6 @@
       @break
 
   @case('actions')
-			@toggle(['name' => 'excluded_songs', 'on' => ! $gig->canPlay($song), 'url' => route('gig.excluded-songs.update', compact(['gig', 'song']))])
+			@toggle(['name' => 'unknown_songs', 'on' => ! $user->admin->knows($song), 'url' => route('team.unknown-songs.update', compact(['user', 'song']))])
       @break
 @endswitch

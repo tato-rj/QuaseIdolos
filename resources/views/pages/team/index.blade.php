@@ -60,7 +60,5 @@ $('input[name="search_member"]').keyup(function() {
 		});
 
 });
-
-
 </script>
 @endpush

@@ -271,6 +271,8 @@ Route::middleware('super-admin')->group(function() {
     Route::prefix('equipe')->withoutMiddleware('join-gig')->name('team.')->group(function() {
         Route::get('', 'TeamController@index')->name('index');
 
+        Route::get('{user}', 'TeamController@show')->name('show');
+
         Route::get('busca', 'TeamController@search')->name('search');
 
         Route::patch('{user}', 'TeamController@update')->name('update');
@@ -278,6 +280,12 @@ Route::middleware('super-admin')->group(function() {
         Route::post('{user}', 'TeamController@grant')->name('grant');
 
         Route::delete('{user}', 'TeamController@revoke')->name('revoke');
+
+        Route::prefix('{user}/musicas-desconhecidas')->name('unknown-songs.')->group(function() {
+            Route::get('', 'UnknownSongsController@search')->name('search');
+            
+            Route::patch('{song}', 'UnknownSongsController@update')->name('update');
+        });     
     });
 
     Route::prefix('usuarios')->withoutMiddleware('join-gig')->name('users.')->group(function() {
@@ -331,13 +339,7 @@ Route::middleware('super-admin')->group(function() {
 
         Route::post('{gig}/pausar', 'GigsController@pause')->name('pause');
 
-        Route::delete('{gig}', 'GigsController@destroy')->name('destroy');
-
-        Route::prefix('{gig}/musicas-excluidas')->name('excluded-songs.')->group(function() {
-            Route::get('', 'GigSongsController@search')->name('search');
-            
-            Route::patch('{song}', 'GigSongsController@update')->name('update');
-        });        
+        Route::delete('{gig}', 'GigsController@destroy')->name('destroy');   
 
         Route::prefix('participantes/{participant}')->name('participant.')->group(function() {
             Route::delete('', 'ParticipantsController@remove')->name('remove');

@@ -47,8 +47,6 @@
   @break
 
   @case('actions')
-  <button data-bs-toggle="modal" data-bs-target="#admin-{{$user->admin->id}}-modal" class="btn btn-sm btn-secondary text-truncate">Editar</button>
-
-  @include('pages.team.edit')
+  <a href="{{route('team.show', $user)}}" class="btn btn-sm btn-secondary text-truncate">Editar</a>
   @break
 @endswitch

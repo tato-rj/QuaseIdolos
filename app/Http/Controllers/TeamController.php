@@ -19,6 +19,14 @@ class TeamController extends Controller
         return view('pages.team.index', compact('team'));
     }
 
+    public function show(User $user)
+    {
+        if (! $user->admin()->exists())
+            return redirect(route('team.index'));
+        
+        return view('pages.team.show', compact('user'));
+    }
+
     public function search(Request $request)
     {
         $users = User::guests()->search($request->input)->orderBy('name')->get();
