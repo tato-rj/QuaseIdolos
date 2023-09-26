@@ -26,18 +26,6 @@
 			</div>
 
 			<div class="d-flex flex-column">
-				@if($user->socialAccounts()->exists())
-					@include('pages.users.actions.social')
-				@endif
-
-				@if($user->hasOwnAvatar())
-					@include('pages.users.actions.avatar')
-				@endif
-
-				@if($user->socialAccounts()->exists() || $user->hasOwnAvatar())
-				@include('layouts.menu.components.divider')
-				@endif
-
 				@include('pages.team.actions.edit')
 				
 				@include('pages.team.actions.unknown-songs')
