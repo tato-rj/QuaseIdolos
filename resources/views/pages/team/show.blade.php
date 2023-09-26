@@ -84,7 +84,7 @@
 				'empty' => true,
 				'columns' => ['scheduled_for' => 'Data', 'name' => 'Evento'],
 				'legend' => 'evento|eventos',
-				'rows' => $user->participations()->confirmed()->latest()->paginate(12),
+				'rows' => $user->participations()->confirmed()->latest()->paginate(8),
 				'view' => 'pages.users.rows.gigs'
 			])
 		</div>
