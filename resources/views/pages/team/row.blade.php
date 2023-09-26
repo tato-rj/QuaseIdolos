@@ -11,7 +11,7 @@
   @break
 
   @case('name')
-    <a href="{{route('users.edit', $user)}}" class="link-secondary">
+    <a href="{{route('team.show', $user)}}" class="link-secondary">
       <div class="d-flex align-items-center">
         <div class="mr-2 no-truncate">
           @if($user->hasAvatar())
