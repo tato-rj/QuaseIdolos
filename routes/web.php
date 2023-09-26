@@ -313,9 +313,13 @@ Route::middleware('super-admin')->group(function() {
 
         Route::get('{gig}/senha', 'GigsController@password')->name('password');
 
+        Route::get('{gig}/musicas', 'GigsController@searchSongs')->name('search-songs');
+
         Route::post('', 'GigsController@store')->name('store');
 
         Route::patch('{gig}', 'GigsController@update')->name('update');
+
+        Route::patch('{gig}/musicas', 'GigsController@updateExcludedSongs')->name('excluded-songs');
 
         Route::patch('{gig}/password', 'GigsController@updatePassword')->name('update-password');
 
@@ -328,6 +332,12 @@ Route::middleware('super-admin')->group(function() {
         Route::post('{gig}/pausar', 'GigsController@pause')->name('pause');
 
         Route::delete('{gig}', 'GigsController@destroy')->name('destroy');
+
+        Route::prefix('{gig}/musicas-excluidas')->name('excluded-songs.')->group(function() {
+            Route::get('', 'GigSongsController@search')->name('search');
+            
+            Route::patch('{song}', 'GigSongsController@update')->name('update');
+        });        
 
         Route::prefix('participantes/{participant}')->name('participant.')->group(function() {
             Route::delete('', 'ParticipantsController@remove')->name('remove');

@@ -98,6 +98,15 @@ class Song extends BaseModel
         return $query->orderBy('song_requests_count', 'desc')->take($count);
     }
 
+    public function scopeShouldShow($query)
+    {
+        if (auth()->check() && auth()->user()->liveGig) {
+            return $query->whereNotIn('id', auth()->user()->liveGig->excluded_songs);
+        } else {
+            return $query;
+        }
+    }
+
     public function getMusicData()
     {
         $data = (new MusicData)->artist($this->artist->name)->song($this->name)->get();

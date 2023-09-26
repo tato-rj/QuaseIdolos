@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Gig, Venue, Participant, Admin, Show};
+use App\Models\{Gig, Venue, Participant, Admin, Show, Song};
 use Illuminate\Http\Request;
 use App\Events\GigFinished;
 

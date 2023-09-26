@@ -28,6 +28,12 @@
 				class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'edit'])Editar evento</button>
 				@include('pages.gigs.modals.edit')
 
+			<button {{$gig->isPast() && ! $gig->isLive() ? 'disabled' : null}} 
+				data-bs-toggle="modal" 
+				data-bs-target="#songs-gig-{{$gig->id}}-modal" 
+				class="btn btn-secondary mb-2 text-truncate">@fa(['icon' => 'filter'])Excluir músicas</button>
+				@include('pages.gigs.modals.songs')
+
 			<button
 				data-bs-toggle="modal" 
 				data-bs-target="#delete-gig-{{$gig->id}}-modal" 

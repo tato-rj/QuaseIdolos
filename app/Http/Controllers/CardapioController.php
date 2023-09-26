@@ -12,8 +12,12 @@ class CardapioController extends Controller
 
     public function index(Request $request)
     {
-        $songs = Song::cardapio($request)->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
-        $artists = Artist::orderby('name')->visible()->has('songs')->paginate($this->artistsPerPage);
+        $songs = Song::cardapio($request)->shouldShow()->visibleArtist()->alphabetically()->paginate($this->songsPerPage);
+
+        $artists = Artist::orderby('name')->visible()->whereHas('songs', function($q) {
+            $q->shouldShow();
+        })->paginate($this->artistsPerPage);
+        
         $genres = cache()->remember('genres', now()->addDay(), function() {
             return Genre::orderby('name')->has('songs')->get();
         });
@@ -51,7 +55,7 @@ class CardapioController extends Controller
         if (auth()->check())
             auth()->user()->tryToJoin(Gig::ready());
         
-        $query = Song::search($request->input)->alphabetically();
+        $query = Song::search($request->input)->shouldShow()->alphabetically();
         $songs = $request->paginate ? $query->paginate($this->songsPerPage) : $query->get();
         $table = $request->table ?? 'pages.cardapio.results.table';
         $songRequestId = $request->song_request_id;

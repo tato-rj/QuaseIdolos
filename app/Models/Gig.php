@@ -12,6 +12,7 @@ class Gig extends EventModel
 	use Rateable, Archiveable, GigStates, Chateable, Sortable;
 
 	protected $casts = [
+        'excluded_songs' => 'json',
         'set_is_full' => 'boolean',
 		'is_live' => 'boolean',
 		'is_paused' => 'boolean',
@@ -76,6 +77,16 @@ class Gig extends EventModel
     	return new Password($this);
     }
 
+    public function excludedSongs()
+    {
+        return Song::whereIn('id', $this->excluded_songs)->get();
+    }
+
+    public function getExcludedSongsAttribute($attr)
+    {
+        return is_null($attr) ? [] : json_decode($attr);
+    }
+
     public function scopeInSubdomain($query)
     {
     	if (! subdomain())
@@ -138,6 +149,14 @@ class Gig extends EventModel
 
         $new->musicians()->sync($this->musicians->pluck('id')->toArray());
 	}
+
+    public function canPlay(Song $song)
+    {
+        if ($this->excluded_songs)
+            return ! in_array($song->id, $this->excluded_songs);
+
+        return true;
+    }
 
 	public function userLimitReached()
 	{
