@@ -96,6 +96,35 @@
 
 @push('scripts')
 <script type="text/javascript">
+let audio = new Audio;
+
+$(document).on('click', 'button.preview-song', function() {
+	let $icon = $(this).find('i');
+	let src = $(this).attr('data-src');
+
+	if (src) {
+		$('.preview-song i').not($icon).removeClass('fa-pause').addClass('fa-play');
+		stop();
+
+		if ($icon.hasClass('fa-play'))
+			play(src);
+
+		$icon.toggleClass('fa-play fa-pause');
+	}
+});
+
+function stop() {
+  audio.pause;
+  audio.src = null;
+}
+
+function play(src) {
+  audio.src = src;
+  audio.play();
+}
+
+</script>
+<script type="text/javascript">
 $('input[name="search_songs"]').on('keyup', function() {
 	let input = $(this).val();
 
