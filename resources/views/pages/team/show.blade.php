@@ -70,7 +70,7 @@
 					@endforelse
 				</div>
 
-				@if($unknownSongs->count() > 5)
+				@if($unknownSongs->count() > 6)
 				<div class="text-center border-top mt-2 pt-1 border-secondary">
 					<p class="mb-1 opacity-6"><small>Total de {{$unknownSongs->count()}} músicas</small></p>
 					<button id="show-all-excluded" class="btn btn-sm btn-secondary p-1">Ver todas</button>

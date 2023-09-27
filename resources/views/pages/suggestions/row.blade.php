@@ -24,6 +24,10 @@
       @break
 
   @case('actions')
+{{--       <button data-bs-toggle="modal" data-bs-target="#create-song-modal" data-artist="{{strtolower($row->artist_name)}}" class="btn btn-secondary btn-sm">@fa(['icon' => 'plus', 'mr' => 0])</button>
+
+      @include('pages.songs.modals.create') --}}
+
       @form(['method' => 'POST', 'url' => route('suggestions.confirm', $row), 'classes' => 'd-inline mr-2', 'data' => ['trigger' => 'loader']])
         <button type="submit" class="btn btn-sm btn-secondary">
           @fa(['icon' => 'check', 'mr' => 0])

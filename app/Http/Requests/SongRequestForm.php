@@ -28,7 +28,8 @@ class SongRequestForm extends FormRequest
                $this->votingHasNotFinished() && 
                $this->userCanMakeRequests() &&
                $this->songNotYetRequestedByUser() &&
-               $this->songCanBeRequestedAgain();
+               $this->songCanBeRequestedAgain() &&
+               $this->songIsKnownByTheBand();
     }
 
     public function gigIsKareoke()
@@ -89,6 +90,12 @@ class SongRequestForm extends FormRequest
 
         return ! $this->liveGig->repeatLimitReachedFor($this->song) ? true
              : $this->failWithMessage($message);
+    }
+
+    public function songIsKnownByTheBand()
+    {
+        return ! $this->liveGig->unknown_songs->contains($this->song->id) ? true
+            : $this->failWithMessage('Essa música não está disponível hoje');
     }
 
     public function rules()

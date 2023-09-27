@@ -64,4 +64,48 @@ class TeamTest extends AppTest
 
         $this->delete(route('song-requests.cancel', $songRequest));
     }
+
+    /** @test */
+    public function a_song_unknown_by_one_musician_does_not_appear_in_the_cardapio()
+    {
+        $gig = Gig::factory()->live()->create();
+
+        $gig->musicians()->attach($this->admin->id);
+
+        $this->signIn();
+
+        auth()->user()->join($gig);
+
+        $song = Song::factory()->create(['name' => 'Some song']);
+
+        $this->get(route('cardapio.search', ['input' => 'some']))->assertSee($song->name);
+
+        $this->admin->admin->update([
+            'unknown_songs' => [$song->id]
+        ]);
+
+        $this->get(route('cardapio.search', ['input' => 'some']))->assertDontSee($song->name);
+    }
+
+    /** @test */
+    public function a_song_unknown_by_one_musician_is_not_accepted_in_the_setlist()
+    {
+        $this->expectException('\App\Exceptions\SetlistException');
+
+        $gig = Gig::factory()->live()->create();
+
+        $gig->musicians()->attach($this->admin->id);
+
+        $song = Song::factory()->create(['name' => 'Some song']);
+
+        $this->admin->admin->update([
+            'unknown_songs' => [$song->id]
+        ]);
+
+        $this->signIn();
+
+        auth()->user()->join($gig);
+
+        $this->post(route('song-requests.store', $song));
+    }
 }
