@@ -17,4 +17,8 @@
 		'size' => $size ?? 'lg',
 		'icon' => 'stopwatch'])
 
+	@include('pages.gigs.features.icon', [
+		'hasFeature' => $gig->excludedSongs()->isNotEmpty(), 
+		'size' => $size ?? 'lg',
+		'icon' => 'filter'])
 </div>

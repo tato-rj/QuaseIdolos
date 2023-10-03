@@ -24,7 +24,7 @@ class UnknownSongsController extends Controller
             $list->push($song->id);
         }
 
-        $user->admin->update(['unknown_songs' => $list->values()]);
+        $user->admin->update(['unknown_songs' => $list->isNotEmpty() ? $list->values() : null]);
         
         return $user->admin->unknown_songs;
     }

@@ -211,6 +211,8 @@ Route::middleware('admin')->group(function() {
     Route::prefix('sugestoes')->withoutMiddleware('join-gig')->name('suggestions.')->group(function() {
         Route::get('', 'SuggestionsController@index')->name('index');
 
+        Route::get('checar', 'SuggestionsController@check')->name('check');
+
         Route::post('{suggestion}', 'SuggestionsController@confirm')->name('confirm');
 
         Route::delete('{suggestion}', 'SuggestionsController@destroy')->name('destroy');

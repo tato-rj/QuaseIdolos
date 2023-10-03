@@ -152,6 +152,15 @@ class Gig extends EventModel
         return true;
     }
 
+    public function excludedSongs()
+    {
+        $musicians = $this->musicians()->whereHas('admin', function($q) {
+            $q->whereNotNull('unknown_songs');
+        })->get();
+
+        return Song::findMany($musicians->pluck('admin.unknown_songs')->flatten()->unique());
+    }
+
 	public function userLimitReached()
 	{
 		if (! $this->songs_limit_per_user)

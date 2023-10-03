@@ -14,8 +14,16 @@ class SuggestionSeeder extends Seeder
      */
     public function run()
     {
-        foreach(User::guests()->inRandomOrder()->take(2)->get() as $user) {
-            Suggestion::factory()->create(['user_id' => $user->id]);
-        }
+        Suggestion::factory()->create([
+            'user_id' => User::guests()->inRandomOrder()->first(),
+            'artist_name' => 'Eric Clapton',
+            'song_name' => 'Tears In Haven'
+        ]);
+
+        Suggestion::factory()->create([
+            'user_id' => User::guests()->inRandomOrder()->first(),
+            'artist_name' => 'Kid Abelha',
+            'song_name' => 'Fixacao'
+        ]);
     }
 }

@@ -69,7 +69,6 @@ $('input[name="search_song"]').keyup(function() {
 		 .catch(function(error) {
 			alert('Try again...');
 		});
-
 });
 </script>
 @endpush

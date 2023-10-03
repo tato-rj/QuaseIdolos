@@ -8,6 +8,7 @@ trait Spotify
 {
 	public function searchFor($input)
 	{
+		// dd(SpotifyApi::audioFeaturesForTrack('7HVkDgjIDN9TCyjzjZu1Fs')->get());
 		$response = SpotifyApi::searchTracks($input)->limit(10)->get()['tracks'];
 
 		if (count($response['items'])) {

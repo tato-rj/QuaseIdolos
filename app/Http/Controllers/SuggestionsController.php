@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\{Suggestion, Song};
 use Illuminate\Http\Request;
 use App\Mail\Users\SuggestionEmail;
+use App\Tools\MusicData\MusicData;
 
 class SuggestionsController extends Controller
 {
@@ -28,6 +29,11 @@ class SuggestionsController extends Controller
         $songs = $artistQuery->intersect($songQuery);
 
         return $songs->count() ? view('pages.cardapio.components.suggestions.matches', compact('songs'))->render() : null;
+    }
+
+    public function check(Request $request)
+    {
+        return (new MusicData)->artist('The Rolling Stones')->get();
     }
 
     /**

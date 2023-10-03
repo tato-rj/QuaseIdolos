@@ -2,7 +2,6 @@
 
 @push('header')
 <style type="text/css">
-
 </style>
 @endpush
 
