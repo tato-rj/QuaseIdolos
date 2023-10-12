@@ -144,6 +144,16 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
+    public function isSuperAdmin()
+    {
+        return $this->admin()->exists() && $this->admin()->first()->isSuperAdmin();    
+    }
+
+    public function isRegularAdmin()
+    {
+        return $this->admin()->exists() && ! $this->admin()->first()->isSuperAdmin();    
+    }
+
     public function gig()
     {
         return $this->belongsToMany(Gig::class, 'participants');

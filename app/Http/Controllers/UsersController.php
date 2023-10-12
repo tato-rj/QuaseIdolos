@@ -102,13 +102,15 @@ class UsersController extends Controller
 
         $user = $user ?? auth()->user();
 
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed',
-        ]);
+        if (! auth()->user()->isSuperAdmin()) {
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|confirmed',
+            ]);
 
-        if(! \Hash::check($request->old_password, $user->password)){
-            return back()->with("error", "A senha antiga não está correta!");
+            if (! \Hash::check($request->old_password, $user->password)){
+                return back()->with("error", "A senha antiga não está correta!");
+            }
         }
 
         $user->update([

@@ -3,10 +3,12 @@
 	@csrf
 
 	<div class="text-left"> 
+	@unless(auth()->user()->isSuperAdmin())
 	@password([
 		'label' => 'Senha antiga',
 		'name' => 'old_password', 
 		'placeholder' => '******'])
+	@endunless
 
 	@password([
 		'label' => 'Nova senha',

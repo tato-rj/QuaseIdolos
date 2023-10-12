@@ -8,6 +8,42 @@ use App\Models\{User, SongRequest, Song, Gig, Favorite, Rating, SocialAccount, S
 class UserTest extends AppTest
 {
     /** @test */
+    public function admins_can_change_user_password_without_confirming_the_old_one()
+    {
+        $this->signIn($this->superAdmin);
+
+        $user = User::factory()->create();
+
+        $oldPassword = $user->password;
+
+        $this->post(route('profile.password', $user), ['new_password' => 'foo']);
+
+        $this->assertNotEquals($user->fresh()->password, $oldPassword);
+    }
+
+    /** @test */
+    public function regular_admins_cannot_change_users_passwords_without_confirming_the_old_one()
+    {
+        $this->expectException('Illuminate\Validation\ValidationException');
+
+        $this->signIn($this->admin);
+
+        $user = User::factory()->create();
+
+        $this->post(route('profile.password', $user), ['new_password' => 'foo']);
+    }
+
+    /** @test */
+    public function regular_users_must_confirm_the_old_password()
+    {
+        $this->expectException('Illuminate\Validation\ValidationException');
+        
+        $this->signIn();
+
+        $this->post(route('profile.password'), ['new_password' => 'foo']);
+    }
+
+    /** @test */
     public function users_can_only_update_their_own_accounts()
     {
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
