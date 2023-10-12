@@ -213,7 +213,7 @@ class SongRequestTest extends AppTest
     }
 
     /** @test */
-    public function a_song_requested_by_an_admin_is_removed_when_finished()
+    public function a_song_requested_by_an_admin_is_not_removed_when_finished()
     {
         $this->signIn($this->admin);
         
@@ -221,7 +221,7 @@ class SongRequestTest extends AppTest
 
         $songRequest->finish();
 
-        $this->assertDatabaseMissing('song_requests', ['id' => $songRequest->id]);
+        $this->assertDatabaseHas('song_requests', ['id' => $songRequest->id]);
     }
 
     /** @test */

@@ -31,7 +31,7 @@ trait GigStates
 
 	public function isFull()
 	{	
-		return is_null($this->songs_limit) ? false : $this->setlist()->byGuests()->count() >= $this->songs_limit;
+		return is_null($this->songs_limit) ? false : $this->setlist()->count() >= $this->songs_limit;
 	}
 
 	public function setHasReachedItsLimit()
@@ -101,6 +101,9 @@ trait GigStates
 
 		if ($this->userLimitReached())
 			return '<span class="text-red">O seu limite de músicas foi alcançado</span>';
+
+		if ($this->sets()->current()->exists() && $this->sets()->current()->isFinished())
+			return '<span class="text-red">As inscrições voltam ao final desse set</span>';
 
 		return '<span class="text-green">Incrições abertas, esperamos você!</span>';
 	}

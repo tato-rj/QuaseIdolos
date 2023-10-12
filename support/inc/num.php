@@ -1,11 +1,16 @@
 <?php
 
-function percentage($num, $total)
+function percentage($num, $total, $cap = null)
 {
 	if ($total == 0)
 		return 0;
 
-	return (int)round(($num * 100) / $total);
+	$percent = (int)round(($num * 100) / $total);
+
+	if ($cap)
+		return $percent > $cap ? $cap : $percent;
+
+	return $percent;
 }
 
 function randomFromArray($array = [])

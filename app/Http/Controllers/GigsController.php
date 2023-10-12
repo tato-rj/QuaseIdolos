@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Gig, Venue, Participant, Admin, Show, Song};
+use App\Models\{Gig, Venue, Participant, Admin, Show, Song, Set};
 use Illuminate\Http\Request;
 use App\Events\GigFinished;
 
@@ -105,7 +105,6 @@ class GigsController extends Controller
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
             'set_limit' => $request->set_limit,
-            'current_set_limit' => $request->set_limit,
             'duration' => $request->duration,
             'is_private' => $request->is_private ? 1 : 0,
             'has_ratings' => $request->has_ratings ? 1 : 0,
@@ -165,8 +164,6 @@ class GigsController extends Controller
             'repeat_limit' => $request->repeat_limit,
             'songs_limit' => $request->songs_limit,
             'set_limit' => $request->set_limit,
-            'current_set_limit' => $gig->current_set_limit ?? $request->set_limit,
-            // 'set_is_full' => $gig->set_limit != $request->set_limit ? false : $gig->set_is_full,
             'duration' => $request->duration,
             'has_ratings' => $request->has_ratings ? 1 : 0,
             'is_private' => $request->is_private ? 1 : 0,
@@ -179,10 +176,15 @@ class GigsController extends Controller
         $gig->musicians()->sync($request->musicians);
 
         if ($request->has_password) {
-            // if (! $gig->password()->required())
-                $gig->password()->update($request->password);
+            $gig->password()->update($request->password);
         } else {
             $gig->password()->destroy();
+        }
+
+        if (is_null($request->set_limit)) {
+            $gig->sets()->delete();
+        } elseif (! $gig->sets()->current()->exists()) {
+            Set::new($gig);
         }
 
         return back()->with('success', 'O karaokê foi alterado com sucesso');
@@ -209,15 +211,6 @@ class GigsController extends Controller
         $message = $gig->is_paused ? 'O karaokê está pausado' : 'O karaokê voltou';
 
         return back()->with('success', $message);
-
-        // return view('components.core.alerts.regular', [
-        //     'message' => $message,
-        //     'icon' => ! $gig->is_paused ? 'play' : 'pause', 
-        //     'color' => ! $gig->is_paused ? 'green' : 'yellow', 
-        //     'pos' => 'top', 
-        //     'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown'], 
-        //     'countdown' => 3
-        // ])->render();
     }
 
     public function open(Request $request, Gig $gig)
@@ -225,6 +218,9 @@ class GigsController extends Controller
         $this->authorize('open', $gig);
         
         $gig->open();
+
+        if (! $gig->sets()->exists() && $gig->set_limit)
+            Set::new($gig);
 
         return back()->with('success', 'O karaokê começou');
     }
@@ -234,6 +230,9 @@ class GigsController extends Controller
         GigFinished::dispatch($gig);
 
         $gig->close();
+
+        if ($gig->sets()->exists())
+            $gig->sets()->delete();
 
         return back()->with('success', 'O karaokê terminou');
     }

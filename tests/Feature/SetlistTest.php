@@ -138,6 +138,22 @@ class SetlistTest extends AppTest
     }
 
     /** @test */
+    public function admin_requests_are_included_in_the_setlist_count()
+    {
+        $this->signIn($this->admin);
+
+        $gig = Gig::factory()->create(['is_live' => true, 'songs_limit' => 1]);
+        
+        auth()->user()->join($gig);
+
+        $this->assertEquals($gig->setlist()->count(), 0);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->assertEquals($gig->setlist()->count(), 1);
+    }
+
+    /** @test */
     public function when_a_request_is_completed_the_order_of_the_rest_of_the_list_is_updated()
     {
         $this->signIn();
@@ -205,121 +221,5 @@ class SetlistTest extends AppTest
         $this->signIn($this->admin);
 
         $this->post(route('song-requests.finish', $firstRequest));
-    }
-
-    /** @test */
-    public function users_can_submit_requests_until_the_local_set_is_full()
-    {
-        $this->expectNotToPerformAssertions();
-        $this->signIn();
-
-        $this->gig->update(['current_set_limit' => 2, 'set_limit' => 2]);
-
-        auth()->user()->join($this->gig);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
-    }
-
-    /** @test */
-    public function users_cannot_submit_requests_once_the_local_set_is_full()
-    {
-        $this->expectException('\App\Exceptions\SetlistException');
-        $this->signIn();
-
-        $this->gig->update(['current_set_limit' => 2, 'set_limit' => 2]);
-
-        auth()->user()->join($this->gig);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
-    }
-
-    /** @test */
-    public function once_full_users_have_to_wait_for_the_set_to_finish_to_send_new_requests()
-    {
-        $this->expectException('\App\Exceptions\SetlistException');
-        $this->signIn();
-
-        $this->gig->update(['current_set_limit' => 2, 'set_limit' => 2]);
-
-        auth()->user()->join($this->gig);
-
-        $this->assertFalse($this->gig->set_is_full);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
-
-        $this->assertTrue($this->gig->fresh()->set_is_full);
-
-        $this->gig->setlist()->waiting()->first()->finish();
-
-        $this->assertTrue($this->gig->fresh()->set_is_full);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-    }
-
-    /** @test */
-    public function the_set_limit_is_maintained_regardless_if_the_requests_are_confirmed_or_not()
-    {
-        $this->expectException('\App\Exceptions\SetlistException');
-
-        $this->signIn();
-
-        $this->gig->update(['set_limit' => 3, 'current_set_limit' => 3]);
-
-        auth()->user()->join($this->gig);
-
-        $this->assertFalse($this->gig->set_is_full);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
-
-        $this->assertFalse($this->gig->fresh()->set_is_full);
-
-        $this->gig->setlist()->waiting()->first()->finish();
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-
-        $this->assertTrue($this->gig->fresh()->set_is_full);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-    }
-
-    /** @test */
-    public function users_have_to_wait_for_the_last_request_of_a_set_to_be_confirmed_before_they_can_submit_a_new_one()
-    {
-        $this->expectNotToPerformAssertions();
-        $user = $this->signIn();
-
-        $this->gig->update(['current_set_limit' => 2, 'set_limit' => 2]);
-
-        auth()->user()->join($this->gig);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
-
-        $this->signIn($this->admin);
-
-        foreach($this->gig->setlist()->waiting()->get() as $request) {
-            $this->post(route('song-requests.finish', $request));
-        }
-
-        $this->signIn($user);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
-
-        $this->signIn($this->admin);
-        
-        foreach($this->gig->setlist()->waiting()->get() as $request) {
-            $this->post(route('song-requests.finish', $request));
-        }
-
-        $this->signIn($user);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
     }
 }

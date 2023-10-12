@@ -1,7 +1,8 @@
 @isset($gig)
 <div class="mb-4"> 
-@include('pages.setlists.admin.counter', ['setlist' => $setlist->where('user_id', '!=', auth()->user()->id)])
-@include('pages.setlists.admin.setcounter', ['setlist' => $setlist->where('user_id', '!=', auth()->user()->id)])
+	
+@include('pages.setlists.admin.counter')
+@include('pages.setlists.admin.setcounter')
 </div>
 @endisset
 

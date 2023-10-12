@@ -69,12 +69,12 @@ class SongRequestsController extends Controller
         $this->authorize('update', $songRequest);
 
         $songRequest->finish();
+
+        $songRequest->gig->updateSet();
         
         $songRequest->invitations->each->confirm();
 
         $songRequest->gig->sortSetlist();
-
-        // $songRequest->gig->checkSetLimit();
         
         try {
             SongFinished::dispatch($songRequest);
@@ -100,13 +100,11 @@ class SongRequestsController extends Controller
             bugreport($e);
         }
         
-        $songRequest->delete();
+        $songRequest->cancel();
+        
+        $songRequest->gig->updateSet();
 
         $songRequest->gig->sortSetlist();
-
-        $songRequest->gig->decrement('set_counter');
-
-        $songRequest->gig->resetSet();
 
         return back()->with('success', 'O pedido foi cancelado com sucesso');
     }

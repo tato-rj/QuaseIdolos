@@ -232,23 +232,38 @@ class SongRequest extends BaseModel
             'gig_id' => $gig->id,
             'order' => $gig->setlist()->waiting()->count()]);
 
-        $gig->incrementSet($songRequest);
+        if ($gig->sets()->exists())
+            $gig->sets()->current()->incrementQueue();
 
         return $songRequest;
     }
 
     public function finish()
     {
-        $this->gig->decrementSet($this);
+        if (! $this->user) {
+            $this->delete();
+        } else {
+            $this->update(['finished_at' => now()]);
+        }
 
-        if (! $this->user || $this->user->admin()->exists())
-            return $this->delete();
-
-        $this->update(['finished_at' => now()]);
-
-        $this->gig->resetSet();
+        if ($this->gig->sets()->exists())
+            $this->gig->sets()->current()->decrementQueue();
 
         return $this;
+    }
+
+    public function cancel()
+    {
+        $this->delete();
+
+        if ($this->gig->sets()->exists()) {
+            $wasFull = $this->gig->sets()->current()->isFull();
+
+            $this->gig->sets()->current()->decrementQueue();
+
+            if ($wasFull && ! $this->gig->sets()->current()->isFull())
+                $this->gig->sets()->current()->update(['finished' => false]);
+        }
     }
 
     public function isOver()

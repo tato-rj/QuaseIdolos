@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\{Admin, Gig, Venue};
+use App\Models\{Admin, Gig, Venue, Set};
 
 class GigSeeder extends Seeder
 {
@@ -28,13 +28,15 @@ class GigSeeder extends Seeder
             'venue_id' => Venue::byName('Big Ben')->id,
             'creator_id' => Admin::superAdmin()->first()->user->id,
             'songs_limit' => 10,
-            'songs_limit_per_user' => 2,
+            'set_limit' => 4,
             'has_ratings' => true,
             'is_live' => true,
             'starting_time' => '21:30',
             'scheduled_for' => now(),
             'starts_at' => now()
         ]);
+
+        Set::new($liveGig);
 
         foreach (Admin::musicians()->get() as $musician) {
             $liveGig->musicians()->save($musician);

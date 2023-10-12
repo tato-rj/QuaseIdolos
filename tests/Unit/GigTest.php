@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\AppTest;
-use App\Models\{Gig, User, SongRequest, Participant, Rating, Venue};
+use App\Models\{Gig, User, SongRequest, Participant, Rating, Venue, Set};
 
 class GigTest extends AppTest
 {
@@ -35,6 +35,16 @@ class GigTest extends AppTest
         $this->gig->musicians()->save(User::factory()->create());
         
         return $this->assertInstanceOf(User::class, $this->gig->musicians->first());
+    }
+
+    /** @test */
+    public function it_has_many_sets()
+    {
+        $this->gig->sets()->create([
+            'limit' => 1
+        ]);
+
+        return $this->assertInstanceOf(Set::class, $this->gig->sets->first());
     }
 
     /** @test */

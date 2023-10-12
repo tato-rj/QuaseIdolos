@@ -41,6 +41,11 @@ class Gig extends EventModel
     	return $this->hasMany(SongRequest::class, 'gig_id');
     }
 
+    public function sets()
+    {
+        return $this->hasMany(Set::class)->latest();
+    }
+
     public function chats()
     {
     	return $this->hasMany(Chat::class);
@@ -129,14 +134,13 @@ class Gig extends EventModel
         $new = $this->replicate();
 
         $new->creator_id = auth()->user()->id;
-        $new->set_is_full = false;
         $new->scheduled_for = null;
         $new->starts_at = null;
         $new->ends_at = null;
         $new->winner_id = null;
         $new->is_live = false;
         $new->is_paused = false;
-        $new->current_set_limit = $this->set_limit;
+        $new->set_limit = $this->set_limit;
         $new->password = $this->password()->required() ? $this->password()->generate() : null;
 
         $new->push();
@@ -169,38 +173,33 @@ class Gig extends EventModel
 		return $this->setlist()->where('user_id', auth()->user()->id)->count() >= $this->songs_limit_per_user;
 	}
 
-    public function incrementSet(SongRequest $songRequest)
-    {
-        if ($songRequest->user->admin()->exists())
-            return $this;
+    // public function incrementSet(SongRequest $songRequest)
+    // {
+    //     if ($songRequest->user->admin()->exists())
+    //         return $this;
         
-        if (! $this->setHasReachedItsLimit())
-            $this->increment('set_counter');
+    //     if (! $this->setHasReachedItsLimit())
+    //         $this->increment('set_counter');
         
-        if ($this->setHasReachedItsLimit())
-            $this->update(['set_is_full' => true]);
-    }
+    //     if ($this->setHasReachedItsLimit())
+    //         $this->update(['set_is_full' => true]);
+    // }
 
-    public function decrementSet(SongRequest $songRequest)
-    {
-        if (! $this->set_is_full || $songRequest->user->admin()->exists())
-            return $this;
+    // public function decrementSet(SongRequest $songRequest)
+    // {
+    //     if (! $this->set_is_full || $songRequest->user->admin()->exists())
+    //         return $this;
         
-        if ($this->set_counter > 0)
-            $this->decrement('set_counter');
+    //     if ($this->set_counter > 0)
+    //         $this->decrement('set_counter');
         
-        $this->resetSet();
-    }
+    //     $this->resetSet();
+    // }
 
-    public function resetSet()
+    public function updateSet()
     {
-        if ($this->set_counter == 0 || $this->setlist()->waiting()->byGuests()->count() == 0) {
-            $this->update([
-                'current_set_limit' => $this->set_limit,
-                'set_is_full' => false,
-                'set_counter' => 0,
-            ]);
-        }
+        if ($this->sets()->exists() && ! $this->setlist()->waiting()->exists())
+            $this->sets()->current()->renew();
     }
 
     // public function checkSetLimit()

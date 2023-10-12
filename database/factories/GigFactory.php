@@ -24,7 +24,6 @@ class GigFactory extends Factory
             'scheduled_for' => now()->startOfDay(),
             'starting_time' => '20:30',
             'has_ratings' => true,
-            'set_is_full' => false,
             'participates_in_chat' => true
         ];
     }

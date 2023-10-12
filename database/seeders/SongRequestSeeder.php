@@ -20,7 +20,7 @@ class SongRequestSeeder extends Seeder
     public function pastSongRequests()
     {
         foreach (Participant::guests()->inRandomOrder()->get() as $participant) {
-            $gigs = Gig::live()->orPast()->inRandomOrder()->get();
+            $gigs = Gig::live()->where('name', '!=', 'Big Ben')->orPast()->inRandomOrder()->get();
 
             foreach ($gigs as $gig) {
                 if ($gig->songRequestsLeft() > 2) {
