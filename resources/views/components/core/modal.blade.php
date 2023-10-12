@@ -1,4 +1,4 @@
-<div class="modal fade {{$class ?? null}}-modal {{iftrue($autoshow ?? null, 'modal-autoshow')}}"
+<div class="modal fade {{$class ?? null}}-modal {{iftrue($modalcenter ?? null, 'd-center')}} {{iftrue($autoshow ?? null, 'modal-autoshow')}}"
   @isset($data)
   @foreach($data as $type => $action)
   data-{{$type}}="{{$action}}"
@@ -15,7 +15,7 @@
       </div>
       @else
       <div class="modal-header border-0 {{isset($title) ? 'pb-0' : null}}">
-        <h4 class="modal-title text-secondary no-stroke">{{$title ?? null}}</h4>
+        <h4 class="modal-title text-secondary no-stroke">{!!$title ?? null!!}</h4>
         <button type="button" class="btn-close btn-raw" style="width: inherit; height: inherit;" data-bs-dismiss="modal" aria-label="Close">@fa(['icon' => 'times', 'fa_size' => '2x', 'mr' => 0])</button>
       </div>
       @endisset

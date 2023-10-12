@@ -9,7 +9,17 @@
     'animation' => ['in' => 'fadeInUp', 'out' => 'fadeOutDown']])
 @endif
 
-@if($message = session('error') ?? $errors->first())
+@if($message = session('setlist-error'))
+@modal([
+    'title' => fa('exclamation-triangle').' Desculpe', 
+    'id' => 'setlist-error-modal', 
+    'autoshow' => true])
+<div class="p-3 rounded mb-3 bg-white">
+    <p class="text-left m-0 text-red h5 fw-bold">{{$message}}</p>
+</div>
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+@endmodal
+@elseif($message = session('error') ?? $errors->first())
 @alert([
     'color' => 'red',
     'headline' => 'Desculpe',
