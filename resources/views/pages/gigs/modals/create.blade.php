@@ -27,9 +27,9 @@
 	@input(['placeholder' => 'Limite de músicas por pessoa', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 0])
 	@input(['placeholder' => 'Limite de músicas por set', 'name' => 'set_limit', 'type' => 'number', 'min' => 0])
 
-	<div class="text-left mb-3"> 
+{{-- 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse karaokê é fechado?', 'name' => 'is_private', 'on' => old('is_private') ?? false])
-	</div>
+	</div> --}}
 	
 	<div class="text-left mb-3 has-password-container"> 
 		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => old('has_password') ?? false])

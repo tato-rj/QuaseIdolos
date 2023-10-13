@@ -45,9 +45,9 @@
 	@input(['label' => 'Limite de músicas por pessoa', 'placeholder' => 'Sem limite', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 1, 'value' => $gig->songs_limit_per_user])
 	@input(['label' => 'Limite de músicas por set', 'placeholder' => 'Sem limite', 'name' => 'set_limit', 'type' => 'number', 'min' => 1, 'value' => $gig->set_limit])
 
-	<div class="text-left mb-3"> 
+{{-- 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => $gig->isPrivate()])
-	</div>
+	</div> --}}
 
 	<div class="text-left mb-3 has-password-container"> 
 		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => $gig->password()->required()])
