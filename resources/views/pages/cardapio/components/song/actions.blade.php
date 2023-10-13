@@ -29,8 +29,8 @@
 @endif
 
 @admin
-<div class="mt-3">
-	<div class="d-flex pt-3" style="border-top: 10px dotted rgba(0,0,0,.2);">
+<div class="mt-2">
+	<div class="d-flex pt-2" style="border-top: 10px dotted rgba(0,0,0,.2);">
 		@include('pages.cardapio.components.song.buttons.admin.chords')
 		@include('pages.cardapio.components.song.buttons.admin.lyrics')
 		@include('pages.cardapio.components.song.buttons.admin.drums')
