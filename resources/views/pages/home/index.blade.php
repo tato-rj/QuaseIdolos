@@ -26,9 +26,11 @@
 @include('pages.home.bands.schedule')
 @include('pages.home.bands.contact')
 @include('pages.home.bands.about')
-@if(! $topUsers->isEmpty())
+
+{{-- @if(! $topUsers->isEmpty())
 @include('pages.home.bands.rankings')
-@endif
+@endif --}}
+
 @include('pages.home.bands.search')
 
 @endsection
