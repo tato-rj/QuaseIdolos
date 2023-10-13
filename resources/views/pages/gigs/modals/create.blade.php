@@ -30,6 +30,7 @@
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse karaokê é fechado?', 'name' => 'is_private', 'on' => old('is_private') ?? false])
 	</div>
+	
 	<div class="text-left mb-3 has-password-container"> 
 		@toggle(['label' => 'Precisa de senha pra entrar?', 'name' => 'has_password', 'on' => old('has_password') ?? false])
 		<div 
@@ -40,9 +41,10 @@
 			@input(['placeholder' => 'Senha (opcional)', 'name' => 'password', 'value' => old('password')])
 		</div>
 	</div>
-	<div class="text-left mb-3"> 
+
+{{-- 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => old('has_ratings') ?? true])
-	</div>
+	</div> --}}
 
 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Chat liberado?', 'name' => 'participates_in_chat', 'on' => old('participates_in_chat') ?? true])
