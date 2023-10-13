@@ -6,13 +6,13 @@
 
 @include('pages.gigs.modals.edit', ['pausable' => true])
 
-@include('layouts.menu.components.divider')
+{{-- @include('layouts.menu.components.divider') --}}
 
 @include('pages.setlists.admin.options.password')
 @include('pages.setlists.admin.options.lyrics')
 
-@if($gig->participatesInRatings())
+{{-- @if($gig->participatesInRatings())
 @include('pages.setlists.admin.options.ratings')
-@endif
+@endif --}}
 
 @endmodal

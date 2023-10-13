@@ -5,11 +5,11 @@
 		'size' => $size ?? 'lg',
 		'label' => 'password',
 		'icon' => 'key'])
-	@include('pages.gigs.features.icon', [
+{{-- 	@include('pages.gigs.features.icon', [
 		'hasFeature' => $gig->participatesInRatings(), 
 		'size' => $size ?? 'lg',
 		'label' => 'votação',
-		'icon' => 'trophy'])
+		'icon' => 'trophy']) --}}
 	@include('pages.gigs.features.icon', [
 		'hasFeature' => $gig->participatesInChats(), 
 		'size' => $size ?? 'lg',
