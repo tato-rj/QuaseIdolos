@@ -1,2 +1,3 @@
 {{-- <p class="text-center">@fa(['icon' => 'info-circle'])Não estamos recebendo pedidos agora, veja <a class="link-secondary" href="{{route('calendar.index')}}">aqui</a> o nosso calendário de shows.</p> --}}
-<p class="text-center">@fa(['icon' => 'info-circle'])@lang('views/cardapio.song.closed')</p>
+<p class="text-left mb-2">@fa(['icon' => 'info-circle'])@lang('views/cardapio.song.closed')</p>
+<button disabled class="btn btn-secondary text-truncate w-100 mb-3">@fa(['icon' => 'microphone'])@lang('views/cardapio.song.buttons.sing')</button>

@@ -1,5 +1,5 @@
-<div class="d-flex flex-column justify-content-between h-100">
-	<div class="mb-3">
+<div class="{{-- d-flex flex-column justify-content-between h-100--}}">
+	<div class="mb-4">
 		@include('pages.cardapio.components.song.actions')
 	</div>
 	<div class="mb-">
@@ -9,7 +9,7 @@
 				@include('pages.ratings.stars', ['rating' => round($song->ratings->avg('score'))])
 			</div>
 		</div> --}}
-		<div>
+		<div class="pt-4" style="border-top: 10px dotted rgba(0,0,0,.2);">
 			<div class="d-apart mb-2">
 				<h5 class="text-secondary no-stroke">@fa(['icon' => 'guitar'])@lang('views/cardapio.song.genre')</h5>
 				<h5 class="text-white">{{$song->genre->name}}</h5>
