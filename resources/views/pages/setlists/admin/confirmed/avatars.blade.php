@@ -1,6 +1,6 @@
 @php($user = $entry->user)
 
-<div style="margin-left: -18px">
+<div style="margin-left: -18px" class="mb-1">
 	@if($user->hasAvatar())
 	@include('components.avatar.image', ['size' => '56px', 'classes' => 'border border-1'])
 	@else
