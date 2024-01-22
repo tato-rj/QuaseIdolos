@@ -273,9 +273,9 @@ Route::middleware('super-admin')->group(function() {
     Route::prefix('equipe')->withoutMiddleware('join-gig')->name('team.')->group(function() {
         Route::get('', 'TeamController@index')->name('index');
 
-        Route::get('{user}', 'TeamController@show')->name('show');
-
         Route::get('busca', 'TeamController@search')->name('search');
+        
+        Route::get('{user}', 'TeamController@show')->name('show');
 
         Route::patch('{user}', 'TeamController@update')->name('update');
 

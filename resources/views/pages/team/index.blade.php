@@ -56,7 +56,8 @@ $('input[name="search_member"]').keyup(function() {
 		 })
 		 .catch(function(error) {
 		 	$('#admin-container').show();
-			alert('Try again...');
+		 	log(error.response);
+			// alert('Try again...');
 		});
 
 });
