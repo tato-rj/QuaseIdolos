@@ -13,9 +13,9 @@
       @endif
       
       @if(auth()->user()->liveGig)
-        @if(auth()->user()->participatesInChats() && auth()->user()->liveGig->participatesInChats())
+{{--         @if(auth()->user()->participatesInChats() && auth()->user()->liveGig->participatesInChats())
         @link(['route' => route('chat.index'), 'lang' => 'views/header.chat', 'icon' => 'comments'])
-        @endif
+        @endif --}}
 
         @link(['route' => route('gig.participants.index', auth()->user()->liveGig), 'lang' => 'views/header.participants', 'icon' => 'users'])
         @include('layouts.menu.components.divider')

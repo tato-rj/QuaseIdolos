@@ -46,9 +46,9 @@
 		@toggle(['label' => 'Usuários podem votar?', 'name' => 'has_ratings', 'on' => old('has_ratings') ?? true])
 	</div> --}}
 
-	<div class="text-left mb-3"> 
+{{-- 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Chat liberado?', 'name' => 'participates_in_chat', 'on' => old('participates_in_chat') ?? true])
-	</div>
+	</div> --}}
 	
 	<div class="text-left"> 
 		@checkbox(['label' => 'Quem vai tocar nesse karaokê?', 'name' => 'musicians'])

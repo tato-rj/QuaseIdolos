@@ -375,7 +375,7 @@ $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
 let songMetronome;
 var sortable, sorting;
 
-var chat = new Chat;
+// var chat = new Chat;
 
 if (app.user && app.gig) {
     if (app.user.admin) {
@@ -384,8 +384,8 @@ if (app.user && app.gig) {
         getUserAlert();
     }
 
-    if (app.user.participates_in_chat && app.gig.participates_in_chat)
-        listenToUserEvents();
+    // if (app.user.participates_in_chat && app.gig.participates_in_chat)
+        // listenToUserEvents();
 }
 
 function listenToAdminEvents()

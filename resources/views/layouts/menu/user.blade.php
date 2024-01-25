@@ -13,9 +13,9 @@
            <a class="nav-link bg-secondary rounded-pill px-4 py-1 mb-3" href="{{route('ratings.index')}}">@fa(['icon' => 'trophy'])@lang('views/header.ratings')</a>
         @endif
 
-        @if(auth()->user()->participatesInChats() && auth()->user()->liveGig->participatesInChats())
+{{--         @if(auth()->user()->participatesInChats() && auth()->user()->liveGig->participatesInChats())
         @link(['route' => route('chat.index'), 'lang' => 'views/header.chat', 'icon' => 'comments'])
-        @endif
+        @endif --}}
 
         @include('layouts.menu.components.divider')
       @endif
