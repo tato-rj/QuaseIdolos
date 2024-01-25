@@ -18,9 +18,16 @@
 		<div class="small d-center border-0 opacity-2 fw-bold h-100">TOTAL DO SET</div>
 		@endunless
 
-		@if($count = $waiting->count())
+{{-- 		@if($count = $waiting->count())
 		<div class="font-cursive setlist-counter-fill bg-white {{$setIsFinished ? 'opacity-4' : null}} rounded-pill d-flex align-items-center justify-content-end px-3" 
 			style="width: {{percentage($waiting->count(), $set->limit, $cap = 100)}}%;">
+			{{$count}}
+		</div>
+		@endif --}}
+
+		@if($count = $set->limit - $set->songsLeft())
+		<div class="font-cursive setlist-counter-fill bg-white {{$setIsFinished ? 'opacity-4' : null}} rounded-pill d-flex align-items-center justify-content-end px-3" 
+			style="width: {{percentage($count, $set->limit, $cap = 100)}}%;">
 			{{$count}}
 		</div>
 		@endif

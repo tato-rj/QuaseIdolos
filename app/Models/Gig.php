@@ -196,10 +196,19 @@ class Gig extends EventModel
     //     $this->resetSet();
     // }
 
-    public function updateSet()
+    public function updateSet($canceled = false)
     {
-        if ($this->sets()->exists() && ! $this->setlist()->waiting()->exists())
-            $this->sets()->current()->renew();
+        $currentSet = $this->sets()->current();
+
+        if ($canceled) {
+            $currentSet->increment('songs_left');
+
+            if ($this->sets()->exists() && $currentSet->songsLeft() > 0)
+                $currentSet->update(['finished' => false]);
+        }
+
+        if ($this->sets()->exists() && $currentSet->isFull() && ! $this->setlist()->waiting()->exists())
+            $currentSet->renew();
     }
 
     // public function checkSetLimit()

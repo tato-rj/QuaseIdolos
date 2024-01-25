@@ -41,23 +41,6 @@ class SetTest extends AppTest
     }
 
     /** @test */
-    public function admin_requests_are_included_in_the_set_queue_even_after_it_is_full()
-    {
-        $this->signIn($this->admin);
-        
-        Set::new($this->gig);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-        $this->post(route('song-requests.store', Song::factory()->create()));
-
-        $this->assertEquals($this->gig->sets()->current()->queue, 2);
-
-        $this->post(route('song-requests.store', Song::factory()->create()));
-
-        $this->assertEquals($this->gig->sets()->current()->queue, 3);
-    }
-
-    /** @test */
     public function once_full_a_set_stops_accepting_requests_until_it_ends()
     {
         $this->signIn($this->admin);
@@ -75,7 +58,28 @@ class SetTest extends AppTest
     }
 
     /** @test */
-    public function once_full_a_set_resumes_accepting_requests_if_one_is_cancelled()
+    public function as_requests_are_completed_the_remaining_count_stays_the_same_until_the_set_is_full()
+    {
+        $this->signIn();
+
+        $this->gig->update(['set_limit' => 4]);
+
+        Set::new($this->gig);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 2);
+
+        $this->signIn($this->admin);
+
+        $this->post(route('song-requests.finish', SongRequest::find(1)));
+
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 2);
+    }
+
+    /** @test */
+    public function once_full_a_accepts_new_requests_if_one_is_cancelled()
     {
         $this->signIn($this->admin);
         
@@ -85,10 +89,33 @@ class SetTest extends AppTest
         $this->post(route('song-requests.store', Song::factory()->create()));
 
         $this->assertTrue($this->gig->sets()->current()->isFinished());
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 0);
 
         $this->delete(route('song-requests.cancel', SongRequest::first()));
         
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 1);
         $this->assertFalse($this->gig->sets()->current()->isFinished());
+    }
+
+    /** @test */
+    public function if_not_full_a_accepts_an_extra_new_requests_if_one_is_cancelled()
+    {
+        $this->signIn();
+
+        $this->gig->update(['set_limit' => 4]);
+        
+        Set::new($this->gig);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 2);
+        
+        $this->signIn($this->admin);
+        
+        $this->delete(route('song-requests.cancel', SongRequest::first()));
+        
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 3);
     }
 
     /** @test */

@@ -17,6 +17,7 @@ class CreateSetsTable extends Migration
             $table->id();
             $table->unsignedInteger('gig_id');
             $table->unsignedTinyInteger('limit');
+            $table->tinyInteger('songs_left')->default(0);
             $table->unsignedTinyInteger('queue')->default(0);
             $table->boolean('finished')->default(false);
             $table->timestamps();

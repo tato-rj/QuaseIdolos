@@ -15,7 +15,8 @@ class Set extends BaseModel
     {
         $query->create([
             'gig_id' => $gig->id,
-            'limit' => $gig->set_limit
+            'limit' => $gig->set_limit,
+            'songs_left' => $gig->set_limit
         ]);
     }
 
@@ -24,6 +25,7 @@ class Set extends BaseModel
         return $this->update([
             'queue' => 0,
             'limit' => $this->gig->set_limit,
+            'songs_left' => $this->gig->set_limit,
             'finished' => false
         ]);
     }
@@ -37,6 +39,9 @@ class Set extends BaseModel
     {
         $this->increment('queue');
 
+        if ($this->limit)
+            $this->decrement('songs_left');
+
         if ($this->isFull())
             $this->update(['finished' => true]);
     }
@@ -49,16 +54,19 @@ class Set extends BaseModel
 
     public function songsLeft()
     {
-        return $this->limit - $this->queue;
+        return $this->songs_left;
+        // return $this->limit - $this->queue;
     }
 
     public function isFull()
     {
-        return $this->limit <= $this->queue;
+        return $this->songs_left <= 0;
+        // return $this->limit <= $this->queue;
     }
 
     public function isFinished()
     {
+        // return $this->isFull();
         return $this->finished;
     }
 }

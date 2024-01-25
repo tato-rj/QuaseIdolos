@@ -70,7 +70,7 @@ class SongRequestsController extends Controller
 
         $songRequest->finish();
 
-        $songRequest->gig->updateSet();
+        $songRequest->gig->updateSet($cancel = false);
         
         $songRequest->invitations->each->confirm();
 
@@ -102,7 +102,7 @@ class SongRequestsController extends Controller
         
         $songRequest->cancel();
         
-        $songRequest->gig->updateSet();
+        $songRequest->gig->updateSet($cancel = true);
 
         $songRequest->gig->sortSetlist();
 
