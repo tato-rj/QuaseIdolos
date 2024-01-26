@@ -45,6 +45,18 @@
 	@input(['label' => 'Limite de músicas por pessoa', 'placeholder' => 'Sem limite', 'name' => 'songs_limit_per_user', 'type' => 'number', 'min' => 1, 'value' => $gig->songs_limit_per_user])
 	@input(['label' => 'Limite de músicas por set', 'placeholder' => 'Sem limite', 'name' => 'set_limit', 'type' => 'number', 'min' => 1, 'value' => $gig->set_limit])
 
+	<div id="set-limit-options" style="display: none" class="p-3 mb-4 bg-transparent rounded">
+		<label>Quero que o novo limite...</label>
+		<div>
+			<input type="radio" checked class="form-radio-input" name="change_set_limit_now" value="0" id="set_limit_later">
+			<label class="form-check-label" for="set_limit_later">Mude no próximo set</label>
+		</div>
+		<div>
+			<input type="radio" class="form-radio-input" name="change_set_limit_now" value="1" id="set_limit_now">
+			<label class="form-check-label" for="set_limit_now">Mude agora</label>
+		</div>
+	</div>
+
 {{-- 	<div class="text-left mb-3"> 
 		@toggle(['label' => 'Esse evento é fechado?', 'name' => 'is_private', 'on' => $gig->isPrivate()])
 	</div> --}}

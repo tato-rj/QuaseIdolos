@@ -258,4 +258,10 @@ $(document).on('show.bs.modal', '[id^="user-info-modal"]', function() {
 		 });
 });
 </script>
+
+<script type="text/javascript">
+$('[name="set_limit"]').on('change', function() {
+	$('#set-limit-options').show();
+});
+</script>
 @endpush

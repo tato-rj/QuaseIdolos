@@ -183,8 +183,15 @@ class GigsController extends Controller
 
         if (is_null($request->set_limit)) {
             $gig->sets()->delete();
-        } elseif (! $gig->sets()->current()->exists()) {
-            Set::new($gig);
+        } else {
+            if (! $gig->sets()->current()->exists()) {
+                Set::new($gig);
+            } elseif ($request->change_set_limit_now) {
+                $gig->sets()->current()->update([
+                    'limit' => $request->set_limit,
+                    'songs_left' => $request->set_limit - $gig->setlist()->waiting()->count()
+                ]);
+            }
         }
 
         return back()->with('success', 'O karaokê foi alterado com sucesso');
