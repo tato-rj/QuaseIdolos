@@ -10,7 +10,7 @@
 
 @include('pages.setlists.admin.options.password')
 @include('pages.setlists.admin.options.lyrics')
-
+<button id="refresh-table" class="btn btn-outline-secondary w-100 mt-2">@fa(['icon' => 'sync-alt'])Atualizar setlist</button>
 {{-- @if($gig->participatesInRatings())
 @include('pages.setlists.admin.options.ratings')
 @endif --}}

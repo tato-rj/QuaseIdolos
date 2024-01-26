@@ -8,6 +8,7 @@ return [
 		],
 		'btn-setlist' => 'SETLIST DE HOJE',
 		'btn-cardapio' => 'ESCOLHA A SUA MÚSICA AQUI',
+		'btn-hire' => 'CONTRATE A BANDA',
 	],
 	'contact' => [
 		'title' => [

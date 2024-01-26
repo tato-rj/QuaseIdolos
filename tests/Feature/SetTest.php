@@ -41,6 +41,51 @@ class SetTest extends AppTest
     }
 
     /** @test */
+    public function a_set_cannot_be_reset_when_the_waiting_list_is_not_empty()
+    {
+        $this->signIn();
+
+        $this->gig->update(['set_limit' => 4]);
+
+        Set::new($this->gig);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 2);
+
+        $this->signIn($this->admin);
+
+        $this->post(route('setlists.set.reset'));
+
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 2);
+    }
+
+    /** @test */
+    public function a_set_can_be_reset_when_the_waiting_list_is_empty()
+    {
+        $this->signIn();
+
+        $this->gig->update(['set_limit' => 4]);
+
+        Set::new($this->gig);
+
+        $this->post(route('song-requests.store', Song::factory()->create()));
+        $this->post(route('song-requests.store', Song::factory()->create()));
+
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 2);
+
+        $this->signIn($this->admin);
+
+        $this->post(route('song-requests.finish', SongRequest::find(1)));
+        $this->post(route('song-requests.finish', SongRequest::find(2)));
+
+        $this->post(route('setlists.set.reset'));
+
+        $this->assertEquals($this->gig->sets()->first()->songsLeft(), 4);
+    }
+
+    /** @test */
     public function once_full_a_set_stops_accepting_requests_until_it_ends()
     {
         $this->signIn($this->admin);

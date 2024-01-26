@@ -240,6 +240,10 @@ Route::middleware('admin')->group(function() {
         Route::get('admin', 'SetlistsController@admin')->name('admin');
 
         Route::get('tabela', 'SetlistsController@table')->name('table');
+
+        Route::prefix('set')->name('set.')->group(function() {
+            Route::post('reset', 'SetsController@reset')->name('reset');
+        });
     });
 
     Route::prefix('estilos')->withoutMiddleware('join-gig')->name('genres.')->group(function() {

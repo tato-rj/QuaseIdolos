@@ -7,14 +7,20 @@
 				<h2>@lang('views/home.header.title.text') <span class="text-secondary">@lang('views/home.header.title.highlight')</span></h2>
 				{{-- <h2>A SUA BANDA DE <span class="text-secondary">KARAOKÊ</span></h2> --}}
 			</div>
+			
+			<div class="d-center flex-column">
+				<a href="{{route('cardapio.index')}}" class="btn btn-secondary btn-lg mb-3">@lang('views/home.header.btn-cardapio')</a>
+			</div>
+
 			@if(auth()->check() && auth()->user()->admin && auth()->user()->admin->manage_setlist)
 			<div class="d-center flex-column">
 				<a href="{{route('setlists.admin')}}" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'users'])@lang('views/home.header.btn-setlist')</a>
 			</div>
-			@endif
+			@else
 			<div class="d-center flex-column">
-				<a href="{{route('cardapio.index')}}" class="btn btn-secondary btn-lg mb-3">@lang('views/home.header.btn-cardapio')</a>
+				<a href="https://wa.me/5521991151374?text=Olá, eu gostaria de contratar a banda para um evento!" target="_blank" class="btn btn-secondary btn-lg mb-3">@fa(['icon' => 'microphone'])@lang('views/home.header.btn-hire')</a>
 			</div>
+			@endif
 		</div>
 	</div>
 </section>

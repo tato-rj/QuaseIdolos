@@ -7,7 +7,8 @@ return [
 			'highlight' => 'BAND'
 		],
 		'btn-setlist' => 'TODAY\'S SETLIST',
-		'btn-cardapio' => 'CHOOSE YOUR SONG HERE'
+		'btn-cardapio' => 'CHOOSE YOUR SONG HERE',
+		'btn-hire' => 'HIRE OUR BAND',
 	],
 	'contact' => [
 		'title' => [
