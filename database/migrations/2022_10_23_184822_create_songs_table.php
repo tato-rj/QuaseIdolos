@@ -21,6 +21,7 @@ class CreateSongsTable extends Migration
             $table->string('drum_score_path')->nullable();
             $table->string('name');
             $table->unsignedSmallInteger('bpm')->nullable();
+            $table->unsignedSmallInteger('time_signature')->nullable();
             $table->text('preview_url')->nullable();
             $table->text('lyrics')->nullable();
             $table->unsignedTinyInteger('duration')->nullable();

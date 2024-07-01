@@ -1,4 +1,4 @@
-<div class="form-group text-left">
+<div class="form-group text-left {{$row ?? null}}">
 	@isset($label)
     @label
     @endisset

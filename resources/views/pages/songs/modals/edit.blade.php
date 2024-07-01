@@ -18,7 +18,12 @@
 	@input(['label' => 'Nome', 'name' => 'name', 'value' => $song->name, 'required' => true])
 	@input(['label' => 'Duração', 'name' => 'duration', 'value' => $song->duration, 'type' => 'number', 'required' => true, 'min' => 1])
 	@textarea(['label' => 'Letra', 'name' => 'lyrics', 'value' => $song->lyrics, 'required' => true, 'rows' => 5])
-	@input(['placeholder' => 'BPM', 'label' => 'BPM', 'type' => 'number', 'min' => 0, 'max' => 300, 'name' => 'bpm', 'value' => $song->bpm])
+
+	<div class="row">
+		@input(['placeholder' => 'BPM', 'label' => 'BPM', 'type' => 'number', 'min' => 0, 'max' => 300, 'name' => 'bpm', 'value' => $song->bpm, 'row' => 'col'])
+		@input(['placeholder' => 'BPM', 'label' => 'BPM', 'type' => 'number', 'min' => 0, 'max' => 300, 'name' => 'time_signature', 'value' => $song->time_signature, 'row' => 'col'])
+	</div>
+
 	@input(['placeholder' => 'Site com acordes', 'label' => 'Site com acordes', 'name' => 'chords_url', 'value' => $song->chords_url])
 	@input(['placeholder' => 'Audio preview', 'label' => 'Audio preview', 'name' => 'preview_url', 'value' => $song->preview_url])
 

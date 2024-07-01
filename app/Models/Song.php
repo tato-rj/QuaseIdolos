@@ -115,6 +115,7 @@ class Song extends BaseModel
             'spotify_id' => $data['song_id'] ?? $this->spotify_id,
             'duration' => $data['duration'] ?? $this->duration,
             'bpm' => $data['bpm'] ?? $this->bpm,
+            'time_signature' => $data['time_signature'] ?? $this->time_signature,
             'preview_url' => $data['preview_url'] ?? $this->preview_url
         ]);
     }
