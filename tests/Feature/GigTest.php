@@ -74,6 +74,36 @@ class GigTest extends AppTest
     }
 
     /** @test */
+    public function users_join_a_gig_automatically_if_one_is_live_but_others_already_finished()
+    {
+        Gig::truncate();
+
+        $this->signIn();
+
+        $this->get(route('cardapio.index'));
+
+        $this->assertFalse(auth()->user()->gig()->exists());
+
+        $closedGig = Gig::factory()->create();
+
+        $closedGig->update(['is_live' => true]);
+
+        $this->signIn($this->superAdmin);
+
+        $this->post(route('gig.close', $closedGig));
+
+        $this->signIn();
+
+        $newGig = Gig::factory()->create();
+
+        $newGig->update(['is_live' => true]);
+
+        $this->get(route('cardapio.index'));
+
+        $this->assertTrue(auth()->user()->gig()->exists());
+    }
+
+    /** @test */
     public function users_do_not_join_a_gig_automatically_if_they_are_already_in_one()
     {
         Gig::truncate();

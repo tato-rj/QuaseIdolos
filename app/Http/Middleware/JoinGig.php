@@ -27,7 +27,7 @@ class JoinGig
             if (! Gig::ready()->live()->exists())
                 return $next($request);
 
-            $gigs = Gig::ready();
+            $gigs = Gig::ready()->live();
 
             $modal = auth()->user()->tryToJoin($gigs);
 

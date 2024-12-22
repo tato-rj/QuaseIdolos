@@ -101,6 +101,11 @@ class Gig extends EventModel
 		return $query->where('is_private', false);
     }
 
+    public function scopeLive($query)
+    {
+        return $query->where('is_live', true);
+    }
+
     public function songRequestsLeft()
     {
     	if ($this->songs_limit)
