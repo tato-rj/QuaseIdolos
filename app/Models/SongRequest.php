@@ -205,19 +205,61 @@ class SongRequest extends BaseModel
 
     public function scopeBetweenDates($query, $from, $to)
     {
-        if (! $from || ! $to)
-            return $query;
+        if ($from)
+            $query->where('song_requests.created_at', '>=', carbon($from)->startOfDay());
 
-        return $query->whereBetween('created_at', [carbon($from), carbon($to)]);
+        if ($to)
+            $query->where('song_requests.created_at', '<=', carbon($to)->endOfDay());
+
+        return $query;
     }
 
     public function scopeGetRankingBy($query, $column, $count = 10)
     {
-        return $query->get()
-                     ->groupBy($column)
-                     ->sortByDesc(function($item, $key) {
-                         return count($item);
-                     })->values()->take($count);
+        // Aggregate history in SQL; hydrate only the top entities needed to render.
+        switch ($column) {
+            case 'song.artist_id':
+                $model = new Artist;
+                $query->join('songs', 'songs.id', '=', 'song_requests.song_id')
+                    ->join('artists', 'artists.id', '=', 'songs.artist_id');
+                break;
+            case 'song.genre_id':
+                $model = new Genre;
+                $query->join('songs', 'songs.id', '=', 'song_requests.song_id')
+                    ->join('genres', 'genres.id', '=', 'songs.genre_id');
+                break;
+            case 'song_id':
+                $model = new Song;
+                $query->join('songs', 'songs.id', '=', 'song_requests.song_id')
+                    ->join('artists', 'artists.id', '=', 'songs.artist_id');
+                break;
+            case 'user_id':
+                $model = new User;
+                $query->join('users', 'users.id', '=', 'song_requests.user_id');
+                break;
+            default:
+                throw new \InvalidArgumentException('Unsupported statistics ranking.');
+        }
+
+        $ranking = $query->select($model->getQualifiedKeyName().' as ranking_id')
+            ->selectRaw('COUNT(*) as request_count, MIN(song_requests.id) as first_request_id')
+            ->groupBy($model->getQualifiedKeyName())->reorder()
+            ->orderByDesc('request_count')->orderBy('first_request_id')->limit($count)
+            ->toBase()->get();
+
+        $entities = $model->newQuery()->select($model->getTable().'.*')
+            ->whereIn($model->getKeyName(), $ranking->pluck('ranking_id'));
+
+        if ($model instanceof Song)
+            $entities->with(['artist' => function ($query) { $query->select('artists.*'); }]);
+
+        $entities = $entities->get()->keyBy($model->getKeyName());
+
+        return $ranking->map(function ($entry) use ($entities) {
+            $entity = $entities->get($entry->ranking_id);
+
+            return $entity ? $entity->setAttribute('request_count', (int) $entry->request_count) : null;
+        })->filter()->values();
     }
 
     public function wasRequestedBy(User $user)

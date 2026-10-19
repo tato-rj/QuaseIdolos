@@ -1,5 +1,4 @@
-@php($initialDate = \App\Models\SongRequest::first()->created_at)
-@php($firstDate = now()->startOfMonth())
+@php($initialDate = carbon(\App\Models\SongRequest::min('created_at')))
 @php($lastDate = now())
 
 @extends('layouts.app', ['title' => 'Estatísticas dos usuários'])
@@ -49,37 +48,7 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script type="text/javascript">
-reloadTable(new Date('{!! $firstDate !!}'), new Date('{!! $lastDate !!}'));
-
-$(".datepicker").datepicker({
-    changeMonth: true,
-    changeYear: true,
-    minDate: new Date('{!! $initialDate !!}'),
-    maxDate: new Date('{!! $lastDate !!}'),
-    onSelect: function(dateText) {
-      let $inputs = $(this).parent().find('.datepicker');
-      let from = $inputs.eq(0).val();
-      let to = $inputs.eq(1).val()
-
-      if (from && to)
-        reloadTable(from, to);
-    }
-});
-
-function reloadTable(from, to)
-{
-  $('#table-container').addClass('opacity-6');
-
-  axios.get('{!! route('stats.users') !!}', {params: {from: from, to: to, type: 'ranking'}})
-       .then(function(response) {
-        $('#table-container').removeClass('opacity-6').html(response.data);
-       })
-       .catch(function(error) {
-        log(error)
-       });
-}
-</script>
+@include('pages.statistics.components.ranking-script', ['rankingUrl' => route('stats.users')])
 <script type="text/javascript">
 Chart.defaults.color = 'white';
 let charts = [];

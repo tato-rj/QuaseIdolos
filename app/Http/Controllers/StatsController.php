@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Artist, Genre, Gig, SongRequest, Song, User};
+use App\Models\{SongRequest, User};
 use App\Tools\ChartJS\Chart;
+use App\Http\Requests\StatisticsRequest;
 
 class StatsController extends Controller
 {
@@ -26,37 +27,37 @@ class StatsController extends Controller
         ]);
     }
 
-    public function songs(Request $request)
+    public function songs(StatisticsRequest $request)
     {
         if ($request->wantsJson()) {
-            $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song_id');
+            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song_id');
             return view('pages.statistics.songs.table', compact('ranking'))->render();
         }
 
         return view('pages.statistics.songs.index');
     }
 
-    public function artists(Request $request)
+    public function artists(StatisticsRequest $request)
     {
         if ($request->wantsJson()) {
-            $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song.artist_id');
+            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song.artist_id');
             return view('pages.statistics.artists.table', compact('ranking'))->render();
         }
 
         return view('pages.statistics.artists.index');
     }
 
-    public function genres(Request $request)
+    public function genres(StatisticsRequest $request)
     {
         if ($request->wantsJson()) {
-            $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('song.genre_id');
+            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song.genre_id');
             return view('pages.statistics.genres.table', compact('ranking'))->render();
         }
 
         return view('pages.statistics.genres.index');
     }
 
-    public function users(Request $request)
+    public function users(StatisticsRequest $request)
     {
         if ($request->wantsJson()) {    
             switch ($request->chart) {
@@ -77,7 +78,7 @@ class StatsController extends Controller
                     break;
                 
                 default:
-                    $ranking = SongRequest::betweenDates(datePtToUs($request->from), datePtToUs($request->to))->getRankingBy('user_id');
+                    $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('user_id');
                     return view('pages.statistics.users.table', compact('ranking'))->render();
                     break;
             }

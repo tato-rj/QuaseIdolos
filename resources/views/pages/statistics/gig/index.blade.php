@@ -1,4 +1,4 @@
-@php($initialDate = \App\Models\SongRequest::first()->created_at)
+@php($initialDate = carbon(\App\Models\SongRequest::min('created_at')))
 @php($firstDate = now()->startOfMonth())
 @php($lastDate = now())
 

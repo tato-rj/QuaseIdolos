@@ -1,4 +1,4 @@
-@php($song = $row->first()->song)
+@php($song = $row)
 
 @switch(str_replace('*', '', $field))
   @case('name')
@@ -16,7 +16,7 @@
 
   @case('count')
     <h5 class="text-right text-secondary m-0"> 
-      {{$row->count()}} @choice('vez|vezes', $row->count())
+      {{$row->request_count}} @choice('vez|vezes', $row->request_count)
     </h5>
     @break
 @endswitch
