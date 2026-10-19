@@ -129,6 +129,11 @@ user-select:none;
 	}
 }
 
+.artist img {
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+}
+
 .artist[selected] {
 	p {
 		font-size: 1.6rem;
