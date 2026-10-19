@@ -58,6 +58,13 @@
 - Deployment: deploy the changed PHP/Blade files, including the new FormRequest and shared Blade partial. Clear compiled views (`php artisan view:clear`) if the deployment does not already rebuild them. **No additional migration or asset build is needed for this repair.** Existing `LatestRequest` in the tracked main bundle is reused. No production deployment was performed here.
 - Future: profile date-range aggregations on production-sized data before adding a dedicated `song_requests.created_at` index or report caching. Do not modify an already-applied migration to add it.
 
+### Statistics default period — 2026-10-19
+
+- All five statistics pages (events/participants, songs, artists, genres and users) initialize their date controls from one calendar year before today through today. Use a copy of the end date and `subYearNoOverflow()` to handle leap days without changing the end date.
+- `$firstDate` is the default selected start; `$initialDate` is the earliest selectable date. Keep these separate so older history remains selectable. The picker minimum is the earlier of recorded history and the default start, so the default also works with empty or recent history. Initial chart/ranking requests continue to read the displayed controls.
+- Validation: the eight statistics feature tests pass (**110 assertions**), including every page's default values, empty history and selecting pre-default history. All **12 JavaScript tests** pass. Only the default date values changed; controls/layout, historical data and assets are unchanged.
+- Deployment: deploy the changed Blade files and clear compiled views (`php artisan view:clear`). No migration, asset build or Redis maintenance is required.
+
 ## Redis history memory — 2026-10-19
 
 - Archive snapshots now use versioned, lossless gzip only when smaller; legacy raw JSON stays readable. Preserve the full JSON byte stream, including loaded relationships, rather than removing historical fields or duplicates. Never add archive expiry/retention or automatic eviction as a memory fix.

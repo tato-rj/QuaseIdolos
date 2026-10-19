@@ -1,6 +1,6 @@
-@php($initialDate = carbon(\App\Models\SongRequest::min('created_at')))
-@php($firstDate = now()->startOfMonth())
 @php($lastDate = now())
+@php($firstDate = $lastDate->copy()->subYearNoOverflow())
+@php($initialDate = carbon(\App\Models\SongRequest::min('created_at'))->min($firstDate))
 
 @extends('layouts.app', ['title' => 'Estatísticas'])
 

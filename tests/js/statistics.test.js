@@ -12,7 +12,7 @@ const source = fs.readFileSync(path.join(__dirname, '../../resources/views/pages
 
 function harness()
 {
-    const state = {html: 'placeholder', loading: false, notices: [], dates: ['11/01/2023', '19/10/2026']};
+    const state = {html: 'placeholder', loading: false, notices: [], dates: ['19/10/2025', '19/10/2026']};
     const pending = [];
     const controls = {
         datepicker(options) { state.datepicker = options; },
@@ -43,7 +43,7 @@ function harness()
 
 test('the initial ranking request uses the dates displayed in the controls', async () => {
     const h = harness();
-    assert.equal(h.pending[0].config.params.from, '11/01/2023');
+    assert.equal(h.pending[0].config.params.from, '19/10/2025');
     assert.equal(h.pending[0].config.params.to, '19/10/2026');
     assert.equal(h.pending[0].config.headers.Accept, 'application/json');
     assert.equal(h.pending[0].config.timeout, 30000);

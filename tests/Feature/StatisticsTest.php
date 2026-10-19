@@ -27,7 +27,8 @@ class StatisticsTest extends TestCase
     public function statistics_pages_render_without_request_history()
     {
         foreach (['gigs', 'songs', 'artists', 'genres', 'users'] as $section)
-            $this->get(route('stats.'.$section))->assertOk()->assertSee('19/10/2026');
+            $this->get(route('stats.'.$section))->assertOk()
+                ->assertSee('value="19/10/2025"', false)->assertSee('value="19/10/2026"', false);
 
         foreach (['songs', 'artists', 'genres', 'users'] as $section)
             $this->getJson(route('stats.'.$section))->assertOk()->assertDontSee('<tbody>', false);
@@ -92,6 +93,15 @@ class StatisticsTest extends TestCase
         $this->getJson(route('stats.artists', [
             'from' => '2026-10-19T00:00:00.000Z', 'to' => '2026-10-19T23:59:59.999Z',
         ]))->assertOk()->assertSee($inside->artist->name)->assertDontSee($outside->artist->name);
+
+        // The one-year default must not prevent selecting older history.
+        foreach (['gigs', 'songs', 'artists', 'genres', 'users'] as $section)
+            $this->get(route('stats.'.$section))->assertOk()
+                ->assertSee('value="19/10/2025"', false)->assertSee('value="19/10/2026"', false)
+                ->assertSee("minDate: new Date('2023-01-11", false);
+
+        $this->getJson(route('stats.artists', ['from' => '11/01/2023', 'to' => '11/01/2023']))
+            ->assertOk()->assertSee($outside->artist->name)->assertDontSee($inside->artist->name);
     }
 
     /** @test */
