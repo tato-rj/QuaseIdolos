@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Archives\RedisKeys;
+use Illuminate\Support\Facades\Redis;
 
 class FlushRedis extends Command
 {
@@ -38,7 +40,22 @@ class FlushRedis extends Command
 
     public function clear($namespace)
     {
-        exec('redis-cli --scan --pattern '.$namespace.'* | xargs redis-cli unlink');
+        $redis = new RedisKeys(Redis::connection('default'));
+        if ($namespace === '' || $namespace !== $redis->prefix())
+            throw new \RuntimeException('Only the configured application Redis prefix may be cleared.');
+
+        $keys = [];
+        foreach ($redis->scan($namespace) as $key) {
+            $keys[] = $key;
+            if (count($keys) === 100) {
+                $redis->command(array_merge(['DEL'], $keys));
+                $keys = [];
+            }
+        }
+
+        if ($keys)
+            $redis->command(array_merge(['DEL'], $keys));
+
         $this->info('All keys under ' . $namespace . ' have cleared');
     }
 }

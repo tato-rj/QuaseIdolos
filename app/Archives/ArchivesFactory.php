@@ -21,7 +21,7 @@ abstract class ArchivesFactory
 		$records = collect(Redis::lrange($this->namespace.$field, 0, $count));
 
 		return $records->map(function($record) {
-			return json_decode($record);
+			return json_decode(ArchiveCodec::decode($record));
 		});
 	}
 
@@ -32,7 +32,9 @@ abstract class ArchivesFactory
 
 	public function set($field, $record)
 	{
-		$data = is_array($record) ? json_encode($record) : $record;
+		$data = is_array($record) ? json_encode($record, JSON_THROW_ON_ERROR) : (string) $record;
+        if (config('archives.compress', true))
+            $data = ArchiveCodec::encode($data);
 		return Redis::lpush($this->namespace.$field, $data);
 	}
 }

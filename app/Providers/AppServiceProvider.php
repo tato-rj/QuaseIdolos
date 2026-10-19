@@ -18,6 +18,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->callAfterResolving('cache', function ($manager) {
+            $manager->extend('redis', function ($app, $config) use ($manager) {
+                $connection = $config['connection'] ?? 'default';
+                $store = new \App\Cache\HistorySafeRedisStore(
+                    $app['redis'], $config['prefix'] ?? $app['config']['cache.prefix'], $connection
+                );
+
+                return $manager->repository($store->setLockConnection($config['lock_connection'] ?? $connection));
+            });
+        });
+
         \View::composer([
             'pages.gigs.modals.edit', 
             'pages.gigs.modals.create', 
