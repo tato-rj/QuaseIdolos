@@ -13,10 +13,43 @@ class Set extends BaseModel
 
     public function scopeNew($query, Gig $gig)
     {
-        $query->create([
+        $waiting = $gig->setlist()->waiting()->count();
+
+        return $query->create([
             'gig_id' => $gig->id,
             'limit' => $gig->set_limit,
-            'songs_left' => $gig->set_limit
+            'songs_left' => $gig->set_limit - $waiting,
+            'queue' => $waiting,
+            'finished' => $waiting >= $gig->set_limit,
+        ]);
+    }
+
+    public function changeLimit(int $limit)
+    {
+        $waiting = $this->gig->setlist()->waiting()->count();
+
+        // The total includes songs already confirmed in THIS set, not just its queue.
+        // Waiting requests also protect sets created by older code without counters.
+        $total = max($waiting, $this->limit - $this->songs_left, 0);
+
+        return $this->update([
+            'limit' => $limit,
+            'songs_left' => $limit - $total,
+            'queue' => $waiting,
+            'finished' => $total >= $limit,
+        ]);
+    }
+
+    public function returnSlot(int $waiting)
+    {
+        // Cancel exactly one accepted song. Never forget the remaining queue or
+        // allow a legacy counter to produce a negative displayed set total.
+        $total = max($waiting, $this->limit - $this->songs_left - 1, 0);
+
+        return $this->update([
+            'songs_left' => $this->limit - $total,
+            'queue' => $waiting,
+            'finished' => $total >= $this->limit,
         ]);
     }
 

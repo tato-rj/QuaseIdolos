@@ -208,12 +208,8 @@ class Gig extends EventModel
         if (! $currentSet)
             return;
 
-        if ($canceled) {
-            $currentSet->increment('songs_left');
-
-            if ($currentSet->songsLeft() > 0)
-                $currentSet->update(['finished' => false]);
-        }
+        if ($canceled)
+            $currentSet->returnSlot($this->setlist()->waiting()->count());
 
         if ($currentSet->isFull() && ! $this->setlist()->waiting()->exists())
             $currentSet->renew();

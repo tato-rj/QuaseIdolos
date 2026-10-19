@@ -156,43 +156,43 @@ class GigsController extends Controller
             'password' => 'sometimes|nullable|digits:4|numeric'
         ]);
 
-        $gig->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'starting_time' => $request->starting_time,
-            'venue_id' => $request->venue_id,
-            'repeat_limit' => $request->repeat_limit,
-            'songs_limit' => $request->songs_limit,
-            'set_limit' => $request->set_limit,
-            'duration' => $request->duration,
-            'has_ratings' => $request->has_ratings ? 1 : 0,
-            'is_private' => $request->is_private ? 1 : 0,
-            'participates_in_chat' => $request->participates_in_chat ? 1 : 0,
-            'is_test' => $request->is_test ? 1 : 0,
-            'songs_limit_per_user' => $request->songs_limit_per_user,
-            'scheduled_for' => datePtToUs($request->scheduled_for) ?? $gig->scheduled_for,
-        ]);
+        $gig->withSetlistLock(function ($gig) use ($request) {
+            $gig->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'starting_time' => $request->starting_time,
+                'venue_id' => $request->venue_id,
+                'repeat_limit' => $request->repeat_limit,
+                'songs_limit' => $request->songs_limit,
+                'set_limit' => $request->set_limit,
+                'duration' => $request->duration,
+                'has_ratings' => $request->has_ratings ? 1 : 0,
+                'is_private' => $request->is_private ? 1 : 0,
+                'participates_in_chat' => $request->participates_in_chat ? 1 : 0,
+                'is_test' => $request->is_test ? 1 : 0,
+                'songs_limit_per_user' => $request->songs_limit_per_user,
+                'scheduled_for' => datePtToUs($request->scheduled_for) ?? $gig->scheduled_for,
+            ]);
 
-        $gig->musicians()->sync($request->musicians);
+            $gig->musicians()->sync($request->musicians);
 
-        if ($request->has_password) {
-            $gig->password()->update($request->password);
-        } else {
-            $gig->password()->destroy();
-        }
+            if ($request->has_password) {
+                $gig->password()->update($request->password);
+            } else {
+                $gig->password()->destroy();
+            }
 
-        if (is_null($request->set_limit)) {
-            $gig->sets()->delete();
-        } else {
-            if (! $gig->sets()->current()->exists()) {
+            if (is_null($request->set_limit)) {
+                $gig->sets()->delete();
+            } elseif (! ($set = $gig->sets()->first())) {
                 Set::new($gig);
             } elseif ($request->change_set_limit_now) {
-                $gig->sets()->current()->update([
-                    'limit' => $request->set_limit,
-                    'songs_left' => $request->set_limit - $gig->setlist()->waiting()->count()
-                ]);
+                $set->setRelation('gig', $gig)->changeLimit((int) $request->set_limit);
+
+                if ($set->isFull() && $set->queue == 0)
+                    $set->renew();
             }
-        }
+        });
 
         return back()->with('success', 'O karaokê foi alterado com sucesso');
     }
