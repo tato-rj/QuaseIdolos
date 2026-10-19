@@ -24,10 +24,10 @@ class JoinGig
         session()->forget('origin');
         // if (auth()->check() && ! auth()->user()->gig()->live()->exists()) {
         if (auth()->check() && ! auth()->user()->liveGigExists()) {
-            if (! Gig::ready()->live()->exists())
-                return $next($request);
+            $gigs = Gig::ready()->live()->get();
 
-            $gigs = Gig::ready()->live();
+            if ($gigs->isEmpty())
+                return $next($request);
 
             $modal = auth()->user()->tryToJoin($gigs);
 
@@ -38,7 +38,7 @@ class JoinGig
                 session()->flash('modal', $modal);
             }
 
-            if ($gigs->count() > 1 || ! $gigs->exists() || ! $gigs->first()->isLive()) {
+            if ($gigs->count() > 1 || $gigs->isEmpty() || ! $gigs->first()->isLive()) {
                 if ($this->wantsModal() && $this->shouldReturn($request))
                     return redirect($this->getOrigin($request))->with('modal', $modal ?? 'pages.gigs.modals.select');
 

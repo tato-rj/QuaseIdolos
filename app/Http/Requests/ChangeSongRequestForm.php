@@ -7,7 +7,7 @@ use App\Models\Song;
 
 class ChangeSongRequestForm extends FormRequest
 {
-    protected $liveGig, $message;
+    protected $liveGig, $message, $selectedSong;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -16,6 +16,15 @@ class ChangeSongRequestForm extends FormRequest
      */
     public function authorize()
     {
+        $songRequest = $this->route('songRequest');
+        $this->user()->can('update', $songRequest) || abort(403);
+
+        if ($songRequest->isOver())
+            return $this->failWithMessage('Esse pedido já foi completado');
+
+        // FormRequest authorization runs before rules; validate before loading the song.
+        $this->getSong();
+
         if (auth()->user()->admin()->exists())
             return true;
         
@@ -25,12 +34,14 @@ class ChangeSongRequestForm extends FormRequest
                $this->gigIsNotPaused() && 
                $this->votingHasNotFinished() && 
                $this->songNotYetRequestedByUser() &&
-               $this->songCanBeRequestedAgain();
+               $this->songCanBeRequestedAgain() &&
+               $this->songIsKnownByTheBand();
     }
 
     public function gigIsLive()
     {
-        return $this->liveGig ? true 
+        return $this->liveGig && $this->liveGig->isLive()
+            && $this->route('songRequest')->gig_id == $this->liveGig->id ? true
              : $this->failWithMessage('Não estamos recebendo pedidos agora');
     }
 
@@ -68,7 +79,7 @@ class ChangeSongRequestForm extends FormRequest
     {
         $message = $this->liveGig->repeat_limit == 0 
             ? 'Essa música já foi escolhida 1 vez' 
-            : 'Essa música já foi escolhida ' . $this->liveGig->repeat_limit + 1 . ' vezes';
+            : 'Essa música já foi escolhida ' . ($this->liveGig->repeat_limit + 1) . ' vezes';
 
         return ! $this->liveGig->repeatLimitReachedFor($this->getSong()) ? true
              : $this->failWithMessage($message);
@@ -76,7 +87,13 @@ class ChangeSongRequestForm extends FormRequest
 
     public function rules()
     {
-        return [];
+        return ['new_song_id' => 'required|integer|exists:songs,id'];
+    }
+
+    public function songIsKnownByTheBand()
+    {
+        return ! $this->liveGig->unknown_songs->contains($this->getSong()->id) ? true
+            : $this->failWithMessage('Essa música não está disponível hoje');
     }
 
     public function failWithMessage($message)
@@ -92,6 +109,11 @@ class ChangeSongRequestForm extends FormRequest
 
     public function getSong()
     {
-        return Song::find($this->new_song_id);
+        if (! $this->selectedSong) {
+            $this->validate($this->rules());
+            $this->selectedSong = Song::findOrFail($this->new_song_id);
+        }
+
+        return $this->selectedSong;
     }
 }

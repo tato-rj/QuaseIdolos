@@ -24,7 +24,7 @@
 				
 				<button data-url="{{route('lyrics.get', $entry)}}" title="Abrir letra" class="show-lyrics btn-sm btn btn-secondary rounded-circle d-center mr-2" style="width: 32px; height: 32px;">@fa(['icon' => 'font', 'mr' => 0])</button>
 
-				@if($entry->ratings()->exists())
+				@if($entry->ratings->isNotEmpty())
 				<div class="mr-2">
 					<button data-bs-toggle="modal" data-bs-target="#ratings-{{$entry->id}}-modal" class="btn-raw bg-secondary rounded-circle d-center" style="width: 32px; height: 32px;">@fa(['icon' => 'star', 'mr' => 0, 'fa_size' => 'sm'])</button>
 				</div>
@@ -37,7 +37,7 @@
 	</div>
 </div>
 
-@modal(['title' => $entry->ratings()->count() . ' votos recebidos', 'id' => 'ratings-'.$entry->id.'-modal'])
+@modal(['title' => $entry->ratings->count() . ' votos recebidos', 'id' => 'ratings-'.$entry->id.'-modal'])
 
 	@foreach($entry->ratings as $rating)
 	<div class="d-flex align-items-center mb-2">

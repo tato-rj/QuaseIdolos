@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Gig, SongRequest, Admin};
+use App\Models\Admin;
 use App\Events\SetlistReordered;
 
 class SetlistsController extends Controller
@@ -15,7 +15,7 @@ class SetlistsController extends Controller
         if ($gig && $gig->isKareoke())
             $this->authorize('viewSetlist', $gig);
 
-        $setlist = $gig ? $gig->setlist()->orderBy('order')->get() : collect();
+        $setlist = $gig ? $this->entries($gig) : collect();
         $musicians = Admin::musicians()->get();
 
         if ($gig && $gig->isShow())
@@ -26,27 +26,57 @@ class SetlistsController extends Controller
 
     public function table(Request $request)
     {
-        if ($request->has('newOrder')) {
-            $this->authorize('reorder', auth()->user()->liveGig);
+        $gig = auth()->user()->liveGig;
+        abort_unless($gig, 404);
+        $this->authorize('viewSetlist', $gig);
 
-            foreach($request->newOrder as $data) {
-                $set = json_decode($data);
-                if ($songRequest = SongRequest::find($set->id))
-                    $songRequest->update(['order' => $set->order]);
-            }
+        if ($request->has('newOrder')) {
+            $this->authorize('reorder', $gig);
+
+            $request->validate(['newOrder' => 'required|array|min:1']);
+            // Accept both the existing Axios JSON strings and decoded object arrays.
+            $order = array_map(function ($entry) {
+                return is_string($entry) ? json_decode($entry, true) : $entry;
+            }, $request->newOrder);
+            $order = validator(['order' => $order], [
+                'order.*' => 'required|array',
+                'order.*.id' => 'required|integer|distinct',
+                'order.*.order' => 'required|integer|min:0|distinct',
+            ])->validate()['order'];
+
+            $gig->withSetlistLock(function ($gig) use ($order) {
+                $entries = $gig->setlist()->whereIn('id', array_column($order, 'id'))->get()->keyBy('id');
+                abort_unless($entries->count() === count($order), 422);
+
+                foreach ($order as $entry) {
+                    $entries[$entry['id']]->update(['order' => $entry['order']]);
+                }
+            });
 
             try {
-                SetlistReordered::dispatch(auth()->user()->liveGig);
+                SetlistReordered::dispatch($gig);
             } catch (\Exception $e) {
                 bugreport($e);
             }
         }
 
-        $gig = auth()->user()->liveGig;
-        $setlist = $gig->setlist()->orderBy('order')->get();
+        $setlist = $this->entries($gig);
         $percentage = percentage($setlist->count(), $gig->songs_limit);
 
         return view('pages.setlists.admin.table', compact(['setlist', 'percentage', 'gig']))->render();
+    }
+
+    protected function entries($gig)
+    {
+        $query = $gig->setlist()->orderBy('order')->with('song');
+
+        if ($gig->isKareoke()) {
+            $query->with(['user.admin', 'invitations' => function ($query) {
+                $query->without('songRequest')->with('user.admin');
+            }, 'ratings.user']);
+        }
+
+        return $query->get();
     }
 
     public function user()

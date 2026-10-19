@@ -41,7 +41,7 @@ class SongRequestForm extends FormRequest
 
     public function gigIsLive()
     {
-        return $this->liveGig ? true 
+        return $this->liveGig && $this->liveGig->isLive() ? true
              : $this->failWithMessage('Não estamos recebendo pedidos agora');
     }
 
@@ -59,10 +59,9 @@ class SongRequestForm extends FormRequest
 
     public function setIsNotFull()
     {
-        if (! $this->liveGig->sets()->current()->exists())
-            return true;
+        $set = $this->liveGig->sets()->first();
 
-        return ! $this->liveGig->sets()->current()->isFinished() ? true 
+        return ! $set || ! $set->isFinished() ? true
              : $this->failWithMessage('As inscrições voltam ao final desse set, fique ligadx!');
     }
 
@@ -88,7 +87,7 @@ class SongRequestForm extends FormRequest
     {
         $message = $this->liveGig->repeat_limit == 0 
             ? 'Essa música já foi escolhida 1 vez' 
-            : 'Essa música já foi escolhida ' . $this->liveGig->repeat_limit + 1 . ' vezes';
+            : 'Essa música já foi escolhida ' . ($this->liveGig->repeat_limit + 1) . ' vezes';
 
         return ! $this->liveGig->repeatLimitReachedFor($this->song) ? true
              : $this->failWithMessage($message);
@@ -102,7 +101,11 @@ class SongRequestForm extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+            'user_name' => 'nullable|string|max:255',
+            'participants' => 'sometimes|array',
+            'participants.*' => 'integer|distinct|exists:users,id',
+        ];
     }
 
     public function failWithMessage($message)

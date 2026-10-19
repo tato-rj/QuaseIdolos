@@ -10,16 +10,20 @@ class SetsController extends Controller
     {
         $gig = auth()->user()->liveGig;
 
-        if ($gig->setlist()->waiting()->exists())
+        abort_unless($gig, 404);
+
+        $reset = $gig->withSetlistLock(function ($gig) {
+            if ($gig->setlist()->waiting()->exists())
+                return false;
+
+            if ($set = $gig->sets()->first())
+                $set->renew();
+
+            return true;
+        });
+
+        if (! $reset)
             return back()->with('error', 'O set não pode ser resetado com músicas na lista de espera');
-
-        $originalState = $gig->is_paused;
-
-        $gig->update(['is_paused' => true]);
-
-        $gig->sets()->current()->renew();
-
-        $gig->update(['is_paused' => $originalState]);
 
         return back()->with('success', 'O set foi resetado com sucesso');
     }

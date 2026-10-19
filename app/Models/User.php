@@ -161,7 +161,7 @@ class User extends Authenticatable
 
     public function checkLiveShow()
     {
-        if ($this->admin()->exists())
+        if ($this->admin)
             $this->liveGig = $this->shows()->live()->first() ?? $this->liveGig;
     }
 
@@ -266,7 +266,7 @@ class User extends Authenticatable
 
     public function tryToJoin($gigs)
     {
-        if ($this->gig()->live()->exists() || $this->banned())
+        if ($this->liveGig || $this->banned())
             return null;
 
         if ($gigs->count() == 1 && $gigs->first()->isLive()){
@@ -285,7 +285,9 @@ class User extends Authenticatable
             return null;
 
         if ($gigs->count() == 1 && $gigs->first()->isLive()) {
-            if ($this->gig()->live()->exists() && $this->gig()->live()->first()->is($gigs->first()))
+            $current = $this->gig()->live()->first();
+
+            if ($current && $current->is($gigs->first()))
                 return null;
 
             if (! $gigs->first()->password()->required()) {

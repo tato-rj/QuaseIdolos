@@ -1,5 +1,3 @@
-window._ = require('lodash');
-
 require('../_dependencies');
 
 window.axios = require('axios').default;

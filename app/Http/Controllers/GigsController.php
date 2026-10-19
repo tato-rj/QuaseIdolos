@@ -224,22 +224,24 @@ class GigsController extends Controller
     {
         $this->authorize('open', $gig);
         
-        $gig->open();
+        $gig->withSetlistLock(function ($gig) {
+            $gig->open();
 
-        if (! $gig->sets()->exists() && $gig->set_limit)
-            Set::new($gig);
+            if (! $gig->sets()->exists() && $gig->set_limit)
+                Set::new($gig);
+        });
 
         return back()->with('success', 'O karaokê começou');
     }
 
     public function close(Request $request, Gig $gig)
     {
-        GigFinished::dispatch($gig);
-
-        $gig->close();
-
-        if ($gig->sets()->exists())
+        $gig->withSetlistLock(function ($gig) {
+            $gig->close();
             $gig->sets()->delete();
+        });
+
+        GigFinished::dispatch($gig->fresh());
 
         return back()->with('success', 'O karaokê terminou');
     }

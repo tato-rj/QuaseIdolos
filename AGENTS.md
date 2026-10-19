@@ -1,0 +1,49 @@
+# Cardápio maintenance
+
+## Scope and invariants
+
+- Preserve the existing UI, Portuguese copy, URLs, markup, ordering rules and user interactions. Performance and correctness work must remain invisible to musicians and guests.
+- This is Laravel 8 / Laravel Mix 6. Follow `composer.lock` and `package-lock.json`; do not upgrade the framework or dependencies incidentally.
+- All live queue writes must acquire the parent event's `withSetlistLock()` **before** checking capacity or editing requests, ordering and set counters. Re-read state inside the transaction. Broadcast only after the transaction succeeds. Retain the existing admin exemptions from capacity/repetition rules.
+- Use explicit nullable reads (`sets()->first()`) for the current set. `Set::scopeCurrent()` is legacy: Eloquent turns a null scope result back into a builder, so it cannot safely represent an absent set.
+- Keep song modal data current. Do not cache user-specific actions, live counts or whole mutable Eloquent models across requests.
+- Eager-load relationships used in loops; keep lyrics and count subqueries out of cardápio listing queries. Keep the two supported cardápio search view names allowlisted.
+- Keep browser requests isolated by target. Cancel/ignore obsolete reads, coalesce broadcast refreshes, and destroy old Sortable instances before replacement. Do not cancel a write merely because another refresh arrives.
+- Test only with disposable databases and an isolated Redis instance. Never run `migrate:fresh`, `redis:flush`, or the legacy test cleanup against a shared or production service. Do not print `.env` contents or credentials.
+- Do not deploy, run production migrations or alter live services without explicit user authorization.
+
+## Validation and release
+
+- Use a PHP version compatible with the installed lockfile (PHP 8.1 is available locally). Run the relevant feature/unit tests, then the complete suite when changing shared live-event behavior.
+- JavaScript race regressions: `node --test tests/js/*.test.js`.
+- Build tracked production assets with `npm run production`; include `public/js/app.js`, its license file and `public/mix-manifest.json` when changed. Confirm CSS and rendered HTML remain unchanged.
+- New migration `2026_10_19_000000_add_live_cardapio_indexes.php` adds only non-unique indexes, with a matching rollback. Plan its production execution around table sizes and the database's DDL locking behavior.
+- SQLite tests do not prove MySQL row-lock behavior. Use a disposable MySQL/InnoDB database for concurrent submission/completion/reorder checks before a production release.
+- `tests/Support/check-live-concurrency.php` exercises real multi-process submissions/completion and index rollback. It requires `APP_ENV=testing`, `DB_CONNECTION=mysql`, an explicit local `DB_HOST` or `DB_SOCKET`, no `DATABASE_URL` or cached configuration, and an empty database named `quaseidolos_test_*`. It creates schema/data in that disposable database; it does not create or drop the database itself.
+
+## Follow-up improvements
+
+1. **High — membership and cleanup:** `User::join()` / `leave()` bulk-delete waiting requests without maintaining set counters or deleting invitations. Move membership changes and queue cleanup into consistently ordered event/user transactions, preserving current switching behavior. Also audit user/song deletion and scheduled event closure.
+2. **High — deployment baseline:** plan a separately tested PHP/Laravel and dependency security update. Verify production debug mode, OPcache, config/view caches, queue workers, retries and failed-job monitoring. Do not assume the local `.env` matches production.
+3. **High — reliable side effects:** Redis archival currently happens in `Gig::close()` alongside SQL changes; Redis and SQL cannot commit atomically. Move archival/broadcast delivery to an idempotent after-commit/outbox workflow, with recovery and failure monitoring.
+4. **High — lifecycle coordination:** extend the event lock contract to all admin settings, winner announcement, scheduled closure and membership/deletion writers; exercise pause/close/limit changes during concurrent submissions.
+5. **Medium — request protocol:** the legacy drag reorder uses GET with `newOrder`. Migrate the client/server together to a CSRF-protected write endpoint while preserving drag behavior; keep refresh GET read-only.
+6. **Medium — search scaling:** substring `LIKE '%input%'` cannot use a normal name index efficiently. Measure real catalog size and latency before adopting a search index that preserves accents, artist/genre matching and existing result order. Preserve the currently unpaginated change-song flow unless separately authorized.
+7. **Medium — telemetry/load:** capture p50/p95 latency, SQL counts, response sizes and contention for search, modal, request, completion, cancellation and setlist refresh under realistic guest counts. Add repeated-submit and multi-worker integration coverage.
+8. **Medium — related features:** audit recommendation availability/fallbacks, favorite and invitation concurrency, chat/rating query loops, and cache invalidation for genres/artists. Preserve every existing visible option and flow.
+
+## Review record — 2026-10-19
+
+- Added event transactions for submissions, changes, completion, cancellation, reset, reorder and manual open/close; capacity checks are repeated after the event lock is acquired.
+- Added ownership and input checks for request changes and scoped reorder IDs to the active event. Repeated completion is harmless.
+- Removed listing lyrics/count overhead, reused modal counts, eager-loaded setlist/participant data, and materialized eligible-event queries once instead of repeatedly executing builders.
+- Added indexes for live queue/user/song lookups and related relationships.
+- Added independent search/modal cancellation, stale-response rejection, short search coalescing, serialized setlist refresh, and Sortable cleanup. Removed unused Lodash and Moment locale payloads from the main bundle.
+
+### Verification
+
+- Full PHP suite: **262 tests, 485 assertions**, all passing with SQLite in memory and an isolated Redis socket. JavaScript: **8 tests**, all passing. Production Mix build and changed PHP syntax checks pass.
+- MySQL/InnoDB: six simultaneous submissions for one event slot accepted exactly one request; six simultaneous submissions for one set slot accepted exactly one request; four simultaneous completions decremented the queue exactly once. The additive index migration and its rollback both succeeded on the disposable database.
+- Compared five rendered fixtures against the original revision: guest index/search/modal and admin modal/setlist table have identical HTML after excluding scripts and normalizing CSRF tokens/whitespace. CSS is byte-for-byte unchanged. This checks representative output; it is not a full browser interaction or production load test.
+- In those fixtures, admin modal SQL fell from **20 to 14 queries**, and a ten-entry setlist refresh from **67 to 16 queries**. These are reproducible local examples, not production latency measurements.
+- Main production JS fell from **714,303 to 416,768 bytes (41.7%)**; gzip size fell from **202,235 to 125,063 bytes**. Production assets are rebuilt. No production deployment or production migration was performed.

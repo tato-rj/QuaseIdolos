@@ -43,6 +43,16 @@ abstract class EventModel extends BaseModel
 		return $this->belongsTo(Venue::class);
 	}
 
+    /** Serialize queue writes for this event, including validation and counters. */
+    public function withSetlistLock(callable $callback)
+    {
+        return $this->getConnection()->transaction(function () use ($callback) {
+            $event = $this->newQuery()->lockForUpdate()->findOrFail($this->getKey());
+
+            return $callback($event);
+        }, 3);
+    }
+
     public function name()
     {
     	return $this->name ?? $this->venue->name;

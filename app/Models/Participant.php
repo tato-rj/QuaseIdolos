@@ -4,6 +4,8 @@ namespace App\Models;
 
 class Participant extends BaseModel
 {
+    protected $with = ['user'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

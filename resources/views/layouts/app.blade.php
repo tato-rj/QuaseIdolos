@@ -235,20 +235,34 @@ $(document).on('show.bs.modal', '.cardapio-song-modal', function() {
     let $placeholder = $('#cardapio-placeholder').clone();
     $modal.find('.cardapio-modal-container').html($placeholder.show());
 
-    axios.get($modal.data('url'))
+    let request = $modal.data('contentRequest');
+    if (! request) {
+        request = new LatestRequest(axios);
+        $modal.data('contentRequest', request);
+    }
+
+    request.get($modal.data('url'))
          .then(function(response) {
+            if (! response)
+                return;
+
             let $container = $modal.find('.cardapio-modal-container');
 
             $container.html(response.data);
 
             if ($container.data('recommended') == 'yes')
                 $container.find('form[data-action="sing"]').prepend('<input type="hidden" name="recommended" value="1" />');
-
+         }).catch(function(error) {
+            log(error);
          });
 });
 
 $(document).on('hidden.bs.modal', '.cardapio-song-modal', function() {
-    $('.cardapio-modal-container').html('');
+    const request = $(this).data('contentRequest');
+    if (request)
+        request.cancel();
+
+    $(this).find('.cardapio-modal-container').html('');
 });
 </script>
 <script type="text/javascript">
@@ -316,8 +330,25 @@ function enableScroll()
     });
 }
 
+const searchRequests = new Map();
+
+function cancelSearch(targetId)
+{
+    const state = searchRequests.get(targetId);
+    if (state) {
+        clearTimeout(state.timer);
+        state.request.cancel();
+    }
+}
+
 function clearResults(container = null)
 {
+    if (container) {
+        cancelSearch(container);
+    } else {
+        searchRequests.forEach(function(state, targetId) { cancelSearch(targetId); });
+    }
+
     if (container) {
         $(container).html('');
     } else {
@@ -338,8 +369,14 @@ function showResults(targetId, data)
 
 function search(targetId, url, table, paginate, input)
 {
-    axios.get(url, { params: { input: input, table: table, paginate: paginate } })
+    if (! searchRequests.has(targetId))
+        searchRequests.set(targetId, {request: new LatestRequest(axios), timer: null});
+
+    searchRequests.get(targetId).request.get(url, { params: { input: input, table: table, paginate: paginate } })
          .then(function(response) {
+            if (! response)
+                return;
+
             showResults(targetId, response.data);
             enableScroll();
          })
@@ -350,14 +387,22 @@ function search(targetId, url, table, paginate, input)
 
 $(document).ready(function() {
     $(document).on('keyup', 'input[name="search"]', function() {
-        let input = $(this).val();
+        const $input = $(this);
+        const input = $input.val();
+        const targetId = $input.data('target');
+        cancelSearch(targetId);
         url(['input', input]);
 
         if (input.length == 0) {
             clearResults();
             $('.artists-container').show();
         } else if (input.length >= 3) {
-            search($(this).data('target'), $(this).data('url'), $(this).data('table'), $(this).data('paginate'), input);
+            if (! searchRequests.has(targetId))
+                searchRequests.set(targetId, {request: new LatestRequest(axios), timer: null});
+
+            searchRequests.get(targetId).timer = setTimeout(function() {
+                search(targetId, $input.data('url'), $input.data('table'), $input.data('paginate'), input);
+            }, 150);
         }
     });
 });
@@ -367,7 +412,9 @@ $(document).on('click', '#clear-results', function() {
 });
 
 $(document).on('hidden.bs.modal', '.song-request-modal', function (e) {
-  clearResults('#change-results');
+    $(this).find('input[name="search"]').each(function() {
+        clearResults($(this).data('target'));
+    });
 });
 </script>
 
@@ -393,6 +440,8 @@ function listenToAdminEvents()
     try {
     window.Echo
           .channel('setlist.'+app.gig.id)
+          .stopListening('SongRequested')
+          .stopListening('SongCancelled')
           .listen('SongRequested', function(event) {
             getEventTable().then(function() {
                 // (new Metronome).highlightSetlist();
@@ -432,11 +481,11 @@ function listenToUserEvents()
 
 function stopListening()
 {
-    Echo.channel('setlist')
-        .stopListening('SongRequested');
-
-    Echo.channel('setlist')
-        .stopListening('SongCancelled');
+    if (app.gig) {
+        Echo.channel('setlist.'+app.gig.id)
+            .stopListening('SongRequested')
+            .stopListening('SongCancelled');
+    }
 }
 
 function getUserAlert()
@@ -482,33 +531,71 @@ function startCountdown()
     }, 1000);
 }
 
+let eventTableRequest = null;
+let eventTableRefreshPending = false;
+let eventTablePendingOrder = null;
+
 function getEventTable(newOrder = null)
 {
-    if ($('#setlist-container').length) {
-    return axios.get($('#setlist-container').data('url'), {params: {newOrder: newOrder}})
-        .then(function(response) {
-            $('#setlist-container').html(response.data);
-            
-            enableDraggable();
+    const $container = $('#setlist-container');
+    if (! $container.length)
+        return Promise.resolve();
 
-            if (newOrder) {
-                listenToAdminEvents();
-                popup('success', 'A ordem foi alterada com sucesso');
+    eventTableRefreshPending = true;
+    if (newOrder)
+        eventTablePendingOrder = newOrder;
+
+    // A burst of broadcasts needs one active read and one follow-up refresh.
+    if (eventTableRequest)
+        return eventTableRequest;
+
+    eventTableRequest = (async function() {
+        while (eventTableRefreshPending) {
+            eventTableRefreshPending = false;
+            const order = eventTablePendingOrder;
+            eventTablePendingOrder = null;
+
+            try {
+                const response = await axios.get($container.data('url'), {params: {newOrder: order}});
+                if (! eventTableRefreshPending) {
+                    $container.html(response.data);
+                    enableDraggable();
+                }
+
+                if (order) {
+                    listenToAdminEvents();
+                    popup('success', 'A ordem foi alterada com sucesso');
+                }
+            } catch (error) {
+                log(error.message);
+                popup('error', 'Não foi! ('+error.message+')');
+                if (order) {
+                    enableDraggable();
+                    listenToAdminEvents();
+                }
             }
-        })
-        .catch(function(error) {
-            log(error.message);
-            popup('error', 'Não foi! ('+error.message+')');
-        });
-    }
+        }
+    })().finally(function() { eventTableRequest = null; });
+
+    return eventTableRequest;
 }
 
 function disableDraggable() {
-    sortable.option("disabled", true);
+    if (sortable)
+        sortable.option("disabled", true);
 }
 
 function enableDraggable() {
     sorting = false;
+
+    if (sortable) {
+        sortable.destroy();
+        sortable = null;
+    }
+
+    const setlist = document.getElementById('setlist');
+    if (! setlist)
+        return;
 
     sortable = new Sortable(setlist, {
         animation: 150,
@@ -524,8 +611,10 @@ function enableDraggable() {
         },
 
         onEnd: function (e) {
-            if (sorting)
-                disableDraggable();
+            if (! sorting)
+                return;
+
+            disableDraggable();
 
             let newOrder = [];
 

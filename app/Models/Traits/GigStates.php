@@ -102,7 +102,8 @@ trait GigStates
 		if ($this->userLimitReached())
 			return '<span class="text-red">O seu limite de músicas foi alcançado</span>';
 
-		if ($this->sets()->current()->exists() && $this->sets()->current()->isFinished())
+		$set = $this->sets()->first();
+		if ($set && $set->isFinished())
 			return '<span class="text-red">As inscrições voltam ao final desse set</span>';
 
 		return '<span class="text-green">Incrições abertas, esperamos você!</span>';

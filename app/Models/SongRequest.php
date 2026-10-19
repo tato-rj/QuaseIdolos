@@ -14,7 +14,7 @@ class SongRequest extends BaseModel
     protected static function booted()
     {
         self::deleting(function(SongRequest $songRequest) {
-            $songRequest->invitations->each->delete();
+            $songRequest->invitations()->delete();
         });
     }
 
@@ -96,10 +96,12 @@ class SongRequest extends BaseModel
 
     public function inviteMany($ids = [])
     {
-        foreach ($ids as $id) {
-            if ($user = User::find($id))
-                $this->invite($user);
-        }
+        if (! $ids)
+            return;
+
+        User::whereIn('id', $ids)->get()->each(function ($user) {
+            $this->invite($user);
+        });
     }
 
     public function invite(User $user)
@@ -230,24 +232,27 @@ class SongRequest extends BaseModel
             'user_id' => $user->id, 
             'song_id' => $song->id,
             'gig_id' => $gig->id,
-            'order' => $gig->setlist()->waiting()->count()]);
+            'order' => ($gig->setlist()->waiting()->reorder()->max('order') ?? -1) + 1]);
 
-        if ($gig->sets()->exists())
-            $gig->sets()->current()->incrementQueue();
+        if ($set = $gig->sets()->first())
+            $set->incrementQueue();
 
-        return $songRequest;
+        return $songRequest->setRelation('gig', $gig)->setRelation('song', $song)->setRelation('user', $user);
     }
 
     public function finish()
     {
+        if ($this->isOver())
+            return $this;
+
         if (! $this->user) {
             $this->delete();
         } else {
             $this->update(['finished_at' => now()]);
         }
 
-        if ($this->gig->sets()->exists())
-            $this->gig->sets()->current()->decrementQueue();
+        if ($set = $this->gig->sets()->first())
+            $set->decrementQueue();
 
         return $this;
     }
@@ -256,14 +261,8 @@ class SongRequest extends BaseModel
     {
         $this->delete();
 
-        if ($this->gig->sets()->exists()) {
-            $wasFull = $this->gig->sets()->current()->isFull();
-
-            $this->gig->sets()->current()->decrementQueue();
-
-            if ($wasFull && ! $this->gig->sets()->current()->isFull())
-                $this->gig->sets()->current()->update(['finished' => false]);
-        }
+        if ($set = $this->gig->sets()->first())
+            $set->decrementQueue();
     }
 
     public function isOver()

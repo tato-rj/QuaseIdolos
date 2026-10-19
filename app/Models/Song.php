@@ -90,6 +90,13 @@ class Song extends BaseModel
     	return $query->orderBy('name');
     }
 
+    public function scopeForCardapioListing($query)
+    {
+        // Listing rows fetch lyrics and live actions only when their modal opens.
+        // select also removes the model's unnecessary default count subqueries.
+        return $query->select(['songs.id', 'songs.name', 'songs.artist_id', 'songs.genre_id', 'songs.preview_url']);
+    }
+
     public function scopeTop($query, $count = null)
     {
         if (local())

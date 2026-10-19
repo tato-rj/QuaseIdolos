@@ -20,7 +20,7 @@
 			</div>
 			<div class="d-apart mb-2">
 				<h5 class="text-secondary no-stroke">@fa(['icon' => 'microphone-alt'])@lang('views/cardapio.song.sung')</h5>
-				<h5 class="text-white">{{$song->songRequests()->count()}} @choice('vez|vezes', $song->songRequests()->count())</h5>
+				<h5 class="text-white">{{$song->song_requests_count}} @choice('vez|vezes', $song->song_requests_count)</h5>
 			</div>
 		</div>
 	</div>

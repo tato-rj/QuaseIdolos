@@ -5,3 +5,4 @@ require('../utilities/Popup');
 require('../utilities/Cropper');
 require('../utilities/Chat');
 require('../utilities/Metronome');
+window.LatestRequest = require('../utilities/LatestRequest');

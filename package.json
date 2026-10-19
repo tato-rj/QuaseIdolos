@@ -1,6 +1,7 @@
 {
     "private": true,
     "scripts": {
+        "test:js": "node --test tests/js/*.test.js",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",

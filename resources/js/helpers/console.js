@@ -3,6 +3,6 @@ window.log = function(message) {
 }
 
 window.url = function(params) {
-	let query = params.length ? '?'+params[0]+'='+params[1] : '';
+	let query = params.length ? '?'+encodeURIComponent(params[0])+'='+encodeURIComponent(params[1]) : '';
 	window.history.pushState({}, document.title, window.location.pathname + query);
 }

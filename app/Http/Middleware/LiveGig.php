@@ -18,6 +18,7 @@ class LiveGig
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check()) {
+            auth()->user()->loadMissing('admin');
             $this->checkSubdomain();
             auth()->user()->checkLiveGig();
             auth()->user()->checkLiveShow();
@@ -28,7 +29,9 @@ class LiveGig
 
     public function checkSubdomain()
     {
-        if ($gigs = Gig::inSubdomain()->ready()) {
+        $gigs = Gig::inSubdomain()->ready()->get();
+
+        if ($gigs->isNotEmpty()) {
             $modal = auth()->user()->forceJoin($gigs);
 
             if ($gigs->count() == 1 && $gigs->first()->password()->required())

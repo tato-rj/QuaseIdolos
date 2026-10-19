@@ -116,7 +116,7 @@ class Gig extends EventModel
 
     public function sortSetlist()
     {
-        $this->setlist()->waiting()->get()->each(function($songRequest, $index) {
+        $this->setlist()->waiting()->orderBy('id')->get()->each(function($songRequest, $index) {
             $songRequest->update(['order' => $index]);
         });
     }
@@ -203,16 +203,19 @@ class Gig extends EventModel
 
     public function updateSet($canceled = false)
     {
-        $currentSet = $this->sets()->current();
+        $currentSet = $this->sets()->first();
+
+        if (! $currentSet)
+            return;
 
         if ($canceled) {
             $currentSet->increment('songs_left');
 
-            if ($this->sets()->exists() && $currentSet->songsLeft() > 0)
+            if ($currentSet->songsLeft() > 0)
                 $currentSet->update(['finished' => false]);
         }
 
-        if ($this->sets()->exists() && $currentSet->isFull() && ! $this->setlist()->waiting()->exists())
+        if ($currentSet->isFull() && ! $this->setlist()->waiting()->exists())
             $currentSet->renew();
     }
 
@@ -240,9 +243,7 @@ class Gig extends EventModel
 		if (is_null($this->repeat_limit))
 			return false;
 
-		$count = $this->setlist()->whereHas('song', function($q) use ($song) {
-			$q->where('song_id', $song->id);
-		})->count();
+		$count = $this->setlist()->where('song_id', $song->id)->count();
 
 		return $count > $this->repeat_limit;
 	}
@@ -254,7 +255,7 @@ class Gig extends EventModel
 
 	public function scopeReady($query)
 	{
-		$admin = auth()->check() ? auth()->user()->admin()->exists() || auth()->user()->isTester() : false;
+		$admin = auth()->check() ? auth()->user()->admin || auth()->user()->isTester() : false;
 		$today = now()->copy()->startOfDay();
 
 		if (! $admin)
