@@ -1,5 +1,5 @@
+@include('pages.statistics.components.ranking-title', ['label' => 'artistas mais cantados'])
 @table([
-  'title' => 'Top 10 artistas mais cantados',
   'rows' => $ranking,
   'empty' => true,
   'header' => false,

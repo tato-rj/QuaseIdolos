@@ -27,6 +27,12 @@ class StatisticsRequest extends FormRequest
         return [
             'from' => 'nullable|date',
             'to' => 'nullable|date'.($this->filled('from') ? '|after_or_equal:from' : ''),
+            'limit' => 'sometimes|integer|in:10,20,50,100',
         ];
+    }
+
+    public function rankingLimit(): int
+    {
+        return (int) $this->input('limit', 10);
     }
 }

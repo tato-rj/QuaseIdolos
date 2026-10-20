@@ -30,8 +30,9 @@ class StatsController extends Controller
     public function songs(StatisticsRequest $request)
     {
         if ($request->wantsJson()) {
-            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song_id');
-            return view('pages.statistics.songs.table', compact('ranking'))->render();
+            $limit = $request->rankingLimit();
+            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song_id', $limit);
+            return view('pages.statistics.songs.table', compact('ranking', 'limit'))->render();
         }
 
         return view('pages.statistics.songs.index');
@@ -40,8 +41,9 @@ class StatsController extends Controller
     public function artists(StatisticsRequest $request)
     {
         if ($request->wantsJson()) {
-            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song.artist_id');
-            return view('pages.statistics.artists.table', compact('ranking'))->render();
+            $limit = $request->rankingLimit();
+            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song.artist_id', $limit);
+            return view('pages.statistics.artists.table', compact('ranking', 'limit'))->render();
         }
 
         return view('pages.statistics.artists.index');
@@ -50,8 +52,9 @@ class StatsController extends Controller
     public function genres(StatisticsRequest $request)
     {
         if ($request->wantsJson()) {
-            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song.genre_id');
-            return view('pages.statistics.genres.table', compact('ranking'))->render();
+            $limit = $request->rankingLimit();
+            $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('song.genre_id', $limit);
+            return view('pages.statistics.genres.table', compact('ranking', 'limit'))->render();
         }
 
         return view('pages.statistics.genres.index');
@@ -78,8 +81,9 @@ class StatsController extends Controller
                     break;
                 
                 default:
-                    $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('user_id');
-                    return view('pages.statistics.users.table', compact('ranking'))->render();
+                    $limit = $request->rankingLimit();
+                    $ranking = SongRequest::betweenDates($request->from, $request->to)->getRankingBy('user_id', $limit);
+                    return view('pages.statistics.users.table', compact('ranking', 'limit'))->render();
                     break;
             }
         }

@@ -30,8 +30,12 @@ class StatisticsTest extends TestCase
             $this->get(route('stats.'.$section))->assertOk()
                 ->assertSee('value="19/10/2025"', false)->assertSee('value="19/10/2026"', false);
 
-        foreach (['songs', 'artists', 'genres', 'users'] as $section)
-            $this->getJson(route('stats.'.$section))->assertOk()->assertDontSee('<tbody>', false);
+        foreach (['songs', 'artists', 'genres', 'users'] as $section) {
+            $this->getJson(route('stats.'.$section))->assertOk()->assertDontSee('<tbody>', false)
+                ->assertSee('name="limit"', false)->assertSee('value="10" selected', false);
+            $this->getJson(route('stats.'.$section, ['limit' => 100]))->assertOk()
+                ->assertDontSee('<tbody>', false)->assertSee('value="100" selected', false);
+        }
     }
 
     /** @test */
@@ -151,6 +155,53 @@ class StatisticsTest extends TestCase
     }
 
     /** @test */
+    public function every_ranking_returns_the_selected_number_with_a_matching_selector()
+    {
+        for ($index = 1; $index <= 101; $index++) {
+            $song = Song::factory()->create(['name' => 'Ranking song '.$index]);
+            $singer = User::factory()->create(['name' => 'Ranking singer '.$index]);
+            SongRequest::factory()->create([
+                'song_id' => $song->id, 'user_id' => $singer->id, 'gig_id' => null,
+                'created_at' => '2026-10-19 12:00:00',
+            ]);
+        }
+
+        foreach (['songs', 'artists', 'genres', 'users'] as $section) {
+            foreach ([null, 10, 20, 50, 100] as $limit) {
+                $parameters = ['from' => '19/10/2025', 'to' => '19/10/2026'];
+                if (! is_null($limit))
+                    $parameters['limit'] = $limit;
+
+                $response = $this->getJson(route('stats.'.$section, $parameters))->assertOk();
+                $document = new \DOMDocument;
+                $document->loadHTML($response->getContent(), LIBXML_NOERROR | LIBXML_NOWARNING);
+                $xpath = new \DOMXPath($document);
+                $this->assertEquals($limit ?? 10, $xpath->query('//tbody/tr')->length);
+                $this->assertEquals(1, $xpath->query('//h5/select[@name="limit"]')->length);
+                $options = $xpath->query('//select[@name="limit"]/option');
+                $this->assertEquals([10, 20, 50, 100], array_map(function ($option) {
+                    return (int) $option->getAttribute('value');
+                }, iterator_to_array($options)));
+                $selected = $xpath->query('//select[@name="limit"]/option[@selected]');
+                $this->assertEquals(1, $selected->length);
+                $this->assertEquals($limit ?? 10, $selected[0]->getAttribute('value'));
+            }
+        }
+    }
+
+    /** @test */
+    public function ranking_sizes_reject_unsupported_or_unbounded_values()
+    {
+        $this->withExceptionHandling();
+
+        foreach (['songs', 'artists', 'genres', 'users'] as $section) {
+            foreach ([0, 11, 1000, -10, 'invalid', [10], '', 10.5] as $limit)
+                $this->getJson(route('stats.'.$section, ['limit' => $limit]))
+                    ->assertUnprocessable()->assertJsonValidationErrors('limit');
+        }
+    }
+
+    /** @test */
     public function artist_and_genre_query_cost_does_not_grow_with_history()
     {
         $song = Song::factory()->create();
@@ -173,7 +224,7 @@ class StatisticsTest extends TestCase
 
         foreach (['artists', 'genres'] as $section) {
             DB::flushQueryLog();
-            $this->getJson(route('stats.'.$section))->assertOk()->assertSee('1010 vezes');
+            $this->getJson(route('stats.'.$section, ['limit' => 100]))->assertOk()->assertSee('1010 vezes');
             $large = count(DB::getQueryLog());
             $this->assertLessThanOrEqual($small[$section] + 1, $large);
             $this->assertLessThanOrEqual(12, $large);

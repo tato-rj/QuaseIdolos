@@ -65,6 +65,14 @@
 - Validation: the eight statistics feature tests pass (**110 assertions**), including every page's default values, empty history and selecting pre-default history. All **12 JavaScript tests** pass. Only the default date values changed; controls/layout, historical data and assets are unchanged.
 - Deployment: deploy the changed Blade files and clear compiled views (`php artisan view:clear`). No migration, asset build or Redis maintenance is required.
 
+### Statistics ranking size — 2026-10-19
+
+- Songs, artists, genres and users replace the number in their ranking heading with the shared `pages.statistics.components.ranking-title` selector: **10 (default), 20, 50 or 100**. This is an explicitly requested UI change; preserve the remaining heading copy, rows, dates and chart behavior.
+- `StatisticsRequest` validates the `limit` parameter against those four values and defaults to 10 when omitted. The four ranking controller branches pass that validated count to the existing SQL aggregation and render the matching selected option. Keep results bounded; do not accept arbitrary client-provided limits or truncate a full hydrated history in PHP.
+- Bind selector changes through delegation on the stable table container so the control survives AJAX replacement. Retain the chosen date range when changing size, and the size when changing dates. Reuse latest-response protection. If a size change fails, preserve the previous results and restore their corresponding selector value. Keep the control available for empty rankings.
+- Validation: **10 statistics feature tests / 346 assertions** and **15 JavaScript tests** pass. Checks cover all four endpoints and sizes with more than 100 ranked entities, default/empty results, invalid limits, bounded query counts at size 100, retaining dates/size, rapid changes and failure recovery. The selector was visually checked using the existing compiled styles and layout typography in a local fixture.
+- Deployment: deploy the changed controller, FormRequest and Blade files (including the new shared heading), then clear compiled views (`php artisan view:clear`). No migration, asset build or Redis maintenance is required.
+
 ## Redis history memory — 2026-10-19
 
 - Archive snapshots now use versioned, lossless gzip only when smaller; legacy raw JSON stays readable. Preserve the full JSON byte stream, including loaded relationships, rather than removing historical fields or duplicates. Never add archive expiry/retention or automatic eviction as a memory fix.
